@@ -1,0 +1,96 @@
+{
+  "outputDir": "social-media/contenido-listo/carrusel-no-es-tour",
+  "theme": {
+    "width": 1080,
+    "height": 1350,
+    "navy": "#0a1520",
+    "white": "#e8edf2",
+    "overlayOpacity": 0.4,
+    "titleFont": "Teko",
+    "titleWeight": 700,
+    "titleLineHeight": 0.92,
+    "titleLetterSpacing": "0.01em",
+    "titleShadow": "0 2px 12px rgba(0, 0, 0, 0.28)",
+    "subtitleFont": "Barlow Semi Condensed",
+    "subtitleWeight": 400,
+    "subtitleLineHeight": 1.18,
+    "subtitleShadow": "0 2px 10px rgba(0, 0, 0, 0.28)",
+    "titleSize": 84,
+    "subtitleSize": 34,
+    "copyBottom": 230,
+    "copyWidth": 980,
+    "copyPadding": 60,
+    "subtitleGap": 12,
+    "subtitleMaxWidth": 880
+  },
+  "slides": [
+    {
+      "id": "01",
+      "kind": "cover",
+      "logo": "src/assets/ENBA-horizontal-oscuro.svg",
+      "logoAlt": "Espacio Náutico Buenos Aires",
+      "title": "Esto NO es\nun tour.",
+      "subtitle": "Te contamos la diferencia."
+    },
+    {
+      "id": "02",
+      "kind": "photo",
+      "title": "NO ES UN CATAMARÁN\nCON 40 PERSONAS",
+      "subtitle": "Es un velero real, grupo chico, navegación de verdad.",
+      "image": "social-media/contenido-listo/campana-lanzamiento-15-abr-al-14-may-2026/asset-bank/brand-crew-costanera.jpg",
+      "backgroundPosition": "50% 28%",
+      "backgroundScale": 1.05,
+      "titleSize": 72,
+      "subtitleSize": 32,
+      "copyBottom": 200,
+      "overlayOpacity": 0.52
+    },
+    {
+      "id": "03",
+      "kind": "photo",
+      "title": "NO HAY PARLANTE\nNI MÚSICA DE FONDO",
+      "subtitle": "Hay viento, río y el sonido de la navegación.",
+      "image": "social-media/contenido-listo/campana-lanzamiento-15-abr-al-14-may-2026/asset-bank/travesias-sunset-openwater.jpg",
+      "backgroundPosition": "50% 40%",
+      "backgroundScale": 1,
+      "titleSize": 72,
+      "subtitleSize": 32,
+      "copyBottom": 200,
+      "overlayOpacity": 0.38
+    },
+    {
+      "id": "04",
+      "kind": "photo",
+      "title": "SALIMOS DE COSTANERA\nNORTE, NO DE DONDE\nPENSÁS",
+      "subtitle": "Frente al Aeroparque. Navegación real desde acá.",
+      "image": "social-media/contenido-listo/campana-lanzamiento-15-abr-al-14-may-2026/asset-bank/brand-costanera-hero.jpg",
+      "backgroundPosition": "56% 32%",
+      "backgroundScale": 1.08,
+      "titleSize": 72,
+      "subtitleSize": 32,
+      "copyBottom": 200,
+      "overlayOpacity": 0.48
+    },
+    {
+      "id": "05",
+      "kind": "photo",
+      "title": "ESTO SÍ ES\nNAVEGAR DE VERDAD",
+      "subtitle": "Velero, capitán, río abierto y una experiencia que no se parece a nada.",
+      "image": "social-media/contenido-listo/campana-lanzamiento-15-abr-al-14-may-2026/asset-bank/navegando-picante-openwater.jpg",
+      "backgroundPosition": "50% 45%",
+      "backgroundScale": 1.05,
+      "titleSize": 80,
+      "subtitleSize": 32,
+      "copyBottom": 200,
+      "overlayOpacity": 0.38
+    },
+    {
+      "id": "06",
+      "kind": "cover",
+      "logo": "src/assets/ENBA-horizontal-oscuro.svg",
+      "logoAlt": "Espacio Náutico Buenos Aires",
+      "title": "¿Querés saber\ncómo es?",
+      "subtitle": "Escribinos por DM · espacionautico.com.ar/travesias"
+    }
+  ]
+}

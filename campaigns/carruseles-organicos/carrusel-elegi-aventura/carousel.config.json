@@ -1,0 +1,109 @@
+{
+  "outputDir": "social-media/contenido-listo/carrusel-elegi-aventura",
+  "theme": {
+    "width": 1080,
+    "height": 1350,
+    "navy": "#0a1520",
+    "white": "#e8edf2",
+    "overlayOpacity": 0.4,
+    "titleFont": "Teko",
+    "titleWeight": 700,
+    "titleLineHeight": 0.92,
+    "titleLetterSpacing": "0.01em",
+    "titleShadow": "0 2px 12px rgba(0, 0, 0, 0.28)",
+    "subtitleFont": "Barlow Semi Condensed",
+    "subtitleWeight": 400,
+    "subtitleLineHeight": 1.18,
+    "subtitleShadow": "0 2px 10px rgba(0, 0, 0, 0.28)",
+    "titleSize": 84,
+    "subtitleSize": 34,
+    "copyBottom": 230,
+    "copyWidth": 980,
+    "copyPadding": 60,
+    "subtitleGap": 12,
+    "subtitleMaxWidth": 880
+  },
+  "slides": [
+    {
+      "id": "01",
+      "kind": "cover",
+      "logo": "src/assets/ENBA-horizontal-oscuro.svg",
+      "logoAlt": "Espacio Náutico Buenos Aires",
+      "title": "Elegí tu\naventura\nen el río.",
+      "subtitle": "Hacé scroll y descubrí cuál es para vos."
+    },
+    {
+      "id": "02",
+      "kind": "photo",
+      "title": "TENÉS UN\nSÁBADO LIBRE",
+      "subtitle": "Salida corta de 3-4 horas desde Costanera Norte. Ideal si es tu primera vez.",
+      "image": "social-media/contenido-listo/campana-lanzamiento-15-abr-al-14-may-2026/asset-bank/travesias-city-horizon.jpg",
+      "backgroundPosition": "50% center",
+      "backgroundScale": 1,
+      "titleSize": 80,
+      "subtitleSize": 30,
+      "copyBottom": 200,
+      "overlayOpacity": 0.42
+    },
+    {
+      "id": "03",
+      "kind": "photo",
+      "title": "TENÉS UN\nFINDE ENTERO",
+      "subtitle": "Travesía al Delta con fondeo y pernocte. Desconexión total a menos de 2 horas.",
+      "image": "social-media/contenido-listo/campana-lanzamiento-15-abr-al-14-may-2026/asset-bank/travesias-delta-signature.jpg",
+      "backgroundPosition": "56% center",
+      "backgroundScale": 1.02,
+      "titleSize": 80,
+      "subtitleSize": 30,
+      "copyBottom": 200,
+      "overlayOpacity": 0.38
+    },
+    {
+      "id": "04",
+      "kind": "photo",
+      "title": "QUERÉS CRUZAR\nEL RÍO",
+      "subtitle": "Travesía a Colonia, Carmelo o Uruguay. El cruce cambia todo.",
+      "image": "social-media/contenido-listo/campana-lanzamiento-15-abr-al-14-may-2026/asset-bank/navegando-cruce-openwater.jpg",
+      "backgroundPosition": "50% 50%",
+      "backgroundScale": 1.05,
+      "titleSize": 80,
+      "subtitleSize": 30,
+      "copyBottom": 200,
+      "overlayOpacity": 0.4
+    },
+    {
+      "id": "05",
+      "kind": "photo",
+      "title": "QUERÉS APRENDER\nA NAVEGAR",
+      "subtitle": "Curso de timonel con práctica real en el Río de la Plata.",
+      "image": "social-media/contenido-listo/campana-lanzamiento-15-abr-al-14-may-2026/asset-bank/escuela-practica-rio.jpg",
+      "backgroundPosition": "54% center",
+      "backgroundScale": 1.01,
+      "titleSize": 80,
+      "subtitleSize": 30,
+      "copyBottom": 200,
+      "overlayOpacity": 0.45
+    },
+    {
+      "id": "06",
+      "kind": "photo",
+      "title": "QUERÉS TU\nPROPIO VELERO",
+      "subtitle": "Te ayudamos a buscar, comparar y elegir con criterio.",
+      "image": "social-media/contenido-listo/campana-lanzamiento-15-abr-al-14-may-2026/asset-bank/broker-signature.jpg",
+      "backgroundPosition": "52% 48%",
+      "backgroundScale": 1.05,
+      "titleSize": 80,
+      "subtitleSize": 30,
+      "copyBottom": 200,
+      "overlayOpacity": 0.25
+    },
+    {
+      "id": "07",
+      "kind": "cover",
+      "logo": "src/assets/ENBA-horizontal-oscuro.svg",
+      "logoAlt": "Espacio Náutico Buenos Aires",
+      "title": "¿Ya sabés\ncuál querés?",
+      "subtitle": "Escribinos por DM y te armamos la salida."
+    }
+  ]
+}

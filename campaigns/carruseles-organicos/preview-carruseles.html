@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preview — 3 Carruseles ENBA</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #111; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 40px 20px; }
+  h1 { text-align: center; font-size: 28px; margin-bottom: 8px; color: #4DB8A0; }
+  .subtitle { text-align: center; font-size: 14px; color: #888; margin-bottom: 48px; }
+  .carousel-section { margin-bottom: 64px; }
+  .carousel-title { font-size: 20px; font-weight: 600; margin-bottom: 6px; color: #D4A843; }
+  .carousel-meta { font-size: 13px; color: #666; margin-bottom: 20px; }
+  .carousel-strip { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 16px; scroll-snap-type: x mandatory; }
+  .carousel-strip::-webkit-scrollbar { height: 6px; }
+  .carousel-strip::-webkit-scrollbar-track { background: #222; border-radius: 3px; }
+  .carousel-strip::-webkit-scrollbar-thumb { background: #4DB8A0; border-radius: 3px; }
+  .slide-card { flex-shrink: 0; scroll-snap-align: start; position: relative; }
+  .slide-card img { width: 270px; height: 337px; object-fit: cover; border-radius: 8px; border: 1px solid #333; display: block; }
+  .slide-label { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.7); color: #e8edf2; font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+  .ig-mockup { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; justify-content: center; margin-top: 32px; }
+  .ig-post { background: #1a1a1a; border-radius: 12px; overflow: hidden; width: 340px; border: 1px solid #333; }
+  .ig-header { display: flex; align-items: center; gap: 10px; padding: 12px 14px; }
+  .ig-avatar { width: 32px; height: 32px; border-radius: 50%; background: #4DB8A0; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #0A1520; }
+  .ig-username { font-size: 13px; font-weight: 600; }
+  .ig-carousel-container { position: relative; width: 340px; height: 425px; overflow: hidden; }
+  .ig-carousel-track { display: flex; transition: transform 0.3s ease; height: 100%; }
+  .ig-carousel-track img { width: 340px; height: 425px; object-fit: cover; flex-shrink: 0; }
+  .ig-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.8); border: none; border-radius: 50%; width: 28px; height: 28px; cursor: pointer; font-size: 14px; font-weight: 700; color: #333; display: flex; align-items: center; justify-content: center; }
+  .ig-nav.prev { left: 8px; }
+  .ig-nav.next { right: 8px; }
+  .ig-dots { display: flex; justify-content: center; gap: 4px; padding: 10px 0; }
+  .ig-dot { width: 6px; height: 6px; border-radius: 50%; background: #444; }
+  .ig-dot.active { background: #4DB8A0; }
+  .ig-actions { padding: 10px 14px; display: flex; gap: 16px; font-size: 20px; }
+  .ig-caption { padding: 4px 14px 14px; font-size: 12px; color: #aaa; line-height: 1.4; }
+  .ig-caption strong { color: #e8edf2; }
+  .section-divider { border: none; border-top: 1px solid #333; margin: 48px auto; max-width: 600px; }
+  .footer { text-align: center; font-size: 12px; color: #555; margin-top: 48px; }
+</style>
+</head>
+<body>
+
+<h1>ENBA — Preview Carruseles</h1>
+<p class="subtitle">3 carruseles listos para publicar · 19 slides · Generado 13-abr-2026</p>
+
+<!-- Carousel 1: No es un tour -->
+<div class="carousel-section">
+  <div class="carousel-title">1. "Esto NO es un tour"</div>
+  <div class="carousel-meta">6 slides · Diferenciación · Rompe el patrón "tour genérico"</div>
+  <div class="carousel-strip">
+    <div class="slide-card"><img src="carrusel-no-es-tour/slide-01.png"><span class="slide-label">01 Cover</span></div>
+    <div class="slide-card"><img src="carrusel-no-es-tour/slide-02.png"><span class="slide-label">02</span></div>
+    <div class="slide-card"><img src="carrusel-no-es-tour/slide-03.png"><span class="slide-label">03</span></div>
+    <div class="slide-card"><img src="carrusel-no-es-tour/slide-04.png"><span class="slide-label">04</span></div>
+    <div class="slide-card"><img src="carrusel-no-es-tour/slide-05.png"><span class="slide-label">05</span></div>
+    <div class="slide-card"><img src="carrusel-no-es-tour/slide-06.png"><span class="slide-label">06 CTA</span></div>
+  </div>
+</div>
+
+<!-- Carousel 2: Cuánto sale -->
+<div class="carousel-section">
+  <div class="carousel-title">2. "¿Cuánto sale navegar en Buenos Aires?"</div>
+  <div class="carousel-meta">6 slides · Precio/valor · Rompe barrera de costo</div>
+  <div class="carousel-strip">
+    <div class="slide-card"><img src="carrusel-cuanto-sale/slide-01.png"><span class="slide-label">01 Cover</span></div>
+    <div class="slide-card"><img src="carrusel-cuanto-sale/slide-02.png"><span class="slide-label">02</span></div>
+    <div class="slide-card"><img src="carrusel-cuanto-sale/slide-03.png"><span class="slide-label">03</span></div>
+    <div class="slide-card"><img src="carrusel-cuanto-sale/slide-04.png"><span class="slide-label">04</span></div>
+    <div class="slide-card"><img src="carrusel-cuanto-sale/slide-05.png"><span class="slide-label">05</span></div>
+    <div class="slide-card"><img src="carrusel-cuanto-sale/slide-06.png"><span class="slide-label">06 CTA</span></div>
+  </div>
+</div>
+
+<!-- Carousel 3: Elegí tu aventura -->
+<div class="carousel-section">
+  <div class="carousel-title">3. "Elegí tu aventura en el río"</div>
+  <div class="carousel-meta">7 slides · Menú interactivo · Presenta todos los verticales</div>
+  <div class="carousel-strip">
+    <div class="slide-card"><img src="carrusel-elegi-aventura/slide-01.png"><span class="slide-label">01 Cover</span></div>
+    <div class="slide-card"><img src="carrusel-elegi-aventura/slide-02.png"><span class="slide-label">02</span></div>
+    <div class="slide-card"><img src="carrusel-elegi-aventura/slide-03.png"><span class="slide-label">03</span></div>
+    <div class="slide-card"><img src="carrusel-elegi-aventura/slide-04.png"><span class="slide-label">04</span></div>
+    <div class="slide-card"><img src="carrusel-elegi-aventura/slide-05.png"><span class="slide-label">05</span></div>
+    <div class="slide-card"><img src="carrusel-elegi-aventura/slide-06.png"><span class="slide-label">06</span></div>
+    <div class="slide-card"><img src="carrusel-elegi-aventura/slide-07.png"><span class="slide-label">07 CTA</span></div>
+  </div>
+</div>
+
+<hr class="section-divider">
+<p class="footer">ENBA · Espacio Náutico Buenos Aires · Preview interno · No publicar este archivo</p>
+
+</body>
+</html>

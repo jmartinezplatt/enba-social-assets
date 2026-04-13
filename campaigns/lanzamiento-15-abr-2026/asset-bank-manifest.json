@@ -1,0 +1,308 @@
+[
+  {
+    "id": "brand-skyline-manifesto",
+    "source": "src/assets/paseos-skyline-buenos-aires.jpg",
+    "output": "asset-bank/brand-skyline-manifesto.jpg",
+    "width": 1080,
+    "height": 1350,
+    "focal": [
+      0.54,
+      0.46
+    ],
+    "zoom": 1.06,
+    "grade": {
+      "saturation": 0.92,
+      "brightness": 0.98,
+      "contrast": 1.04
+    }
+  },
+  {
+    "id": "brand-costanera-hero",
+    "source": "src/assets/hero-sailing.jpg",
+    "output": "asset-bank/brand-costanera-hero.jpg",
+    "width": 1080,
+    "height": 1350,
+    "focal": [
+      0.5,
+      0.5
+    ],
+    "zoom": 1.12,
+    "grade": {
+      "saturation": 0.94,
+      "brightness": 0.98,
+      "contrast": 1.06
+    }
+  },
+  {
+    "id": "brand-crew-costanera",
+    "source": "src/assets/travesia-crew.jpg",
+    "output": "asset-bank/brand-crew-costanera.jpg",
+    "width": 1080,
+    "height": 1350,
+    "focal": [
+      0.52,
+      0.3
+    ],
+    "zoom": 1.18,
+    "grade": {
+      "saturation": 0.92,
+      "brightness": 0.99,
+      "contrast": 1.04
+    }
+  },
+  {
+    "id": "travesias-delta-signature",
+    "source": "src/assets/travesia-delta.jpg",
+    "output": "asset-bank/travesias-delta-signature.jpg",
+    "width": 1080,
+    "height": 1350,
+    "focal": [
+      0.5,
+      0.5
+    ],
+    "zoom": 1.02,
+    "grade": {
+      "saturation": 0.96,
+      "brightness": 1,
+      "contrast": 1.04
+    }
+  },
+  {
+    "id": "travesias-colonia-openwater",
+    "source": "src/assets/colonia-sailing.jpg",
+    "output": "asset-bank/travesias-colonia-openwater.jpg",
+    "width": 1080,
+    "height": 1350,
+    "focal": [
+      0.52,
+      0.48
+    ],
+    "zoom": 1.14,
+    "grade": {
+      "saturation": 0.94,
+      "brightness": 0.98,
+      "contrast": 1.06
+    }
+  },
+  {
+    "id": "travesias-city-horizon",
+    "source": "src/assets/travesia-navegando.jpg",
+    "output": "asset-bank/travesias-city-horizon.jpg",
+    "width": 1080,
+    "height": 1350,
+    "focal": [
+      0.56,
+      0.5
+    ],
+    "zoom": 1.08,
+    "grade": {
+      "saturation": 0.93,
+      "brightness": 0.98,
+      "contrast": 1.06
+    }
+  },
+  {
+    "id": "travesias-first-time",
+    "source": "src/assets/travesia-velero.jpg",
+    "output": "asset-bank/travesias-first-time.jpg",
+    "width": 1080,
+    "height": 1350,
+    "focal": [
+      0.49,
+      0.46
+    ],
+    "zoom": 1.02,
+    "grade": {
+      "saturation": 0.95,
+      "brightness": 1,
+      "contrast": 1.06
+    }
+  },
+  {
+    "id": "travesias-sunset-openwater",
+    "source": "src/assets/travesia-sunset.jpg",
+    "output": "asset-bank/travesias-sunset-openwater.jpg",
+    "width": 1080,
+    "height": 1350,
+    "focal": [
+      0.62,
+      0.42
+    ],
+    "zoom": 1.18,
+    "grade": {
+      "saturation": 0.88,
+      "brightness": 0.97,
+      "contrast": 1.08
+    }
+  },
+  {
+    "id": "travesias-martin-garcia",
+    "source": "src/assets/martingarcia-destinos.jpg",
+    "output": "asset-bank/travesias-martin-garcia.jpg",
+    "width": 1080,
+    "height": 1350,
+    "focal": [
+      0.5,
+      0.42
+    ],
+    "zoom": 1.18,
+    "grade": {
+      "saturation": 0.93,
+      "brightness": 0.98,
+      "contrast": 1.05
+    }
+  },
+  {
+    "id": "escuela-practica-rio",
+    "source": "src/assets/nautical-school.jpg",
+    "output": "asset-bank/escuela-practica-rio.jpg",
+    "width": 1080,
+    "height": 1350,
+    "focal": [
+      0.58,
+      0.32
+    ],
+    "zoom": 1.34,
+    "grade": {
+      "saturation": 0.92,
+      "brightness": 0.99,
+      "contrast": 1.05
+    }
+  },
+  {
+    "id": "escuela-cubierta-accion",
+    "source": "src/assets/sailing-deck.jpg",
+    "output": "asset-bank/escuela-cubierta-accion.jpg",
+    "width": 1080,
+    "height": 1350,
+    "focal": [
+      0.48,
+      0.3
+    ],
+    "zoom": 1.34,
+    "grade": {
+      "saturation": 0.9,
+      "brightness": 0.98,
+      "contrast": 1.05
+    }
+  },
+  {
+    "id": "escuela-tripulacion-aprendizaje",
+    "source": "src/assets/travesia-crew.jpg",
+    "output": "asset-bank/escuela-tripulacion-aprendizaje.jpg",
+    "width": 1080,
+    "height": 1350,
+    "focal": [
+      0.62,
+      0.36
+    ],
+    "zoom": 1.3,
+    "grade": {
+      "saturation": 0.9,
+      "brightness": 0.98,
+      "contrast": 1.06
+    }
+  },
+  {
+    "id": "broker-signature",
+    "source": "src/assets/velero-4.jpg",
+    "output": "asset-bank/broker-signature.jpg",
+    "width": 1080,
+    "height": 1350,
+    "focal": [
+      0.5,
+      0.48
+    ],
+    "zoom": 1.15,
+    "grade": {
+      "saturation": 0.9,
+      "brightness": 0.99,
+      "contrast": 1.08
+    }
+  },
+  {
+    "id": "broker-premium-deck",
+    "source": "src/assets/yacht-broker.jpg",
+    "output": "asset-bank/broker-premium-deck.jpg",
+    "width": 1080,
+    "height": 1350,
+    "focal": [
+      0.44,
+      0.48
+    ],
+    "zoom": 1.22,
+    "grade": {
+      "saturation": 0.9,
+      "brightness": 0.99,
+      "contrast": 1.08
+    }
+  },
+  {
+    "id": "broker-marina-context",
+    "source": "src/assets/hero-broker.jpg",
+    "output": "asset-bank/broker-marina-context.jpg",
+    "width": 1080,
+    "height": 1350,
+    "focal": [
+      0.54,
+      0.48
+    ],
+    "zoom": 1.46,
+    "grade": {
+      "saturation": 0.9,
+      "brightness": 0.98,
+      "contrast": 1.06
+    }
+  },
+  {
+    "id": "servicios-taller-confianza",
+    "source": "src/assets/boat-service.jpg",
+    "output": "asset-bank/servicios-taller-confianza.jpg",
+    "width": 1080,
+    "height": 1350,
+    "focal": [
+      0.6,
+      0.45
+    ],
+    "zoom": 1.08,
+    "grade": {
+      "saturation": 0.88,
+      "brightness": 0.98,
+      "contrast": 1.06
+    }
+  },
+  {
+    "id": "servicios-cabina-exterior",
+    "source": "src/assets/Desacatao/IMG_1094.jpg",
+    "output": "asset-bank/servicios-cabina-exterior.jpg",
+    "width": 1080,
+    "height": 1350,
+    "focal": [
+      0.5,
+      0.5
+    ],
+    "zoom": 1.12,
+    "grade": {
+      "saturation": 0.88,
+      "brightness": 0.99,
+      "contrast": 1.08
+    }
+  },
+  {
+    "id": "servicios-casco-amarrado",
+    "source": "src/assets/Desacatao/IMG_1070.jpg",
+    "output": "asset-bank/servicios-casco-amarrado.jpg",
+    "width": 1080,
+    "height": 1350,
+    "focal": [
+      0.56,
+      0.44
+    ],
+    "zoom": 1.14,
+    "grade": {
+      "saturation": 0.87,
+      "brightness": 0.98,
+      "contrast": 1.08
+    }
+  }
+]
