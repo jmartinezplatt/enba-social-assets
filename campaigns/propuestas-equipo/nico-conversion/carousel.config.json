@@ -1,0 +1,60 @@
+{
+  "outputDir": "campaigns/propuestas-equipo/nico-conversion",
+  "theme": {
+    "width": 1080,
+    "height": 1350,
+    "navy": "#0a1520",
+    "white": "#e8edf2",
+    "overlayOpacity": 0.4,
+    "titleFont": "Teko",
+    "titleWeight": 700,
+    "titleLineHeight": 0.92,
+    "titleLetterSpacing": "0.01em",
+    "titleShadow": "0 4px 20px rgba(0, 0, 0, 0.5)",
+    "subtitleFont": "Barlow Semi Condensed",
+    "subtitleWeight": 400,
+    "subtitleLineHeight": 1.18,
+    "subtitleShadow": "0 2px 12px rgba(0, 0, 0, 0.4)"
+  },
+  "slides": [
+    {
+      "id": "nico-01",
+      "kind": "photo",
+      "title": "Costanera\nNorte →\nRío de la\nPlata →\nTu mejor\nplan.",
+      "subtitle": "Una salida cambia la semana. Escribinos.",
+      "image": "asset-bank/navegando-picante-openwater.jpg",
+      "backgroundPosition": "50% 45%",
+      "backgroundScale": 1.05,
+      "titleSize": 74,
+      "subtitleSize": 30,
+      "copyBottom": 180,
+      "overlayOpacity": 0.42
+    },
+    {
+      "id": "nico-02",
+      "kind": "photo",
+      "title": "¿Cuántas\nveces dijiste\n\"algún día\"?",
+      "subtitle": "Hoy es algún día. Curso de timonel con práctica real.",
+      "image": "asset-bank/escuela-tripulacion-aprendizaje.jpg",
+      "backgroundPosition": "54% center",
+      "backgroundScale": 1.02,
+      "titleSize": 92,
+      "subtitleSize": 30,
+      "copyBottom": 220,
+      "overlayOpacity": 0.48
+    },
+    {
+      "id": "nico-03",
+      "kind": "photo",
+      "title": "Criterio >\nImpulso.",
+      "subtitle": "Broker náutico que te acompaña a decidir bien.",
+      "image": "asset-bank/broker-marina-context.jpg",
+      "backgroundPosition": "50% 46%",
+      "backgroundScale": 1.12,
+      "titleSize": 110,
+      "subtitleSize": 30,
+      "copyBottom": 260,
+      "overlayOpacity": 0.22
+    }
+  ]
+}

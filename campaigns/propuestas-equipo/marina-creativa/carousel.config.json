@@ -1,0 +1,60 @@
+{
+  "outputDir": "campaigns/propuestas-equipo/marina-creativa",
+  "theme": {
+    "width": 1080,
+    "height": 1350,
+    "navy": "#0a1520",
+    "white": "#e8edf2",
+    "overlayOpacity": 0.4,
+    "titleFont": "Teko",
+    "titleWeight": 700,
+    "titleLineHeight": 0.92,
+    "titleLetterSpacing": "0.01em",
+    "titleShadow": "0 4px 20px rgba(0, 0, 0, 0.5)",
+    "subtitleFont": "Barlow Semi Condensed",
+    "subtitleWeight": 400,
+    "subtitleLineHeight": 1.18,
+    "subtitleShadow": "0 2px 12px rgba(0, 0, 0, 0.4)"
+  },
+  "slides": [
+    {
+      "id": "marina-01",
+      "kind": "photo",
+      "title": "El río no\nespera.\nVos tampoco\ndeberías.",
+      "subtitle": "Travesías en velero desde Costanera Norte. Salí del scroll.",
+      "image": "asset-bank/travesias-sunset-openwater.jpg",
+      "backgroundPosition": "50% 35%",
+      "backgroundScale": 1.08,
+      "titleSize": 88,
+      "subtitleSize": 30,
+      "copyBottom": 200,
+      "overlayOpacity": 0.32
+    },
+    {
+      "id": "marina-02",
+      "kind": "photo",
+      "title": "Tu próximo\nvelero\nestá acá.",
+      "subtitle": "Broker náutico con criterio real. No es un clasificado.",
+      "image": "asset-bank/broker-signature.jpg",
+      "backgroundPosition": "52% 48%",
+      "backgroundScale": 1.05,
+      "titleSize": 96,
+      "subtitleSize": 30,
+      "copyBottom": 220,
+      "overlayOpacity": 0.18
+    },
+    {
+      "id": "marina-03",
+      "kind": "photo",
+      "title": "Esto no se\naprende en\nYouTube.",
+      "subtitle": "Escuela náutica con práctica real en el Río de la Plata.",
+      "image": "asset-bank/escuela-practica-rio.jpg",
+      "backgroundPosition": "54% center",
+      "backgroundScale": 1.02,
+      "titleSize": 92,
+      "subtitleSize": 30,
+      "copyBottom": 210,
+      "overlayOpacity": 0.45
+    }
+  ]
+}

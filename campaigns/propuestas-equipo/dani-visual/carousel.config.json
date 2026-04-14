@@ -1,0 +1,60 @@
+{
+  "outputDir": "campaigns/propuestas-equipo/dani-visual",
+  "theme": {
+    "width": 1080,
+    "height": 1350,
+    "navy": "#0a1520",
+    "white": "#e8edf2",
+    "overlayOpacity": 0.4,
+    "titleFont": "Teko",
+    "titleWeight": 700,
+    "titleLineHeight": 0.92,
+    "titleLetterSpacing": "0.01em",
+    "titleShadow": "0 4px 20px rgba(0, 0, 0, 0.5)",
+    "subtitleFont": "Barlow Semi Condensed",
+    "subtitleWeight": 400,
+    "subtitleLineHeight": 1.18,
+    "subtitleShadow": "0 2px 12px rgba(0, 0, 0, 0.4)"
+  },
+  "slides": [
+    {
+      "id": "dani-01",
+      "kind": "photo",
+      "title": "3 horas.\n1 velero.\n0 excusas.",
+      "subtitle": "Costanera Norte · Grupo reducido · Capitán a bordo",
+      "image": "asset-bank/travesias-city-horizon.jpg",
+      "backgroundPosition": "50% center",
+      "backgroundScale": 1,
+      "titleSize": 104,
+      "subtitleSize": 28,
+      "copyBottom": 240,
+      "overlayOpacity": 0.08
+    },
+    {
+      "id": "dani-02",
+      "kind": "photo",
+      "title": "No vendemos\nveleros.\nTe ayudamos\na elegir\nel tuyo.",
+      "subtitle": "Broker náutico · Espacio Náutico Buenos Aires",
+      "image": "asset-bank/broker-premium-deck.jpg",
+      "backgroundPosition": "50% 60%",
+      "backgroundScale": 1.02,
+      "titleSize": 80,
+      "subtitleSize": 26,
+      "copyBottom": 180,
+      "overlayOpacity": 0.14
+    },
+    {
+      "id": "dani-03",
+      "kind": "photo",
+      "title": "Antes de\nnavegar\ntranquilo,\nalguien trabajó\nen serio.",
+      "subtitle": "Servicio náutico con criterio · Costanera Norte",
+      "image": "asset-bank/servicios-taller-confianza.jpg",
+      "backgroundPosition": "60% center",
+      "backgroundScale": 1.01,
+      "titleSize": 78,
+      "subtitleSize": 28,
+      "copyBottom": 190,
+      "overlayOpacity": 0.48
+    }
+  ]
+}
