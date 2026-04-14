@@ -1,0 +1,22 @@
+{
+  "id": "reel-4-horas-en-el-rio",
+  "title": "4 horas en el río",
+  "status": "guion-listo",
+  "duration": "50-60s",
+  "concept": "Time-lapse emocional de una salida completa — desde el embarque hasta la vuelta. Mostrar que en 4 horas cabe una experiencia completa.",
+  "audio": "Música con build-up suave, sonido ambiente mezclado. Sin voz en off.",
+  "tomas": [
+    { "num": 1, "nombre": "Hook", "duracion": "3s", "que_filmar": "Reloj/celular mostrando la hora (ej: 14:00)", "texto_overlay": "4 horas en el río" },
+    { "num": 2, "nombre": "Embarque", "duracion": "4s", "que_filmar": "Grupo subiendo al velero, mochilas, sonrisas", "texto_overlay": "14:00 — Costanera Norte" },
+    { "num": 3, "nombre": "Salida", "duracion": "5s", "que_filmar": "Velero soltando amarras, saliendo del muelle", "texto_overlay": null },
+    { "num": 4, "nombre": "Hora 1", "duracion": "5s", "que_filmar": "Navegación a motor saliendo, ciudad quedando atrás", "texto_overlay": null },
+    { "num": 5, "nombre": "Hora 2", "duracion": "6s", "que_filmar": "Velas izadas, navegación a vela pura, planos de cubierta", "texto_overlay": "15:00 — Motor apagado, solo vela" },
+    { "num": 6, "nombre": "Hora 2.5", "duracion": "5s", "que_filmar": "Mate, charla, alguien probando el timón por primera vez", "texto_overlay": "16:00 — Tu turno en el timón" },
+    { "num": 7, "nombre": "Hora 3", "duracion": "6s", "que_filmar": "Momento cumbre: viento fuerte, barco escorado, risas o asombro", "texto_overlay": "17:00 — El río hace el resto" },
+    { "num": 8, "nombre": "Hora 3.5", "duracion": "5s", "que_filmar": "Calma, atardecer, plano contemplativo desde cubierta", "texto_overlay": null },
+    { "num": 9, "nombre": "Regreso", "duracion": "4s", "que_filmar": "Velero volviendo, ciudad de frente", "texto_overlay": null },
+    { "num": 10, "nombre": "Cierre", "duracion": "5s", "que_filmar": "Reloj/celular mostrando 18:00 + logo ENBA", "texto_overlay": "18:00 — ¿Qué hacés con tus próximas 4 horas?" }
+  ],
+  "captionIg": "4 horas. Eso es lo que dura una salida.\n\nY en esas 4 horas cabe mucho más de lo que imaginás: viento, cubierta, timón, mate, charla y una ciudad que se ve completamente distinta desde el agua.\n\n👉 Si querés tus 4 horas, escribinos por DM.\n\n#EspacioNautico #ENBA #NavegaElRioDeLaPlata #VelerosBuenosAires #RioDeLaPlata #TravesiaEnVelero #PlanDeFinde #QuéHacerEnBuenosAires #SalidaDistinta #NavegacionReal",
+  "captionFb": "Una salida en velero dura unas 4 horas. Y en esas 4 horas pasan cosas que no pasan en ningún otro plan.\n\nSalimos desde Costanera Norte, navegamos el Río de la Plata y volvemos. En el medio: viento real, cubierta compartida, mate y una Buenos Aires que se ve completamente distinta desde el agua.\n\n👉 Si querés reservar tus próximas 4 horas, escribinos.\n\n#EspacioNautico #ENBA #NavegaElRioDeLaPlata #PlanDeFinde #SalidaDistinta"
+}

@@ -1,0 +1,210 @@
+{
+  "name": "ENBA - Agentes Especializados + Router + Handoff (ManyChat + Claude)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "enba-manychat-agent",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-manychat",
+      "name": "Webhook ManyChat",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [250, 300],
+      "webhookId": "enba-manychat-agent"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parsear datos que envia ManyChat via External Request\nconst body = $input.first().json.body || $input.first().json;\n\nconst mensaje = body.last_input_text || body.message || '';\nconst nombre = body.first_name || '';\nconst apellido = body.last_name || '';\nconst subscriberId = body.subscriber_id || body.id || '';\nconst canal = body.channel || 'instagram';\n\n// Custom fields de ManyChat\nconst customFields = body.custom_fields || {};\nconst ultimoAgente = customFields.ultimo_agente || '';\nconst ultimaInteraccion = customFields.ultima_interaccion || '';\nconst historialResumen = customFields.historial_resumen || '';\nconst temaConsulta = customFields.tema_consulta || '';\nconst veleroInteres = customFields.velero_interes || '';\nconst handoffDone = (customFields.handoff_done === true || customFields.handoff_done === 'true') ? true : false;\nconst handoffFrom = customFields.handoff_from || '';\nconst handoffTo = customFields.handoff_to || '';\n\n// Verificar si la sesion expiro (30 min sin actividad)\nlet sesionExpirada = false;\nif (ultimaInteraccion) {\n  const ultima = new Date(ultimaInteraccion);\n  const ahora = new Date();\n  const diffMin = (ahora - ultima) / 1000 / 60;\n  if (diffMin > 30) {\n    sesionExpirada = true;\n  }\n}\n\nreturn [{\n  json: {\n    mensaje,\n    nombre,\n    apellido,\n    subscriberId,\n    canal,\n    ultimoAgente,\n    ultimaInteraccion,\n    historialResumen,\n    temaConsulta,\n    veleroInteres,\n    handoffDone: sesionExpirada ? false : handoffDone,\n    handoffFrom: sesionExpirada ? '' : handoffFrom,\n    handoffTo: sesionExpirada ? '' : handoffTo\n  }\n}];"
+      },
+      "id": "parse-fields",
+      "name": "Parsear Datos ManyChat",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================\n// ROUTER DE INTENCION + ASIGNACION DE AGENTE\n// v2: 4 agentes especializados con handoff\n// ============================================\n\nconst agentesData = {\n  sofia: {\n    nombre: 'Sofia',\n    genero: 'femenino',\n    rol: 'recepcionista y orientadora',\n    especialidad: 'consultas generales y travesias',\n    auto: 'en femenino (recepcionista, encantada, atenta)',\n    companeros: 'Laura (instructora nautica), Martin (tecnico nautico) y Eduardo (broker nautico)'\n  },\n  laura: {\n    nombre: 'Laura',\n    genero: 'femenino',\n    rol: 'instructora nautica',\n    especialidad: 'cursos de navegacion',\n    auto: 'en femenino (instructora, encantada, atenta)',\n    companeros: 'Sofia (recepcionista), Martin (tecnico nautico) y Eduardo (broker nautico)'\n  },\n  martin: {\n    nombre: 'Martin',\n    genero: 'masculino',\n    rol: 'tecnico nautico',\n    especialidad: 'servicio tecnico y mantenimiento',\n    auto: 'en masculino (tecnico, encantado, atento)',\n    companeros: 'Sofia (recepcionista), Laura (instructora nautica) y Eduardo (broker nautico)'\n  },\n  eduardo: {\n    nombre: 'Eduardo',\n    genero: 'masculino',\n    rol: 'broker nautico',\n    especialidad: 'compra y venta de embarcaciones',\n    auto: 'en masculino (broker, encantado, atento)',\n    companeros: 'Sofia (recepcionista), Laura (instructora nautica) y Martin (tecnico nautico)'\n  }\n};\n\n// Keywords por categoria (orden de prioridad)\nconst SERVICIO_KW = /motor|fuera de borda|reparar|reparacion|mantenimiento|servicio tecnico|mecanico|diagnostico|taller|arreglo|falla|problema tecnico|aceite|filtro|helice|anodo|pintura|carena|varada/i;\nconst EMBARCACIONES_KW = /comprar|vender|embarcacion|velero|barco|lancha|semirrigido|broker|tasacion|masti|brama|marejada|brisa|cambiar de barco|busco.*barco|quiero.*velero/i;\nconst ESCUELA_KW = /curso|timonel|patron|clase|aprender a navegar|navegacion|certificado|habilitacion|escuela|inscripcion|matricula/i;\n\nfunction routeMessage(mensaje) {\n  const msg = mensaje.toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g, '');\n  if (SERVICIO_KW.test(msg)) return 'martin';\n  if (EMBARCACIONES_KW.test(msg)) return 'eduardo';\n  if (ESCUELA_KW.test(msg)) return 'laura';\n  return 'sofia';\n}\n\nconst input = $input.first().json;\n\n// Si hay handoff activo, mantener agente destino\nlet agenteKey;\nif (input.handoffDone === true && input.handoffTo) {\n  agenteKey = input.handoffTo.toLowerCase();\n} else {\n  agenteKey = routeMessage(input.mensaje);\n}\n\nconst agente = agentesData[agenteKey];\n\n// Contexto de continuidad\nlet contextoHistorial = '';\nif (input.ultimoAgente && input.ultimoAgente.toLowerCase() === agente.nombre.toLowerCase()) {\n  contextoHistorial = 'Ya hablaste con este cliente antes. Saluda como si lo conocieras.';\n} else if (input.ultimoAgente) {\n  contextoHistorial = `Tu companero/a ${input.ultimoAgente} hablo con este cliente antes. Mencionalo naturalmente.`;\n}\nif (input.historialResumen) {\n  contextoHistorial += ` Resumen: ${input.historialResumen}`;\n}\nif (input.temaConsulta) {\n  contextoHistorial += ` Tema: ${input.temaConsulta}.`;\n}\nif (input.veleroInteres) {\n  contextoHistorial += ` Velero: ${input.veleroInteres}.`;\n}\n\n// Instrucciones de handoff\nlet instruccionesHandoff = '';\nif (input.handoffDone !== true) {\n  instruccionesHandoff = `\\nTRANSFERENCIA A ESPECIALISTAS\\nSi el cliente necesita otro especialista, podes transferirlo.\\nPara hacerlo, termina tu mensaje con: [HANDOFF:nombre_agente]\\nEjemplo: [HANDOFF:eduardo]\\n\\nTus companeros: ${agente.companeros}.\\nAvisa antes de transferir:\\n- \\\"Espera que te paso con Eduardo que maneja embarcaciones.\\\"\\n- \\\"Te paso con Laura que se ocupa de los cursos.\\\"\\n- \\\"Te conecto con Martin para el tema tecnico.\\\"\\n\\nSolo podes transferir UNA VEZ por conversacion.`;\n} else {\n  instruccionesHandoff = '\\nYa hubo una transferencia. NO transfieras de nuevo. Si no podes resolver, deriva a WhatsApp.';\n}\n\n// Conocimiento especializado\nlet conocimiento = '';\nif (agenteKey === 'sofia') {\n  conocimiento = '\\nTU AREA: Consultas generales y travesias\\n- Destinos nacionales: Delta, Isla Martin Garcia, Mar del Plata\\n- Destinos internacionales: Colonia, Carmelo, Riachuelo, Juan Lacaze\\n- Salidas todos los dias, minimo 3 pasajeros\\n- Deriva a Laura (cursos), Martin (tecnico), Eduardo (embarcaciones) cuando corresponda';\n}\nif (agenteKey === 'laura') {\n  conocimiento = '\\nTU AREA: Cursos de navegacion\\n- Timonel: veleros hasta 7m, mayor de 18, saber nadar\\n- Patron de Yate: veleros mayores, requiere titulo de timonel\\n- Clases teoricas y practicas en el Rio de la Plata\\n- Certificacion oficial Prefectura Naval Argentina';\n}\nif (agenteKey === 'martin') {\n  conocimiento = '\\nTU AREA: Servicio tecnico nautico\\n- Mantenimiento preventivo y correctivo\\n- Motores fuera de borda y diesel intraborda\\n- Electricidad nautica, pintura, carena, varada\\n- Diagnostico y presupuesto\\n- Veleros, lanchas y semirrigidos';\n}\nif (agenteKey === 'eduardo') {\n  conocimiento = '\\nTU AREA: Compra y venta de embarcaciones\\n- Stock: MASTI (Mastracchio 24.5), BRAMA (Bramador 24), Marejada (Hunter 33), Brisa (Grampian 26)\\n- No des precios ni confirmes disponibilidad — deriva a WhatsApp\\n- Proceso: visita, prueba de mar, peritaje, transferencia\\n- Tasaciones y asesoramiento\\n- Para compras, entender: tipo, tamano, uso, presupuesto, experiencia';\n}\n\nconst systemPrompt = `Sos ${agente.nombre}, ${agente.rol} de Espacio Nautico Buenos Aires (ENBA).\nTu genero es ${agente.genero}. Referite a vos ${agente.auto} siempre.\nTu especialidad: ${agente.especialidad}.\n\nCONTEXTO DE LA EMPRESA\nENBA es un espacio nautico integral en Puerto Norte, Buenos Aires, frente al Aeroparque.\nOfrece: travesias en velero, escuela de navegacion (timonel y patron), broker de compra-venta de embarcaciones, y servicio tecnico nautico.\n\nTIPOS DE EMBARCACIONES\n- LANCHA: embarcacion a motor\n- VELERO: embarcacion a vela\n- SEMIRRIGIDO: inflable con casco rigido\nNunca confundas una lancha con un velero.\n${conocimiento}\n\nESTILO DE CONVERSACION\n- Espanol rioplatense. Voseo: \"vos\", \"tenes\", \"queres\", \"contame\", \"dale\", \"genial\", \"joya\"\n- Mensajes MUY CORTOS. 1-3 oraciones. Como WhatsApp.\n- Cercano pero profesional\n- Max 1-2 emojis. A veces ninguno\n- Evitar lenguaje de chatbot: \"Claro que si!\", \"Con mucho gusto!\"\n- NUNCA listar servicios al saludar\n- Si dicen \"hola\", responder: \"Hola! Como andas?\"\n\nREGLAS\n- NUNCA des precios → wa.me/5491149915143\n- NUNCA confirmes fechas → \"dejame chequear con el equipo\"\n- NUNCA digas \"Puerto Madero\" → \"Puerto Norte, frente al Aeroparque\"\n- No inventes stock, modelos, emails, telefonos, links\n- Si preguntan si sos bot: \"Soy asistente virtual de ENBA, te conecto por WhatsApp si preferis.\"\n\nDATOS (solo si preguntan):\n- Destinos: Delta, Isla Martin Garcia, Mar del Plata, Colonia, Carmelo\n- Cursos: Timonel y Patron de Yate\n- Web: espacionautico.com.ar\n- WhatsApp: wa.me/5491149915143\n${instruccionesHandoff}\n${contextoHistorial ? '\\nCONTEXTO DEL CLIENTE:\\n' + contextoHistorial : ''}\n\nCliente: ${input.nombre || 'desconocido'}. Canal: ${input.canal || 'instagram'}.`;\n\nreturn [{\n  json: {\n    ...input,\n    agente: agente.nombre,\n    agenteKey,\n    systemPrompt\n  }\n}];"
+      },
+      "id": "router-agente",
+      "name": "Router + Asignar Agente",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [750, 300]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Mensaje del usuario: {{$json.mensaje}}",
+        "options": {
+          "systemMessage": "={{$json.systemPrompt}}"
+        }
+      },
+      "id": "ai-agent",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [1000, 300]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-haiku-4-5-20251001",
+          "mode": "list",
+          "cachedResultName": "Claude Haiku 4.5"
+        },
+        "options": {
+          "maxTokensToSample": 300
+        }
+      },
+      "id": "anthropic-model",
+      "name": "Anthropic Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [950, 550],
+      "credentials": {
+        "anthropicApi": {
+          "id": "FBIOtx0bt31jQbLT",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{$json.subscriberId}}",
+        "contextWindowLength": 10
+      },
+      "id": "memory-buffer",
+      "name": "Simple Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [1150, 550]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================\n// DETECTOR DE HANDOFF + FORMATEO PARA MANYCHAT\n// ============================================\n\nconst agentOutput = $input.first().json;\nlet respuesta = agentOutput.output || 'Perdon, tuve un problema tecnico. Escribinos por WhatsApp: wa.me/5491149915143';\n\nconst fieldsData = $('Parsear Datos ManyChat').first().json;\nconst routerData = $('Router + Asignar Agente').first().json;\n\n// Detectar tema de la consulta\nconst msg = fieldsData.mensaje.toLowerCase();\nlet tema = fieldsData.temaConsulta || '';\nlet velero = fieldsData.veleroInteres || '';\n\nif (msg.match(/traves|naveg|salida|colonia|delta|carmelo|destino/)) tema = 'travesia';\nelse if (msg.match(/curso|timonel|patron|escuela|aprender|clase/)) tema = 'curso';\nelse if (msg.match(/velero|barco|comprar|vender|masti|brama|marejada|brisa/)) tema = 'velero';\nelse if (msg.match(/servicio|tecnico|reparar|mantenimiento|motor/)) tema = 'servicio';\n\nif (msg.match(/masti/)) velero = 'masti';\nelse if (msg.match(/brama/)) velero = 'brama';\nelse if (msg.match(/marejada/)) velero = 'marejada';\nelse if (msg.match(/brisa/)) velero = 'brisa';\n\n// Detectar handoff en la respuesta del agente\nconst handoffMatch = respuesta.match(/\\[HANDOFF:(\\w+)\\]/);\nlet handoffDone = fieldsData.handoffDone === true ? true : false;\nlet handoffFrom = fieldsData.handoffFrom || '';\nlet handoffTo = fieldsData.handoffTo || '';\nlet mensajesFinal = [];\n\nif (handoffMatch && handoffDone !== true) {\n  const nuevoAgenteKey = handoffMatch[1].toLowerCase();\n  const mensajeSinTag = respuesta.replace(/\\[HANDOFF:\\w+\\]/, '').trim();\n  \n  // Mensaje del agente actual (sin el tag)\n  mensajesFinal.push({\n    type: 'text',\n    text: mensajeSinTag\n  });\n  \n  // Mensaje intermedio de sistema\n  mensajesFinal.push({\n    type: 'text',\n    text: 'Aguarda un segundo que te estamos transfiriendo para una mejor atencion. ⏳'\n  });\n  \n  // Marcar handoff\n  handoffDone = true;\n  handoffFrom = routerData.agente;\n  handoffTo = nuevoAgenteKey.charAt(0).toUpperCase() + nuevoAgenteKey.slice(1);\n  \n  // NOTA: El mensaje del nuevo agente se generara en la proxima interaccion\n  // porque ManyChat no soporta delays entre mensajes.\n  // El proximo mensaje del usuario sera ruteado al nuevo agente (handoffTo).\n  \n} else {\n  // Sin handoff - respuesta normal\n  mensajesFinal.push({\n    type: 'text',\n    text: respuesta\n  });\n}\n\nreturn [{\n  json: {\n    version: 'v2',\n    content: {\n      messages: mensajesFinal,\n      actions: [\n        {\n          action: 'set_field_value',\n          field_name: 'ultimo_agente',\n          value: handoffTo || routerData.agente\n        },\n        {\n          action: 'set_field_value',\n          field_name: 'ultima_interaccion',\n          value: new Date().toISOString()\n        },\n        {\n          action: 'set_field_value',\n          field_name: 'tema_consulta',\n          value: tema\n        },\n        {\n          action: 'set_field_value',\n          field_name: 'velero_interes',\n          value: velero\n        },\n        {\n          action: 'set_field_value',\n          field_name: 'handoff_done',\n          value: handoffDone\n        },\n        {\n          action: 'set_field_value',\n          field_name: 'handoff_from',\n          value: handoffFrom\n        },\n        {\n          action: 'set_field_value',\n          field_name: 'handoff_to',\n          value: handoffTo\n        }\n      ]\n    }\n  }\n}];"
+      },
+      "id": "format-response",
+      "name": "Formatear para ManyChat",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "id": "respond-webhook",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [1500, 300]
+    }
+  ],
+  "connections": {
+    "Webhook ManyChat": {
+      "main": [
+        [
+          {
+            "node": "Parsear Datos ManyChat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parsear Datos ManyChat": {
+      "main": [
+        [
+          {
+            "node": "Router + Asignar Agente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Router + Asignar Agente": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Formatear para ManyChat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formatear para ManyChat": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    { "name": "ENBA" },
+    { "name": "chat" },
+    { "name": "agente" },
+    { "name": "manychat" },
+    { "name": "router" },
+    { "name": "handoff" }
+  ]
+}

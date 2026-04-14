@@ -1,0 +1,26 @@
+{
+  "id": "sm-2026-05-11-ig-feed-servicios-27",
+  "status": "staging",
+  "channel": "IG+FB",
+  "format": "FEED_IMAGE",
+  "vertical": "SERVICIOS",
+  "theme": "Tu embarcacion merece una mirada seria.",
+  "piece_id": "piece-27",
+  "date": "11/05/2026",
+  "assets_repo_path": "staging/2026/05/sm-2026-05-11-ig-feed-servicios-27/",
+  "staging_urls": [
+    "https://social-assets.espacionautico.com.ar/staging/2026/05/sm-2026-05-11-ig-feed-servicios-27/27-11-05-2026-servicios.png"
+  ],
+  "published_urls": [],
+  "manifest_url": "https://social-assets.espacionautico.com.ar/manifests/sm-2026-05-11-ig-feed-servicios-27.json",
+  "source": {
+    "campaign": "lanzamiento-15-abr-2026",
+    "image": "asset-bank/servicios-casco-amarrado.jpg"
+  },
+  "meta": {
+    "publish_id": null,
+    "published_at": null
+  },
+  "created_at": "2026-04-14T12:10:19.738Z",
+  "updated_at": "2026-04-14T12:10:19.738Z"
+}

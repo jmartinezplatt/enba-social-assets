@@ -1,5 +1,5 @@
 {
-  "outputDir": "social-media/contenido-listo/carrusel-cuanto-sale",
+  "outputDir": "campaigns/carruseles-organicos/carrusel-cuanto-sale",
   "theme": {
     "width": 1080,
     "height": 1350,
@@ -37,7 +37,7 @@
       "kind": "photo",
       "title": "MENOS QUE UNA\nCENA PARA DOS\nEN PALERMO",
       "subtitle": "Y la experiencia dura mucho más que un postre.",
-      "image": "social-media/contenido-listo/campana-lanzamiento-15-abr-al-14-may-2026/asset-bank/travesias-city-horizon.jpg",
+      "image": "asset-bank/travesias-city-horizon.jpg",
       "backgroundPosition": "50% center",
       "backgroundScale": 1,
       "titleSize": 72,
@@ -50,7 +50,7 @@
       "kind": "photo",
       "title": "MENOS QUE UN\nFINDE EN LA COSTA",
       "subtitle": "Y no necesitás manejar 5 horas para llegar.",
-      "image": "social-media/contenido-listo/campana-lanzamiento-15-abr-al-14-may-2026/asset-bank/travesias-delta-signature.jpg",
+      "image": "asset-bank/travesias-delta-signature.jpg",
       "backgroundPosition": "56% center",
       "backgroundScale": 1.02,
       "titleSize": 72,
@@ -63,7 +63,7 @@
       "kind": "photo",
       "title": "MENOS QUE DOS\nENTRADAS A UN\nRECITAL",
       "subtitle": "Y lo que sentís en el río no se repite en ningún escenario.",
-      "image": "social-media/contenido-listo/campana-lanzamiento-15-abr-al-14-may-2026/asset-bank/travesias-sunset-openwater.jpg",
+      "image": "asset-bank/travesias-sunset-openwater.jpg",
       "backgroundPosition": "50% 40%",
       "backgroundScale": 1,
       "titleSize": 72,
@@ -76,7 +76,7 @@
       "kind": "photo",
       "title": "¿QUÉ INCLUYE?",
       "subtitle": "Velero · Capitán · Equipo de seguridad · Mate y algo rico · Grupo reducido · 3 a 4 horas en el río",
-      "image": "social-media/contenido-listo/campana-lanzamiento-15-abr-al-14-may-2026/asset-bank/brand-crew-costanera.jpg",
+      "image": "asset-bank/brand-crew-costanera.jpg",
       "backgroundPosition": "50% 28%",
       "backgroundScale": 1.05,
       "titleSize": 80,
@@ -89,7 +89,7 @@
       "kind": "cover",
       "logo": "src/assets/ENBA-horizontal-oscuro.svg",
       "logoAlt": "Espacio Náutico Buenos Aires",
-      "title": "¿Querés saber\nel precio para\ntu grupo?",
+      "title": "¿Querés saber\nel precio para\nvos o tu grupo?",
       "subtitle": "Escribinos por DM con cuántos son."
     }
   ]

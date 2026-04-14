@@ -1,0 +1,26 @@
+{
+  "id": "sm-2026-04-30-ig-feed-escuela-16",
+  "status": "staging",
+  "channel": "IG+FB",
+  "format": "FEED_IMAGE",
+  "vertical": "ESCUELA",
+  "theme": "Teoría, maniobra y río: las tres cosas tienen que conversar.",
+  "piece_id": "piece-16",
+  "date": "30/04/2026",
+  "assets_repo_path": "staging/2026/04/sm-2026-04-30-ig-feed-escuela-16/",
+  "staging_urls": [
+    "https://social-assets.espacionautico.com.ar/staging/2026/04/sm-2026-04-30-ig-feed-escuela-16/16-30-04-2026-escuela.png"
+  ],
+  "published_urls": [],
+  "manifest_url": "https://social-assets.espacionautico.com.ar/manifests/sm-2026-04-30-ig-feed-escuela-16.json",
+  "source": {
+    "campaign": "lanzamiento-15-abr-2026",
+    "image": "asset-bank/travesias-city-horizon.jpg"
+  },
+  "meta": {
+    "publish_id": null,
+    "published_at": null
+  },
+  "created_at": "2026-04-14T12:10:19.626Z",
+  "updated_at": "2026-04-14T12:10:19.626Z"
+}

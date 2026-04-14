@@ -1,0 +1,21 @@
+{
+  "id": "reel-primera-vez",
+  "title": "Primera vez",
+  "status": "guion-listo",
+  "duration": "45-60s",
+  "concept": "Mostrar cómo es la experiencia de alguien que nunca navegó. Desarmar el miedo con imágenes reales.",
+  "audio": "Sonido ambiente real (viento, agua, velas) + música suave por debajo. Sin voz en off.",
+  "tomas": [
+    { "num": 1, "nombre": "Hook", "duracion": "3s", "que_filmar": "Cara del tripulante nuevo mirando el río desde la cubierta", "texto_overlay": "Nunca había subido a un velero" },
+    { "num": 2, "nombre": "Contexto", "duracion": "4s", "que_filmar": "Plano abierto del velero saliendo de Costanera Norte, skyline atrás", "texto_overlay": "Costanera Norte, grupo de 4" },
+    { "num": 3, "nombre": "Preparación", "duracion": "4s", "que_filmar": "Capitán explicando algo al grupo en cubierta, manos señalando jarcia", "texto_overlay": null },
+    { "num": 4, "nombre": "Motor apagado", "duracion": "5s", "que_filmar": "Momento en que se apaga el motor y arranca solo vela — captar el silencio", "texto_overlay": "Cuando se apaga el motor..." },
+    { "num": 5, "nombre": "Navegación", "duracion": "6s", "que_filmar": "Planos cortos: agua en el casco, viento en la vela, manos en el timón", "texto_overlay": null },
+    { "num": 6, "nombre": "Reacción", "duracion": "4s", "que_filmar": "Cara del tripulante nuevo sonriendo/asombrado", "texto_overlay": "...cambia todo" },
+    { "num": 7, "nombre": "Grupo", "duracion": "4s", "que_filmar": "Plano del grupo compartiendo mate en cubierta", "texto_overlay": null },
+    { "num": 8, "nombre": "Paisaje", "duracion": "5s", "que_filmar": "Atardecer o skyline desde el agua, plano abierto", "texto_overlay": null },
+    { "num": 9, "nombre": "Cierre", "duracion": "5s", "que_filmar": "Logo ENBA sobre plano final", "texto_overlay": "Tu primera vez también puede ser así" }
+  ],
+  "captionIg": "La primera vez no se explica. Se vive.\n\nNo hace falta saber nada. No hace falta traer nada. Solo hace falta animarse y venir.\n\n👉 Si querés vivir tu primera vez en el río, escribinos por DM.\n\n#EspacioNautico #ENBA #NavegaElRioDeLaPlata #VelerosBuenosAires #RioDeLaPlata #SailingArgentina #PrimeraVez #PlanesBuenosAires #SalidaDistinta #RegaloOriginal",
+  "captionFb": "Hay experiencias que no se pueden explicar con palabras. La primera vez arriba de un velero es una de esas.\n\nSalimos desde Costanera Norte, grupo reducido, capitán a bordo y todo lo que necesitás para disfrutarlo sin preocuparte por nada.\n\n👉 Si querés vivir tu primera vez en el río, escribinos.\n\n#EspacioNautico #ENBA #NavegaElRioDeLaPlata #PlanesBuenosAires #SalidaDistinta"
+}

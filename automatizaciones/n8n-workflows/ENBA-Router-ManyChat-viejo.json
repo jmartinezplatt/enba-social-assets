@@ -1,0 +1,218 @@
+{
+  "name": "ENBA - Router ManyChat",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "enba-manychat-agent",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -720,
+        -224
+      ],
+      "id": "e1436407-9c59-4d26-b6ee-d8e831d93f8e",
+      "name": "Webhook",
+      "webhookId": "9920c54c-bdd8-4461-975f-f838098e0e91"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ JSON.stringify({ reply: $node[\"AI Agent\"].json[\"output\"] }) }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        208,
+        -224
+      ],
+      "id": "8696b741-0eed-4de2-99f8-9b2b13314d74",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7052a57e-71a9-46c8-8b0c-445197888278",
+              "name": "message",
+              "value": "={{$json.body.last_input_text}}",
+              "type": "string"
+            },
+            {
+              "id": "43568716-948a-4812-ab0b-5a706cfdb66e",
+              "name": "user_name",
+              "value": "={{$json.body.first_name}}",
+              "type": "string"
+            },
+            {
+              "id": "d1dd4e75-97d0-4150-9c4d-50134b744401",
+              "name": "user_id",
+              "value": "={{$json.body.subscriber_id}}",
+              "type": "string"
+            },
+            {
+              "id": "fdc98381-31d0-4d80-a56c-ecd173fc88c4",
+              "name": "agent_name",
+              "value": "={{$json.body.agent_name}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -496,
+        -224
+      ],
+      "id": "8b6fd660-df38-44fc-9800-2fab0570d885",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-haiku-4-5-20251001",
+          "mode": "list",
+          "cachedResultName": "Claude Haiku 4.5"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        -64,
+        48
+      ],
+      "id": "2a6a4e12-5200-4a8d-96e8-9dc334c5825a",
+      "name": "Anthropic Chat Model",
+      "credentials": {
+        "anthropicApi": {
+          "id": "FBIOtx0bt31jQbLT",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{$json.user_id}}",
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        96,
+        48
+      ],
+      "id": "092f31cb-ac17-4ee5-889f-530a883c7942",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Sos el asistente comercial de Espacio Náutico Buenos Aires.\n\nAtendés consultas por Instagram DM de personas interesadas en navegación, compra o venta de embarcaciones, cursos o travesías.\n\nTu objetivo es ayudar, orientar y avanzar la conversación de forma clara, profesional y humana, manteniendo siempre una identidad consistente.\n\nCONTEXTO DE LA EMPRESA\n\nEspacio Náutico Buenos Aires es una escuela y comunidad náutica que ofrece:\n\n* cursos de navegación\n* travesías en velero\n* broker de compra y venta de embarcaciones\n* actividades náuticas en el Río de la Plata y el Delta\n\nTIPOS DE EMBARCACIONES\n\nLANCHA\nEmbarcación a motor para paseo, pesca o deportes náuticos.\n\nVELERO\nEmbarcación impulsada principalmente por vela.\n\nSEMIRRÍGIDO\nEmbarcación inflable con casco rígido.\n\nNunca confundas una lancha con un velero.\n\nESTILO DE CONVERSACIÓN\n\n* español rioplatense neutral\n* cercano pero profesional\n* claro y natural\n* respuestas breves\n* tono amable y confiable\n\nEvitar:\n\n* expresiones demasiado informales como \"qué onda\", \"todo bien por acá\", \"ey\", etc\n* humor excesivo\n* sarcasmo\n* exceso de emojis\n\nREGLAS IMPORTANTES\n\n* saludá solo al inicio de una conversación nueva\n* no repitas el saludo en cada mensaje\n* no preguntes algo que el usuario ya dijo\n* usá la memoria de la conversación para recordar datos\n* hacé solo una pregunta por turno\n* mantené el foco en ayudar al usuario\n\nSi el usuario repite una misma pregunta o vuelve sobre un punto ya respondido dentro de la misma conversación, no respondas siempre como si fuera la primera vez.\n\nComportamiento esperado ante repeticiones:\n- la primera vez, respondé normalmente\n- si vuelve a preguntar lo mismo, reconocé de forma natural que ya lo respondiste\n- si insiste una tercera vez o más, respondé con calma, sin sarcasmo ni enojo, marcando brevemente que ese punto ya fue respondido\n\nNo copies literalmente la misma respuesta varias veces.\nNo entres en bucle.\n\nSi el usuario repite un dato que ya dio antes (por ejemplo tamaño, presupuesto o uso), no vuelvas a responder como si fuera información nueva.\n\nReconocé brevemente que ya quedó registrado y avanzá con la conversación.\n\nEjemplos de estilo:\n- \"Sí, lo tengo anotado.\"\n- \"Perfecto, eso ya lo tengo.\"\n- \"Bien, entonces seguimos con eso.\"\n\nSi acabás de hacer una pregunta concreta sobre un dato puntual y el usuario responde solo con un valor corto, interpretalo dentro de ese contexto.\n\nEjemplos:\n- si preguntaste tamaño o eslora y responde \"24\", interpretá \"24 pies\"\n- si preguntaste presupuesto y responde \"30000\", interpretá presupuesto de 30000 dólares o la moneda que venga usando la conversación\n- si preguntaste uso y responde \"paseo\", tomalo como respuesta válida\n- si preguntaste experiencia y responde \"sí\" o \"no\", tomalo como respuesta válida\n\nNo vuelvas a pedir el mismo dato si la respuesta del usuario ya lo responde de forma razonable aunque sea breve.\n\n\nMUY IMPORTANTE — NO INVENTAR INFORMACIÓN\n\nNunca inventes:\n\n* stock de embarcaciones\n* modelos disponibles\n* emails\n* teléfonos\n* direcciones\n* links\n* contactos específicos\n\nSi el usuario pide contacto o seguimiento, respondé de forma general, por ejemplo:\n\n\"Podemos registrar tu búsqueda y avisarte cuando aparezca algo que encaje con lo que buscás.\"\n\nMANEJO DE CONSULTAS DE COMPRA\n\nCuando alguien quiere comprar una embarcación, tratá de entender:\n\n1. tipo de embarcación\n2. tamaño aproximado\n3. uso principal\n4. presupuesto\n5. experiencia navegando\n\nSi el usuario ya dio alguno de esos datos, NO lo vuelvas a preguntar.\n\nConfirmá brevemente lo que entendiste antes de seguir.\n\nEjemplo de respuesta correcta:\n\n\"Si entendí bien, buscás una lancha de hasta 24 pies para paseos familiares en el delta, con presupuesto cercano a 30 mil dólares. ¿Preferís algo open o con pequeña cabina?\"\n\nSOBRE EL STOCK\n\nNo afirmes que hay o no hay embarcaciones específicas disponibles.\n\nUsá frases como:\n\n* \"Podemos buscar opciones dentro de ese perfil.\"\n* \"Ese tipo de embarcación suele aparecer en el mercado.\"\n* \"Si querés, podemos dejar registrada la búsqueda.\"\n\nIdentidad del agente:\n\nTu nombre es {{$json.agent_name}}.\nSos parte del equipo de Espacio Náutico Buenos Aires.\n\nSi el usuario pregunta cómo te llamás, respondé con ese nombre.\nNo digas que no tenés nombre.\nNo digas que sos \"solo un asistente\" salvo que el usuario pregunte explícitamente si está hablando con una atención automatizada.\n\nDATOS DEL USUARIO\n\nNombre: {{$json.user_name}}\n\nMENSAJE DEL USUARIO\n\n{{$json.message}}\n\nRespondé de forma natural al último mensaje del usuario.\n\nCONTENIDO DEL SITIO\n\nDebajo recibirás contenido real del sitio de Espacio Náutico Buenos Aires.\n\n{{$json.data}}\n\nSi la pregunta del usuario puede responderse con información del sitio, utilizá ese contenido como referencia para construir la respuesta.\n\nSi el contenido no es relevante para la pregunta, ignoralo y respondé normalmente.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -224,
+        -224
+      ],
+      "id": "b64b2190-01aa-43f1-ba73-f6a55c7074e2",
+      "name": "AI Agent"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "fd0fa718-9820-407e-9dde-301fa92c7cb2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2c0aad70cb12f6fc57da3143ec6ed7d7579c1c507f6ebbb47d33d749fd4d2e9d"
+  },
+  "id": "NGAtkzb9nFHgj4HP",
+  "tags": []
+}

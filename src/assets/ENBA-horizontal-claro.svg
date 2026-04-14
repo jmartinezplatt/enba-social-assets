@@ -1,0 +1,10 @@
+<svg width="520" height="94" viewBox="0 0 520 94" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="520" height="94" rx="24" fill="rgba(244,240,232,0.9)"/>
+  <line x1="48" y1="18" x2="48" y2="72" stroke="#1A6FA0" stroke-width="2"/>
+  <path d="M48 20L28 67H48V20Z" fill="#1A7A62"/>
+  <path d="M48 31L65 61H48V31Z" fill="#1A6FA0"/>
+  <path d="M20 76C26 72 31 72 36 76C40 79 45 79 49 76C53 72 58 72 63 76C66 78 70 78 74 76" stroke="#D4A843" stroke-width="2" stroke-linecap="round"/>
+  <text x="96" y="37" font-family="'Teko','Bebas Neue',sans-serif" font-size="30" font-weight="700" fill="#0F1F2F" letter-spacing="2">ESPACIO NÁUTICO</text>
+  <text x="96" y="63" font-family="'Teko','Bebas Neue',sans-serif" font-size="30" font-weight="700" fill="#0F1F2F" letter-spacing="2">BUENOS AIRES</text>
+  <text x="334" y="52" font-family="'Barlow Condensed',Arial,sans-serif" font-size="15" font-weight="500" fill="#173551" letter-spacing="2.8">COSTANERA NORTE</text>
+</svg>

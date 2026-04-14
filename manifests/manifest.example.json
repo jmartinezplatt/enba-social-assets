@@ -1,0 +1,28 @@
+{
+  "id": "sm-2026-03-28-ig-feed-delta",
+  "status": "staging",
+  "channel": "IG",
+  "format": "FEED_IMAGE",
+  "vertical": "TRAVESIAS",
+  "theme": "Delta del Parana",
+  "assets_repo_path": "staging/2026/03/sm-2026-03-28-ig-feed-delta/",
+  "staging_urls": [
+    "https://social-assets.espacionautico.com.ar/staging/2026/03/sm-2026-03-28-ig-feed-delta/slide-01.png"
+  ],
+  "published_urls": [],
+  "manifest_url": "https://social-assets.espacionautico.com.ar/manifests/sm-2026-03-28-ig-feed-delta.json",
+  "source": {
+    "slug_relacionado": "/travesias/delta",
+    "asset_id": "travesia-delta"
+  },
+  "render": {
+    "render_config_path": "social-media/tmp/social-renders/sm-2026-03-28-ig-feed-delta/carousel.config.json",
+    "render_output_dir": "social-media/tmp/social-renders/sm-2026-03-28-ig-feed-delta/output/"
+  },
+  "meta": {
+    "publish_id": null,
+    "published_at": null
+  },
+  "created_at": "2026-03-26T17:00:00Z",
+  "updated_at": "2026-03-26T17:00:00Z"
+}
