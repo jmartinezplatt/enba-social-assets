@@ -196,3 +196,26 @@ Se convoca cuando Team 3 necesita revisión senior de performance o copy.
 5. No publicar sin PASS de Nico (QA)
 6. No repetir en la caption lo que ya dicen los slides del carrusel
 7. Captions IG complementan emocionalmente; captions FB informan y contextualizan
+
+---
+
+## Reglas operativas n8n
+
+1. No usar MCP tools para n8n — siempre API directa con curl + env vars
+2. API key leerla así, sin exponerla nunca:
+   `N8N_KEY=$(powershell -Command "[System.Environment]::GetEnvironmentVariable('N8N_API_KEY', 'User')")`
+   Solo decir CARGADA o VACÍA. Nunca imprimir, echar ni mostrar el valor.
+3. `--ssl-no-revoke` en todos los curl a n8n cloud (exit code 35 sin esto)
+4. Code nodes: escribir JS a archivo .js primero, nunca componer JS dentro de template literals de bash
+5. Caracteres especiales / español — asegurar UTF-8 explícito en el payload
+6. Crear workflow = POST limpio OK. Modificar nodos con jsCode/jsonBody/expresiones → hacerlo desde UI o patch quirúrgico, nunca GET completo → mutar → PUT completo
+7. Base URL: `https://espacionautico.app.n8n.cloud/api/v1/`
+
+---
+
+## Reglas operativas generales
+
+1. Verificar deploy de Cloudflare después de cada push — no asumir que push = deploy
+2. No exponer secretos (API keys, tokens, app secrets) en la salida — nunca
+3. Tokens de Meta van en credenciales encriptadas de n8n (httpHeaderAuth), nunca en código ni en Code nodes
+4. Después de publicar en Meta API, verificar que el post existe — no asumir que la respuesta 200 = post visible
