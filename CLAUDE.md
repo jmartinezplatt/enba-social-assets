@@ -213,6 +213,17 @@ Se convoca cuando Team 3 necesita revisión senior de performance o copy.
 
 ---
 
+## Meta API tokens en n8n cloud
+
+1. Crear la credencial en la UI de n8n (Settings → Credentials → Add → "Header Auth" con nombre `Authorization` y valor `Bearer <token>`). El token queda encriptado en n8n.
+2. Anotar el credential ID que n8n le asigna.
+3. En los nodos HTTP Request del workflow, referenciar esa credencial por ID con `authentication: "genericCredentialType"` y `genericAuthType: "httpHeaderAuth"` — así el nodo la consume sin que el token aparezca en el JSON del workflow.
+4. Nunca poner tokens en Code nodes, variables de workflow, ni en el body/URL como texto plano.
+5. Nunca commitear, loguear ni exponer tokens de Meta — si se filtran, Meta los revoca automáticamente.
+6. Credencial actual: `Meta API ENBA` (ID: `n8scJzbGXnCprioD`, tipo: `httpHeaderAuth`)
+
+---
+
 ## Reglas operativas generales
 
 1. Verificar deploy de Cloudflare después de cada push — no asumir que push = deploy
