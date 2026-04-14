@@ -21,13 +21,13 @@
       "id": "01",
       "kind": "photo",
       "title": "Mañana\narrancamos.",
-      "subtitle": "Travesías en velero desde Costanera Norte.",
+      "subtitle": "Mañana te contamos todo.",
       "image": "asset-bank/brand-crew-costanera.jpg",
       "backgroundPosition": "50% 28%",
       "backgroundScale": 1.05,
       "titleSize": 96,
       "subtitleSize": 34,
-      "copyBottom": 230,
+      "copyBottom": 260,
       "overlayOpacity": 0.5
     }
   ]
