@@ -20,41 +20,41 @@
     {
       "id": "nico-01",
       "kind": "photo",
-      "title": "Costanera\nNorte →\nRío de la\nPlata →\nTu mejor\nplan.",
-      "subtitle": "Una salida cambia la semana. Escribinos.",
-      "image": "asset-bank/navegando-picante-openwater.jpg",
-      "backgroundPosition": "50% 45%",
-      "backgroundScale": 1.05,
-      "titleSize": 74,
+      "title": "Mañana\narrancamos.\nSeguinos\nahora.",
+      "subtitle": "Espacio Náutico Buenos Aires · Costanera Norte",
+      "image": "asset-bank/brand-costanera-hero.jpg",
+      "backgroundPosition": "50% 40%",
+      "backgroundScale": 1.06,
+      "titleSize": 96,
       "subtitleSize": 30,
-      "copyBottom": 180,
-      "overlayOpacity": 0.42
+      "copyBottom": 200,
+      "overlayOpacity": 0.38
     },
     {
       "id": "nico-02",
       "kind": "photo",
-      "title": "¿Cuántas\nveces dijiste\n\"algún día\"?",
-      "subtitle": "Hoy es algún día. Curso de timonel con práctica real.",
-      "image": "asset-bank/escuela-tripulacion-aprendizaje.jpg",
-      "backgroundPosition": "54% center",
-      "backgroundScale": 1.02,
-      "titleSize": 92,
-      "subtitleSize": 30,
-      "copyBottom": 220,
-      "overlayOpacity": 0.48
+      "title": "¿Guardás\neste post\no seguís\nscrolleando?",
+      "subtitle": "Travesías, escuela y broker náutico. Todo desde el río.",
+      "image": "asset-bank/navegando-picante-openwater.jpg",
+      "backgroundPosition": "50% 45%",
+      "backgroundScale": 1.05,
+      "titleSize": 84,
+      "subtitleSize": 28,
+      "copyBottom": 190,
+      "overlayOpacity": 0.50
     },
     {
       "id": "nico-03",
       "kind": "photo",
-      "title": "Criterio >\nImpulso.",
-      "subtitle": "Broker náutico que te acompaña a decidir bien.",
-      "image": "asset-bank/broker-marina-context.jpg",
-      "backgroundPosition": "50% 46%",
-      "backgroundScale": 1.12,
-      "titleSize": 110,
+      "title": "El río\nestá a\n20 min\nde tu casa.",
+      "subtitle": "Escribinos por DM. Primer contenido: mañana.",
+      "image": "asset-bank/travesias-city-horizon.jpg",
+      "backgroundPosition": "50% 50%",
+      "backgroundScale": 1.03,
+      "titleSize": 94,
       "subtitleSize": 30,
-      "copyBottom": 260,
-      "overlayOpacity": 0.22
+      "copyBottom": 210,
+      "overlayOpacity": 0.35
     }
   ]
 }

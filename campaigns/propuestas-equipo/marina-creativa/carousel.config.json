@@ -10,51 +10,51 @@
     "titleWeight": 700,
     "titleLineHeight": 0.92,
     "titleLetterSpacing": "0.01em",
-    "titleShadow": "0 4px 20px rgba(0, 0, 0, 0.5)",
+    "titleShadow": "0 4px 24px rgba(0, 0, 0, 0.55)",
     "subtitleFont": "Barlow Semi Condensed",
     "subtitleWeight": 400,
     "subtitleLineHeight": 1.18,
-    "subtitleShadow": "0 2px 12px rgba(0, 0, 0, 0.4)"
+    "subtitleShadow": "0 2px 14px rgba(0, 0, 0, 0.45)"
   },
   "slides": [
     {
       "id": "marina-01",
       "kind": "photo",
-      "title": "El río no\nespera.\nVos tampoco\ndeberías.",
-      "subtitle": "Travesías en velero desde Costanera Norte. Salí del scroll.",
-      "image": "asset-bank/travesias-sunset-openwater.jpg",
-      "backgroundPosition": "50% 35%",
-      "backgroundScale": 1.08,
-      "titleSize": 88,
-      "subtitleSize": 30,
-      "copyBottom": 200,
-      "overlayOpacity": 0.32
+      "title": "Mañana\ncambia todo.",
+      "subtitle": "Espacio Náutico Buenos Aires. Costanera Norte.",
+      "image": "asset-bank/brand-skyline-manifesto.jpg",
+      "backgroundPosition": "50% 40%",
+      "backgroundScale": 1.06,
+      "titleSize": 108,
+      "subtitleSize": 32,
+      "copyBottom": 260,
+      "overlayOpacity": 0.35
     },
     {
       "id": "marina-02",
       "kind": "photo",
-      "title": "Tu próximo\nvelero\nestá acá.",
-      "subtitle": "Broker náutico con criterio real. No es un clasificado.",
-      "image": "asset-bank/broker-signature.jpg",
-      "backgroundPosition": "52% 48%",
-      "backgroundScale": 1.05,
-      "titleSize": 96,
-      "subtitleSize": 30,
+      "title": "Hay un río\nahí afuera.\nY vos seguís\nen tierra.",
+      "subtitle": "15.04.2026 — Arrancamos.",
+      "image": "asset-bank/navegando-picante-openwater.jpg",
+      "backgroundPosition": "50% 30%",
+      "backgroundScale": 1.10,
+      "titleSize": 92,
+      "subtitleSize": 34,
       "copyBottom": 220,
-      "overlayOpacity": 0.18
+      "overlayOpacity": 0.30
     },
     {
       "id": "marina-03",
       "kind": "photo",
-      "title": "Esto no se\naprende en\nYouTube.",
-      "subtitle": "Escuela náutica con práctica real en el Río de la Plata.",
-      "image": "asset-bank/escuela-practica-rio.jpg",
-      "backgroundPosition": "54% center",
-      "backgroundScale": 1.02,
-      "titleSize": 92,
+      "title": "Buenos Aires\ntiene costa.\nNosotros la\nnavegamos.",
+      "subtitle": "Seguinos. Mañana arranca algo que no vas a querer perderte.",
+      "image": "asset-bank/brand-costanera-hero.jpg",
+      "backgroundPosition": "50% 45%",
+      "backgroundScale": 1.04,
+      "titleSize": 86,
       "subtitleSize": 30,
-      "copyBottom": 210,
-      "overlayOpacity": 0.45
+      "copyBottom": 200,
+      "overlayOpacity": 0.38
     }
   ]
 }
