@@ -1,0 +1,211 @@
+{
+  "name": "ENBA - Redes Publicación Diaria 12:15",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "15 15 * * *"
+            }
+          ]
+        }
+      },
+      "id": "node-schedule",
+      "name": "Schedule 12:15 ART",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [200, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://social-assets.espacionautico.com.ar/campaigns/calendario-integrado.json",
+        "options": {}
+      },
+      "id": "node-get-calendar",
+      "name": "Get Calendar",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [420, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Find today's piece\nconst calendar = $input.first().json;\nconst now = new Date();\n// Format as DD/MM/YYYY\nconst dd = String(now.getUTCDate()).padStart(2, '0');\nconst mm = String(now.getUTCMonth() + 1).padStart(2, '0');\nconst yyyy = now.getUTCFullYear();\n// Adjust for Argentina (UTC-3)\nconst argDate = new Date(now.getTime() - 3 * 60 * 60 * 1000);\nconst argDD = String(argDate.getUTCDate()).padStart(2, '0');\nconst argMM = String(argDate.getUTCMonth() + 1).padStart(2, '0');\nconst argYYYY = argDate.getUTCFullYear();\nconst todayStr = `${argDD}/${argMM}/${argYYYY}`;\n\nconst todayEntries = calendar.calendario.filter(e => e.fecha === todayStr && e.tipo === 'pieza');\n\nif (todayEntries.length === 0) {\n  return [{ json: { skip: true, message: `No hay piezas para hoy (${todayStr})`, date: todayStr } }];\n}\n\nconst entry = todayEntries[0];\nreturn [{ json: { skip: false, date: todayStr, ...entry } }];"
+      },
+      "id": "node-find-today",
+      "name": "Find Today Piece",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [640, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "skip-check",
+              "leftValue": "={{ $json.skip }}",
+              "rightValue": false,
+              "operator": { "type": "boolean", "operation": "equals" }
+            }
+          ]
+        }
+      },
+      "id": "node-check-skip",
+      "name": "Has Piece?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [860, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://social-assets.espacionautico.com.ar/campaigns/lanzamiento-15-abr-2026/campaign.pieces.json",
+        "options": {}
+      },
+      "id": "node-get-pieces",
+      "name": "Get Pieces JSON",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1080, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "const pieces = $input.first().json;\nconst entry = $('Find Today Piece').first().json;\nconst piece = pieces.find(p => p.id === entry.id);\n\nif (!piece) {\n  return [{ json: { error: true, message: 'Piece not found: ' + entry.id } }];\n}\n\n// Build staging URL\nconst num = piece.id.replace('piece-', '');\nconst [d, m, y] = piece.date.split('/');\nconst dateStr = `${y}-${m}-${d}`;\nconst verticalSlug = piece.vertical.toLowerCase().replace(/í/g, 'i');\nconst manifestId = `sm-${dateStr}-ig-feed-${verticalSlug}-${num}`;\n\n// Find the PNG filename\nconst pngName = `${num}-${d}-${m}-${y}-${verticalSlug}.png`;\nconst imageUrl = `https://social-assets.espacionautico.com.ar/staging/${y}/${m}/${manifestId}/${pngName}`;\n\nreturn [{ json: {\n  error: false,\n  pieceId: piece.id,\n  date: piece.date,\n  vertical: piece.vertical,\n  headline: piece.headline,\n  captionIg: piece.captionIg,\n  captionFb: piece.captionFb,\n  imageUrl: imageUrl,\n  manifestId: manifestId\n} }];"
+      },
+      "id": "node-prepare-publish",
+      "name": "Prepare Publish Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1300, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v21.0/{{ $credentials.ig_user_id }}/media",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"image_url\": \"{{ $json.imageUrl }}\",\n  \"caption\": {{ JSON.stringify($json.captionIg) }},\n  \"access_token\": \"{{ $credentials.access_token }}\"\n}",
+        "options": {}
+      },
+      "id": "node-ig-container",
+      "name": "IG Create Container",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1520, 200],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "meta-api-creds",
+          "name": "Meta API ENBA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 5,
+        "unit": "seconds"
+      },
+      "id": "node-wait",
+      "name": "Wait 5s",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [1740, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v21.0/{{ $credentials.ig_user_id }}/media_publish",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"creation_id\": \"{{ $('IG Create Container').first().json.id }}\",\n  \"access_token\": \"{{ $credentials.access_token }}\"\n}",
+        "options": {}
+      },
+      "id": "node-ig-publish",
+      "name": "IG Publish",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1960, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v21.0/{{ $credentials.page_id }}/photos",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"message\": {{ JSON.stringify($('Prepare Publish Data').first().json.captionFb) }},\n  \"url\": \"{{ $('Prepare Publish Data').first().json.imageUrl }}\",\n  \"access_token\": \"{{ $credentials.access_token }}\"\n}",
+        "options": {}
+      },
+      "id": "node-fb-publish",
+      "name": "FB Publish",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2180, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "const piece = $('Prepare Publish Data').first().json;\nconst igResult = $('IG Publish').first().json;\nconst fbResult = $('FB Publish').first().json;\n\nconst igId = igResult.id || 'ERROR';\nconst fbId = fbResult.id || 'ERROR';\n\nconst igUrl = `https://www.instagram.com/espacionauticobsas/`;\nconst fbUrl = `https://www.facebook.com/${fbId}`;\n\nconst subject = igId !== 'ERROR' && fbId !== 'ERROR'\n  ? `✓ Redes publicado: ${piece.pieceId} — ${piece.headline}`\n  : `✗ ERROR publicando: ${piece.pieceId}`;\n\nconst body = `PUBLICACIÓN REDES — ENBA\n========================\n\nPieza: ${piece.pieceId}\nFecha: ${piece.date}\nVertical: ${piece.vertical}\nHeadline: ${piece.headline}\n\nInstagram: ${igId !== 'ERROR' ? 'PUBLICADO' : 'FALLÓ'}\n  Post ID: ${igId}\n  Ver en vivo: ${igUrl}\n\nFacebook: ${fbId !== 'ERROR' ? 'PUBLICADO' : 'FALLÓ'}\n  Post ID: ${fbId}\n  Ver en vivo: ${fbUrl}\n\nTimestamp: ${new Date().toISOString()}`;\n\nreturn [{ json: { subject, body, igId, fbId, pieceId: piece.pieceId } }];"
+      },
+      "id": "node-prepare-email",
+      "name": "Prepare Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2400, 200]
+    },
+    {
+      "parameters": {
+        "fromEmail": "jmartinezplatt@gmail.com",
+        "toEmail": "jmartinezplatt@gmail.com",
+        "subject": "={{ $json.subject }}",
+        "emailFormat": "text",
+        "text": "={{ $json.body }}",
+        "options": {}
+      },
+      "id": "node-send-email",
+      "name": "Send Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [2620, 200],
+      "credentials": {
+        "smtp": {
+          "id": "HpJBfNd1BCHaLYfY",
+          "name": "Gmail ENBA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const entry = $('Find Today Piece').first().json;\nreturn [{ json: { message: 'No hay piezas para hoy (' + entry.date + '). Workflow skip.' } }];"
+      },
+      "id": "node-no-piece",
+      "name": "No Piece Today",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1080, 420]
+    }
+  ],
+  "connections": {
+    "Schedule 12:15 ART": { "main": [[{ "node": "Get Calendar", "type": "main", "index": 0 }]] },
+    "Get Calendar": { "main": [[{ "node": "Find Today Piece", "type": "main", "index": 0 }]] },
+    "Find Today Piece": { "main": [[{ "node": "Has Piece?", "type": "main", "index": 0 }]] },
+    "Has Piece?": {
+      "main": [
+        [{ "node": "Get Pieces JSON", "type": "main", "index": 0 }],
+        [{ "node": "No Piece Today", "type": "main", "index": 0 }]
+      ]
+    },
+    "Get Pieces JSON": { "main": [[{ "node": "Prepare Publish Data", "type": "main", "index": 0 }]] },
+    "Prepare Publish Data": { "main": [[{ "node": "IG Create Container", "type": "main", "index": 0 }]] },
+    "IG Create Container": { "main": [[{ "node": "Wait 5s", "type": "main", "index": 0 }]] },
+    "Wait 5s": { "main": [[{ "node": "IG Publish", "type": "main", "index": 0 }]] },
+    "IG Publish": { "main": [[{ "node": "FB Publish", "type": "main", "index": 0 }]] },
+    "FB Publish": { "main": [[{ "node": "Prepare Email", "type": "main", "index": 0 }]] },
+    "Prepare Email": { "main": [[{ "node": "Send Email", "type": "main", "index": 0 }]] }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires"
+  }
+}

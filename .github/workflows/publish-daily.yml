@@ -1,0 +1,81 @@
+name: ENBA — Publicación diaria 12:15 ART
+
+on:
+  schedule:
+    # 15:15 UTC = 12:15 Argentina (GMT-3)
+    - cron: '15 15 * * *'
+  workflow_dispatch: # permite correrlo manualmente desde GitHub
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Create .env
+        run: |
+          echo "META_PAGE_ACCESS_TOKEN=${{ secrets.META_PAGE_ACCESS_TOKEN }}" > .env
+          echo "META_PAGE_ID=${{ secrets.META_PAGE_ID }}" >> .env
+          echo "META_IG_USER_ID=${{ secrets.META_IG_USER_ID }}" >> .env
+
+      - name: Publish today's piece
+        id: publish
+        run: node scripts/publish-scheduled.mjs 2>&1 | tee publish-output.txt
+
+      - name: Prepare report
+        if: always()
+        run: |
+          echo "## ENBA — Reporte de publicación" > report.md
+          echo "" >> report.md
+          echo "**Fecha:** $(TZ='America/Argentina/Buenos_Aires' date '+%d/%m/%Y %H:%M ART')" >> report.md
+          echo "" >> report.md
+          if [ ${{ steps.publish.outcome }} == "success" ]; then
+            echo "**Estado: PUBLICADO**" >> report.md
+            # Extract IDs from output
+            IG_ID=$(grep "IG PUBLICADO:" publish-output.txt | tail -1 | awk '{print $3}')
+            FB_ID=$(grep "FB PUBLICADO:" publish-output.txt | tail -1 | awk '{print $3}')
+            PIECE_ID=$(grep "PUBLICANDO" publish-output.txt | tail -1 | grep -oP 'piece-\d+')
+            echo "" >> report.md
+            echo "**Pieza:** $PIECE_ID" >> report.md
+            echo "" >> report.md
+            echo "**Links:**" >> report.md
+            echo "- Instagram: https://www.instagram.com/p/$IG_ID/" >> report.md
+            echo "- Facebook: https://www.facebook.com/$FB_ID" >> report.md
+          else
+            echo "**Estado: FALLÓ**" >> report.md
+            echo "" >> report.md
+            echo '```' >> report.md
+            cat publish-output.txt >> report.md
+            echo '```' >> report.md
+          fi
+          echo "" >> report.md
+          cat report.md
+
+      - name: Commit manifest update
+        if: success()
+        run: |
+          git config user.name "ENBA Bot"
+          git config user.email "bot@espacionautico.com.ar"
+          git add manifests/
+          git diff --staged --quiet || git commit -m "Publica $(grep 'PUBLICANDO' publish-output.txt | tail -1 | grep -oP 'piece-\d+') — $(TZ='America/Argentina/Buenos_Aires' date '+%d/%m/%Y %H:%M')"
+          git push
+
+      - name: Send email report
+        if: always()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USER }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "ENBA Redes — ${{ steps.publish.outcome == 'success' && 'Publicado' || 'ERROR' }} — $(date -u '+%d/%m/%Y')"
+          to: ${{ secrets.EMAIL_TO }}
+          from: ENBA Bot <bot@espacionautico.com.ar>
+          body: file://report.md
+          content_type: text/markdown
