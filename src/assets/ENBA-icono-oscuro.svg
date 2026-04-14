@@ -1,0 +1,7 @@
+<svg id="icon-dark" width="130" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="55" cy="55" r="52" fill="#0d2d4a" stroke="#4db8a0" stroke-width="1.3"/>
+          <line x1="55" y1="16" x2="55" y2="74" stroke="#4db8a0" stroke-width="2.2"/>
+          <path d="M55 18 L28 68 L55 68 Z" fill="#4db8a0" opacity="0.9"/>
+          <path d="M55 32 L78 66 L55 66 Z" fill="#3a9fd4" opacity="0.75"/>
+          <path d="M20 78 Q31 72 42 78 Q53 84 64 78 Q75 72 86 78 Q91 81 95 78" stroke="#4db8a0" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        </svg>

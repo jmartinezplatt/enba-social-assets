@@ -9,9 +9,8 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..");
 const defaultPackageDir = path.join(
   repoRoot,
-  "social-media",
-  "contenido-listo",
-  "campana-lanzamiento-15-abr-al-14-may-2026",
+  "campaigns",
+  "lanzamiento-15-abr-2026",
 );
 
 function escapeHtml(value) {
@@ -985,7 +984,7 @@ export async function renderCampaign(packageArg) {
   const [systemRaw, piecesRaw] = await Promise.all([readJson(systemPath), readJson(piecesPath)]);
   const assetMapPath = resolveCampaignPath(
     packageDir,
-    systemRaw.assetsMap ?? "social-media/assets-map.json",
+    systemRaw.assetsMap ?? "assets-map.json",
   );
   const assetMap = await readJson(assetMapPath);
   const assetLookup = buildAssetLookup(assetMap);
