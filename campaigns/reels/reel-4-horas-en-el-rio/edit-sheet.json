@@ -1,0 +1,277 @@
+{
+  "title": "4 horas en el río",
+  "duration_target": "48-53s",
+  "aspect_ratio": "9:16",
+  "resolution": "1080x1920",
+  "audio_direction": "Track instrumental con build-up progresivo (electrónica suave o post-rock lento). Capas de sonido ambiente real: agua contra casco, viento en velas, cabos tensándose. Build-up máximo en shot 7, luego resolución calma. Sin voice-over.",
+  "typography": {
+    "font_display": "Teko",
+    "font_body": "Barlow Semi Condensed",
+    "color_primary": "#FFFFFF",
+    "color_accent": "#4DB8A0",
+    "shadow": true,
+    "shadow_spec": "2px 2px 8px rgba(0,0,0,0.7)"
+  },
+  "shots": [
+    {
+      "shot_number": 1,
+      "section": "Hook",
+      "source_file": "IMG_5277.MP4",
+      "crop": "center",
+      "trim_start_s": 0.0,
+      "trim_end_s": 3.0,
+      "duration_s": 3.0,
+      "speed": 1.0,
+      "transition": "cut",
+      "text_overlay": "4 HORAS EN EL RÍO",
+      "text_position": "center",
+      "text_font": "Teko",
+      "text_size": "large",
+      "text_animation": "fade-in 0.3s, scale-up sutil",
+      "notes": "Proa a contraluz, sol reflejado en agua. El impacto visual frena el scroll. El texto aparece centrado grande a los 0.5s. NO empezar con un plano genérico — esta toma es cinematográfica y tiene urgencia visual."
+    },
+    {
+      "shot_number": 2,
+      "section": "Embarque",
+      "source_file": "IMG_1315.MOV",
+      "crop": "center",
+      "trim_start_s": 0.0,
+      "trim_end_s": 2.0,
+      "duration_s": 2.0,
+      "speed": 1.0,
+      "transition": "cut",
+      "text_overlay": "14:00 — Costanera Norte",
+      "text_position": "bottom-left",
+      "text_font": "Barlow Semi Condensed",
+      "text_size": "medium",
+      "text_animation": "slide-in from left 0.2s",
+      "notes": "Velero amarrado con tripulación a bordo. Establece el punto de partida. El timestamp '14:00' ancla la narrativa temporal. Clip corto, energía de arranque."
+    },
+    {
+      "shot_number": 3,
+      "section": "Salida",
+      "source_file": "IMG_8570.MP4",
+      "crop": "center",
+      "trim_start_s": 0.0,
+      "trim_end_s": 2.5,
+      "duration_s": 2.5,
+      "speed": 1.0,
+      "transition": "cut",
+      "text_overlay": null,
+      "text_position": null,
+      "text_font": null,
+      "text_size": null,
+      "text_animation": null,
+      "notes": "Velero saliendo de puerto con skyline urbano. Sin texto — que la imagen respire. El espectador entiende: estamos largando."
+    },
+    {
+      "shot_number": 4,
+      "section": "Hora 1 — Navegación saliendo",
+      "source_file": "7D37F634-D0D7-40B4-9BB6-EFB4C2FDA921.mp4",
+      "crop": "native_vertical",
+      "trim_start_s": 0.0,
+      "trim_end_s": 5.0,
+      "duration_s": 5.0,
+      "speed": 1.0,
+      "transition": "cut",
+      "text_overlay": null,
+      "text_position": null,
+      "text_font": null,
+      "text_size": null,
+      "text_animation": null,
+      "notes": "Clip vertical, ya 9:16 nativo — no necesita crop. Cubierta, winch, compás, skyline BA alejándose, sol sobre agua. Calidad excelente. Usar los primeros 5s que tienen la secuencia cubierta + compás + skyline. La ciudad queda atrás, se siente el movimiento."
+    },
+    {
+      "shot_number": 5,
+      "section": "Hora 2 — Vela pura",
+      "source_file_a": "IMG_1320.MP4",
+      "source_file_b": "IMG_1956.MP4",
+      "multi_clip": true,
+      "clips": [
+        {
+          "source_file": "IMG_1320.MP4",
+          "crop": "center",
+          "trim_start_s": 0.0,
+          "trim_end_s": 3.0,
+          "duration_s": 3.0
+        },
+        {
+          "source_file": "IMG_1956.MP4",
+          "crop": "center",
+          "trim_start_s": 0.0,
+          "trim_end_s": 2.0,
+          "duration_s": 2.0
+        }
+      ],
+      "duration_s": 5.0,
+      "transition": "cut",
+      "text_overlay": "15:00 — Motor apagado, solo vela",
+      "text_position": "bottom-left",
+      "text_font": "Barlow Semi Condensed",
+      "text_size": "medium",
+      "text_animation": "slide-in from left 0.2s",
+      "notes": "Dos clips encadenados con corte seco entre sí. Primero el velero navegando a vela (exterior), luego persona en cubierta con vela desplegada. El texto aparece sobre el segundo clip. Transmitir la transición motor→vela como momento de cambio."
+    },
+    {
+      "shot_number": 6,
+      "section": "Hora 2.5 — Tu turno en el timón",
+      "source_file_a": "IMG_1117.MP4",
+      "source_file_b": "IMG_5196.MP4",
+      "multi_clip": true,
+      "clips": [
+        {
+          "source_file": "IMG_1117.MP4",
+          "crop": "center",
+          "trim_start_s": 0.0,
+          "trim_end_s": 2.0,
+          "duration_s": 2.0
+        },
+        {
+          "source_file": "IMG_5196.MP4",
+          "crop": "center",
+          "trim_start_s": 0.0,
+          "trim_end_s": 3.0,
+          "duration_s": 3.0
+        }
+      ],
+      "duration_s": 5.0,
+      "transition": "cut",
+      "text_overlay": "16:00 — El río se disfruta siempre, timón o brindis",
+      "text_position": "bottom-left",
+      "text_font": "Barlow Semi Condensed",
+      "text_size": "medium",
+      "text_animation": "slide-in from left 0.2s",
+      "notes": "Persona al timón (remera verde, cielo azul) → corte seco → brindis con vasos naranjas. Humaniza la experiencia: primero la actividad (timón), después el disfrute (brindis, mate, charla). El texto aparece sobre el primer clip."
+    },
+    {
+      "shot_number": 7,
+      "section": "Hora 3 — Peak emocional",
+      "source_file_a": "IMG_5243.MP4",
+      "source_file_b": "IMG_1971.MP4",
+      "multi_clip": true,
+      "clips": [
+        {
+          "source_file": "IMG_5243.MP4",
+          "crop": "center",
+          "trim_start_s": 0.0,
+          "trim_end_s": 3.0,
+          "duration_s": 3.0
+        },
+        {
+          "source_file": "IMG_1971.MP4",
+          "crop": "center",
+          "trim_start_s": 0.0,
+          "trim_end_s": 3.0,
+          "duration_s": 3.0
+        }
+      ],
+      "duration_s": 6.0,
+      "transition": "cut",
+      "text_overlay": "17:00 — El río hace el resto",
+      "text_position": "center",
+      "text_font": "Teko",
+      "text_size": "large",
+      "text_animation": "fade-in 0.3s",
+      "notes": "CLÍMAX DEL REEL. Timonel con vela arriba y cielo dramático (energía, viento, escora implícita) → corte seco → dos mujeres riéndose en cockpit al atardecer (la emoción humana que resulta). El texto en Teko grande al centro marca el peak. La música debe estar en su punto más alto acá. Este es el momento save/share del reel."
+    },
+    {
+      "shot_number": 8,
+      "section": "Hora 3.5 — Calma / Atardecer",
+      "source_file": "IMG_4654.MP4",
+      "crop": "center",
+      "trim_start_s": 0.0,
+      "trim_end_s": 2.0,
+      "duration_s": 2.0,
+      "speed": 0.8,
+      "transition": "cut",
+      "text_overlay": null,
+      "text_position": null,
+      "text_font": null,
+      "text_size": null,
+      "text_animation": null,
+      "notes": "Persona al timón con skyline y atardecer. Ralentizado a 0.8x para estirar el momento contemplativo post-clímax. Sin texto — dejar respirar. La música baja de intensidad acá. Contraste emocional con el shot 7."
+    },
+    {
+      "shot_number": 9,
+      "section": "Regreso",
+      "source_file_a": "IMG_9849.MP4",
+      "source_file_b": "IMG_1559.MP4",
+      "multi_clip": true,
+      "clips": [
+        {
+          "source_file": "IMG_9849.MP4",
+          "crop": "center",
+          "trim_start_s": 0.0,
+          "trim_end_s": 2.0,
+          "duration_s": 2.0
+        },
+        {
+          "source_file": "IMG_1559.MP4",
+          "crop": "center",
+          "trim_start_s": 0.0,
+          "trim_end_s": 2.0,
+          "duration_s": 2.0
+        }
+      ],
+      "duration_s": 4.0,
+      "transition": "cut",
+      "text_overlay": null,
+      "text_position": null,
+      "text_font": null,
+      "text_size": null,
+      "text_animation": null,
+      "notes": "Velero Desacato a vela completa (toma lateral limpia) → grupo en cockpit con sonrisas y skyline BA. El regreso tiene dos capas: el barco volviendo y la gente feliz. Sin texto, las imágenes cierran solas."
+    },
+    {
+      "shot_number": 10,
+      "section": "Cierre / CTA",
+      "source_file": "7D37F634-D0D7-40B4-9BB6-EFB4C2FDA921.mp4",
+      "crop": "native_vertical",
+      "trim_start_s": 30.0,
+      "trim_end_s": 33.0,
+      "duration_s": 3.0,
+      "speed": 0.7,
+      "transition": "cut",
+      "text_overlay": "18:00 — ¿Qué hacés con tus próximas 4 horas?",
+      "text_position": "center",
+      "text_font": "Teko",
+      "text_size": "large",
+      "text_animation": "fade-in 0.5s",
+      "notes": "Tramo final del clip vertical largo — sol sobre agua, luz dorada. Ralentizado a 0.7x para que el CTA tenga tiempo de leerse. El texto aparece centrado en Teko grande. Este plano conecta visualmente con el shot 1 (misma energía lumínica, distinto clip) — cierra el arco."
+    },
+    {
+      "shot_number": 11,
+      "section": "Logo",
+      "source_file": null,
+      "crop": null,
+      "trim_start_s": null,
+      "trim_end_s": null,
+      "duration_s": 2.0,
+      "speed": null,
+      "transition": "fade-to-black 0.5s",
+      "text_overlay": null,
+      "text_position": null,
+      "text_font": null,
+      "text_size": null,
+      "text_animation": null,
+      "notes": "Pantalla sólida #0A1520 con logo ENBA (lockup-stacked-light.svg) centrado. Fade-in del logo 0.3s. Único momento con transición suave en todo el reel."
+    }
+  ],
+  "total_duration_calculated_s": 49.5,
+  "cover_frame": {
+    "source_file": "IMG_5243.MP4",
+    "frame_at_s": 1.5,
+    "notes": "Timonel con vela arriba y cielo dramático. Tiene composición vertical natural aun siendo crop de horizontal. Coherente con la estética de las 30 piezas estáticas: navegación real, cielo expresivo, presencia humana. Funciona en miniatura del grid."
+  },
+  "closing": {
+    "logo": "campaigns/lanzamiento-15-abr-2026/brand/lockup-stacked-light.svg",
+    "duration_s": 2,
+    "background": "#0A1520"
+  },
+  "editorial_notes": {
+    "clip_selection_rationale": "Se priorizaron clips con buena luz, presencia humana y variedad de ángulos. Se evitó repetir el mismo clip en dos shots (excepto el clip vertical largo 7D37F634 que se usa en shots 4 y 10 con tramos distintos y funciones narrativas diferentes). Se descartó el clip 480p de la callecita costera. Se prefirió IMG_9849 sobre IMG_8522 para el velero Desacato por tener toma más limpia.",
+    "pacing": "Arranque rápido (3s hook), bloques de 4-6s en el desarrollo, peak de 6s con dos clips, calma de 2s, cierre de 3s+2s. Ritmo de cortes secos durante todo el reel — sin wipes, sin zoom transitions, sin nada de TikTok.",
+    "text_density": "6 de 11 shots tienen texto. Los shots sin texto (3, 4, 8, 9) son pausas visuales deliberadas para que el espectador absorba las imágenes sin leer. El peak (shot 7) y el cierre (shot 10) tienen texto en Teko grande al centro — son los dos momentos de máximo impacto tipográfico.",
+    "crop_notes": "Todos los clips horizontales (1920x1080) se croppean center a 9:16. El crop center funciona bien para estos clips porque la acción principal está generalmente centrada. Los dos clips verticales nativos (7D37F634) no necesitan crop."
+  }
+}
