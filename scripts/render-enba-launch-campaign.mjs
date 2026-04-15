@@ -293,7 +293,6 @@ function buildLockupHtml(theme, piece, options = {}) {
   return `
     <div class="lockup ${align} ${tone}">
       <div class="lockup-copy">
-        <span class="lockup-mark" style="--lockup-accent:${accent}; --lockup-secondary:${secondary};">${escapeHtml(mark)}</span>
         <strong style="color:${color};">${escapeHtml(theme.brand.displayName)}</strong>
         <span style="color:${secondary};">${escapeHtml(theme.brand.location)}</span>
       </div>
@@ -373,7 +372,7 @@ function baseFontsCss(theme) {
     }
 
     .lockup strong {
-      font-size: 38px;
+      font-size: 44px;
       line-height: 0.92;
       letter-spacing: 0.02em;
       text-transform: uppercase;
@@ -522,7 +521,7 @@ function buildManifestoHtml(piece, theme, resources) {
 
       .cta {
         color: ${piece.accent};
-        font-size: 24px;
+        font-size: 23px;
         line-height: 1;
         letter-spacing: 0.04em;
       }
@@ -559,6 +558,8 @@ function buildPhotoHeroHtml(piece, theme, resources) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
       ${baseFontsCss(theme)}
+
+      .lockup strong { font-size: 42px; }
 
       .bg,
       .overlay {
@@ -668,7 +669,7 @@ function buildPhotoHeroHtml(piece, theme, resources) {
 
       .cta {
         color: ${piece.accent};
-        font-size: 24px;
+        font-size: 23px;
         line-height: 1;
         letter-spacing: 0.04em;
       }
@@ -767,15 +768,6 @@ function buildProofUtilityHtml(piece, theme, resources) {
         background: linear-gradient(180deg, rgba(245,240,232,0.94) 0%, rgba(250,247,242,0.98) 100%);
       }
 
-      .topbar {
-        position: absolute;
-        inset: 28px 28px auto 28px;
-        display: flex;
-        justify-content: space-between;
-        gap: 18px;
-        align-items: start;
-      }
-
       .chips {
         display: flex;
         flex-wrap: wrap;
@@ -826,7 +818,7 @@ function buildProofUtilityHtml(piece, theme, resources) {
         font-size: 23px;
         line-height: 1;
         letter-spacing: 0.04em;
-        font-weight: 600;
+        font-weight: 500;
       }
 
       .date {
@@ -839,11 +831,8 @@ function buildProofUtilityHtml(piece, theme, resources) {
   <body>
     <div class="shell">
       <div class="visual"></div>
-      <div class="topbar">
-        ${buildLockupHtml(theme, piece, { align: "left", tone: "dark", accent: piece.accent, logoUrl })}
-        <div class="chips"></div>
-      </div>
       <div class="panel">
+        ${buildLockupHtml(theme, piece, { align: "left", tone: "light", accent: piece.accent, logoUrl: resources.logoDark })}
         <h1>${renderTextWithBreaks(piece.headline)}</h1>
         <p class="support">${escapeHtml(piece.support)}</p>
         <div class="utility-row">
