@@ -1,0 +1,1271 @@
+{
+  "_doc": "Manifest del material-bank album abril 2026. Trazabilidad completa del album original.",
+  "_source": "C:\\Users\\josea\\enba-fotos-crudas\\album-abril-2026\\",
+  "_created": "2026-04-15",
+  "_total_original": 91,
+  "_total_videos_skipped": 26,
+  "summary": {
+    "ready": 42,
+    "requires_consent": 20,
+    "maybe": 4,
+    "discarded": 25,
+    "total_kept": 66
+  },
+  "items": [
+    {
+      "original": "album-001.jpg",
+      "filename": "travesias-sunset-popa-jarcia.jpg",
+      "vertical": "travesias",
+      "status": "ready",
+      "tags": [
+        "atardecer",
+        "popa",
+        "jarcia",
+        "openwater",
+        "cinematografico"
+      ],
+      "notes": "Atardecer desde popa con jarcia enmarcando. Hero top-tier. Sin personas.",
+      "in_asset_bank": true,
+      "size_kb": 252.9
+    },
+    {
+      "original": "album-002.jpg",
+      "filename": "marca-chalecos-mate-bandera.jpg",
+      "vertical": "marca",
+      "status": "requires-consent",
+      "tags": [
+        "chalecos",
+        "mate",
+        "bandera",
+        "cubierta",
+        "argentino"
+      ],
+      "notes": "Dos hombres con chalecos naranjas, mate, bandera argentina. SAFE branding en chaleco croppeable. Faces visibles.",
+      "in_asset_bank": false,
+      "size_kb": 518.2
+    },
+    {
+      "original": "album-003.jpg",
+      "filename": "travesias-proa-rio-arboles.jpg",
+      "vertical": "travesias",
+      "status": "ready",
+      "tags": [
+        "proa",
+        "rio",
+        "arboles",
+        "overcast",
+        "delta"
+      ],
+      "notes": "Proa acercandose a costa arbolada, dia nublado. Persona parcial cortada. Soporte.",
+      "in_asset_bank": false,
+      "size_kb": 526.3
+    },
+    {
+      "original": "album-004.jpg",
+      "filename": "marca-vela-plena-cockpit.jpg",
+      "vertical": "marca",
+      "status": "ready",
+      "tags": [
+        "vela",
+        "plena",
+        "cockpit",
+        "cielo",
+        "aspiracional"
+      ],
+      "notes": "Vela completa desde cockpit, cielo con nubes. Aspiracional. Sin personas.",
+      "in_asset_bank": true,
+      "size_kb": 502.2
+    },
+    {
+      "original": "album-005.jpg",
+      "filename": "escuela-grupo-marina-golden.jpg",
+      "vertical": "escuela",
+      "status": "ready",
+      "tags": [
+        "grupo",
+        "marina",
+        "golden-hour",
+        "preparacion",
+        "cubierta"
+      ],
+      "notes": "Grupo en barco en marina a golden hour. Suzuki y Yacare branding croppeable. Escuela/prep.",
+      "in_asset_bank": false,
+      "size_kb": 774.1
+    },
+    {
+      "original": "album-006.jpg",
+      "filename": "backstage-mate-cockpit-casual.jpg",
+      "vertical": "maybe",
+      "status": "maybe",
+      "tags": [
+        "mate",
+        "cockpit",
+        "casual",
+        "rosa"
+      ],
+      "notes": "Hombre con mate en cockpit. Face close. Toalla y telefono en cubierta. Algo desordenado.",
+      "in_asset_bank": false,
+      "size_kb": 787.4
+    },
+    {
+      "original": "album-007.jpg",
+      "filename": "marca-mujer-popa-sunset.jpg",
+      "vertical": "marca",
+      "status": "requires-consent",
+      "tags": [
+        "mujer",
+        "popa",
+        "sunset",
+        "sonrisa",
+        "salvavidas"
+      ],
+      "notes": "Mujer sentada en popa al atardecer sonriendo. Suzuki croppeable. Gran calidez. REQUIRES-CONSENT.",
+      "in_asset_bank": false,
+      "size_kb": 484.4
+    },
+    {
+      "original": "album-008.jpg",
+      "filename": null,
+      "vertical": null,
+      "status": "discarded",
+      "tags": [],
+      "notes": "Dos tripulantes con snack branded en primer plano. Inutilizable.",
+      "in_asset_bank": false
+    },
+    {
+      "original": "album-009.jpg",
+      "filename": "travesias-grupo-cockpit-skyline.jpg",
+      "vertical": "travesias",
+      "status": "requires-consent",
+      "tags": [
+        "grupo",
+        "cockpit",
+        "skyline",
+        "candid",
+        "colorido"
+      ],
+      "notes": "Cuatro personas en cockpit, skyline, jackets coloridos. Candid. REQUIRES-CONSENT.",
+      "in_asset_bank": true,
+      "size_kb": 584.6
+    },
+    {
+      "original": "album-010.jpg",
+      "filename": "travesias-popa-sunset-telefono.jpg",
+      "vertical": "maybe",
+      "status": "maybe",
+      "tags": [
+        "popa",
+        "sunset",
+        "telefono"
+      ],
+      "notes": "Persona al timon mirando telefono. Buen sunset pero sujeto distraido. Rescatable como fondo.",
+      "in_asset_bank": false,
+      "size_kb": 145.0
+    },
+    {
+      "original": "album-011.jpg",
+      "filename": "escuela-estudiantes-vela-abierta.jpg",
+      "vertical": "escuela",
+      "status": "ready",
+      "tags": [
+        "estudiantes",
+        "vela",
+        "chalecos",
+        "aprendizaje",
+        "skyline"
+      ],
+      "notes": "Dos estudiantes con chalecos mirando la vela. Agua abierta, skyline. Faces parciales en contexto.",
+      "in_asset_bank": true,
+      "size_kb": 199.6
+    },
+    {
+      "original": "album-012.jpg",
+      "filename": "travesias-grupo-bajo-vela.jpg",
+      "vertical": "travesias",
+      "status": "ready",
+      "tags": [
+        "grupo",
+        "vela",
+        "conversacion",
+        "natural"
+      ],
+      "notes": "Cuatro personas bajo vela en conversacion. Dinamica grupal natural.",
+      "in_asset_bank": false,
+      "size_kb": 648.9
+    },
+    {
+      "original": "album-013.jpg",
+      "filename": "marca-capitan-timon-confianza.jpg",
+      "vertical": "marca",
+      "status": "requires-consent",
+      "tags": [
+        "capitan",
+        "timon",
+        "confianza",
+        "openwater"
+      ],
+      "notes": "Hombre solo al timon mirando adelante. Composicion fuerte. REQUIRES-CONSENT.",
+      "in_asset_bank": false,
+      "size_kb": 609.6
+    },
+    {
+      "original": "album-014.jpg",
+      "filename": null,
+      "vertical": null,
+      "status": "discarded",
+      "tags": [],
+      "notes": "Imagen rotada 90 grados. Faces muy cerca. Inutilizable.",
+      "in_asset_bank": false
+    },
+    {
+      "original": "album-015.jpg",
+      "filename": "marca-velero-distante-skyline.jpg",
+      "vertical": "maybe",
+      "status": "maybe",
+      "tags": [
+        "velero",
+        "distante",
+        "skyline",
+        "urbano"
+      ],
+      "notes": "Velero lejano con skyline. Baja resolucion, algo soft. Util para variedad.",
+      "in_asset_bank": false,
+      "size_kb": 474.7
+    },
+    {
+      "original": "album-016.jpg",
+      "filename": "marca-brazos-abiertos-proa-golden.jpg",
+      "vertical": "marca",
+      "status": "requires-consent",
+      "tags": [
+        "proa",
+        "brazos-abiertos",
+        "golden-hour",
+        "skyline",
+        "alegria"
+      ],
+      "notes": "Hombre en proa con brazos abiertos, skyline, luz dorada. Scroll-stopping. REQUIRES-CONSENT.",
+      "in_asset_bank": false,
+      "size_kb": 769.7
+    },
+    {
+      "original": "album-017.jpg",
+      "filename": "backstage-charla-popa-chalecos.jpg",
+      "vertical": "backstage",
+      "status": "requires-consent",
+      "tags": [
+        "charla",
+        "popa",
+        "chalecos",
+        "conexion",
+        "openwater"
+      ],
+      "notes": "Dos hombres con chalecos charlando en popa. Conexion autentica. REQUIRES-CONSENT.",
+      "in_asset_bank": true,
+      "size_kb": 784.2
+    },
+    {
+      "original": "album-018.jpg",
+      "filename": "travesias-sunset-compas-escotilla.jpg",
+      "vertical": "travesias",
+      "status": "ready",
+      "tags": [
+        "atardecer",
+        "compas",
+        "escotilla",
+        "vela",
+        "detalle"
+      ],
+      "notes": "Sunset a traves de escotilla y vela, compas visible. Cinematografico. Sin personas.",
+      "in_asset_bank": true,
+      "size_kb": 511.1
+    },
+    {
+      "original": "album-019.jpg",
+      "filename": "escuela-maniobra-condiciones.jpg",
+      "vertical": "escuela",
+      "status": "ready",
+      "tags": [
+        "maniobra",
+        "condiciones",
+        "cabos",
+        "practica"
+      ],
+      "notes": "Dos personas trabajando cabos en condiciones grises. Practica real.",
+      "in_asset_bank": true,
+      "size_kb": 588.4
+    },
+    {
+      "original": "album-020.jpg",
+      "filename": null,
+      "vertical": null,
+      "status": "discarded",
+      "tags": [],
+      "notes": "Duplicado de album-003, misma locacion. Instrumento display visible.",
+      "in_asset_bank": false
+    },
+    {
+      "original": "album-021.jpg",
+      "filename": "backstage-gesto-proa-casual.jpg",
+      "vertical": "maybe",
+      "status": "maybe",
+      "tags": [
+        "proa",
+        "gesto",
+        "casual",
+        "hoodie"
+      ],
+      "notes": "Hombre haciendo gesto rock en proa. Casual/divertido. Composicion debil.",
+      "in_asset_bank": false,
+      "size_kb": 729.4
+    },
+    {
+      "original": "album-022.jpg",
+      "filename": "marca-trio-cockpit-sunny.jpg",
+      "vertical": "marca",
+      "status": "ready",
+      "tags": [
+        "trio",
+        "cockpit",
+        "sunny",
+        "skyline",
+        "conversacion"
+      ],
+      "notes": "Tres personas en cockpit, dia soleado, skyline. Branding parcial en remera croppeable.",
+      "in_asset_bank": false,
+      "size_kb": 602.2
+    },
+    {
+      "original": "album-023.jpg",
+      "filename": null,
+      "vertical": null,
+      "status": "discarded",
+      "tags": [],
+      "notes": "Imagen al reves. Persona sin remera. Inutilizable.",
+      "in_asset_bank": false
+    },
+    {
+      "original": "album-024.jpg",
+      "filename": "broker-yate-clasico-banderas.jpg",
+      "vertical": "broker",
+      "status": "ready",
+      "tags": [
+        "yate",
+        "clasico",
+        "madera",
+        "banderas",
+        "nauticas"
+      ],
+      "notes": "Yate clasico de madera con banderas nauticas en navegacion. Sin personas.",
+      "in_asset_bank": true,
+      "size_kb": 627.0
+    },
+    {
+      "original": "album-025.jpg",
+      "filename": "broker-velero-nocturno-reflejos.jpg",
+      "vertical": "broker",
+      "status": "ready",
+      "tags": [
+        "velero",
+        "nocturno",
+        "reflejos",
+        "ciudad",
+        "aspiracional"
+      ],
+      "notes": "Velero clasico en marina de noche con reflejos. Aspiracional. Sin personas.",
+      "in_asset_bank": true,
+      "size_kb": 602.4
+    },
+    {
+      "original": "album-026.jpg",
+      "filename": "escuela-dinghy-distante-skyline.jpg",
+      "vertical": "escuela",
+      "status": "ready",
+      "tags": [
+        "dinghy",
+        "distante",
+        "skyline",
+        "entrenamiento"
+      ],
+      "notes": "Dinghy chico con dos personas, skyline. Distante, algo soft. Muestra entrenamiento en dinghy.",
+      "in_asset_bank": false,
+      "size_kb": 526.7
+    },
+    {
+      "original": "album-027.jpg",
+      "filename": null,
+      "vertical": null,
+      "status": "discarded",
+      "tags": [],
+      "notes": "Muy borroso. Heavy digital zoom o crop de baja resolucion.",
+      "in_asset_bank": false
+    },
+    {
+      "original": "album-028.jpg",
+      "filename": null,
+      "vertical": null,
+      "status": "discarded",
+      "tags": [],
+      "notes": "Persona con remera AFA/Adidas. Branding de terceros prominente.",
+      "in_asset_bank": false
+    },
+    {
+      "original": "album-029.jpg",
+      "filename": "marca-grupo-popa-saludando-golden.jpg",
+      "vertical": "marca",
+      "status": "requires-consent",
+      "tags": [
+        "grupo",
+        "popa",
+        "saludando",
+        "golden-hour"
+      ],
+      "notes": "Grupo de 5 saludando en popa, luz dorada. Gran energia. REQUIRES-CONSENT.",
+      "in_asset_bank": false,
+      "size_kb": 361.4
+    },
+    {
+      "original": "album-030.jpg",
+      "filename": "escuela-timonel-chaleco-openwater.jpg",
+      "vertical": "escuela",
+      "status": "ready",
+      "tags": [
+        "timonel",
+        "chaleco",
+        "openwater",
+        "sonrisa"
+      ],
+      "notes": "Hombre al timon con chaleco naranja, agua abierta. SAFE branding croppeable.",
+      "in_asset_bank": false,
+      "size_kb": 819.4
+    },
+    {
+      "original": "album-031.jpg",
+      "filename": "travesias-capitan-golden-flota.jpg",
+      "vertical": "travesias",
+      "status": "ready",
+      "tags": [
+        "capitan",
+        "golden-hour",
+        "flota",
+        "timon"
+      ],
+      "notes": "Skipper al timon en golden hour, veleros de fondo. Dinamico.",
+      "in_asset_bank": false,
+      "size_kb": 591.7
+    },
+    {
+      "original": "album-032.jpg",
+      "filename": "escuela-duo-chalecos-binoculares.jpg",
+      "vertical": "escuela",
+      "status": "ready",
+      "tags": [
+        "duo",
+        "chalecos",
+        "binoculares",
+        "overcast"
+      ],
+      "notes": "Dos tripulantes con chalecos y binoculares. Vertical. Soporte.",
+      "in_asset_bank": false,
+      "size_kb": 227.8
+    },
+    {
+      "original": "album-033.jpg",
+      "filename": "escuela-sonrisa-cabos-cielo.jpg",
+      "vertical": "escuela",
+      "status": "requires-consent",
+      "tags": [
+        "sonrisa",
+        "cabos",
+        "cielo",
+        "candid"
+      ],
+      "notes": "Persona sonriente con gorra trabajando cabos. Gran energia candid. REQUIRES-CONSENT.",
+      "in_asset_bank": false,
+      "size_kb": 593.6
+    },
+    {
+      "original": "album-034.jpg",
+      "filename": "broker-velero-amarrado-overcast.jpg",
+      "vertical": "broker",
+      "status": "ready",
+      "tags": [
+        "velero",
+        "amarrado",
+        "overcast",
+        "marina"
+      ],
+      "notes": "Velero amarrado en marina, dia nublado. Matricula visible. Soporte broker.",
+      "in_asset_bank": false,
+      "size_kb": 705.2
+    },
+    {
+      "original": "album-035.jpg",
+      "filename": "travesias-bandera-uruguay-tormenta.jpg",
+      "vertical": "travesias",
+      "status": "ready",
+      "tags": [
+        "uruguay",
+        "bandera",
+        "tormenta",
+        "dramatico",
+        "cruce"
+      ],
+      "notes": "Vela con bandera uruguaya, nubes de tormenta dramaticas. Sin personas.",
+      "in_asset_bank": true,
+      "size_kb": 180.2
+    },
+    {
+      "original": "album-036.jpg",
+      "filename": "marca-velero-distante-skyline-agua.jpg",
+      "vertical": "marca",
+      "status": "ready",
+      "tags": [
+        "velero",
+        "distante",
+        "skyline",
+        "agua"
+      ],
+      "notes": "Velero lejano con skyline de BA desde el agua. Algo de ruido. Soporte.",
+      "in_asset_bank": false,
+      "size_kb": 150.7
+    },
+    {
+      "original": "album-037.jpg",
+      "filename": "marca-hombre-chaleco-emocion.jpg",
+      "vertical": "marca",
+      "status": "requires-consent",
+      "tags": [
+        "hombre",
+        "chaleco",
+        "emocion",
+        "cubierta"
+      ],
+      "notes": "Hombre con chaleco naranja en cubierta, expresion de emocion. REQUIRES-CONSENT.",
+      "in_asset_bank": false,
+      "size_kb": 526.6
+    },
+    {
+      "original": "album-038.jpg",
+      "filename": "travesias-grupo-cockpit-sunny.jpg",
+      "vertical": "travesias",
+      "status": "ready",
+      "tags": [
+        "grupo",
+        "cockpit",
+        "sunny",
+        "skyline",
+        "relajado"
+      ],
+      "notes": "4 personas relajadas en cockpit, dia soleado, skyline lejano. Logo en remera croppeable.",
+      "in_asset_bank": false,
+      "size_kb": 691.7
+    },
+    {
+      "original": "album-039.jpg",
+      "filename": "marca-picante-heeling-accion.jpg",
+      "vertical": "marca",
+      "status": "ready",
+      "tags": [
+        "picante",
+        "heeling",
+        "accion",
+        "skyline",
+        "profesional"
+      ],
+      "notes": "Picante escorado con tripulacion, skyline. Foto profesional. Watermark FC croppeable. Nombre barco visible.",
+      "in_asset_bank": false,
+      "size_kb": 711.2
+    },
+    {
+      "original": "album-040.jpg",
+      "filename": "escuela-heeling-tripulacion.jpg",
+      "vertical": "escuela",
+      "status": "ready",
+      "tags": [
+        "heeling",
+        "hiking",
+        "accion",
+        "tripulacion"
+      ],
+      "notes": "Velero escorado con tripulacion hiking. Vista desde popa. Faces no identificables.",
+      "in_asset_bank": true,
+      "size_kb": 812.5
+    },
+    {
+      "original": "album-041.jpg",
+      "filename": "escuela-stern-heeling-contraluz.jpg",
+      "vertical": "escuela",
+      "status": "ready",
+      "tags": [
+        "stern",
+        "heeling",
+        "contraluz",
+        "spray",
+        "dramatico"
+      ],
+      "notes": "Popa escorada a contraluz con spray. Matricula visible. Dramatico.",
+      "in_asset_bank": false,
+      "size_kb": 759.8
+    },
+    {
+      "original": "album-042.jpg",
+      "filename": null,
+      "vertical": null,
+      "status": "discarded",
+      "tags": [],
+      "notes": "Duplicado visual de 040/041. Sobreexpuesto.",
+      "in_asset_bank": false
+    },
+    {
+      "original": "album-043.jpg",
+      "filename": "backstage-escotilla-preparacion.jpg",
+      "vertical": "backstage",
+      "status": "requires-consent",
+      "tags": [
+        "escotilla",
+        "preparacion",
+        "dock",
+        "mujer"
+      ],
+      "notes": "Mujer emergiendo de escotilla en dock. Vibe de preparacion. REQUIRES-CONSENT.",
+      "in_asset_bank": false,
+      "size_kb": 1314.1
+    },
+    {
+      "original": "album-044.jpg",
+      "filename": "escuela-timonel-golden-hour.jpg",
+      "vertical": "escuela",
+      "status": "requires-consent",
+      "tags": [
+        "timonel",
+        "mujer",
+        "golden-hour",
+        "horizonte",
+        "aspiracional"
+      ],
+      "notes": "Mujer al timon en hora dorada. Aspiracional. REQUIRES-CONSENT.",
+      "in_asset_bank": true,
+      "size_kb": 1092.8
+    },
+    {
+      "original": "album-045.jpg",
+      "filename": null,
+      "vertical": null,
+      "status": "discarded",
+      "tags": [],
+      "notes": "Dock infrastructure desordenado. Nombre de barco visible. No aspiracional.",
+      "in_asset_bank": false
+    },
+    {
+      "original": "album-046.jpg",
+      "filename": "servicios-trabajo-cubierta-marina.jpg",
+      "vertical": "servicios",
+      "status": "ready",
+      "tags": [
+        "trabajo",
+        "cubierta",
+        "marina",
+        "mantenimiento"
+      ],
+      "notes": "Hombre trabajando en cubierta de marina, de espaldas. Matricula M25. Soporte servicios.",
+      "in_asset_bank": false,
+      "size_kb": 841.3
+    },
+    {
+      "original": "album-047.jpg",
+      "filename": null,
+      "vertical": null,
+      "status": "discarded",
+      "tags": [],
+      "notes": "Demasiado posado. Lens flare. No aporta valor unico.",
+      "in_asset_bank": false
+    },
+    {
+      "original": "album-048.jpg",
+      "filename": null,
+      "vertical": null,
+      "status": "discarded",
+      "tags": [],
+      "notes": "Version inferior de 040/041. Distante y ruidoso.",
+      "in_asset_bank": false
+    },
+    {
+      "original": "album-049.jpg",
+      "filename": "travesias-amigos-cockpit-golden.jpg",
+      "vertical": "travesias",
+      "status": "ready",
+      "tags": [
+        "amigos",
+        "cockpit",
+        "golden",
+        "skyline",
+        "relajado"
+      ],
+      "notes": "4 amigos relajados en cockpit, golden hour, skyline. Logo en remera. Gran energia.",
+      "in_asset_bank": false,
+      "size_kb": 622.0
+    },
+    {
+      "original": "album-050.jpg",
+      "filename": "travesias-spinnaker-color.jpg",
+      "vertical": "travesias",
+      "status": "ready",
+      "tags": [
+        "spinnaker",
+        "color",
+        "verde",
+        "violeta",
+        "regata"
+      ],
+      "notes": "Spinnaker verde/violeta desde cubierta. Unico asset con color fuerte. Sin faces.",
+      "in_asset_bank": true,
+      "size_kb": 956.9
+    },
+    {
+      "original": "album-051.jpg",
+      "filename": "escuela-ajustando-jarcia-vela.jpg",
+      "vertical": "escuela",
+      "status": "ready",
+      "tags": [
+        "ajustando",
+        "jarcia",
+        "vela",
+        "cielo"
+      ],
+      "notes": "Persona de pie ajustando jarcia con vela arriba. Face parcial. Soporte.",
+      "in_asset_bank": false,
+      "size_kb": 540.6
+    },
+    {
+      "original": "album-052.jpg",
+      "filename": "escuela-tripulante-proa-vela.jpg",
+      "vertical": "escuela",
+      "status": "ready",
+      "tags": [
+        "tripulante",
+        "proa",
+        "vela",
+        "vertical",
+        "aspiracional"
+      ],
+      "notes": "Persona de pie en proa con vela completa. Mejor framing que 051. Aspiracional.",
+      "in_asset_bank": false,
+      "size_kb": 654.2
+    },
+    {
+      "original": "album-053.jpg",
+      "filename": "travesias-duo-cockpit-sunset.jpg",
+      "vertical": "travesias",
+      "status": "requires-consent",
+      "tags": [
+        "duo",
+        "cockpit",
+        "sunset",
+        "mujeres",
+        "relajado"
+      ],
+      "notes": "Dos mujeres en cockpit al atardecer. Golden hour. Dedo en frame. REQUIRES-CONSENT.",
+      "in_asset_bank": false,
+      "size_kb": 632.5
+    },
+    {
+      "original": "album-054.jpg",
+      "filename": null,
+      "vertical": null,
+      "status": "discarded",
+      "tags": [],
+      "notes": "Muy distante. Baja resolucion. Apenas se ve el barco.",
+      "in_asset_bank": false
+    },
+    {
+      "original": "album-055.jpg",
+      "filename": "escuela-instructor-cubierta.jpg",
+      "vertical": "escuela",
+      "status": "requires-consent",
+      "tags": [
+        "instructor",
+        "alumno",
+        "cubierta",
+        "practica",
+        "rio"
+      ],
+      "notes": "Instructor y alumno en cubierta. Dinamica de ensenanza real. REQUIRES-CONSENT.",
+      "in_asset_bank": true,
+      "size_kb": 877.9
+    },
+    {
+      "original": "album-056.jpg",
+      "filename": null,
+      "vertical": null,
+      "status": "discarded",
+      "tags": [],
+      "notes": "Muy lejano, granulado, luz plana. Sin valor.",
+      "in_asset_bank": false
+    },
+    {
+      "original": "album-057.jpg",
+      "filename": null,
+      "vertical": null,
+      "status": "discarded",
+      "tags": [],
+      "notes": "Duplicado peor de 056.",
+      "in_asset_bank": false
+    },
+    {
+      "original": "album-058.jpg",
+      "filename": "travesias-mujer-timon-bandera-uruguay.jpg",
+      "vertical": "travesias",
+      "status": "requires-consent",
+      "tags": [
+        "mujer",
+        "timon",
+        "bandera",
+        "uruguay",
+        "cielo"
+      ],
+      "notes": "Mujer con gorra al timon, bandera uruguaya, cielo azul. REQUIRES-CONSENT.",
+      "in_asset_bank": false,
+      "size_kb": 614.8
+    },
+    {
+      "original": "album-059.jpg",
+      "filename": null,
+      "vertical": null,
+      "status": "discarded",
+      "tags": [],
+      "notes": "Demasiado casual. Bebida en mano. Off-brand.",
+      "in_asset_bank": false
+    },
+    {
+      "original": "album-060.jpg",
+      "filename": "marca-mujer-proa-golden-puerto.jpg",
+      "vertical": "marca",
+      "status": "requires-consent",
+      "tags": [
+        "mujer",
+        "proa",
+        "golden-hour",
+        "puerto",
+        "lifestyle"
+      ],
+      "notes": "Mujer en proa al atardecer en puerto. Aspiracional. REQUIRES-CONSENT.",
+      "in_asset_bank": false,
+      "size_kb": 638.6
+    },
+    {
+      "original": "album-061.jpg",
+      "filename": "travesias-proa-mirando-horizonte.jpg",
+      "vertical": "travesias",
+      "status": "ready",
+      "tags": [
+        "proa",
+        "horizonte",
+        "espaldas",
+        "openwater",
+        "anonimo"
+      ],
+      "notes": "Persona sentada en proa mirando horizonte, de espaldas. Anonimo. Velero a lo lejos.",
+      "in_asset_bank": false,
+      "size_kb": 371.6
+    },
+    {
+      "original": "album-062.jpg",
+      "filename": null,
+      "vertical": null,
+      "status": "discarded",
+      "tags": [],
+      "notes": "Face close, cubierta desordenada.",
+      "in_asset_bank": false
+    },
+    {
+      "original": "album-063.jpg",
+      "filename": "marca-cockpit-contraluz-grupo.jpg",
+      "vertical": "marca",
+      "status": "ready",
+      "tags": [
+        "cockpit",
+        "contraluz",
+        "grupo",
+        "sunset",
+        "lifestyle"
+      ],
+      "notes": "Grupo en cockpit a contraluz con sol y skyline. Faces no identificables por backlight.",
+      "in_asset_bank": true,
+      "size_kb": 754.0
+    },
+    {
+      "original": "album-064.jpg",
+      "filename": "escuela-wide-angle-cubierta-skyline.jpg",
+      "vertical": "escuela",
+      "status": "requires-consent",
+      "tags": [
+        "wide-angle",
+        "cubierta",
+        "skyline",
+        "aprendizaje"
+      ],
+      "notes": "Angulo amplio dramatico, persona en cubierta mirando jarcia. REQUIRES-CONSENT.",
+      "in_asset_bank": false,
+      "size_kb": 597.6
+    },
+    {
+      "original": "album-065.jpg",
+      "filename": "backstage-escotilla-subiendo.jpg",
+      "vertical": "backstage",
+      "status": "ready",
+      "tags": [
+        "escotilla",
+        "subiendo",
+        "vela",
+        "interior"
+      ],
+      "notes": "Persona subiendo por escotilla, vela arriba. Angulo interesante desde abajo. Face parcial con gorra.",
+      "in_asset_bank": false,
+      "size_kb": 826.1
+    },
+    {
+      "original": "album-066.jpg",
+      "filename": null,
+      "vertical": null,
+      "status": "discarded",
+      "tags": [],
+      "notes": "Logo Adidas prominente en remera. Branding de terceros.",
+      "in_asset_bank": false
+    },
+    {
+      "original": "album-067.jpg",
+      "filename": "travesias-hombre-cubierta-sunset-skyline.jpg",
+      "vertical": "travesias",
+      "status": "ready",
+      "tags": [
+        "hombre",
+        "cubierta",
+        "sunset",
+        "skyline"
+      ],
+      "notes": "Hombre en cubierta al atardecer, skyline. Texto en remera croppeable. Soporte.",
+      "in_asset_bank": false,
+      "size_kb": 601.5
+    },
+    {
+      "original": "album-068.jpg",
+      "filename": null,
+      "vertical": null,
+      "status": "discarded",
+      "tags": [],
+      "notes": "Barco Acheron en infraestructura industrial. No aspiracional.",
+      "in_asset_bank": false
+    },
+    {
+      "original": "album-069.jpg",
+      "filename": null,
+      "vertical": null,
+      "status": "discarded",
+      "tags": [],
+      "notes": "Grupo casual, persona sin remera. Bandera argentina pero composicion desordenada.",
+      "in_asset_bank": false
+    },
+    {
+      "original": "album-070.jpg",
+      "filename": null,
+      "vertical": null,
+      "status": "discarded",
+      "tags": [],
+      "notes": "Face muy close, awkward crop, mitad de otra persona visible.",
+      "in_asset_bank": false
+    },
+    {
+      "original": "album-071.jpg",
+      "filename": null,
+      "vertical": null,
+      "status": "discarded",
+      "tags": [],
+      "notes": "Scaffolding industrial. Nombre de barco visible. Feo.",
+      "in_asset_bank": false
+    },
+    {
+      "original": "album-072.jpg",
+      "filename": "marca-marina-cielo-dramatico.jpg",
+      "vertical": "marca",
+      "status": "ready",
+      "tags": [
+        "marina",
+        "cielo",
+        "dramatico",
+        "mastiles",
+        "base"
+      ],
+      "notes": "Marina con mastiles y cielo dramatico. Sin personas. Contexto de base.",
+      "in_asset_bank": true,
+      "size_kb": 777.3
+    },
+    {
+      "original": "album-073.jpg",
+      "filename": "escuela-risa-vela-faro.jpg",
+      "vertical": "escuela",
+      "status": "requires-consent",
+      "tags": [
+        "risa",
+        "vela",
+        "faro",
+        "candid",
+        "practica"
+      ],
+      "notes": "Hombre riendo manejando vela, faro de fondo. Emocion genuina. REQUIRES-CONSENT.",
+      "in_asset_bank": false,
+      "size_kb": 783.6
+    },
+    {
+      "original": "album-074.jpg",
+      "filename": "escuela-instructor-bandera-faro.jpg",
+      "vertical": "escuela",
+      "status": "requires-consent",
+      "tags": [
+        "instructor",
+        "bandera",
+        "faro",
+        "pose"
+      ],
+      "notes": "Hombre de pie con bandera argentina y faro. Vibe de instructor. REQUIRES-CONSENT.",
+      "in_asset_bank": false,
+      "size_kb": 716.6
+    },
+    {
+      "original": "album-075.jpg",
+      "filename": "escuela-vela-contraluz-maniobra.jpg",
+      "vertical": "escuela",
+      "status": "ready",
+      "tags": [
+        "contraluz",
+        "maniobra",
+        "vela",
+        "anonimo",
+        "bandera-uruguay"
+      ],
+      "notes": "Persona manejando vela a contraluz desde atras. Anonimo. Bandera uruguaya.",
+      "in_asset_bank": true,
+      "size_kb": 442.4
+    },
+    {
+      "original": "album-076.jpg",
+      "filename": "travesias-fondeadero-luna-atardecer.jpg",
+      "vertical": "travesias",
+      "status": "ready",
+      "tags": [
+        "fondeadero",
+        "luna",
+        "atardecer",
+        "mastiles",
+        "silueta",
+        "mistica"
+      ],
+      "notes": "Fondeadero con luna y mastiles en silueta. Hero top-tier. Sin personas.",
+      "in_asset_bank": true,
+      "size_kb": 543.6
+    },
+    {
+      "original": "album-077.jpg",
+      "filename": "backstage-celebracion-cubierta.jpg",
+      "vertical": "backstage",
+      "status": "ready",
+      "tags": [
+        "celebracion",
+        "cubierta",
+        "gorro",
+        "alegria",
+        "vela"
+      ],
+      "notes": "Persona celebrando con brazo extendido. Gorro cubre cara. Vela de fondo.",
+      "in_asset_bank": true,
+      "size_kb": 478.9
+    },
+    {
+      "original": "album-078.jpg",
+      "filename": null,
+      "vertical": null,
+      "status": "discarded",
+      "tags": [],
+      "notes": "Logo Adidas visible. Crop muy cerrado. Branding blocker.",
+      "in_asset_bank": false
+    },
+    {
+      "original": "album-079.jpg",
+      "filename": null,
+      "vertical": null,
+      "status": "discarded",
+      "tags": [],
+      "notes": "Persona en agua junto al barco. Oscuro, baja calidad.",
+      "in_asset_bank": false
+    },
+    {
+      "original": "album-080.jpg",
+      "filename": null,
+      "vertical": null,
+      "status": "discarded",
+      "tags": [],
+      "notes": "Vista gris plana del rio. Sin energia ni composicion.",
+      "in_asset_bank": false
+    },
+    {
+      "original": "album-081.jpg",
+      "filename": "escuela-timonel-compas-gris.jpg",
+      "vertical": "escuela",
+      "status": "ready",
+      "tags": [
+        "timonel",
+        "compas",
+        "navegacion",
+        "overcast",
+        "practica"
+      ],
+      "notes": "Persona al timon con compas, dia gris, vela arriba. Face parcial lateral.",
+      "in_asset_bank": true,
+      "size_kb": 656.2
+    },
+    {
+      "original": "album-082.jpg",
+      "filename": "marca-reflejo-sol-agua.jpg",
+      "vertical": "marca",
+      "status": "ready",
+      "tags": [
+        "reflejo",
+        "sol",
+        "agua",
+        "abstracto",
+        "textura"
+      ],
+      "notes": "Reflejo de sol sobre agua con baranda. Abstracto/atmosferico. Sin personas.",
+      "in_asset_bank": true,
+      "size_kb": 693.8
+    },
+    {
+      "original": "album-083.jpg",
+      "filename": "marca-mujer-botavara-cielo.jpg",
+      "vertical": "marca",
+      "status": "requires-consent",
+      "tags": [
+        "mujer",
+        "botavara",
+        "cielo",
+        "pose",
+        "aspiracional"
+      ],
+      "notes": "Mujer de pie sobre botavara, cielo azul. Aspiracional. REQUIRES-CONSENT.",
+      "in_asset_bank": false,
+      "size_kb": 574.9
+    },
+    {
+      "original": "album-084.jpg",
+      "filename": "travesias-flota-navegando-jarcia.jpg",
+      "vertical": "travesias",
+      "status": "ready",
+      "tags": [
+        "flota",
+        "regata",
+        "jarcia",
+        "editorial",
+        "dinamico"
+      ],
+      "notes": "Flota vista a traves de jarcia. Calidad editorial. Sin faces identificables.",
+      "in_asset_bank": true,
+      "size_kb": 784.4
+    },
+    {
+      "original": "album-085.jpg",
+      "filename": "marca-vela-abstracta-cielo.jpg",
+      "vertical": "marca",
+      "status": "ready",
+      "tags": [
+        "vela",
+        "abstracto",
+        "cielo",
+        "lens-flare",
+        "grafico"
+      ],
+      "notes": "Vela desde abajo con lens flare y cielo azul. Grafico. Sin personas.",
+      "in_asset_bank": true,
+      "size_kb": 568.0
+    },
+    {
+      "original": "album-086.jpg",
+      "filename": "marca-velero-perfil-navegando.jpg",
+      "vertical": "marca",
+      "status": "ready",
+      "tags": [
+        "velero",
+        "perfil",
+        "navegando",
+        "costanera",
+        "arboles"
+      ],
+      "notes": "Velero completo bajo vela desde el agua. Marina de fondo. Sin faces.",
+      "in_asset_bank": true,
+      "size_kb": 931.4
+    },
+    {
+      "original": "album-087.jpg",
+      "filename": null,
+      "vertical": null,
+      "status": "discarded",
+      "tags": [],
+      "notes": "Duplicado de 086 con angulo menos limpio.",
+      "in_asset_bank": false
+    },
+    {
+      "original": "album-088.jpg",
+      "filename": null,
+      "vertical": null,
+      "status": "discarded",
+      "tags": [],
+      "notes": "Ropa de invierno, bolsas de plastico en cubierta. Desordenado.",
+      "in_asset_bank": false
+    },
+    {
+      "original": "album-089.jpg",
+      "filename": "marca-mujer-mastil-accion-color.jpg",
+      "vertical": "marca",
+      "status": "requires-consent",
+      "tags": [
+        "mujer",
+        "mastil",
+        "accion",
+        "color",
+        "alegria"
+      ],
+      "notes": "Mujer trepando mastil/botavara sonriendo. Ropa colorida. REQUIRES-CONSENT.",
+      "in_asset_bank": false,
+      "size_kb": 600.6
+    },
+    {
+      "original": "album-090.jpg",
+      "filename": "travesias-desacatao-navegando.jpg",
+      "vertical": "travesias",
+      "status": "ready",
+      "tags": [
+        "desacatao",
+        "navegando",
+        "choppy",
+        "flota"
+      ],
+      "notes": "Velero Desacatao navegando. Nombre visible, croppeable. Buena accion.",
+      "in_asset_bank": false,
+      "size_kb": 839.0
+    },
+    {
+      "original": "album-091.jpg",
+      "filename": "travesias-desacatao-cerca-tripulacion.jpg",
+      "vertical": "travesias",
+      "status": "ready",
+      "tags": [
+        "desacatao",
+        "cerca",
+        "tripulacion",
+        "chalecos"
+      ],
+      "notes": "Desacatao mas cerca, tripulacion con chalecos. Nombre visible. Mejor que 090.",
+      "in_asset_bank": false,
+      "size_kb": 847.9
+    }
+  ]
+}
