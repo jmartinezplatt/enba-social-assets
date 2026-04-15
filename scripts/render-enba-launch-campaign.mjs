@@ -548,7 +548,6 @@ function buildManifestoHtml(piece, theme, resources) {
     <div class="texture"></div>
     <div class="frame"></div>
     <div class="content">
-      <div class="topnote">${escapeHtml(piece.phase)} · ${escapeHtml(piece.vertical)}</div>
       <div class="center">
         ${buildLockupHtml(theme, piece, { align: "center", tone: "light", accent: piece.accent, logoUrl })}
         <span class="kicker">${escapeHtml(theme.brand.promise)}</span>
@@ -557,7 +556,6 @@ function buildManifestoHtml(piece, theme, resources) {
       </div>
       <div class="bottom">
         <span class="cta">${escapeHtml(piece.cta)}</span>
-        <span class="topnote">${escapeHtml(piece.date)}</span>
       </div>
     </div>
   </body>
@@ -717,19 +715,14 @@ function buildPhotoHeroHtml(piece, theme, resources) {
     <div class="content">
       <div class="topbar">
         ${buildLockupHtml(theme, piece, { align: "left", tone: "light", accent: piece.accent, logoUrl })}
-        <div class="series">
-          <span class="badge">${escapeHtml(piece.phase)}</span>
-          <span class="badge">${escapeHtml(piece.vertical)}</span>
-        </div>
+        <div class="series"></div>
       </div>
       <div></div>
       <div class="copy">
-        <span class="eyebrow">${escapeHtml(theme.brand.mark)}</span>
         <h1>${renderTextWithBreaks(piece.headline)}</h1>
         <p class="support">${escapeHtml(piece.support)}</p>
         <div class="cta-row">
           <span class="cta">${escapeHtml(piece.cta)}</span>
-          <span class="date">${escapeHtml(piece.date)}</span>
         </div>
       </div>
     </div>
@@ -889,17 +882,13 @@ function buildProofUtilityHtml(piece, theme, resources) {
       <div class="visual"></div>
       <div class="topbar">
         ${buildLockupHtml(theme, piece, { align: "left", tone: "dark", accent: piece.accent, logoUrl })}
-        <div class="chips">
-          <span class="chip">${escapeHtml(piece.phase)}</span>
-          <span class="chip">${escapeHtml(piece.vertical)}</span>
-        </div>
+        <div class="chips"></div>
       </div>
       <div class="panel">
         <h1>${renderTextWithBreaks(piece.headline)}</h1>
         <p class="support">${escapeHtml(piece.support)}</p>
         <div class="utility-row">
           <span class="cta">${escapeHtml(piece.cta)}</span>
-          <span class="date">${escapeHtml(piece.date)}</span>
         </div>
       </div>
     </div>
