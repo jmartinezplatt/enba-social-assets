@@ -373,7 +373,7 @@ function baseFontsCss(theme) {
     }
 
     .lockup strong {
-      font-size: 30px;
+      font-size: 38px;
       line-height: 0.92;
       letter-spacing: 0.02em;
       text-transform: uppercase;
@@ -382,13 +382,13 @@ function baseFontsCss(theme) {
     }
 
     .lockup span:last-child {
-      font-size: 20px;
+      font-size: 24px;
       line-height: 1;
       letter-spacing: 0.05em;
     }
 
     .lockup-logo {
-      width: 220px;
+      width: 280px;
       display: block;
       filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.16));
     }
@@ -521,25 +521,10 @@ function buildManifestoHtml(piece, theme, resources) {
       }
 
       .cta {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        padding: 16px 22px;
-        border-radius: 999px;
-        background: rgba(237, 242, 244, 0.08);
-        border: 1px solid rgba(237, 242, 244, 0.16);
-        color: var(--cream);
+        color: ${piece.accent};
         font-size: 24px;
         line-height: 1;
-      }
-
-      .cta::before {
-        content: "";
-        width: 12px;
-        height: 12px;
-        border-radius: 999px;
-        background: ${piece.accent};
-        display: inline-block;
+        letter-spacing: 0.04em;
       }
     </style>
   </head>
@@ -682,24 +667,10 @@ function buildPhotoHeroHtml(piece, theme, resources) {
       }
 
       .cta {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        padding: 16px 22px;
-        border-radius: 999px;
-        border: 1px solid rgba(237, 242, 244, 0.12);
-        background: rgba(237, 242, 244, 0.08);
-        color: var(--cream);
+        color: ${piece.accent};
         font-size: 24px;
         line-height: 1;
-      }
-
-      .cta::before {
-        content: "";
-        width: 11px;
-        height: 11px;
-        border-radius: 999px;
-        background: ${piece.accent};
+        letter-spacing: 0.04em;
       }
 
       .date {
@@ -851,23 +822,11 @@ function buildProofUtilityHtml(piece, theme, resources) {
       }
 
       .cta {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        padding: 15px 20px;
-        border-radius: 999px;
-        background: var(--navy);
-        color: var(--cream);
+        color: var(--navy);
         font-size: 23px;
         line-height: 1;
-      }
-
-      .cta::before {
-        content: "";
-        width: 11px;
-        height: 11px;
-        border-radius: 999px;
-        background: ${piece.accent};
+        letter-spacing: 0.04em;
+        font-weight: 600;
       }
 
       .date {
