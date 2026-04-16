@@ -293,7 +293,6 @@ function buildLockupHtml(theme, piece, options = {}) {
   return `
     <div class="lockup ${align} ${tone}">
       <div class="lockup-copy">
-        <span class="lockup-mark" style="--lockup-accent:${accent}; --lockup-secondary:${secondary};">${escapeHtml(mark)}</span>
         <strong style="color:${color};">${escapeHtml(theme.brand.displayName)}</strong>
         <span style="color:${secondary};">${escapeHtml(theme.brand.location)}</span>
       </div>
@@ -373,7 +372,7 @@ function baseFontsCss(theme) {
     }
 
     .lockup strong {
-      font-size: 30px;
+      font-size: 44px;
       line-height: 0.92;
       letter-spacing: 0.02em;
       text-transform: uppercase;
@@ -382,13 +381,13 @@ function baseFontsCss(theme) {
     }
 
     .lockup span:last-child {
-      font-size: 20px;
+      font-size: 24px;
       line-height: 1;
       letter-spacing: 0.05em;
     }
 
     .lockup-logo {
-      width: 220px;
+      width: 280px;
       display: block;
       filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.16));
     }
@@ -521,25 +520,11 @@ function buildManifestoHtml(piece, theme, resources) {
       }
 
       .cta {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        padding: 16px 22px;
-        border-radius: 999px;
-        background: rgba(237, 242, 244, 0.08);
-        border: 1px solid rgba(237, 242, 244, 0.16);
-        color: var(--cream);
-        font-size: 24px;
+        color: rgba(232, 237, 242, 0.82);
+        font-size: 28px;
+        font-weight: 500;
         line-height: 1;
-      }
-
-      .cta::before {
-        content: "";
-        width: 12px;
-        height: 12px;
-        border-radius: 999px;
-        background: ${piece.accent};
-        display: inline-block;
+        letter-spacing: 0.04em;
       }
     </style>
   </head>
@@ -548,7 +533,6 @@ function buildManifestoHtml(piece, theme, resources) {
     <div class="texture"></div>
     <div class="frame"></div>
     <div class="content">
-      <div class="topnote">${escapeHtml(piece.phase)} · ${escapeHtml(piece.vertical)}</div>
       <div class="center">
         ${buildLockupHtml(theme, piece, { align: "center", tone: "light", accent: piece.accent, logoUrl })}
         <span class="kicker">${escapeHtml(theme.brand.promise)}</span>
@@ -557,7 +541,6 @@ function buildManifestoHtml(piece, theme, resources) {
       </div>
       <div class="bottom">
         <span class="cta">${escapeHtml(piece.cta)}</span>
-        <span class="topnote">${escapeHtml(piece.date)}</span>
       </div>
     </div>
   </body>
@@ -576,6 +559,8 @@ function buildPhotoHeroHtml(piece, theme, resources) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
       ${baseFontsCss(theme)}
+
+      .lockup strong { font-size: 42px; }
 
       .bg,
       .overlay {
@@ -684,24 +669,11 @@ function buildPhotoHeroHtml(piece, theme, resources) {
       }
 
       .cta {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        padding: 16px 22px;
-        border-radius: 999px;
-        border: 1px solid rgba(237, 242, 244, 0.12);
-        background: rgba(237, 242, 244, 0.08);
-        color: var(--cream);
-        font-size: 24px;
+        color: rgba(255, 255, 255, 0.78);
+        font-size: 29px;
+        font-weight: 500;
         line-height: 1;
-      }
-
-      .cta::before {
-        content: "";
-        width: 11px;
-        height: 11px;
-        border-radius: 999px;
-        background: ${piece.accent};
+        letter-spacing: 0.04em;
       }
 
       .date {
@@ -717,19 +689,14 @@ function buildPhotoHeroHtml(piece, theme, resources) {
     <div class="content">
       <div class="topbar">
         ${buildLockupHtml(theme, piece, { align: "left", tone: "light", accent: piece.accent, logoUrl })}
-        <div class="series">
-          <span class="badge">${escapeHtml(piece.phase)}</span>
-          <span class="badge">${escapeHtml(piece.vertical)}</span>
-        </div>
+        <div class="series"></div>
       </div>
       <div></div>
       <div class="copy">
-        <span class="eyebrow">${escapeHtml(theme.brand.mark)}</span>
         <h1>${renderTextWithBreaks(piece.headline)}</h1>
         <p class="support">${escapeHtml(piece.support)}</p>
         <div class="cta-row">
           <span class="cta">${escapeHtml(piece.cta)}</span>
-          <span class="date">${escapeHtml(piece.date)}</span>
         </div>
       </div>
     </div>
@@ -803,15 +770,6 @@ function buildProofUtilityHtml(piece, theme, resources) {
         background: linear-gradient(180deg, rgba(245,240,232,0.94) 0%, rgba(250,247,242,0.98) 100%);
       }
 
-      .topbar {
-        position: absolute;
-        inset: 28px 28px auto 28px;
-        display: flex;
-        justify-content: space-between;
-        gap: 18px;
-        align-items: start;
-      }
-
       .chips {
         display: flex;
         flex-wrap: wrap;
@@ -858,23 +816,11 @@ function buildProofUtilityHtml(piece, theme, resources) {
       }
 
       .cta {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        padding: 15px 20px;
-        border-radius: 999px;
-        background: var(--navy);
-        color: var(--cream);
-        font-size: 23px;
+        color: rgba(15, 31, 47, 0.75);
+        font-size: 27px;
+        font-weight: 600;
         line-height: 1;
-      }
-
-      .cta::before {
-        content: "";
-        width: 11px;
-        height: 11px;
-        border-radius: 999px;
-        background: ${piece.accent};
+        letter-spacing: 0.04em;
       }
 
       .date {
@@ -887,19 +833,12 @@ function buildProofUtilityHtml(piece, theme, resources) {
   <body>
     <div class="shell">
       <div class="visual"></div>
-      <div class="topbar">
-        ${buildLockupHtml(theme, piece, { align: "left", tone: "dark", accent: piece.accent, logoUrl })}
-        <div class="chips">
-          <span class="chip">${escapeHtml(piece.phase)}</span>
-          <span class="chip">${escapeHtml(piece.vertical)}</span>
-        </div>
-      </div>
       <div class="panel">
+        ${buildLockupHtml(theme, piece, { align: "left", tone: "light", accent: piece.accent, logoUrl: resources.logoDark })}
         <h1>${renderTextWithBreaks(piece.headline)}</h1>
         <p class="support">${escapeHtml(piece.support)}</p>
         <div class="utility-row">
           <span class="cta">${escapeHtml(piece.cta)}</span>
-          <span class="date">${escapeHtml(piece.date)}</span>
         </div>
       </div>
     </div>

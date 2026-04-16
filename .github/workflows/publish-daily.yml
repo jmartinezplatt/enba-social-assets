@@ -9,7 +9,21 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
+      - name: Preflight — validar secrets de email
+        run: |
+          missing=""
+          if [ -z "${{ secrets.EMAIL_TO }}" ]; then missing="$missing EMAIL_TO"; fi
+          if [ -z "${{ secrets.EMAIL_USER }}" ]; then missing="$missing EMAIL_USER"; fi
+          if [ -z "${{ secrets.EMAIL_PASSWORD }}" ]; then missing="$missing EMAIL_PASSWORD"; fi
+          if [ -n "$missing" ]; then
+            echo "::error::Faltan secrets de email:$missing — configurarlos en Settings → Secrets antes de publicar."
+            exit 1
+          fi
+          echo "Preflight OK — secrets de email configurados."
+
       - name: Checkout repo
         uses: actions/checkout@v4
 
@@ -74,8 +88,8 @@ jobs:
           server_port: 587
           username: ${{ secrets.EMAIL_USER }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: "ENBA Redes — ${{ steps.publish.outcome == 'success' && 'Publicado' || 'ERROR' }} — $(date -u '+%d/%m/%Y')"
+          subject: "ENBA Redes — ${{ steps.publish.outcome == 'success' && 'Publicado' || 'ERROR' }}"
           to: ${{ secrets.EMAIL_TO }}
           from: ENBA Bot <bot@espacionautico.com.ar>
           body: file://report.md
-          content_type: text/markdown
+          convert_markdown: true
