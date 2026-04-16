@@ -520,8 +520,9 @@ function buildManifestoHtml(piece, theme, resources) {
       }
 
       .cta {
-        color: ${piece.accent};
-        font-size: 23px;
+        color: rgba(232, 237, 242, 0.82);
+        font-size: 28px;
+        font-weight: 500;
         line-height: 1;
         letter-spacing: 0.04em;
       }
@@ -668,8 +669,9 @@ function buildPhotoHeroHtml(piece, theme, resources) {
       }
 
       .cta {
-        color: ${piece.accent};
-        font-size: 23px;
+        color: rgba(255, 255, 255, 0.78);
+        font-size: 29px;
+        font-weight: 500;
         line-height: 1;
         letter-spacing: 0.04em;
       }
@@ -814,11 +816,11 @@ function buildProofUtilityHtml(piece, theme, resources) {
       }
 
       .cta {
-        color: var(--navy);
-        font-size: 23px;
+        color: rgba(15, 31, 47, 0.75);
+        font-size: 27px;
+        font-weight: 600;
         line-height: 1;
         letter-spacing: 0.04em;
-        font-weight: 500;
       }
 
       .date {
