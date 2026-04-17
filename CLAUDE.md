@@ -278,6 +278,37 @@ ESTRATEGIA (Franco) → CONCEPTO (Marina) → BRIEF (Team 4 → Manu)
 
 ---
 
+## Convención de tokens Meta — ownership por frente
+
+Secrets NO van en `.env`. Viven en Windows User scope o credenciales encriptadas de n8n.
+
+### Variables Windows User scope
+
+| Variable | Contenido | Owner | Notas |
+|---|---|---|---|
+| `META_ACCESS_TOKEN` | Page Access Token LL (expires:never) | Frente lanzamiento/redes | Fuente para credencial n8n |
+| `META_ADS_USER_TOKEN` | User Access Token LL (expires:never, scope ads) | Frente 10K/ads | Solo para scripts de ads |
+| `META_APP_ID` | App ID | Compartido | No es secret |
+| `META_APP_SECRET` | App Secret | Compartido | Secret |
+| `META_IG_BUSINESS_ACCOUNT_ID` | IG Business Account ID | Compartido | No es secret |
+| `META_FB_PAGE_ID` | Facebook Page ID (`1064806400040502`) | Compartido | No es secret |
+| `META_FB_PORTFOLIO_ID` | Business Portfolio ID (`814334400927137`) | Compartido | No es secret |
+| `N8N_API_KEY` | API key n8n cloud | Compartido | Secret |
+
+### `.env` del repo
+Solo IDs públicos (no secrets). Los scripts leen secrets de Windows User scope con:
+`powershell -Command "[System.Environment]::GetEnvironmentVariable('NOMBRE','User')"`
+
+### Regla de regeneración de tokens
+**NUNCA regenerar token en Graph API Explorer sin avisar a ambos frentes.** Regenerar invalida tokens derivados de la misma App/usuario. Incidente documentado: 16-abr-2026, una regeneración no coordinada invalidó la credencial n8n y rompió publicación automática.
+
+### Patrón FB publish (v6)
+Meta deprecó `POST /{pageId}/photos` default en 2024/2025. Usar patrón 2 pasos:
+1. `POST /{pageId}/photos?url=...&published=false` → obtiene `photo_fbid`
+2. `POST /{pageId}/feed?message=...&attached_media=[{"media_fbid":"<photo_fbid>"}]` → publica
+
+---
+
 ## Reglas operativas generales
 
 1. Verificar deploy de Cloudflare después de cada push — no asumir que push = deploy

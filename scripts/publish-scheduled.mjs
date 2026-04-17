@@ -1,3 +1,7 @@
+// DEPRECATED — Pipeline vivo es n8n (workflow oiFVJdy5VGlXtlMp).
+// Este script usa endpoint FB viejo (POST /photos default) que Meta rechaza desde 2024/2025.
+// No correr sin actualizar al patrón 2 pasos. Ver CLAUDE.md sección "Patrón FB publish (v6)".
+
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 
 const env = readFileSync('.env', 'utf8');
