@@ -1,0 +1,21 @@
+[
+  {
+    "id": "piece-01-darkpost",
+    "date": "15/04/2026",
+    "vertical": "Marca",
+    "template": "manifesto",
+    "headline": "El río\nte llama.\nNosotros te llevamos.",
+    "support": "Desde Costanera Norte, con experiencia real y ganas de río.",
+    "cta": "",
+    "url": "www.espacionautico.com.ar",
+    "image": "../../../asset-bank/brand-skyline-manifesto.jpg",
+    "backgroundPosition": "52% 48%",
+    "backgroundScale": 1.08,
+    "overlayOpacity": 0.12,
+    "titleSize": 96,
+    "safeTitleWidth": 860,
+    "lockupVariant": "stacked-on-dark",
+    "lockupPlacement": "center-top",
+    "imageStatus": "approved-master"
+  }
+]

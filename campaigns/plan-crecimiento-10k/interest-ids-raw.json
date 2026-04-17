@@ -1,0 +1,541 @@
+[
+  {
+    "query": "Yacht",
+    "id": "6003161318055",
+    "name": "Princess Yachts",
+    "lower": 1411717,
+    "upper": 1660180
+  },
+  {
+    "query": "Yacht",
+    "id": "6769156181154",
+    "name": "Fabricación y ventas de embarcaciones (embarcación)",
+    "lower": 850340,
+    "upper": 1000000
+  },
+  {
+    "query": "Yacht",
+    "id": "6023137421020",
+    "name": "Motor Boat & Yachting",
+    "lower": 415573,
+    "upper": 488715
+  },
+  {
+    "query": "Yacht",
+    "id": "6003187081552",
+    "name": "vela  (deporte)",
+    "lower": 2572585,
+    "upper": 3025360
+  },
+  {
+    "query": "Yacht",
+    "id": "6004160148624",
+    "name": "Yacht racing",
+    "lower": 342789,
+    "upper": 403120
+  },
+  {
+    "query": "Watercraft",
+    "id": "6002878991172",
+    "name": "Embarcación",
+    "lower": 13700680,
+    "upper": 16112000
+  },
+  {
+    "query": "Watercraft",
+    "id": "6004142186306",
+    "name": "Moto de agua",
+    "lower": 9596896,
+    "upper": 11285950
+  },
+  {
+    "query": "Sail",
+    "id": "6003352484519",
+    "name": "Sailor Moon",
+    "lower": 6598613,
+    "upper": 7759970
+  },
+  {
+    "query": "Sail",
+    "id": "6781916710918",
+    "name": "Universidades y facultades de los Estados Unidos (educación superior)",
+    "lower": 850340,
+    "upper": 1000000
+  },
+  {
+    "query": "Sail",
+    "id": "6009586966391",
+    "name": "Black Sails",
+    "lower": 622695,
+    "upper": 732290
+  },
+  {
+    "query": "Sail",
+    "id": "6769156181154",
+    "name": "Fabricación y ventas de embarcaciones (embarcación)",
+    "lower": 850340,
+    "upper": 1000000
+  },
+  {
+    "query": "Sail",
+    "id": "6003025268985",
+    "name": "Tatuajes (body art)",
+    "lower": 495843528,
+    "upper": 583111990
+  },
+  {
+    "query": "Gastronomy",
+    "id": "6003415019460",
+    "name": "Gastronomía (comida y bebida)",
+    "lower": 164616615,
+    "upper": 193589140
+  },
+  {
+    "query": "Fine dining",
+    "id": "6011956651362",
+    "name": "FineDiningLovers",
+    "lower": 459209,
+    "upper": 540030
+  },
+  {
+    "query": "Wine",
+    "id": "6003343712056",
+    "name": "Wine",
+    "lower": 8821641,
+    "upper": 10374250
+  },
+  {
+    "query": "Wine",
+    "id": "6003162885122",
+    "name": "Food & Wine (publicación)",
+    "lower": 61121172,
+    "upper": 71878499
+  },
+  {
+    "query": "Wine",
+    "id": "6003107699532",
+    "name": "Música soul (música)",
+    "lower": 461193307,
+    "upper": 542363330
+  },
+  {
+    "query": "Wine",
+    "id": "6003259680957",
+    "name": "bodega de vino (vino)",
+    "lower": 26864064,
+    "upper": 31592140
+  },
+  {
+    "query": "Wine",
+    "id": "6003217187476",
+    "name": "rose wine",
+    "lower": 3280178,
+    "upper": 3857490
+  },
+  {
+    "query": "Weekend",
+    "id": "6787719539026",
+    "name": "Películas románticas (películas)",
+    "lower": 850340,
+    "upper": 1000000
+  },
+  {
+    "query": "Weekend",
+    "id": "6003214105133",
+    "name": "Vampire Weekend",
+    "lower": 712517,
+    "upper": 837920
+  },
+  {
+    "query": "Weekend",
+    "id": "6003222369667",
+    "name": "Startup weekend",
+    "lower": 617933,
+    "upper": 726690
+  },
+  {
+    "query": "Weekend",
+    "id": "6003108826384",
+    "name": "Festivales de música (eventos)",
+    "lower": 293265824,
+    "upper": 344880610
+  },
+  {
+    "query": "Weekend",
+    "id": "6861863500415",
+    "name": "Marcas de ropa para mujeres (ropa)",
+    "lower": 850340,
+    "upper": 1000000
+  },
+  {
+    "query": "Senderismo",
+    "id": "6003074033139",
+    "name": "Caminatas (actividades al aire libre)",
+    "lower": 33643911,
+    "upper": 39565240
+  },
+  {
+    "query": "Trekking",
+    "id": "6786162656291",
+    "name": "Camping y senderismo (actividades al aire libre)",
+    "lower": 850340,
+    "upper": 1000000
+  },
+  {
+    "query": "Trekking",
+    "id": "6003252804967",
+    "name": "Excursionismo (naturaleza)",
+    "lower": 22687559,
+    "upper": 26680570
+  },
+  {
+    "query": "Trekking",
+    "id": "6003380546441",
+    "name": "Hiking boot",
+    "lower": 5199430,
+    "upper": 6114530
+  },
+  {
+    "query": "Trekking",
+    "id": "6857588214251",
+    "name": "Equipos de camping y senderismo (actividades al aire libre)",
+    "lower": 850340,
+    "upper": 1000000
+  },
+  {
+    "query": "Trekking",
+    "id": "6004025448989",
+    "name": "Noruega",
+    "lower": 78452465,
+    "upper": 92260100
+  },
+  {
+    "query": "Outdoor activities",
+    "id": "6002985584323",
+    "name": "Recreación al aire libre (actividades al aire libre)",
+    "lower": 581478290,
+    "upper": 683818470
+  },
+  {
+    "query": "Viajes",
+    "id": "6004160395895",
+    "name": "Viajes (viajes y turismo)",
+    "lower": 1172422168,
+    "upper": 1378768470
+  },
+  {
+    "query": "Viajes",
+    "id": "6003211401886",
+    "name": "Viajes en avión (transporte)",
+    "lower": 305795457,
+    "upper": 359615458
+  },
+  {
+    "query": "Viajes",
+    "id": "6002868021822",
+    "name": "Viajes de aventura (viajes y turismo)",
+    "lower": 275203844,
+    "upper": 323639721
+  },
+  {
+    "query": "Viajes",
+    "id": "6003181721612",
+    "name": "Literatura de viajes",
+    "lower": 15164285,
+    "upper": 17833200
+  },
+  {
+    "query": "Viajes",
+    "id": "6003038269845",
+    "name": "Viajes Y Turismo",
+    "lower": 2700609,
+    "upper": 3175917
+  },
+  {
+    "query": "Travel adventure",
+    "id": "6003349868805",
+    "name": "Travel Adventures (organización profesional)",
+    "lower": 41700989,
+    "upper": 49040364
+  },
+  {
+    "query": "Travel adventure",
+    "id": "6002868021822",
+    "name": "Viajes de aventura (viajes y turismo)",
+    "lower": 275203844,
+    "upper": 323639721
+  },
+  {
+    "query": "Travel adventure",
+    "id": "6003175578350",
+    "name": "Filipinas (lugar)",
+    "lower": 253035204,
+    "upper": 297569400
+  },
+  {
+    "query": "Travel adventure",
+    "id": "6790608003312",
+    "name": "Contenido e inspiración para viajes (empresa de viajes y turismo)",
+    "lower": 850340,
+    "upper": 1000000
+  },
+  {
+    "query": "Travel adventure",
+    "id": "6795812983902",
+    "name": "Actividades y atracciones de viaje (empresa de viajes y turismo)",
+    "lower": 850340,
+    "upper": 1000000
+  },
+  {
+    "query": "Backpacking",
+    "id": "6003337174536",
+    "name": "backpacking",
+    "lower": 309416,
+    "upper": 363874
+  },
+  {
+    "query": "Backpacking",
+    "id": "6003252804967",
+    "name": "Excursionismo (naturaleza)",
+    "lower": 22687559,
+    "upper": 26680570
+  },
+  {
+    "query": "Backpacking",
+    "id": "6805869893545",
+    "name": "Noticias y contenido sobre deporte (deporte)",
+    "lower": 850340,
+    "upper": 1000000
+  },
+  {
+    "query": "Backpacking",
+    "id": "6003523122770",
+    "name": "viaje de mochilero  (viajes)",
+    "lower": 33602933,
+    "upper": 39517050
+  },
+  {
+    "query": "Backpacking",
+    "id": "6003267074682",
+    "name": "Equipamiento para senderismo (artículos deportivos)",
+    "lower": 5253875,
+    "upper": 6178557
+  },
+  {
+    "query": "Ocio",
+    "id": "6003249531267",
+    "name": "Ocio (concepto social)",
+    "lower": 565511581,
+    "upper": 665041620
+  },
+  {
+    "query": "Ocio",
+    "id": "6003232518610",
+    "name": "Crianza (niños y crianza)",
+    "lower": 284294627,
+    "upper": 334330482
+  },
+  {
+    "query": "Entertainment",
+    "id": "6003396473977",
+    "name": "Zee Entertainment Enterprises",
+    "lower": 68041105,
+    "upper": 80016340
+  },
+  {
+    "query": "Entertainment",
+    "id": "6002933324059",
+    "name": "Sony Pictures Entertainment",
+    "lower": 45262006,
+    "upper": 53228120
+  },
+  {
+    "query": "Entertainment",
+    "id": "6003495261627",
+    "name": "Marvel Entertainment (películas y televisión)",
+    "lower": 41676150,
+    "upper": 49011153
+  },
+  {
+    "query": "Entertainment",
+    "id": "6003201772012",
+    "name": "Efectos visuales",
+    "lower": 14868545,
+    "upper": 17485410
+  },
+  {
+    "query": "Entertainment",
+    "id": "6005174809719",
+    "name": "Workpoint Entertainment",
+    "lower": 25709090,
+    "upper": 30233890
+  },
+  {
+    "query": "Romantic",
+    "id": "6003392361283",
+    "name": "romantic",
+    "lower": 3599974,
+    "upper": 4233570
+  },
+  {
+    "query": "Romantic",
+    "id": "6003101445184",
+    "name": "romantic comedies",
+    "lower": 143519209,
+    "upper": 168778590
+  },
+  {
+    "query": "Romantic",
+    "id": "6002951587955",
+    "name": "Música clásica (música)",
+    "lower": 324272448,
+    "upper": 381344400
+  },
+  {
+    "query": "Romantic",
+    "id": "6003221212067",
+    "name": "Romantic fantasy",
+    "lower": 22859302,
+    "upper": 26882540
+  },
+  {
+    "query": "Romantic",
+    "id": "6006526034143",
+    "name": "Romantic thriller",
+    "lower": 3482406,
+    "upper": 4095310
+  },
+  {
+    "query": "Valentines",
+    "id": "6003310766888",
+    "name": "Día de San Valentín",
+    "lower": 100293078,
+    "upper": 117944660
+  },
+  {
+    "query": "Valentines",
+    "id": "6003101445184",
+    "name": "romantic comedies",
+    "lower": 143519209,
+    "upper": 168778590
+  },
+  {
+    "query": "Wedding",
+    "id": "6790797360113",
+    "name": "Comedias románticas televisivas (programa de televisión)",
+    "lower": 850340,
+    "upper": 1000000
+  },
+  {
+    "query": "Wedding",
+    "id": "6003409392877",
+    "name": "Bodas (concepto social)",
+    "lower": 304885943,
+    "upper": 358545870
+  },
+  {
+    "query": "Wedding",
+    "id": "6901133711723",
+    "name": "Telerrealidad de bodas (programa de televisión)",
+    "lower": 850340,
+    "upper": 1000000
+  },
+  {
+    "query": "Wedding",
+    "id": "6836096590166",
+    "name": "Tienda de novias (comercio minorista)",
+    "lower": 850340,
+    "upper": 1000000
+  },
+  {
+    "query": "Wedding",
+    "id": "6774858830325",
+    "name": "Sitios web y blogs de boda (sitios web)",
+    "lower": 850340,
+    "upper": 1000000
+  },
+  {
+    "query": "Corporate",
+    "id": "6003314955799",
+    "name": "Rock alternativo (música)",
+    "lower": 314642227,
+    "upper": 370019260
+  },
+  {
+    "query": "Corporate",
+    "id": "6003446827880",
+    "name": "Society of Corporate Compliance and Ethics",
+    "lower": 20178,
+    "upper": 23730
+  },
+  {
+    "query": "Corporate",
+    "id": "6003713691560",
+    "name": "Corporaciones",
+    "lower": 179919294,
+    "upper": 211585090
+  },
+  {
+    "query": "Corporate",
+    "id": "6003270758993",
+    "name": "capacitación y desarrollo (actividades comerciales)",
+    "lower": 4771869,
+    "upper": 5611719
+  },
+  {
+    "query": "Corporate",
+    "id": "6002964301046",
+    "name": "Escuela de negocios (educación superior)",
+    "lower": 37760850,
+    "upper": 44406760
+  },
+  {
+    "query": "Event planning",
+    "id": "6003092932417",
+    "name": "Gestión de eventos (organización de eventos)",
+    "lower": 31190467,
+    "upper": 36679990
+  },
+  {
+    "query": "Entrepreneurship",
+    "id": "6003396973683",
+    "name": "Social entrepreneurship",
+    "lower": 4039098,
+    "upper": 4749980
+  },
+  {
+    "query": "Entrepreneurship",
+    "id": "6003126562949",
+    "name": "Entrepreneurial network",
+    "lower": 10068,
+    "upper": 11840
+  },
+  {
+    "query": "Entrepreneurship",
+    "id": "6002964301046",
+    "name": "Escuela de negocios (educación superior)",
+    "lower": 37760850,
+    "upper": 44406760
+  },
+  {
+    "query": "Entrepreneurship",
+    "id": "6003057317756",
+    "name": "formación para empresas (formación para empresas)",
+    "lower": 4131888,
+    "upper": 4859101
+  },
+  {
+    "query": "Entrepreneurship",
+    "id": "6003371567474",
+    "name": "Espíritu empresarial (negocios y finanzas)",
+    "lower": 382208471,
+    "upper": 449477162
+  },
+  {
+    "query": "Local tourism",
+    "id": "6003197718872",
+    "name": "Singapur",
+    "lower": 200278758,
+    "upper": 235527820
+  }
+]

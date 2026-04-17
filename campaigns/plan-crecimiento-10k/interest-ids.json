@@ -1,0 +1,116 @@
+{
+  "A2": [
+    {
+      "id": "6003125161176",
+      "name": "Sailing World",
+      "query": "Sailing"
+    },
+    {
+      "id": "6003187081552",
+      "name": "vela  (deporte)",
+      "query": "Sailboat"
+    },
+    {
+      "id": "6794460135704",
+      "name": "Jugadores de fútbol alemanes (fútbol)",
+      "query": "Boat"
+    },
+    {
+      "id": "6003225930699",
+      "name": "Cruceros (empresa de viajes y turismo)",
+      "query": "Catamaran"
+    },
+    {
+      "id": "6023137421020",
+      "name": "Motor Boat & Yachting",
+      "query": "Yachting"
+    }
+  ],
+  "A3": [
+    {
+      "id": "6007828099136",
+      "name": "Artículos de lujo (comercio minorista)",
+      "query": "Luxury goods"
+    },
+    {
+      "id": "6003175578350",
+      "name": "Filipinas (lugar)",
+      "query": "Adventure travel"
+    },
+    {
+      "id": "6003572379887",
+      "name": "Hoteles (alojamiento)",
+      "query": "Premium travel"
+    }
+  ],
+  "B1": [
+    {
+      "id": "6003349868805",
+      "name": "Travel Adventures (organización profesional)",
+      "query": "Travel"
+    },
+    {
+      "id": "6002985584323",
+      "name": "Recreación al aire libre (actividades al aire libre)",
+      "query": "Outdoor recreation"
+    },
+    {
+      "id": "6003096481532",
+      "name": "A&W Restaurants",
+      "query": "Restaurants"
+    }
+  ],
+  "B2": [
+    {
+      "id": "6003077915229",
+      "name": "Kayaking",
+      "query": "Kayaking"
+    },
+    {
+      "id": "6003380546441",
+      "name": "Hiking boot",
+      "query": "Hiking"
+    },
+    {
+      "id": "6003403012818",
+      "name": "camping (camping)",
+      "query": "Camping"
+    },
+    {
+      "id": "6003290325569",
+      "name": "Paddleboarding",
+      "query": "Paddleboarding"
+    }
+  ],
+  "C1": [
+    {
+      "id": "6003197718872",
+      "name": "Singapur",
+      "query": "Tourism"
+    },
+    {
+      "id": "6003258965702",
+      "name": "Buenos Aires",
+      "query": "Buenos Aires"
+    }
+  ],
+  "C2": [
+    {
+      "id": "6003019539929",
+      "name": "Regalos (concepto social)",
+      "query": "Gift"
+    },
+    {
+      "id": "6801794771707",
+      "name": "Franquicias basadas en juegos (entretenimiento y medios de comunicación)",
+      "query": "Anniversary"
+    }
+  ],
+  "C3": [
+    {
+      "id": "6003508907986",
+      "name": "Professional in Human Resources",
+      "query": "Human resources"
+    }
+  ]
+}

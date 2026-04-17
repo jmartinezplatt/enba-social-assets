@@ -1,0 +1,11 @@
+<svg id="v-light" width="180" viewBox="0 0 170 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="85" y1="12" x2="85" y2="64" stroke="#1a7a62" stroke-width="2"/>
+          <path d="M85 14 L62 60 L85 60 Z" fill="#1a7a62" opacity="0.9"/>
+          <path d="M85 27 L104 58 L85 58 Z" fill="#1a6fa0" opacity="0.75"/>
+          <path d="M52 68 Q63 63 74 68 Q85 73 96 68 Q107 63 118 68 Q123 71 126 68" stroke="#1a7a62" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <line x1="28" y1="82" x2="142" y2="82" stroke="rgba(26,122,98,0.18)" stroke-width="1"/>
+          <text x="85" y="108" font-family="'Teko','Bebas Neue',sans-serif" font-size="17" font-weight="700" fill="#0d2d4a" letter-spacing="2" text-anchor="middle">ESPACIO NÁUTICO</text>
+          <text x="85" y="128" font-family="'Teko','Bebas Neue',sans-serif" font-size="22" font-weight="600" fill="#1a7a62" letter-spacing="6" text-anchor="middle">BsAs</text>
+          <circle cx="44" cy="148" r="2" fill="#1a7a62"/>
+          <text x="52" y="152" font-family="'Barlow Condensed',sans-serif" font-size="9" font-weight="300" fill="rgba(13,45,74,0.35)" letter-spacing="1.5">34°36'S · 58°22'O</text>
+        </svg>
