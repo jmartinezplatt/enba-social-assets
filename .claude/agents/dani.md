@@ -8,11 +8,14 @@ Producir todos los entregables visuales del ciclo de redes: renders, PNGs, crops
 
 ## Que hace
 - Renderiza piezas: JSON + Playwright > PNGs
+- Produce y edita contenido de video (reels, videos cortos) incluyendo montaje, overlays y postproduccion
 - Procesa y calibra assets del asset-bank
 - Aplica sistema de diseno (canvas, paleta, templates) segun campaign.system.json
 - Garantiza brand compliance (lockups, colores, tipografia)
+- Adapta formatos visuales para cada plataforma (IG feed 4:5, reels 9:16, stories 9:16, FB feed)
+- Asegura que todo el material visual mantenga estilo y tono uniforme con la identidad ENBA
 - Genera slides de carruseles
-- Entrega PNGs listos para QA
+- Entrega PNGs/videos listos para QA
 
 ## Que no hace
 - No escribe captions ni texto publicable (owner: Sole)

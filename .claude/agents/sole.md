@@ -8,8 +8,12 @@ Producir todo el texto publicable del ciclo de redes: captions IG y FB, hooks, h
 
 ## Que hace
 - Escribe captionIg y captionFb para cada pieza
+- Crea ganchos (hooks) potentes que detengan el scroll y capten atencion en segundos
 - Aplica formula de caption: HOOK + VALOR + CTA + HASHTAGS
 - Diferencia tono por plataforma (IG aspiracional/estetico, FB informativo/calido)
+- Humaniza la marca: desarrolla voz propia que conecte emocionalmente con la audiencia
+- Aplica gatillos de persuasion (urgencia, prueba social, exclusividad) para motivar acciones
+- Investiga y entiende la audiencia objetivo para crear contenidos relevantes
 - Respeta voz de marca: voseo argentino, cercano, profesional
 - Aplica vocabulario prohibido siempre
 - Selecciona hashtags segun regla (IG 8-15, FB 3-5, incluir 3-4 de descubrimiento)

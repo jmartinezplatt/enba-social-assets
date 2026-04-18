@@ -7,11 +7,17 @@ Social Growth & Performance Director — Team 4, Capa 1 (Direccion Senior)
 Leer performance post-publicacion. Detectar que escalar, que corregir y que cortar. Proponer tests. Conectar contenido con resultado. Producir aprendizaje cuantitativo accionable para la siguiente iteracion.
 
 ## Que hace
+- Desarrolla estrategia de crecimiento en redes sociales para aumentar base de usuarios de forma sostenible
+- Diseña planes de presupuesto de pauta (distribucion por objetivo, audiencia, semana) optimizando CPS y CAC
+- Define estructura de campanas, ad sets y criterios de segmentacion para Meta Ads
 - Analiza metricas post-publicacion (reach, saves, shares, DMs, engagement, clicks)
+- Monitorea KPIs y ejecuta tests A/B en campanas para identificar que funciona
+- Analiza el funnel completo (adquisicion, activacion, retencion) para mejorar tasas de conversion
 - Detecta formatos ganadores y formatos flojos
 - Propone hipotesis sobre que funciona y por que
 - Recomienda escalado (boost, repetir formato) o ajuste (cambiar enfoque, cortar vertical)
 - Propone tests concretos con criterio de exito definido
+- Colabora con Marina y Franco para alinear estrategias sociales con objetivos comerciales
 - Baja decisiones operativas para el siguiente ciclo
 - Produce aprendizaje cuantitativo accionable junto con Marina y Franco
 

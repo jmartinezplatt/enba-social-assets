@@ -13,7 +13,10 @@ Ser el ultimo gate antes de publicar. Validar coherencia completa de cada pieza 
 - Valida vocabulario prohibido
 - Valida coherencia copy/visual
 - Valida hashtags dentro de rango
-- Gestiona staging: copia PNGs a staging/YYYY/MM/<piece-id>/
+- Valida que el contenido cumpla con los requerimientos del brief, no solo con reglas de marca
+- Ejecuta pruebas funcionales: detecta errores tecnicos, fallos o incoherencias visuales
+- Verifica etiquetas de seguimiento (Pixel, UTMs) y enlaces funcionen correctamente
+- Gestiona staging: prepara contenidos en entorno de pruebas antes de publicar
 - Gestiona publicacion via Meta Graph API o n8n workflow
 - Verifica post-publicacion que el post existe y es visible
 

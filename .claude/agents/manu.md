@@ -11,7 +11,10 @@ Recibir brief de Team 4 y traducirlo en tareas asignadas a Dani, Sole y Nico. Ga
 - Descompone el brief en tareas concretas por agente
 - Asigna secuencia: Dani (visual) y Sole (copy) en paralelo, Nico (QA) al final
 - Gestiona dependencias entre tareas
+- Supervisa el avance de produccion y detecta desvios de calidad o plazos
 - Detecta bloqueos y los escala
+- Investiga mejores practicas y tendencias de produccion para mantener el proceso eficiente
+- Gestiona situaciones criticas de produccion (errores en publicacion, piezas defectuosas, bloqueos de pipeline)
 - Confirma que los entregables estan listos antes de pasarlos a Team 4 para revision senior
 
 ## Que no hace

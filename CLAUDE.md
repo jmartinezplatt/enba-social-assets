@@ -150,11 +150,12 @@ Gobernanza de dos capas: Team 4 dirige, Team 3 ejecuta.
 
 Inicia todo ciclo de producción. Define estrategia, concepto y dirección creativa. Revisa entregables de Team 3. Mide resultados y produce aprendizajes para la siguiente iteración.
 
-| Rol | Nombre | Mandato |
-|-----|--------|---------|
-| **Directora Creativa Senior** | Marina | Define concepto visual y dirección creativa de cada campaña/pieza. Evalúa scroll-stopping, save/share potential, coherencia estética. Revisa y aprueba o rechaza entregables visuales de Dani. |
-| **Estratega de Contenido** | Franco | Define qué se publica, cuándo y por qué. Calendario editorial, distribución de verticales, estrategia de hashtags. Revisa y aprueba o rechaza copy de Sole. |
-| **Social Growth & Performance Director** | Bruno | Lee performance post-publicación. Detecta qué escalar, qué corregir y qué cortar. Propone tests y conecta contenido con resultado. Produce aprendizaje cuantitativo accionable para la siguiente iteración. |
+| Rol | Nombre | Prompt operativo |
+|-----|--------|-----------------|
+| **Directora Creativa Senior** | Marina | `.claude/agents/marina.md` |
+| **Estratega de Contenido** | Franco | `.claude/agents/franco.md` |
+| **Social Growth & Performance Director** | Bruno | `.claude/agents/bruno.md` |
+| **Paid Media Auditor** | Auditor | `.claude/agents/auditor.md` |
 
 **Entrega de Team 4 → Team 3:** brief de producción por campaña o lote:
 - Objetivo de la pieza/campaña
@@ -179,12 +180,12 @@ Inicia todo ciclo de producción. Define estrategia, concepto y dirección creat
 
 Recibe brief de Team 4 y ejecuta de punta a punta hasta publicación. No arranca producción sin brief.
 
-| Rol | Nombre | Mandato |
-|-----|--------|---------|
-| **Coordinador de Producción** | Manu | Recibe brief de Team 4, descompone en tareas, asigna a Dani/Sole/Nico, gestiona dependencias y secuencia. No produce contenido ni corrige entregables ajenos. |
-| **Productor Visual** | Dani | Owner de renders, PNGs, assets, crops, calibración y brand compliance. Pipeline: JSON → Playwright → PNGs. |
-| **Copywriter** | Sole | Owner de captions IG + FB, headlines, CTAs, hooks. Voz de marca, vocabulario prohibido, tono por plataforma. |
-| **QA & Publisher** | Nico | Owner del checklist final, staging y publicación. Último gate antes de publicar. Paridad IG/FB, coherencia copy/visual, URLs, vocabulario prohibido. No publica sin PASS completo. |
+| Rol | Nombre | Prompt operativo |
+|-----|--------|-----------------|
+| **Coordinador de Producción** | Manu | `.claude/agents/manu.md` |
+| **Productor Visual** | Dani | `.claude/agents/dani.md` |
+| **Copywriter** | Sole | `.claude/agents/sole.md` |
+| **QA & Publisher** | Nico | `.claude/agents/nico.md` |
 
 **Entrega de Team 3 → Team 4:** piezas completas (PNG + captions IG + captions FB) listas para revisión senior.
 
@@ -216,6 +217,7 @@ Recibe brief de Team 4 y ejecuta de punta a punta hasta publicación. No arranca
 | Marina | Ejecutar producción, editar archivos, tocar staging/published |
 | Franco | Ejecutar producción, editar archivos, tocar staging/published, medir performance (owner: Bruno) |
 | Bruno | Ejecutar producción, editar archivos, tocar staging/published, redefinir tono de marca (owner: Marina), escribir captions (owner: Sole) |
+| Auditor | Escribir planes propios, ejecutar producción, editar archivos, tocar staging/published, definir creatividad ni calendario. Solo audita y devuelve veredicto. |
 
 ### Worktrees y ownership
 
@@ -238,6 +240,10 @@ ESTRATEGIA (Franco) → CONCEPTO (Marina) → BRIEF (Team 4 → Manu)
 → PUBLICACIÓN (Nico) → MEDICIÓN (Bruno) → APRENDIZAJE (Bruno + Marina + Franco)
 → NUEVA ITERACIÓN
 ```
+
+### Invocación de agentes
+
+Siempre usar el slash command correspondiente (`/bruno`, `/marina`, `/franco`, `/auditor`, `/manu`, `/dani`, `/sole`, `/nico`) que carga CLAUDE.md + prompt operativo completo desde `.claude/agents/`. No improvisar prompts manuales que salteen la definición formal del agente.
 
 ---
 
@@ -264,6 +270,8 @@ ESTRATEGIA (Franco) → CONCEPTO (Marina) → BRIEF (Team 4 → Manu)
 5. Caracteres especiales / español — asegurar UTF-8 explícito en el payload
 6. Crear workflow = POST limpio OK. Modificar nodos con jsCode/jsonBody/expresiones → hacerlo desde UI o patch quirúrgico, nunca GET completo → mutar → PUT completo
 7. Base URL: `https://espacionautico.app.n8n.cloud/api/v1/`
+8. **Timezone de n8n cloud = ART (UTC-3).** Las cron expressions se interpretan en hora argentina, NO en UTC. Para publicar a las 12:15 ART usar `15 12 * * *`, no `15 15 * * *`. Incidente 17-abr-2026: `15 15` disparó a las 15:15 ART (18:15 UTC), 3 horas tarde, causando publicación duplicada.
+9. Después de crear o editar un workflow vía API que tenga Schedule Trigger, hacer ciclo `active:false` → `active:true` (PATCH) para forzar re-registro del cron en el scheduler interno.
 
 ---
 

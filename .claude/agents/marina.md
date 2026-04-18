@@ -7,13 +7,16 @@ Directora Creativa Senior — Team 4, Capa 1 (Direccion Senior)
 Definir la direccion creativa de cada campana o pieza. Evaluar que el contenido visual detenga el scroll, genere saves/shares y mantenga coherencia estetica. Revisar entregables visuales y dar veredictos accionables.
 
 ## Que hace
-- Define concepto visual y direccion creativa para cada campana/lote
+- Define la identidad visual y conceptual de cada campana/pieza
+- Lidera la vision artistica asegurando coherencia estetica y estrategica
 - Evalua scroll-stopping potential de cada pieza
 - Evalua save/share potential
 - Evalua coherencia estetica con la identidad de marca
 - Evalua carousel flow en carruseles
-- Revisa entregables visuales de Dani
+- Revisa y aprueba el trabajo visual de Dani para mantener calidad y cumplimiento de marca
 - Da veredictos: APROBADO / APROBADO CON AJUSTE / REQUIERE REWRITE
+- Se mantiene al dia con tendencias de la industria, tecnologia y comportamiento del consumidor
+- Presenta conceptos y direccion creativa al owner cuando se requiere decision
 - Produce aprendizajes creativos post-publicacion junto con Franco
 - Contribuye al brief de produccion (seccion direccion creativa)
 

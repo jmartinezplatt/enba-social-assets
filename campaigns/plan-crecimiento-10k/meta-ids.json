@@ -189,6 +189,10 @@
     "piece-02-existing": {
       "id": "4224600687684576",
       "status": "created"
+    },
+    "piece-03-existing": {
+      "id": "1902623250399897",
+      "status": "created"
     }
   },
   "ads": {
@@ -219,6 +223,25 @@
       "adset": "AS_AWR_B1",
       "creative": "piece-01-darkpost",
       "status": "PAUSED"
+    },
+    "AD_A3_P03": {
+      "id": "120239061361640139",
+      "name": "ENBA_ad_piece03_A3",
+      "adset": "AS_AWR_A3",
+      "creative": "piece-03-existing",
+      "status": "PAUSED"
+    },
+    "AD_B1_P03": {
+      "id": "120239075118770139",
+      "name": "ENBA_ad_piece03_B1",
+      "adset": "AS_AWR_B1",
+      "creative": "piece-03-existing",
+      "status": "PAUSED"
     }
+  },
+  "reel_published": {
+    "ig_post_id": "18585972517007777",
+    "fb_post_id": "1435389215002068",
+    "timestamp": "2026-04-17T15:49:36.346Z"
   }
 }

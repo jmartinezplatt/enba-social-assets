@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan Bruno — Presupuesto v2 $500K</title>
+<style>
+  :root { --navy: #0A1520; --teal: #4DB8A0; --gold: #D4A843; --cream: #E8EDF2; --red: #E74C3C; --green: #27AE60; --orange: #F39C12; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f5f7fa; color: #333; line-height: 1.6; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+  header { background: var(--navy); color: white; padding: 32px 0; margin-bottom: 24px; }
+  header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  header h1 { font-size: 24px; font-weight: 700; }
+  header h1 span { color: var(--teal); }
+  .badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+  .badge-teal { background: var(--teal); color: var(--navy); }
+  .badge-gold { background: var(--gold); color: var(--navy); }
+  .meta-bar { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+  .meta-item { background: white; border-radius: 10px; padding: 16px 20px; flex: 1; min-width: 180px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  .meta-item label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 4px; }
+  .meta-item .value { font-size: 22px; font-weight: 700; color: var(--navy); }
+  .meta-item .sub { font-size: 12px; color: #666; margin-top: 4px; }
+  .section { background: white; border-radius: 10px; padding: 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  .section h2 { font-size: 16px; color: var(--navy); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid var(--cream); }
+  .section h3 { font-size: 14px; color: #555; margin: 14px 0 8px; }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13px; }
+  th { background: var(--navy); color: white; padding: 8px 12px; text-align: left; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+  tr:hover td { background: #f8f9fb; }
+  .money { font-weight: 700; color: var(--navy); }
+  .pct { color: var(--teal); font-weight: 600; }
+  .ok { color: var(--green); font-weight: 600; }
+  .warn { color: var(--orange); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+  .bar-chart { margin: 10px 0; }
+  .bar-row { display: flex; align-items: center; margin-bottom: 6px; }
+  .bar-label { width: 80px; font-size: 12px; font-weight: 600; color: #555; }
+  .bar-track { flex: 1; height: 26px; background: #eee; border-radius: 4px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 600; color: white; }
+  .bar-fill.teal { background: var(--teal); }
+  .bar-fill.navy { background: var(--navy); }
+  .bar-fill.gold { background: var(--gold); }
+  .bar-fill.orange { background: var(--orange); }
+  .card { background: #f8f9fb; border-radius: 8px; padding: 14px; border-left: 4px solid var(--teal); margin-bottom: 10px; }
+  .card.gold { border-left-color: var(--gold); }
+  .card.red { border-left-color: var(--red); }
+  .card.green { border-left-color: var(--green); }
+  .card h4 { font-size: 13px; color: var(--navy); margin-bottom: 4px; }
+  .card p { font-size: 12px; color: #555; }
+  .note { background: #fef9e7; border: 1px solid #f0e0a0; border-radius: 8px; padding: 12px 16px; font-size: 12px; color: #856404; margin: 10px 0; }
+  .note.red { background: #fdecea; border-color: #f5c6cb; color: #721c24; }
+  .note.green { background: #d4edda; border-color: #c3e6cb; color: #155724; }
+  footer { text-align: center; padding: 24px; color: #999; font-size: 11px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div>
+      <h1>Plan Bruno — Presupuesto v2 <span>$500K</span></h1>
+      <p style="color:#aaa;font-size:13px;">15 abr — 14 may 2026 &middot; Recalibrado con mínimos reales Meta</p>
+    </div>
+    <div>
+      <span class="badge badge-teal">30 días</span>
+      <span class="badge badge-gold">ARS 500K</span>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="meta-bar">
+    <div class="meta-item">
+      <label>Presupuesto neto</label>
+      <div class="value">$500.000</div>
+      <div class="sub">Débito tarjeta ~$700K (imp. 40%)</div>
+    </div>
+    <div class="meta-item">
+      <label>Split IG / FB</label>
+      <div class="value">75% / 25%</div>
+      <div class="sub">$375K IG &middot; $125K FB</div>
+    </div>
+    <div class="meta-item">
+      <label>Tier realista</label>
+      <div class="value" style="color:var(--teal);">7K-10K</div>
+      <div class="sub">Prob. 35-50% (vs 5-10% con $250K)</div>
+    </div>
+    <div class="meta-item">
+      <label>Reserva táctica</label>
+      <div class="value">$45.000</div>
+      <div class="sub">9% real para escalar winners</div>
+    </div>
+  </div>
+
+  <div class="note">⚠️ Impuestos: débito real ~ARS 700.000. Verificar límite de tarjeta antes de activar.</div>
+
+  <!-- Distribución semanal -->
+  <div class="section">
+    <h2>Distribución semanal</h2>
+    <div class="bar-chart">
+      <div class="bar-row"><div class="bar-label">Sem 1</div><div class="bar-track"><div class="bar-fill teal" style="width:20%;">$100K — Calibración</div></div></div>
+      <div class="bar-row"><div class="bar-label">Sem 2</div><div class="bar-track"><div class="bar-fill navy" style="width:28%;">$140K — Reel + Engagement</div></div></div>
+      <div class="bar-row"><div class="bar-label">Sem 3</div><div class="bar-track"><div class="bar-fill gold" style="width:32%;">$160K — Escalar winners</div></div></div>
+      <div class="bar-row"><div class="bar-label">Sem 4</div><div class="bar-track"><div class="bar-fill orange" style="width:20%;">$100K — Consolidar</div></div></div>
+    </div>
+  </div>
+
+  <!-- Sprint 3 días -->
+  <div class="section">
+    <h2>Sprint primeros 3 días</h2>
+    <table>
+      <tr><th>Día</th><th>Pieza</th><th>Budget</th><th>Objetivo</th><th>Audiencias</th></tr>
+      <tr><td><strong>15/04</strong></td><td>piece-01 "El río te llama"</td><td class="money">$25.000</td><td>Awareness</td><td>B1 Experiencias + A2 Interés Navegación</td></tr>
+      <tr><td><strong>16/04</strong></td><td>piece-02 "Desde Costanera Norte"</td><td class="money">$15.000</td><td>Awareness</td><td>C1 Turismo BA + B2 Outdoor</td></tr>
+      <tr><td><strong>17/04</strong></td><td>piece-03 "No salís con una marca"</td><td class="money">$15.000</td><td>Awareness</td><td>A3 Aspiracional + B1</td></tr>
+      <tr><td colspan="2" style="text-align:right;font-weight:700;">Total sprint</td><td class="money">$55.000</td><td colspan="2"></td></tr>
+    </table>
+    <h3 style="margin-top:16px;">Resto de semana 1 (después del sprint)</h3>
+    <table>
+      <tr><th>Día</th><th>Pieza</th><th>Budget</th><th>Nota</th></tr>
+      <tr><td><strong>18/04 Sáb</strong></td><td>Carrusel cuanto-sale</td><td class="money">$20.000</td><td>Si está listo para pauta</td></tr>
+      <tr><td><strong>19/04 Dom</strong></td><td>piece-04 o piece-05</td><td class="money">$10.000</td><td>Según engagement orgánico en primeras 24h</td></tr>
+      <tr><td><strong>20-21/04</strong></td><td>Reserva semana 1</td><td class="money">$15.000</td><td>Para escalar winner del sprint o cubrir imprevistos</td></tr>
+      <tr><td colspan="2" style="text-align:right;font-weight:700;">Total semana 1</td><td class="money">$100.000</td><td></td></tr>
+    </table>
+
+    <h3 style="margin-top:16px;">Semanas 2-4 (criterio de selección de piezas)</h3>
+    <div class="card">
+      <h4>No hay piezas fijas — la data decide</h4>
+      <p>Las piezas 4-30 se publican orgánicamente (1/día vía n8n). Se pautan solo las que cumplan:<br>
+      &bull; Engagement rate orgánico &gt; 1% en primeras 24h<br>
+      &bull; Top performers de semanas anteriores se rotan<br>
+      &bull; Reel "4 horas en el río" como prioridad de pauta cuando esté publicado<br>
+      &bull; Carrusel no-es-tour + elegi-aventura cuando estén staged<br>
+      &bull; Piezas broker/servicios (19-27) NO se pautan — no contribuyen a crecimiento de seguidores</p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <!-- Por objetivo -->
+    <div class="section">
+      <h2>Distribución por objetivo</h2>
+      <table>
+        <tr><th>Objetivo</th><th>%</th><th>Monto</th><th>Rol</th></tr>
+        <tr><td><strong>Awareness</strong></td><td class="pct">35%</td><td class="money">$175.000</td><td>Instalar marca</td></tr>
+        <tr><td><strong>Engagement</strong></td><td class="pct">42%</td><td class="money">$210.000</td><td>Crecimiento + tráfico indirecto</td></tr>
+        <tr><td><strong>Leads</strong></td><td class="pct">14%</td><td class="money">$70.000</td><td>Corporativo + conversión</td></tr>
+        <tr><td><strong>Reserva</strong></td><td class="pct">9%</td><td class="money">$45.000</td><td>Escalar winners</td></tr>
+      </table>
+      <div class="note red">Traffic descartado: mínimo $27.865/día inviable. Reemplazo: Engagement con destination site.</div>
+    </div>
+
+    <!-- Evolución semanal -->
+    <div class="section">
+      <h2>Evolución semanal por objetivo</h2>
+      <table>
+        <tr><th>Objetivo</th><th>Sem 1</th><th>Sem 2</th><th>Sem 3</th><th>Sem 4</th></tr>
+        <tr><td>Awareness</td><td class="money">$60K</td><td>$50K</td><td>$40K</td><td>$25K</td></tr>
+        <tr><td>Engagement</td><td>$20K</td><td class="money">$60K</td><td class="money">$70K</td><td class="money">$60K</td></tr>
+        <tr><td>Leads</td><td>—</td><td>$15K</td><td class="money">$30K</td><td>$25K</td></tr>
+        <tr><td>Reserva</td><td>$20K</td><td>$15K</td><td>$20K</td><td style="color:var(--red);">-$10K</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Audiencias -->
+  <div class="section">
+    <h2>Activación por audiencia (con mínimos respetados)</h2>
+    <table>
+      <tr><th>Audiencia</th><th>Optimization</th><th>Budget/día</th><th>Min Meta</th><th>Día</th><th>Budget mes</th></tr>
+      <tr><td><strong>A2 Interés Navegación</strong></td><td>REACH</td><td class="money">$1.500</td><td class="ok">✓ $1.393</td><td>Día 1</td><td>~$45K</td></tr>
+      <tr><td><strong>B1 Experiencias BA</strong></td><td>REACH</td><td class="money">$2.500</td><td class="ok">✓</td><td>Día 1</td><td>~$75K</td></tr>
+      <tr><td><strong>C1 Turismo BA</strong></td><td>REACH</td><td class="money">$1.500</td><td class="ok">✓</td><td>Día 1</td><td>~$45K</td></tr>
+      <tr><td><strong>B2 Outdoor/Aventura</strong></td><td>REACH</td><td class="money">$1.500</td><td class="ok">✓</td><td>Día 2</td><td>~$45K</td></tr>
+      <tr><td><strong>A3 Aspiracional Náutico</strong></td><td>REACH</td><td class="money">$1.500</td><td class="ok">✓</td><td>Día 3</td><td>~$43K</td></tr>
+      <tr><td><strong>C2 Regalos Experienciales</strong></td><td>POST_ENGAGEMENT</td><td class="money">$1.500</td><td class="ok">✓</td><td>Día 5</td><td>~$39K</td></tr>
+      <tr><td><strong>C3 Corporativo</strong></td><td>LEAD_GEN</td><td class="money">$3.500</td><td class="ok">✓ $3.483</td><td>Día 8</td><td>~$80K</td></tr>
+      <tr style="color:#888;"><td>A1 Náutica Activa</td><td>—</td><td>$0</td><td>—</td><td>Fuente LAL</td><td>$0</td></tr>
+      <tr><td>Retargeting Web Visitors</td><td>POST_ENGAGEMENT</td><td class="money">$2.000</td><td class="ok">✓</td><td>Día 14</td><td>~$32K</td></tr>
+      <tr><td>LAL IG Engagers 1%</td><td>POST_ENGAGEMENT</td><td class="money">$2.000</td><td class="ok">✓</td><td>Día 10</td><td>~$40K</td></tr>
+      <tr><td>LAL Nautica Activa 1%</td><td>REACH</td><td class="money">$1.500</td><td class="ok">✓</td><td>Día 14</td><td>~$24K</td></tr>
+    </table>
+    <p style="font-size:12px;color:#888;margin-top:8px;">Total estimado: ~$468K si todos corren. Deja ~$32K en reserva consumible.</p>
+  </div>
+
+  <!-- Reglas de corte/escalado -->
+  <div class="grid-2">
+    <div class="section">
+      <h2>Cuándo APAGAR (después de 72h)</h2>
+      <div class="card red">
+        <h4>Cortar si:</h4>
+        <p>&bull; CPS &gt; ARS 100<br>&bull; CTR &lt; 0.4%<br>&bull; Frecuencia &gt; 3.5</p>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Cuándo ESCALAR (después de 72h)</h2>
+      <div class="card green">
+        <h4>Duplicar si:</h4>
+        <p>&bull; CPS &lt; ARS 30<br>&bull; Engagement rate &gt; 3%<br>&bull; Follow rate &gt; 20%<br>&bull; Incremento: +25% cada 48h<br>&bull; Win 5 días → triple scale (+100%)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tests -->
+  <div class="section">
+    <h2>Tests primeras 72h</h2>
+    <div class="card">
+      <h4>Test 1: B1 vs A2 (misma pieza piece-01)</h4>
+      <p>Hipótesis: B1 mejor CPS bruto, A2 mejor follow rate. Al día 3: quedarse con mejor CPS calificado.</p>
+    </div>
+    <div class="card gold">
+      <h4>Test 2: C1 Turismo BA vs B2 Outdoor</h4>
+      <p>Hipótesis: C1 gana CPS por alcance, B2 gana en DMs. Al día 5: evaluar DMs por audiencia.</p>
+    </div>
+    <div class="card">
+      <h4>Test 3: C3 Corporativo (LEAD_GEN, desde día 8)</h4>
+      <p>Hipótesis: mínimo alto ($3.5K/día) se compensa con ticket alto. Al día 14: 3+ consultas = escalar.</p>
+    </div>
+  </div>
+
+  <!-- $500K vs $250K -->
+  <div class="section">
+    <h2>Qué desbloquea $500K vs $250K</h2>
+    <table>
+      <tr><th>Capacidad</th><th>$250K</th><th>$500K</th></tr>
+      <tr><td>Ad sets Awareness simultáneos</td><td>2-3</td><td class="money">5-6</td></tr>
+      <tr><td>Ad sets Leads</td><td>1 máximo</td><td class="money">2-3</td></tr>
+      <tr><td>Retargeting</td><td>Diferido sem 3</td><td class="money">Activable sem 2</td></tr>
+      <tr><td>Reserva táctica</td><td>Teórica ($25K)</td><td class="money">Real ($45K)</td></tr>
+      <tr><td>Triple scale</td><td>Arriesgado</td><td class="money">2 simultáneos viables</td></tr>
+      <tr><td>Corporativo (C3)</td><td>Inviable</td><td class="money">3+ semanas</td></tr>
+      <tr><td>Burst Traffic</td><td>Imposible</td><td class="money">Posible ($85K reserva, 3 días)</td></tr>
+    </table>
+  </div>
+
+  <!-- Proyecciones -->
+  <div class="section" style="border-left: 4px solid var(--teal);">
+    <h2>Proyección de seguidores</h2>
+    <table>
+      <tr><th></th><th>$250K (v1)</th><th>$500K (v2)</th></tr>
+      <tr><td>CPS promedio estimado</td><td>$45</td><td>$45</td></tr>
+      <tr><td>Seguidores pagados teóricos</td><td>~5.500</td><td>~11.100</td></tr>
+      <tr><td>Ajuste calibración sem 1 (-20%)</td><td>-1.100</td><td>-2.200</td></tr>
+      <tr><td>Ajuste CPS variable (-15%)</td><td>-750</td><td>-1.500</td></tr>
+      <tr><td>Ajuste conversión parcial (-20%)</td><td>-750</td><td>-1.500</td></tr>
+      <tr><td><strong>Pagados realistas</strong></td><td>2.900</td><td class="money">5.900</td></tr>
+      <tr><td>+ Orgánico (30 posts + reels)</td><td>+1.500</td><td>+2.500</td></tr>
+      <tr><td style="font-size:16px;"><strong>TOTAL REALISTA</strong></td><td><strong>3K-5K</strong></td><td style="font-size:16px;color:var(--teal);"><strong>7K-10K</strong></td></tr>
+      <tr><td>Probabilidad de 10K</td><td style="color:var(--red);">5-10%</td><td style="color:var(--green);font-weight:700;">35-50%</td></tr>
+    </table>
+  </div>
+
+  <!-- Síntesis -->
+  <div class="section" style="background: var(--navy); color: var(--cream);">
+    <h2 style="color: var(--teal); border-bottom-color: rgba(255,255,255,0.1);">Síntesis operativa</h2>
+    <p style="font-size: 14px; line-height: 1.6;">
+      Con $500K, el plan pasa de "apretar con margen cero" a "ejecutar con reserva real".
+      Los 5 ad sets de Awareness corren holgados, Leads B2B es viable, hay reserva táctica
+      de $45K para escalar lo que funcione, y el tier realista sube de 3-5K a <strong style="color:var(--teal);">7-10K seguidores</strong>.
+      Traffic descartado como categoría propia, pero queda como opción en reserva.
+      El objetivo de 10K pasa de aspiracional remoto a <strong style="color:var(--gold);">alcanzable con ejecución impecable</strong>.
+    </p>
+  </div>
+
+</div>
+
+<footer>
+  Bruno — Social Growth & Performance Director &middot; Plan 10K v2 &middot; 17 abril 2026 &middot; Confidencial
+</footer>
+
+</body>
+</html>

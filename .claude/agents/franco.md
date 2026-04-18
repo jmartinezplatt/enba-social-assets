@@ -7,10 +7,13 @@ Estratega de Contenido — Team 4, Capa 1 (Direccion Senior)
 Definir que se publica, cuando y por que. Gestionar el calendario editorial, la distribucion de verticales y la estrategia de hashtags. Revisar y aprobar o rechazar copy.
 
 ## Que hace
-- Define estrategia de contenido por campana/lote
+- Investiga y analiza audiencia objetivo, competencia y tendencias de mercado para definir contenidos relevantes
+- Define estrategia de contenido por campana/lote: proposito, temas, pilares y tono de voz
 - Define calendario editorial con fechas, verticales y logica de canal
 - Define distribucion de verticales (marca, travesias, escuela, broker, servicios)
 - Define estrategia de hashtags por pieza/lote
+- Incorpora estrategias de SEO y visibilidad para mejorar posicionamiento y trafico organico
+- Analiza metricas de contenido (engagement, trafico, descubrimiento) para ajustar la estrategia
 - Revisa copy de Sole
 - Da veredictos: APROBADO / APROBADO CON AJUSTE / REQUIERE REWRITE
 - Participa en sintesis de aprendizajes junto con Marina y Bruno

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auditoría Plan de Pauta — Frente 10K</title>
+<style>
+  :root { --navy: #0A1520; --teal: #4DB8A0; --gold: #D4A843; --cream: #E8EDF2; --red: #E74C3C; --green: #27AE60; --orange: #F39C12; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f5f7fa; color: #333; line-height: 1.6; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+  header { background: var(--red); color: white; padding: 32px 0; margin-bottom: 24px; }
+  header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  header h1 { font-size: 22px; font-weight: 700; }
+  .verdict { background: rgba(0,0,0,0.2); padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 700; }
+  .section { background: white; border-radius: 10px; padding: 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  .section h2 { font-size: 16px; color: var(--navy); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid var(--cream); }
+  .section h3 { font-size: 14px; color: #555; margin: 14px 0 8px; }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13px; }
+  th { background: var(--navy); color: white; padding: 8px 12px; text-align: left; font-weight: 600; font-size: 11px; text-transform: uppercase; }
+  td { padding: 8px 12px; border-bottom: 1px solid #eee; }
+  tr:hover td { background: #f8f9fb; }
+  .money { font-weight: 700; color: var(--navy); }
+  .crit { background: #fdecea; color: #721c24; font-weight: 700; font-size: 11px; padding: 3px 8px; border-radius: 4px; }
+  .med { background: #fff3cd; color: #856404; font-weight: 700; font-size: 11px; padding: 3px 8px; border-radius: 4px; }
+  .minor { background: #e2e3e5; color: #383d41; font-weight: 700; font-size: 11px; padding: 3px 8px; border-radius: 4px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+  .card { background: #f8f9fb; border-radius: 8px; padding: 14px; border-left: 4px solid var(--teal); margin-bottom: 10px; }
+  .card.red { border-left-color: var(--red); }
+  .card.orange { border-left-color: var(--orange); }
+  .card.gray { border-left-color: #aaa; }
+  .card h4 { font-size: 13px; color: var(--navy); margin-bottom: 4px; }
+  .card p { font-size: 12px; color: #555; }
+  .counter { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+  .counter-item { text-align: center; padding: 16px 24px; border-radius: 10px; min-width: 120px; }
+  .counter-item.red { background: #fdecea; border: 2px solid var(--red); }
+  .counter-item.orange { background: #fff3cd; border: 2px solid var(--orange); }
+  .counter-item.gray { background: #e9ecef; border: 2px solid #adb5bd; }
+  .counter-item .num { font-size: 32px; font-weight: 800; }
+  .counter-item .label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #666; }
+  .question { background: #f0f4ff; border: 1px solid #bdd4ff; border-radius: 8px; padding: 12px 16px; margin-bottom: 10px; }
+  .question strong { color: var(--navy); font-size: 13px; }
+  .question p { font-size: 12px; color: #444; margin-top: 4px; }
+  footer { text-align: center; padding: 24px; color: #999; font-size: 11px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div>
+      <h1>Auditoría Plan de Pauta — Frente 10K</h1>
+      <p style="opacity:0.8;font-size:13px;">Auditor: Paid Media Auditor &middot; 17 abril 2026 &middot; Plan de Bruno</p>
+    </div>
+    <div class="verdict">GAPS DETECTADOS — No ejecutable tal cual</div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- Contadores -->
+  <div class="counter">
+    <div class="counter-item red"><div class="num" style="color:var(--red);">7</div><div class="label">Críticos</div></div>
+    <div class="counter-item orange"><div class="num" style="color:var(--orange);">11</div><div class="label">Medios</div></div>
+    <div class="counter-item gray"><div class="num" style="color:#666;">7</div><div class="label">Menores</div></div>
+  </div>
+
+  <!-- Inventario -->
+  <div class="section">
+    <h2>Inventario real en Meta (17/04)</h2>
+    <div class="grid-2">
+      <div>
+        <h3>Campañas (4 PAUSED)</h3>
+        <table>
+          <tr><th>Campaña</th><th>Objetivo</th></tr>
+          <tr><td>ENBA_Awareness_abr2026</td><td>AWARENESS</td></tr>
+          <tr><td>ENBA_Engagement_abr2026</td><td>ENGAGEMENT</td></tr>
+          <tr><td>ENBA_Traffic_abr2026</td><td>TRAFFIC (vacía)</td></tr>
+          <tr><td>ENBA_Leads_abr2026</td><td>LEADS</td></tr>
+        </table>
+      </div>
+      <div>
+        <h3>Gasto acumulado</h3>
+        <div style="text-align:center;padding:20px;">
+          <div style="font-size:48px;font-weight:800;color:var(--red);">$0</div>
+          <div style="font-size:12px;color:#888;">de $100K planificados semana 1</div>
+        </div>
+      </div>
+    </div>
+    <h3>Ad Sets (7 PAUSED) + Ads (5 PAUSED)</h3>
+    <table>
+      <tr><th>Ad Set</th><th>Campaña</th><th>Budget/día</th><th>Ad</th><th>Pieza</th></tr>
+      <tr><td>B1 Experiencias BA</td><td>AWR</td><td class="money">$2.500</td><td>piece-01 darkpost</td><td>✅</td></tr>
+      <tr><td>A2 Interés Navegación</td><td>AWR</td><td class="money">$1.500</td><td>piece-01 darkpost</td><td>✅</td></tr>
+      <tr><td>C1 Turismo BA</td><td>AWR</td><td class="money">$1.500</td><td>piece-02 existing</td><td>✅</td></tr>
+      <tr><td>B2 Outdoor</td><td>AWR</td><td class="money">$1.500</td><td>piece-02 existing</td><td>✅</td></tr>
+      <tr><td>A3 Aspiracional</td><td>AWR</td><td class="money">$1.500</td><td>piece-03 existing</td><td>✅</td></tr>
+      <tr><td>C2 Regalos</td><td>ENG</td><td class="money">$1.500</td><td style="color:var(--red);">SIN AD</td><td>—</td></tr>
+      <tr><td>C3 Corporativo</td><td>LEA</td><td class="money">$3.500</td><td style="color:var(--red);">SIN AD + SIN LEAD FORM</td><td>—</td></tr>
+    </table>
+  </div>
+
+  <!-- GAPS CRITICOS -->
+  <div class="section" style="border: 2px solid var(--red);">
+    <h2 style="color:var(--red);">7 Gaps Críticos</h2>
+
+    <div class="card red">
+      <h4>S-1 / O-1: 7/7 ad sets con targeting de intereses inválido</h4>
+      <p>Los interest IDs usados al crear los ad sets fueron rechazados por Meta. Si se activan, corren con targeting broad (sin segmentación). <strong>Ningún ad set es activable.</strong></p>
+    </div>
+
+    <div class="card red">
+      <h4>E-1 / P-1: $210K de Engagement sin estructura real</h4>
+      <p>El plan asigna 42% ($210K) a Engagement. Pero solo hay 1 ad set de Engagement (C2 Regalos, $1.500/día = $45K max). <strong>Faltan $165K sin vehículo de ejecución.</strong></p>
+    </div>
+
+    <div class="card red">
+      <h4>P-2: Sprint semana 1: $0 de $100K planificados</h4>
+      <p>El sprint decía: 15/04 piece-01 $25K, 16/04 piece-02 $15K, 17/04 piece-03 $15K. En realidad, las 3 se publicaron el 17/04, $0 gastado. <strong>Quedan 4 días para ejecutar $100K.</strong></p>
+    </div>
+
+    <div class="card red">
+      <h4>O-2: Cronograma escalonado vencido</h4>
+      <p>El plan de activación (día 1, 2, 3, 5, 8...) arrancaba el 15/04. Hoy es día 3 con $0 ejecutado. <strong>Requiere re-baseline completo.</strong></p>
+    </div>
+
+    <div class="card red">
+      <h4>C-2 / O-3: No hay lead form para LEAD_GENERATION</h4>
+      <p>C3 Corporativo usa LEAD_GENERATION que requiere Instant Form. <strong>Sin lead form, los leads van a la nada.</strong></p>
+    </div>
+  </div>
+
+  <!-- GAPS MEDIOS -->
+  <div class="section">
+    <h2 style="color:var(--orange);">11 Gaps Medios</h2>
+    <table>
+      <tr><th>#</th><th>Gap</th><th>Área</th></tr>
+      <tr><td><span class="med">F-1</span></td><td>Falta ad piece-03 en B1 (plan dice A3 + B1)</td><td>Fuentes</td></tr>
+      <tr><td><span class="med">F-3</span></td><td>No hay ad set Engagement con destination=website (reemplazo de Traffic)</td><td>Fuentes</td></tr>
+      <tr><td><span class="med">E-2</span></td><td>No hay proceso para crear ad sets LAL/retargeting en día 10-14</td><td>Estructura</td></tr>
+      <tr><td><span class="med">S-2</span></td><td>Exclusión de followers no implementada</td><td>Segmentación</td></tr>
+      <tr><td><span class="med">S-3</span></td><td>Exclusión cruzada entre audiencias no implementada</td><td>Segmentación</td></tr>
+      <tr><td><span class="med">C-1</span></td><td>Reel publicado pero sin ad asociado</td><td>Creativo</td></tr>
+      <tr><td><span class="med">P-3</span></td><td>Tarjeta: límite $700K no confirmado</td><td>Presupuesto</td></tr>
+      <tr><td><span class="med">V-1</span></td><td>Eventos custom Pixel (ViewContent, Contact, Lead) no verificados</td><td>Conversiones</td></tr>
+      <tr><td><span class="med">V-2</span></td><td>UTMs no configurados en ads</td><td>Conversiones</td></tr>
+      <tr><td><span class="med">O-6</span></td><td>Reel sin plan concreto de ad (campaña, ad set, budget)</td><td>Operativo</td></tr>
+      <tr><td><span class="med">O-7</span></td><td>Carrusel del 18/04 ($20K) sin infraestructura</td><td>Operativo</td></tr>
+    </table>
+  </div>
+
+  <!-- GAPS MENORES -->
+  <div class="section">
+    <h2>7 Gaps Menores</h2>
+    <table>
+      <tr><th>#</th><th>Gap</th></tr>
+      <tr><td><span class="minor">F-4</span></td><td>D4 VideoViewers creable (reel publicado) pero no creada</td></tr>
+      <tr><td><span class="minor">E-3</span></td><td>5 ad sets AWR compiten internamente sin que el plan lo reconozca</td></tr>
+      <tr><td><span class="minor">S-4</span></td><td>Margen de C3 sobre mínimo LEAD_GEN: solo $17</td></tr>
+      <tr><td><span class="minor">S-5</span></td><td>Inconsistencia interna en preflight (tabla vs endpoint)</td></tr>
+      <tr><td><span class="minor">C-3</span></td><td>Rotación creativa limitada a 3 piezas</td></tr>
+      <tr><td><span class="minor">C-4</span></td><td>No hay A/B test de creative dentro de ad sets</td></tr>
+      <tr><td><span class="minor">V-3/V-4</span></td><td>D4 creable, tamaño D1/D2/D3 desconocido</td></tr>
+    </table>
+  </div>
+
+  <!-- Preguntas para Bruno -->
+  <div class="section">
+    <h2>10 Preguntas concretas para Bruno</h2>
+
+    <h3>Estructura y ejecución</h3>
+    <div class="question"><strong>1. Targeting inválido (7/7 ad sets)</strong><p>Los 18 interest IDs del preflight ¿se validaron contra targeting_option_list? ¿Se actualizaron los ad sets con IDs correctos?</p></div>
+    <div class="question"><strong>2. $210K de Engagement sin estructura</strong><p>Solo hay 1 ad set de Engagement ($1.500/día = $45K max). ¿Dónde se ejecutan los otros $165K? ¿Faltan ad sets por crear?</p></div>
+    <div class="question"><strong>3. Lead form para C3</strong><p>LEAD_GENERATION requiere Instant Form. ¿Existe? ¿Qué campos tiene?</p></div>
+
+    <h3>Timing</h3>
+    <div class="question"><strong>4. Sprint semana 1: $0 de $100K</strong><p>¿Se re-basea el cronograma o los $100K se comprimen en 4 días? ¿Se redistribuyen a semanas 2-4?</p></div>
+    <div class="question"><strong>5. Carrusel cuanto-sale mañana 18/04 ($20K)</strong><p>No hay ad set ni ad de carrusel. ¿Hay infraestructura?</p></div>
+    <div class="question"><strong>6. Reel "4 horas en el río" ya publicado</strong><p>Tu plan dice crear el ad al publicar. ¿A qué campaña? ¿Qué ad set? ¿Qué audiencia? ¿Qué budget?</p></div>
+
+    <h3>Presupuesto</h3>
+    <div class="question"><strong>7. Límite de tarjeta</strong><p>¿Se confirmó que soporta $700K (neto $500K + 40% impuestos)?</p></div>
+    <div class="question"><strong>8. Documentos previos ($250K)</strong><p>audiencias-ampliadas.md y diagnostico-inicial.md trabajan con $250K. ¿Quedan obsoletos o se ajustan proporciones?</p></div>
+
+    <h3>Exclusiones</h3>
+    <div class="question"><strong>9. Exclusión de followers</strong><p>Custom Audiences de exclusión fallaron vía API. Las 3 en UI son retargeting, no exclusión. ¿Está operativa la exclusión?</p></div>
+    <div class="question"><strong>10. Exclusión cruzada entre audiencias</strong><p>Bruno documentó reglas (A1 excluida de A2/A3, etc.) pero los ad sets no tienen excluded_custom_audiences. ¿Implementada?</p></div>
+  </div>
+
+  <!-- Acciones mínimas -->
+  <div class="section" style="border-left: 4px solid var(--red);">
+    <h2>Acciones mínimas para pasar a ejecutable</h2>
+    <table>
+      <tr><th>#</th><th>Acción</th><th>Bloquea</th></tr>
+      <tr><td>1</td><td>Validar 18 interest IDs contra API y actualizar 7 ad sets con targeting funcional</td><td><span class="crit">CRITICO</span></td></tr>
+      <tr><td>2</td><td>Crear ad sets de Engagement para cubrir $210K planificados</td><td><span class="crit">CRITICO</span></td></tr>
+      <tr><td>3</td><td>Crear lead form de C3 (Instant Form para eventos corporativos)</td><td><span class="crit">CRITICO</span></td></tr>
+      <tr><td>4</td><td>Re-baseline cronograma de activación desde día real de activación</td><td><span class="crit">CRITICO</span></td></tr>
+      <tr><td>5</td><td>Implementar exclusiones (page_liked + ig_business_profile_engaged)</td><td><span class="med">MEDIO</span></td></tr>
+      <tr><td>6</td><td>Definir plan concreto para reel como ad</td><td><span class="med">MEDIO</span></td></tr>
+      <tr><td>7</td><td>Confirmar límite de tarjeta para $700K</td><td><span class="med">MEDIO</span></td></tr>
+    </table>
+  </div>
+
+  <!-- Veredicto -->
+  <div class="section" style="background: var(--navy); color: var(--cream);">
+    <h2 style="color: var(--red); border-bottom-color: rgba(255,255,255,0.1);">Veredicto</h2>
+    <p style="font-size:14px;line-height:1.6;">
+      El plan de Bruno es <strong style="color:var(--teal);">estratégicamente sólido</strong> — diagnóstico, audiencias, KPIs, framework de corte/escalado son trabajo de calidad.
+    </p>
+    <p style="font-size:14px;line-height:1.6;margin-top:12px;">
+      El problema es la <strong style="color:var(--red);">brecha entre lo planificado y lo que existe en Meta</strong>. Los 7 ad sets tienen targeting roto. El 42% del presupuesto no tiene estructura. El cronograma caducó. No hay lead form.
+    </p>
+    <p style="font-size:14px;line-height:1.6;margin-top:12px;">
+      <strong style="color:var(--gold);">Hasta que se resuelvan las acciones 1-4, no hay plan de pauta ejecutable.</strong> Hay un plan escrito y una estructura en Meta que no coinciden.
+    </p>
+  </div>
+
+</div>
+
+<footer>
+  Paid Media Auditor — Team 4, ENBA &middot; 17 abril 2026 &middot; Confidencial
+</footer>
+
+</body>
+</html>
