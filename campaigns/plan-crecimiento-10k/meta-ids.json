@@ -109,6 +109,13 @@
       "daily_budget_ars": 3500,
       "optimization": "LEAD_GENERATION",
       "status": "PAUSED"
+    },
+    "AS_ENG_REEL": {
+      "id": "120239078452300139",
+      "name": "ENBA_Engagement_Reel4horas",
+      "campaign": "ENG",
+      "daily_budget_ars": 3000,
+      "status": "PAUSED"
     }
   },
   "phase_6_7_ads": "SKIPPED — pending post_ids from launch team",
@@ -193,6 +200,10 @@
     "piece-03-existing": {
       "id": "1902623250399897",
       "status": "created"
+    },
+    "reel-4horas-existing": {
+      "id": "950413604375752",
+      "status": "created"
     }
   },
   "ads": {
@@ -236,6 +247,13 @@
       "name": "ENBA_ad_piece03_B1",
       "adset": "AS_AWR_B1",
       "creative": "piece-03-existing",
+      "status": "PAUSED"
+    },
+    "AD_ENG_REEL": {
+      "id": "120239078453020139",
+      "name": "ENBA_ad_reel4horas_ENG",
+      "adset": "AS_ENG_REEL",
+      "creative": "reel-4horas-existing",
       "status": "PAUSED"
     }
   },
