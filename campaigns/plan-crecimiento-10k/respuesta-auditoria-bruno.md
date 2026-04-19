@@ -1,3 +1,5 @@
+> **HISTORICO — Integrado en `presupuesto-v3-final.md` (seccion 18). Este documento se conserva como registro.**
+
 # Respuesta a la Auditoría — Bruno
 
 **Autor:** Bruno (Social Growth & Performance Director)

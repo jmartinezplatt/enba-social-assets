@@ -1,3 +1,5 @@
+> **NOTA (19/04):** KPIs vigentes. Los umbrales de corte/escalado fueron recalibrados en `presupuesto-v3-final.md` secciones 9-10 (CPS > $100 cortar, CPS < $30 + ER > 3% escalar). Usar v3 cuando haya discrepancia.
+
 # KPIs — Plan Crecimiento 10K
 
 **Autor:** Bruno (Social Growth & Performance Director)

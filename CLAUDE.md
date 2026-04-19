@@ -8,6 +8,18 @@ Repositorio de contenido social para Espacio Náutico Buenos Aires (ENBA). Conti
 
 ---
 
+## Branch de trabajo activo
+
+**Branch:** `plan-crecimiento-10k`
+**Fuentes de verdad del frente:**
+- `campaigns/plan-crecimiento-10k/plan-maestro.md` — plan vivo, pendientes, timeline
+- `campaigns/plan-crecimiento-10k/presupuesto-v3-final.md` — plan de pauta vigente
+- `campaigns/plan-crecimiento-10k/meta-ids.json` — infraestructura Meta Ads
+
+Al arrancar sesión, verificar que estás en este branch. Si no, hacer `git checkout plan-crecimiento-10k`.
+
+---
+
 ## Regla obligatoria
 **COMMITS Y PUSH**: nunca hacer commit ni push sin consulta previa. Esperar aprobación explícita del usuario.
 

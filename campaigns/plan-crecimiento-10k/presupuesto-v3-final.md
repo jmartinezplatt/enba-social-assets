@@ -2,7 +2,8 @@
 
 **Autor:** Bruno (Social Growth & Performance Director)
 **Fecha:** 17 de abril de 2026
-**Periodo:** 18 de abril — 14 de mayo de 2026 (27 días)
+**Periodo:** 19 de abril — 15 de mayo de 2026 (27 días)
+**Re-baseline:** día 1 movido de 18/04 a 19/04 (activación real). Todas las fechas absolutas corren +1 día.
 **Presupuesto neto:** ARS 500.000
 **Débito real estimado:** ~ARS 700.000 (impuestos argentinos ~40%)
 **Tarjeta:** Mastercard ····8307, límite confirmado por el owner
@@ -39,14 +40,14 @@ La campaña `ENBA_Traffic_abr2026` (ID `120238976549000139`) queda creada sin ad
 
 ## 3. Distribución semanal
 
-Re-baseline: día 1 = 18/04/2026. El plan corre 27 días (no 30).
+Re-baseline: día 1 = 19/04/2026 (activación real). El plan corre 27 días (no 30).
 
 | Semana | Días | Fechas | Budget | Diario promedio | Foco |
 |--------|------|--------|--------|-----------------|------|
-| 1 | 7 | 18-24 abr | $100.000 | ~$14.285 | Awareness intensivo + arranque Engagement |
-| 2 | 7 | 25 abr - 1 may | $140.000 | ~$20.000 | Reel + escalar winners |
-| 3 | 7 | 2-8 may | $160.000 | ~$22.857 | Escalar + retargeting + Leads |
-| 4 | 6 | 9-14 may | $100.000 | ~$16.666 | Consolidar + cierre |
+| 1 | 7 | 19-25 abr | $100.000 | ~$14.285 | Awareness intensivo + arranque Engagement |
+| 2 | 7 | 26 abr - 2 may | $140.000 | ~$20.000 | Reel + escalar winners |
+| 3 | 7 | 3-9 may | $160.000 | ~$22.857 | Escalar + retargeting + Leads |
+| 4 | 6 | 10-15 may | $100.000 | ~$16.666 | Consolidar + cierre |
 | **Total** | **27** | | **$500.000** | | |
 
 Curva 20/28/32/20 preservada.

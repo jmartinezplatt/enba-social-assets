@@ -1,0 +1,820 @@
+{
+  "updatedAt": "2026-04-17T09:38:15.801Z",
+  "createdAt": "2026-04-14T20:26:03.998Z",
+  "id": "oiFVJdy5VGlXtlMp",
+  "name": "ENBA - Redes Publicacion Diaria 12:15",
+  "description": null,
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "15 15 * * *"
+            }
+          ]
+        }
+      },
+      "id": "node-schedule",
+      "name": "Schedule 12:15 ART",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        208,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://social-assets.espacionautico.com.ar/campaigns/calendario-integrado.json",
+        "options": {}
+      },
+      "id": "node-get-calendar",
+      "name": "Get Calendar",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        432,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const calendar = $input.first().json;\nconst now = new Date();\nconst argDate = new Date(now.getTime() - 3 * 60 * 60 * 1000);\nconst argDD = String(argDate.getUTCDate()).padStart(2, '0');\nconst argMM = String(argDate.getUTCMonth() + 1).padStart(2, '0');\nconst argYYYY = argDate.getUTCFullYear();\nconst todayStr = `${argDD}/${argMM}/${argYYYY}`;\n\nconst todayEntries = calendar.calendario.filter(e => e.fecha === todayStr && e.tipo === 'pieza');\n\nif (todayEntries.length === 0) {\n  return [{ json: { skip: true, message: `No hay piezas para hoy (${todayStr})`, date: todayStr } }];\n}\n\nconst entry = todayEntries[0];\nreturn [{ json: { skip: false, date: todayStr, ...entry } }];\n"
+      },
+      "id": "node-find-today",
+      "name": "Find Today Piece",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        640,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "skip-check",
+              "leftValue": "={{ $json.skip }}",
+              "rightValue": false,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "node-check-skip",
+      "name": "Has Piece?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        864,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://social-assets.espacionautico.com.ar/campaigns/lanzamiento-15-abr-2026/campaign.pieces.json",
+        "options": {}
+      },
+      "id": "node-get-pieces",
+      "name": "Get Pieces JSON",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1072,
+        48
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const allItems = $input.all();\nconst pieces = allItems.map(item => item.json);\n\nconst entry = $('Find Today Piece').first().json;\nconst piece = pieces.find(p => p && p.id === entry.id);\n\n// Evaluate dryRun — fail closed\nlet isDryRun = true;\ntry {\n  const raw = $vars.dryRun;\n  const normalized = String(raw ?? 'true').toLowerCase().trim();\n  isDryRun = normalized !== 'false';\n} catch (e) {\n  isDryRun = true;\n}\n\n// Error case: piece not found\nif (!piece) {\n  return [{ json: {\n    action: 'error',\n    pieceId: entry.id,\n    message: 'Piece not found: ' + entry.id\n  } }];\n}\n\n// Anti-duplicado\nconst staticData = $getWorkflowStaticData('global');\nconst publishedToday = staticData.lastPublished || '';\nconst todayStr = entry.date;\n\nif (publishedToday === piece.id + '_' + todayStr) {\n  return [{ json: {\n    action: 'duplicate',\n    pieceId: piece.id,\n    date: todayStr,\n    headline: piece.headline,\n    message: 'Pieza ya publicada hoy. Skip.'\n  } }];\n}\n\n// Build image URL\nconst num = piece.id.replace('piece-', '');\nconst parts = piece.date.split('/');\nconst d = parts[0], m = parts[1], y = parts[2];\nconst dateStr = y + '-' + m + '-' + d;\nconst verticalSlug = piece.vertical.toLowerCase().replace(/\\u00ed/g, 'i');\nconst manifestId = 'sm-' + dateStr + '-ig-feed-' + verticalSlug + '-' + num;\nconst pngName = num + '-' + d + '-' + m + '-' + y + '-' + verticalSlug + '.png';\nconst imageUrl = 'https://social-assets.espacionautico.com.ar/staging/' + y + '/' + m + '/' + manifestId + '/' + pngName;\n\n// Decide action: publish or dryrun\nconst action = isDryRun ? 'dryrun' : 'publish';\n\nreturn [{ json: {\n  action: action,\n  pieceId: piece.id,\n  date: piece.date,\n  vertical: piece.vertical,\n  headline: piece.headline,\n  captionIg: piece.captionIg,\n  captionFb: piece.captionFb,\n  imageUrl: imageUrl,\n  manifestId: manifestId,\n  igUserId: '17841443139761422',\n  pageId: '1064806400040502'\n} }];"
+      },
+      "id": "node-prepare-publish",
+      "name": "Prepare Publish Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1264,
+        48
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v21.0/{{ $json.igUserId }}/media?image_url={{ encodeURIComponent($json.imageUrl) }}&caption={{ encodeURIComponent($json.captionIg) }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "node-ig-container",
+      "name": "IG Create Container",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2180,
+        200
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "n8scJzbGXnCprioD",
+          "name": "Meta API ENBA"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "amount": 8
+      },
+      "id": "node-wait",
+      "name": "Wait 8s",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2400,
+        200
+      ],
+      "webhookId": "cfa686b9-cae4-40e6-aff7-df275bbdd59f"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v21.0/{{ $('Prepare Publish Data').first().json.igUserId }}/media_publish?creation_id={{ $('IG Create Container').first().json.id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "node-ig-publish",
+      "name": "IG Publish",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2620,
+        200
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "n8scJzbGXnCprioD",
+          "name": "Meta API ENBA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v21.0/{{ $('Prepare Publish Data').first().json.pageId }}/photos?url={{ encodeURIComponent($('Prepare Publish Data').first().json.imageUrl) }}&published=false",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "node-fb-create-unpublished-photo",
+      "name": "FB Create Unpublished Photo",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2840,
+        200
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "n8scJzbGXnCprioD",
+          "name": "Meta API ENBA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const piece = $('Prepare Publish Data').first().json;\nconst igResult = $('IG Publish').first().json;\nconst fbResult = $('FB Publish Post').first().json;\n\nconst igId = igResult.id || 'ERROR';\nconst fbId = fbResult.id || 'ERROR';\n\nconst igUrl = 'https://www.instagram.com/espacionauticobsas/';\nconst fbUrl = 'https://www.facebook.com/' + fbId;\n\nconst ok = igId !== 'ERROR' && fbId !== 'ERROR';\n\n// Record anti-duplicate\nconst staticData = $getWorkflowStaticData('global');\nstaticData.lastPublished = piece.pieceId + '_' + piece.date;\n\nconst subject = ok\n  ? 'ENBA Redes: ' + piece.pieceId + ' publicado - ' + piece.headline\n  : 'ENBA Redes ERROR: ' + piece.pieceId + ' publicacion parcial';\n\nconst body = 'PUBLICACION REDES - ENBA\\n'\n  + '========================\\n\\n'\n  + 'Pieza: ' + piece.pieceId + '\\n'\n  + 'Fecha: ' + piece.date + '\\n'\n  + 'Vertical: ' + piece.vertical + '\\n'\n  + 'Headline: ' + piece.headline + '\\n\\n'\n  + 'Instagram: ' + (igId !== 'ERROR' ? 'PUBLICADO' : 'FALLO') + '\\n'\n  + '  Post ID: ' + igId + '\\n'\n  + '  Ver en vivo: ' + igUrl + '\\n\\n'\n  + 'Facebook: ' + (fbId !== 'ERROR' ? 'PUBLICADO' : 'FALLO') + '\\n'\n  + '  Post ID: ' + fbId + '\\n'\n  + '  Ver en vivo: ' + fbUrl + '\\n\\n'\n  + 'Timestamp: ' + new Date().toISOString();\n\nreturn [{ json: { subject, body, igId, fbId, pieceId: piece.pieceId } }];"
+      },
+      "id": "node-prepare-email",
+      "name": "Prepare Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3060,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "jmartinezplatt@gmail.com",
+        "toEmail": "jmartinezplatt@gmail.com",
+        "subject": "={{ $json.subject }}",
+        "emailFormat": "text",
+        "text": "={{ $json.body }}",
+        "options": {}
+      },
+      "id": "node-send-email",
+      "name": "Send Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        3280,
+        200
+      ],
+      "webhookId": "42728938-8ee0-40c7-a7b1-d2f2235ef1e8",
+      "credentials": {
+        "smtp": {
+          "id": "HpJBfNd1BCHaLYfY",
+          "name": "Gmail ENBA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $('Find Today Piece').first().json;\n\nconst subject = '[INFO] ENBA Redes: sin pieza programada para hoy';\n\nconst body = 'SIN PIEZA PROGRAMADA\\n'\n  + '====================\\n\\n'\n  + 'No hay pieza tipo \"pieza\" en el calendario para hoy (' + data.date + ').\\n'\n  + 'El workflow terminó sin publicar.\\n\\n'\n  + 'Timestamp: ' + new Date().toISOString();\n\nreturn [{ json: { subject, body } }];"
+      },
+      "id": "aabdeb5e-1dc4-4244-9e2d-558de967344b",
+      "name": "Prepare Skip Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1072,
+        512
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "jmartinezplatt@gmail.com",
+        "toEmail": "jmartinezplatt@gmail.com",
+        "subject": "={{ $json.subject }}",
+        "emailFormat": "text",
+        "text": "={{ $json.body }}",
+        "options": {}
+      },
+      "id": "49be0f20-1a3c-40dc-b319-039918256c5b",
+      "name": "Send Skip Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        1280,
+        512
+      ],
+      "webhookId": "3d25f3af-c792-4393-930b-2d80cf161112",
+      "credentials": {
+        "smtp": {
+          "id": "HpJBfNd1BCHaLYfY",
+          "name": "Gmail ENBA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $('Prepare Publish Data').first().json;\n\nconst subject = '[SKIP] ENBA Redes: ' + data.pieceId + ' ya publicada hoy';\n\nconst body = 'ANTI-DUPLICADO ACTIVADO\\n'\n  + '========================\\n\\n'\n  + 'La pieza ' + data.pieceId + ' ya fue publicada hoy.\\n'\n  + 'El workflow no volvió a publicar.\\n\\n'\n  + 'Timestamp: ' + new Date().toISOString();\n\nreturn [{ json: { subject, body } }];"
+      },
+      "id": "123a6ee6-5910-4f20-9530-edae57b4a7cb",
+      "name": "Prepare Duplicate Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1664,
+        512
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "jmartinezplatt@gmail.com",
+        "toEmail": "jmartinezplatt@gmail.com",
+        "subject": "={{ $json.subject }}",
+        "emailFormat": "text",
+        "text": "={{ $json.body }}",
+        "options": {}
+      },
+      "id": "cd2aa592-4f12-4390-886c-b2bfb46091dd",
+      "name": "Send Duplicate Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        1872,
+        512
+      ],
+      "webhookId": "405b1ba5-fc0a-4ced-9d6d-7fed7346f0d8",
+      "credentials": {
+        "smtp": {
+          "id": "HpJBfNd1BCHaLYfY",
+          "name": "Gmail ENBA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const piece = $('Prepare Publish Data').first().json;\n\nconst subject = '[DRY RUN] ENBA Redes: ' + piece.pieceId + ' - ' + piece.headline;\n\nconst body = '=== DRY RUN — NO SE PUBLICÓ NADA ===\\n\\n'\n  + 'Este email confirma que el workflow funciona correctamente.\\n'\n  + 'No se tocó Meta API. No se publicó en IG ni FB.\\n\\n'\n  + 'DATOS DE LA PIEZA:\\n'\n  + '  Pieza: ' + piece.pieceId + '\\n'\n  + '  Fecha: ' + piece.date + '\\n'\n  + '  Vertical: ' + piece.vertical + '\\n'\n  + '  Headline: ' + piece.headline + '\\n'\n  + '  Image URL: ' + piece.imageUrl + '\\n\\n'\n  + 'Para publicar de verdad, cambiar la variable dryRun a \"false\".\\n\\n'\n  + 'Timestamp: ' + new Date().toISOString();\n\nreturn [{ json: { subject, body } }];"
+      },
+      "id": "43e3fe68-ba78-4322-b4c9-526d11df3b19",
+      "name": "Prepare Dry Run Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2208,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "jmartinezplatt@gmail.com",
+        "toEmail": "jmartinezplatt@gmail.com",
+        "subject": "={{ $json.subject }}",
+        "emailFormat": "text",
+        "text": "={{ $json.body }}",
+        "options": {}
+      },
+      "id": "17273030-7402-4f5e-951c-1b7dc147f82c",
+      "name": "Send Dry Run Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        2384,
+        544
+      ],
+      "webhookId": "8bb08370-df08-4c01-bb8d-3753e60b1c7b",
+      "credentials": {
+        "smtp": {
+          "id": "HpJBfNd1BCHaLYfY",
+          "name": "Gmail ENBA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const piece = $('Prepare Publish Data').first().json;\n\nconst subject = '[ERROR CRITICO] ENBA Redes: IG falló - ' + piece.pieceId;\n\nconst body = 'ERROR EN PUBLICACION IG\\n'\n  + '========================\\n\\n'\n  + 'La publicación en Instagram FALLÓ.\\n'\n  + 'NO se intentó publicar en Facebook.\\n'\n  + 'NO se publicó nada.\\n\\n'\n  + 'Pieza: ' + piece.pieceId + '\\n'\n  + 'Fecha: ' + piece.date + '\\n'\n  + 'Headline: ' + piece.headline + '\\n\\n'\n  + 'ACCIÓN REQUERIDA: revisar error en n8n y reintentar.\\n\\n'\n  + 'Timestamp: ' + new Date().toISOString();\n\nreturn [{ json: { subject, body } }];"
+      },
+      "id": "48f4b7c4-b384-4ef1-9e98-1d2bb0f95b95",
+      "name": "Prepare IG Error Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2400,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "jmartinezplatt@gmail.com",
+        "toEmail": "jmartinezplatt@gmail.com",
+        "subject": "={{ $json.subject }}",
+        "emailFormat": "text",
+        "text": "={{ $json.body }}",
+        "options": {}
+      },
+      "id": "9161c046-c5bd-4331-80ad-b60b1625fbe0",
+      "name": "Send IG Error Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        2620,
+        600
+      ],
+      "webhookId": "b7527ce7-bc94-4f14-836c-f9459d8021eb",
+      "credentials": {
+        "smtp": {
+          "id": "HpJBfNd1BCHaLYfY",
+          "name": "Gmail ENBA"
+        }
+      }
+    },
+    {
+      "id": "e7ee9e9b-058b-4d00-89ae-e2ebc47b15a5",
+      "name": "IF_ActionPublish",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1520,
+        200
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-action-publish",
+              "leftValue": "={{ $json.action }}",
+              "rightValue": "publish",
+              "operator": {
+                "operation": "equals",
+                "type": "string"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "d80050e5-206d-43b3-8523-1c353f6e0e57",
+      "name": "IF_ActionDuplicate",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1520,
+        420
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-action-duplicate",
+              "leftValue": "={{ $json.action }}",
+              "rightValue": "duplicate",
+              "operator": {
+                "operation": "equals",
+                "type": "string"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "8ab92abc-b29e-4d99-99bd-9a982a9d6ae0",
+      "name": "IF_ActionDryRun",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1740,
+        540
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-action-dryrun",
+              "leftValue": "={{ $json.action }}",
+              "rightValue": "dryrun",
+              "operator": {
+                "operation": "equals",
+                "type": "string"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "41cda6c8-4793-42f5-9217-84325a1194f9",
+      "name": "Prepare Error Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1960,
+        660
+      ],
+      "parameters": {
+        "jsCode": "const data = $('Prepare Publish Data').first().json;\n\nconst subject = '[ERROR] ENBA Redes: acción desconocida - ' + (data.pieceId || 'sin pieza');\nconst body = 'ERROR EN WORKFLOW\\n'\n  + '=================\\n\\n'\n  + 'El workflow llegó a un estado imprevisto.\\n'\n  + 'Acción recibida: ' + (data.action || 'undefined') + '\\n'\n  + 'Mensaje: ' + (data.message || 'sin mensaje') + '\\n'\n  + 'Pieza: ' + (data.pieceId || 'desconocida') + '\\n\\n'\n  + 'ACCIÓN REQUERIDA: revisar ejecución en n8n.\\n\\n'\n  + 'Timestamp: ' + new Date().toISOString();\n\nreturn [{ json: { subject, body } }];"
+      }
+    },
+    {
+      "id": "bc33882e-f296-44c0-a889-cbb1825559a7",
+      "name": "Send Error Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        2180,
+        660
+      ],
+      "parameters": {
+        "fromEmail": "jmartinezplatt@gmail.com",
+        "toEmail": "jmartinezplatt@gmail.com",
+        "subject": "={{ $json.subject }}",
+        "emailFormat": "text",
+        "text": "={{ $json.body }}",
+        "options": {}
+      },
+      "credentials": {
+        "smtp": {
+          "id": "HpJBfNd1BCHaLYfY",
+          "name": "Gmail ENBA"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v21.0/{{ $('Prepare Publish Data').first().json.pageId }}/feed?message={{ encodeURIComponent($('Prepare Publish Data').first().json.captionFb) }}&attached_media={{ encodeURIComponent('[{\"media_fbid\":\"' + $('FB Create Unpublished Photo').first().json.id + '\"}]') }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "node-fb-publish-post",
+      "name": "FB Publish Post",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3060,
+        200
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "n8scJzbGXnCprioD",
+          "name": "Meta API ENBA"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Schedule 12:15 ART": {
+      "main": [
+        [
+          {
+            "node": "Get Calendar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Calendar": {
+      "main": [
+        [
+          {
+            "node": "Find Today Piece",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find Today Piece": {
+      "main": [
+        [
+          {
+            "node": "Has Piece?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Piece?": {
+      "main": [
+        [
+          {
+            "node": "Get Pieces JSON",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare Skip Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Pieces JSON": {
+      "main": [
+        [
+          {
+            "node": "Prepare Publish Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Publish Data": {
+      "main": [
+        [
+          {
+            "node": "IF_ActionPublish",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF_ActionPublish": {
+      "main": [
+        [
+          {
+            "node": "IG Create Container",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IF_ActionDuplicate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF_ActionDuplicate": {
+      "main": [
+        [
+          {
+            "node": "Prepare Duplicate Email",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IF_ActionDryRun",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF_ActionDryRun": {
+      "main": [
+        [
+          {
+            "node": "Prepare Dry Run Email",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare Error Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IG Create Container": {
+      "main": [
+        [
+          {
+            "node": "Wait 8s",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prepare IG Error Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 8s": {
+      "main": [
+        [
+          {
+            "node": "IG Publish",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IG Publish": {
+      "main": [
+        [
+          {
+            "node": "FB Create Unpublished Photo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Email": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Skip Email": {
+      "main": [
+        [
+          {
+            "node": "Send Skip Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Duplicate Email": {
+      "main": [
+        [
+          {
+            "node": "Send Duplicate Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Dry Run Email": {
+      "main": [
+        [
+          {
+            "node": "Send Dry Run Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare IG Error Email": {
+      "main": [
+        [
+          {
+            "node": "Send IG Error Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Error Email": {
+      "main": [
+        [
+          {
+            "node": "Send Error Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FB Create Unpublished Photo": {
+      "main": [
+        [
+          {
+            "node": "FB Publish Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FB Publish Post": {
+      "main": [
+        [
+          {
+            "node": "Prepare Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "binaryMode": "separate"
+  },
+  "staticData": {
+    "node:Schedule 12:15 ART": {
+      "recurrenceRules": []
+    }
+  },
+  "meta": null,
+  "pinData": {},
+  "versionId": "4b46ba94-f7e8-4d06-a118-64273278e933",
+  "activeVersionId": null,
+  "versionCounter": 59,
+  "triggerCount": 1,
+  "tags": [],
+  "activeVersion": null
+}

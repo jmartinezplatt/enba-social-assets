@@ -1,5 +1,5 @@
 {
-  "last_verified": "2026-04-18T23:40:00-03:00",
+  "last_verified": "2026-04-19T00:15:00-03:00",
   "ad_account": "act_2303565156801569",
   "ad_account_name": "Espacio Nautico",
   "ad_account_status": 1,
@@ -61,13 +61,15 @@
       "id": "120238976548160139",
       "name": "ENBA_Awareness_abr2026",
       "objective": "OUTCOME_AWARENESS",
-      "status": "PAUSED"
+      "status": "ACTIVE",
+      "activated": "2026-04-19T00:10:00-03:00"
     },
     "C_ENG": {
       "id": "120238976548380139",
       "name": "ENBA_Engagement_abr2026",
       "objective": "OUTCOME_ENGAGEMENT",
-      "status": "PAUSED"
+      "status": "ACTIVE",
+      "activated": "2026-04-19T00:10:00-03:00"
     },
     "C_TRF": {
       "id": "120238976549000139",
@@ -90,7 +92,8 @@
       "campaign": "AWR",
       "daily_budget_ars": 2500,
       "optimization": "REACH",
-      "status": "PAUSED",
+      "status": "ACTIVE",
+      "activated": "2026-04-19T00:10:00-03:00",
       "ready": true
     },
     "AS_AWR_A2": {
@@ -99,7 +102,8 @@
       "campaign": "AWR",
       "daily_budget_ars": 1500,
       "optimization": "REACH",
-      "status": "PAUSED",
+      "status": "ACTIVE",
+      "activated": "2026-04-19T00:10:00-03:00",
       "ready": true
     },
     "AS_AWR_C1": {
@@ -108,7 +112,8 @@
       "campaign": "AWR",
       "daily_budget_ars": 1500,
       "optimization": "REACH",
-      "status": "PAUSED",
+      "status": "ACTIVE",
+      "activated": "2026-04-19T00:10:00-03:00",
       "ready": true
     },
     "AS_AWR_B2": {
@@ -117,7 +122,8 @@
       "campaign": "AWR",
       "daily_budget_ars": 1500,
       "optimization": "REACH",
-      "status": "PAUSED",
+      "status": "ACTIVE",
+      "activated": "2026-04-19T00:10:00-03:00",
       "ready": true
     },
     "AS_AWR_A3": {
@@ -126,7 +132,8 @@
       "campaign": "AWR",
       "daily_budget_ars": 1500,
       "optimization": "REACH",
-      "status": "PAUSED",
+      "status": "ACTIVE",
+      "activated": "2026-04-19T00:10:00-03:00",
       "ready": true
     },
     "AS_ENG_C2": {
@@ -150,7 +157,8 @@
       "optimization": "POST_ENGAGEMENT",
       "promoted_object": "page_id:1064806400040502",
       "destination_type": "ON_POST",
-      "status": "PAUSED",
+      "status": "ACTIVE",
+      "activated": "2026-04-19T00:10:00-03:00",
       "ready": true
     },
     "AS_ENG_TOP": {
@@ -194,6 +202,11 @@
     "piece-01-darkpost": {
       "hash": "e300bc9295a0cfa9b24ab363ce093beb",
       "status": "uploaded"
+    },
+    "darkpost-regalos-C2": {
+      "hash": "ec0a8279da0434e053627a0cfba0a569",
+      "status": "uploaded",
+      "source": "asset-bank/grupo-merienda-atardecer-cockpit.jpg"
     }
   },
   "ad_creatives": {
@@ -213,6 +226,11 @@
       "id": "950413604375752",
       "status": "ACTIVE"
     },
+    "darkpost-regalos-C2": {
+      "id": "2238943696639456",
+      "status": "ACTIVE",
+      "created_date": "2026-04-19"
+    },
     "reel-4horas-alt": {
       "id": "1996455587614987",
       "status": "ACTIVE",
@@ -225,49 +243,65 @@
       "name": "ENBA_ad_piece01dp_A2",
       "adset": "AS_AWR_A2",
       "creative": "piece-01-darkpost",
-      "status": "PAUSED"
+      "status": "ACTIVE",
+      "activated": "2026-04-19T00:10:00-03:00"
     },
     "AD_B1_P01": {
       "id": "120239058262400139",
       "name": "ENBA_ad_piece01dp_B1",
       "adset": "AS_AWR_B1",
       "creative": "piece-01-darkpost",
-      "status": "PAUSED"
+      "status": "ACTIVE",
+      "activated": "2026-04-19T00:10:00-03:00"
     },
     "AD_C1_P02": {
       "id": "120239057858590139",
       "name": "ENBA_ad_piece02_C1",
       "adset": "AS_AWR_C1",
       "creative": "piece-02-existing",
-      "status": "PAUSED"
+      "status": "ACTIVE",
+      "activated": "2026-04-19T00:10:00-03:00"
     },
     "AD_B2_P02": {
       "id": "120239057859170139",
       "name": "ENBA_ad_piece02_B2",
       "adset": "AS_AWR_B2",
       "creative": "piece-02-existing",
-      "status": "PAUSED"
+      "status": "ACTIVE",
+      "activated": "2026-04-19T00:10:00-03:00"
     },
     "AD_A3_P03": {
       "id": "120239061361640139",
       "name": "ENBA_ad_piece03_A3",
       "adset": "AS_AWR_A3",
       "creative": "piece-03-existing",
-      "status": "PAUSED"
+      "status": "ACTIVE",
+      "activated": "2026-04-19T00:10:00-03:00"
     },
     "AD_B1_P03": {
       "id": "120239075118770139",
       "name": "ENBA_ad_piece03_B1",
       "adset": "AS_AWR_B1",
       "creative": "piece-03-existing",
-      "status": "PAUSED"
+      "status": "ACTIVE",
+      "activated": "2026-04-19T00:10:00-03:00"
     },
     "AD_ENG_REEL": {
       "id": "120239078453020139",
       "name": "ENBA_ad_reel4horas_ENG",
       "adset": "AS_ENG_REEL",
       "creative": "reel-4horas-existing",
-      "status": "PAUSED"
+      "status": "ACTIVE",
+      "activated": "2026-04-19T00:10:00-03:00"
+    },
+    "AD_C2_REGALOS": {
+      "id": "120239165409650139",
+      "name": "ENBA_ad_regalos_C2",
+      "adset": "AS_ENG_C2",
+      "creative": "darkpost-regalos-C2",
+      "status": "PAUSED",
+      "created_date": "2026-04-19",
+      "activation": "dia 5 (23/04)"
     }
   },
   "pixels": {

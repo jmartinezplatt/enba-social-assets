@@ -1,3 +1,5 @@
+> **HISTORICO — Decision tomada e integrada en `presupuesto-v3-final.md`. Este documento se conserva como registro.**
+
 # Decisión B v2 — Propuesta ejecutiva
 
 **Fecha:** 16 abril 2026

@@ -1,59 +1,66 @@
 # Plan Maestro — Crecimiento 10K seguidores en 30 dias
 
 **Autor:** Manu (Coordinador de Produccion)
-**Fecha:** 15 de abril de 2026
-**Periodo:** 15 de abril - 14 de mayo de 2026
-**Fuentes:** diagnostico-inicial (Bruno), estrategia-instagram (Franco), estrategia-facebook (Franco), analisis-reels (Marina), review-estrategia-ig (Marina), meta-business-setup (Bruno), google-analytics-medicion (Bruno), kpis (Bruno), presupuesto (Bruno), reporte-semanal-template (Bruno), calendario-integrado.json
+**Fecha original:** 15 de abril de 2026
+**Ultima actualizacion:** 19 de abril de 2026
+**Periodo:** 19 de abril - 15 de mayo de 2026 (27 dias, re-baselineado)
+**Plan de pauta vigente:** `presupuesto-v3-final.md` (fuente de verdad de pauta, reemplaza este resumen)
+**Fuentes:** diagnostico-inicial (Bruno), estrategia-instagram (Franco), estrategia-facebook (Franco), analisis-reels (Marina), review-estrategia-ig (Marina), meta-business-setup (Bruno), google-analytics-medicion (Bruno), kpis (Bruno), presupuesto-v3-final (Bruno), reporte-semanal-template (Bruno), calendario-integrado.json
 
 ---
 
 ## 1. Resumen ejecutivo
 
-**Objetivo declarado:** 10.000 seguidores en IG + FB en 30 dias.
+**Objetivo declarado:** 10.000 seguidores en IG + FB en 27 dias.
 
-**Target realista:** 3.000-5.000 seguidores (tier realista de Bruno, probabilidad 55-65%). El objetivo de 10K tiene probabilidad del 5-10%. El piso minimo aceptable es 1.000-2.000 (probabilidad 85-90%).
+**Target realista:** 7.000-10.000 seguidores (Bruno, presupuesto-v3, probabilidad 35-50%). Piso minimo: 5.900 pagados + 2.500 organicos.
 
-**Presupuesto pauta:** ARS 250.000 neto para Meta Ads. Debito real en tarjeta ~ARS 350.000 (impuestos argentinos ~40%).
+**Presupuesto pauta:** ARS 500.000 neto para Meta Ads. Debito real en tarjeta ~ARS 700.000 (impuestos argentinos ~40%). Tarjeta Mastercard ····8307, limite confirmado. **500K es solo pauta, produccion es gasto aparte (confirmado 19/04).**
 
-**Presupuesto produccion reels:** ARS 100.000-120.000 (gimbal + funda waterproof). **PENDIENTE: confirmar si es gasto separado o sale de los 250K.**
+**Contenido disponible (actualizado 19/04):**
+- 30 piezas estaticas: en staging, publicacion diaria via n8n. Pieces 01-05 ya publicadas.
+- 3 carruseles organicos: slides renderizados, captions aprobados, QA PASS. Script `publish-carousel.mjs` listo.
+- Reel "4 horas en el rio": editado, publicado IG+FB 17/04, corriendo como ad de engagement.
+- Reel "primera vez": guion listo, material crudo + material de colega disponible, direccion creativa Marina (score 9/10), pendiente edit-sheet y edicion.
+- 65 assets curados en asset-bank.
+- Cortes de pauta reel 4h: 30s y 15s listos.
 
-**Contenido disponible:**
-- 30 piezas estaticas: QA PASS, renderizadas, captions aprobados, en staging con manifests. **Listas para publicar hoy.**
-- 3 carruseles organicos: slides renderizados, captions aprobados, QA PASS. **NO estan en staging. Script de publicacion NO soporta carruseles todavia.**
-- 2 reels: guiones escritos. **SIN FILMAR. Sin material de video.**
-- 45 assets curados en asset-bank.
-- 1 teaser pre-lanzamiento publicado 14/04.
+**Infraestructura (actualizado 19/04):**
+- n8n workflow publicacion diaria activo (12:15 ART, ID `MipwleZNu8EG5v6C`, v7.2, 34 nodos). URLs de imagen apuntan a `enba-social-assets.pages.dev` (no custom domain, por bloqueo Cloudflare a crawler IG).
+- n8n workflow evaluacion ads diaria activo (9:00 ART, ID `1qRywsEWAl7VoO5o`).
+- Meta Ads: 2 campanas ACTIVE (AWR + ENG), 6 ad sets ACTIVE, 7 ads ACTIVE, $11.500/dia.
+- Darkpost C2 Regalos creado (PAUSED, activacion 23/04).
+- Credenciales n8n: Meta API ENBA (page token), Meta Ads API ENBA (ads token), Gmail ENBA.
+- GA4 instalado (G-XVN36KPHBL), Pixel Event Data activo (1273048378266952).
+- Dominio autorizado en Events Manager.
 
-**Infraestructura:**
-- n8n workflow activo (publicacion diaria 12:15 ART).
-- Meta API configurada con token page-level.
-- Script de publicacion manual como fallback.
+**Distribucion de pauta:** ver `presupuesto-v3-final.md` seccion 3 (tabla semanal con $500K, curva 20/28/32/20).
 
-**Distribucion de pauta por semana (Franco + Bruno):**
-| Semana | Presupuesto | Foco |
-|--------|-------------|------|
-| 1 (15-21 abr) | ARS 50.000 | Awareness, calibracion |
-| 2 (22-28 abr) | ARS 70.000 | Primer reel + optimizacion |
-| 3 (29 abr - 5 may) | ARS 80.000 | Escalar winners, segundo reel |
-| 4 (6-14 may) | ARS 50.000 | Consolidar, cierre |
-
-**Split plataformas (Bruno):** IG 75% (ARS 187.500) / FB 25% (ARS 62.500).
+**Split plataformas (Bruno):** IG 75% / FB 25%. Revision dia 10 (28/04).
 
 ---
 
-## 2. Decisiones pendientes del usuario
+## 2. Decisiones del usuario — Estado
 
-Estas decisiones bloquean o condicionan la ejecucion. Sin respuesta, avanzo con supuestos conservadores.
+Todas las decisiones originales fueron resueltas. Pendientes nuevos al final.
 
-| # | Decision | Impacto | Supuesto si no hay respuesta |
-|---|----------|---------|------------------------------|
-| 1 | **Presupuesto: los ARS 250K son solo pauta o incluyen produccion de reels?** | Si incluyen produccion, la pauta baja a ~130K y los seguidores pagados estimados caen un 48% (Bruno). El tier realista baja a 2.000-3.500. | Asumo que son solo pauta y produccion es gasto aparte. |
-| 2 | **Filmacion de reels: hay salida disponible en dia 1 o 2 (15-16 abr)?** | Marina pide reel "4 horas" publicado en dia 3-5. Sin filmacion temprana, el reel mas fuerte (score 8.5/10) se retrasa a semana 2-3. | Asumo que no hay salida inmediata. Reel "4 horas" se filma lo antes posible y se publica en cuanto este editado. |
-| 3 | **Meta Business Manager: ya existe o hay que crearlo?** | Sin Business Manager no hay cuenta publicitaria, no hay pauta, no hay crecimiento pagado. | Asumo que hay que crearlo. Prioridad maxima dia 1. |
-| 4 | **GA4: ya esta instalado en espacionautico.com.ar?** | Sin GA4 no hay medicion de trafico al sitio ni atribucion por pieza. | Asumo que no esta instalado. Setup en dias 1-3. |
-| 5 | **Acceso a cuentas IG y FB: quien tiene los accesos?** | Sin acceso no hay vinculacion en Business Suite, no hay pauta. | Asumo que Jose (owner) tiene los accesos. |
-| 6 | **Equipo de filmacion (gimbal ~ARS 100K): se compra ahora?** | Sin gimbal, las tomas en cubierta con viento son inutilizables (Marina). Los reels son el formato de mayor crecimiento. | Asumo que se compra. Si no, reels se filman con lo que haya y se ajusta calidad. |
-| 7 | **Engagement manual (55 min/dia): quien lo hace?** | Franco asigna 45-60 min/dia de interaccion manual (seguir cuentas, comentar, responder DMs). Necesita una persona dedicada. | Asumo que Jose (owner) lo hace. |
+| # | Decision | Estado | Respuesta |
+|---|----------|--------|-----------|
+| 1 | Presupuesto: solo pauta o incluye produccion? | **RESUELTO 19/04** | $500K solo pauta. Produccion es gasto aparte. |
+| 2 | Filmacion de reels | **RESUELTO 17/04** | Reel "4 horas" filmado, editado y publicado. Reel "primera vez" tiene material crudo + material de colega. |
+| 3 | Meta Business Manager | **RESUELTO 16/04** | Existe. Business ID 814334400927137, Ad Account act_2303565156801569. |
+| 4 | GA4 instalado? | **RESUELTO 19/04** | Si, G-XVN36KPHBL en enba-web/index.html. |
+| 5 | Accesos IG y FB | **RESUELTO** | Jose tiene todos los accesos. |
+| 6 | Equipo de filmacion | **RESUELTO** | No se compro gimbal. Se filmo con celular, calidad aceptable. |
+| 7 | Engagement manual | **RESUELTO 19/04** | Jose con su gente. |
+
+### Decisiones pendientes nuevas (19/04)
+
+| # | Decision | Impacto | Deadline |
+|---|----------|---------|----------|
+| 8 | **Que creative para C3 Corporativo (lead gen)?** | Sin creative no se puede activar el ad set de Leads | Antes del 26/04 (dia 8) |
+| 9 | **Cuando publicar carruseles organicos?** | 3 carruseles aprobados con script listo | Cuando Jose decida |
+| 10 | **Acceso a Google Photos** | Jose esta trabajando en darlo, amplia el asset-bank | No bloqueante |
 
 ---
 
@@ -115,222 +122,86 @@ Como Coordinador de Produccion, estas son las inconsistencias que encontre entre
 
 ---
 
-## 4. Timeline dia a dia — Semana 1 (15-21 abr): LANZAMIENTO
+## 4. Timeline dia a dia — Semana 1: LANZAMIENTO (ejecutada)
 
-### Antes de dia 1: Checklist de arranque
+### Checklist de arranque — Estado real
 
-- [ ] Meta Business Manager creado y configurado
-- [ ] Cuenta publicitaria creada (moneda ARS, zona horaria AR)
-- [ ] Metodo de pago configurado (verificar limite tarjeta ~ARS 350K)
-- [ ] IG y FB vinculados en Business Suite
-- [ ] Meta Pixel instalado en espacionautico.com.ar
-- [ ] Pixel verificado con Meta Pixel Helper
-- [ ] Dominio verificado en Business Settings (DNS TXT en Cloudflare)
-- [ ] GA4 propiedad creada e instalada (tag via GTM o directo)
-- [ ] GA4 verificado con Realtime
-- [ ] Eventos GA4 configurados: contact_click, whatsapp_click, form_submit
-- [ ] Eventos marcados como conversiones en GA4
-- [ ] 4 Custom Audiences creadas en Ads Manager (vacias pero listas: Web Visitors, IG Engagers, FB Page Engagers, Video Viewers)
-- [ ] 4 Saved Audiences creadas (Nautica BA, Experiencias BA, Lifestyle Parejas, Outdoor/Aventura)
-- [ ] UTMs definidos y documentados (ver google-analytics-medicion.md)
-- [ ] Link en bio de IG con UTMs
-- [ ] n8n workflow verificado (primer test exitoso con piece-01)
-- [ ] Posts fijados en FB seleccionados: piece-01 (#1) + carrusel-cuanto-sale (#2, cuando se publique) + post bienvenida (#3)
-- [ ] Bio de IG optimizada con CTA y link
-- [ ] Primera campana Awareness creada con piece-01
-- [ ] Exclusion de seguidores existentes configurada en todos los ad sets
-- [ ] Filmacion de reels agendada (coordinar con Jose)
-- [ ] Gimbal + funda waterproof comprados (si se aprobo la inversion)
-- [ ] Script de carruseles adaptado para IG Carousel API (Dani, deadline 17/04)
-
-**Responsable setup Meta:** Jose (owner, necesita accesos) con guia de Bruno (meta-business-setup.md)
-**Responsable setup GA4:** Jose con guia de Bruno (google-analytics-medicion.md)
-**Responsable n8n:** verificacion automatica, fallback manual con scripts
+- [x] Meta Business Manager creado y configurado (16/04)
+- [x] Cuenta publicitaria creada: act_2303565156801569, ARS, AR (16/04)
+- [x] Metodo de pago configurado: Mastercard ····8307, limite $700K confirmado
+- [x] IG y FB vinculados en Business Suite
+- [x] Meta Pixel instalado: Event Data 1273048378266952 activo (ENBA Pixel 830831356111912 no instalado, ignorar)
+- [x] Dominio autorizado en Events Manager (19/04)
+- [x] GA4 propiedad instalada: G-XVN36KPHBL en enba-web/index.html
+- [x] 5 Custom Audiences creadas: D1 WebVisitors, D2 IGEngagers, D3 FBEngagers (API), D4 VideoViewers, D5 FBPageLikers (UI)
+- [x] 5 Saved Audiences en ad sets: B1 Experiencias, A2 InteresNav, C1 Turismo, B2 Outdoor, A3 Aspiracional
+- [x] n8n workflow publicacion verificado y activo (pieces 01-05 publicadas)
+- [x] n8n workflow evaluacion ads creado y activo (9:00 ART diario)
+- [x] Campanas Awareness + Engagement creadas y ACTIVE (19/04)
+- [x] 6 ad sets ACTIVE + 7 ads ACTIVE
+- [x] Script publish-carousel.mjs listo
+- [x] Reel "4 horas" filmado, editado, publicado IG+FB (17/04), ad de engagement activo
+- [x] Cortes pauta reel 4h: 30s y 15s listos
+- [ ] ~~Gimbal~~ — no se compro, se filmo con celular
+- [ ] ~~Eventos GA4 configurados~~ — pendiente verificar
+- [ ] ~~UTMs en link bio~~ — pendiente verificar
+- [ ] ~~Posts fijados FB~~ — pendiente verificar
 
 ---
 
-### Dia 1 — Miercoles 15 de abril
+### Ejecucion real — Pre-lanzamiento (15-18 abr, antes de pauta)
 
-**FEED IG:**
-- 12:15 ART — `piece-01` "El rio te llama. Nosotros te llevamos." (auto-publish via n8n)
-- **Pauta IG:** ARS 15.000 — Awareness — Audiencias: Nautica BA + Experiencias BA
+Publicacion organica via n8n desde 15/04. Pauta NO activa todavia.
 
-**FEED FB:**
-- 10:00 ART — Post de bienvenida exclusivo FB (publicar manualmente). Texto cercano para los amigos que aceptaron la invitacion.
-- 12:15 ART — `piece-01` (auto-publish). Fijar como post #1.
+| Fecha | Pieza | Estado |
+|-------|-------|--------|
+| 15/04 | piece-01 "El rio te llama" | Publicada IG+FB. CTAs viejos (irrecuperable). |
+| 16/04 | piece-02 "Desde Costanera Norte" | Publicada IG+FB. CTAs viejos. |
+| 17/04 | piece-03 "No salis con una marca" | Publicada IG+FB. CTAs viejos. Reel 4h publicado mismo dia. |
+| 18/04 | piece-04 "Salir a navegar no deberia ser complicado" | Publicada IG+FB. CTAs viejos. |
 
-**Stories IG (manual):**
-- 09:00 — Countdown "Hoy arrancamos" con sticker cuenta regresiva
-- 12:30 — Compartir post a stories + encuesta "Alguna vez navegaste? Si/No"
-- 15:00 — Behind the scenes: foto/video del muelle en Costanera Norte
-- 18:00 — CTA "Seguinos para ver lo que viene"
-- 21:00 — Repost del post + sticker pregunta
+Incidentes: CTAs duplicados en campaign.pieces.json detectados y corregidos (Sole reescribio 15, Marina+Franco aprobaron). Pieces 01-04 ya publicadas con CTAs viejos, no se pueden corregir. Pieces 05+ tienen CTAs corregidos.
 
-**Engagement manual (45 min):**
-- 15 min: seguir 30-40 cuentas relevantes (nautica BA, veleros, planes BA)
-- 15 min: 15-20 comentarios genuinos en cuentas de planes BA, turismo local
-- 15 min: responder cada DM y comentario en menos de 1 hora
+### Dia 1 pauta — Sabado 19 de abril
 
-**Pauta FB:** ARS 12.000 en Page Likes con piece-01 como creatividad (parte del budget FB semana 1).
+**Meta Ads activados a las 00:10 ART:**
+- Campana AWR (Awareness) → ACTIVE
+- Campana ENG (Engagement) → ACTIVE
+- 5 ad sets Awareness: B1 ($2500), A2 ($1500), C1 ($1500), B2 ($1500), A3 ($1500)
+- 1 ad set Engagement: Reel4horas ($3000)
+- 7 ads: piece01dp x2, piece02 x2, piece03 x2, reel4horas x1
+- Budget diario total: $11.500
 
-**Tareas operativas:**
-| Tarea | Responsable | Deadline |
-|-------|-------------|----------|
-| Verificar publicacion piece-01 a las 12:15 | Nico | 15/04 12:30 |
-| Activar primera campana Awareness en Ads Manager | Jose | 15/04 |
-| Publicar post de bienvenida FB | Jose / Nico | 15/04 10:00 |
-| Pedir a 10-15 personas cercanas que comenten en piece-01 y post de bienvenida FB | Jose | 15/04 |
-| Revisar datos del teaser 14/04 (24h) | Bruno | 15/04 noche |
+**FEED organico:** piece-05 publicada 12:15 ART (primera con CTAs corregidos).
 
-**Objetivo dia 1:** 50-100 seguidores, primeras interacciones, baseline de alcance.
+**Otras acciones dia 1:**
+- Workflow evaluacion ads creado (n8n, 9:00 ART diario, email a jmartinezplatt@gmail.com)
+- Darkpost C2 Regalos creado (PAUSED, activacion dia 5)
+- Asset-bank ampliado 53→65 JPGs
+- Script publish-carousel.mjs creado y verificado
+- Cortes pauta reel 4h (30s + 15s) producidos
+- Re-baseline presupuesto-v3: dia 1 = 19/04, fin = 15/05
+- Direccion creativa reel "primera vez" completada (Marina, score 9/10)
+- Captions darkpost regalos escritos (Sole) y aprobados
 
----
+### Dias 2-7 pauta — 20-25 de abril (por ejecutar)
 
-### Dia 2 — Jueves 16 de abril
+| Dia | Fecha | Accion planificada (presupuesto-v3) |
+|-----|-------|-------------------------------------|
+| 2 | 20/04 | piece-06 organica. Ads corriendo. |
+| 3 | 21/04 | piece-07 organica. Evaluacion 72h de piece-01 ads. |
+| 4 | 22/04 | piece-08 organica. Primer email evaluacion con data. |
+| 5 | 23/04 | piece-09 organica. **Activar C2 Regalos + ad set.** |
+| 6 | 24/04 | piece-10 organica. |
+| 7 | 25/04 | piece-11 organica. **Activar C3 Corporativo (si creative listo).** |
 
-**FEED IG:**
-- 12:15 ART — `piece-02` "Desde Costanera Norte, el rio queda mucho mas cerca." (auto-publish)
-- **Pauta IG:** ARS 8.000 — Awareness — Audiencias: Experiencias BA + Outdoor
-
-**FEED FB:**
-- 12:15 ART — `piece-02` (auto-publish)
-
-**Stories IG:**
-- 09:00 — Foto del rio a la manana, "Buenos dias desde Costanera Norte"
-- 12:30 — Compartir post + quiz "Sabias que podes navegar desde Costanera Norte?"
-- 16:00 — Mini video/foto del velero amarrado
-- 20:00 — Encuesta: "Que plan te tienta mas?" A) Salida en velero B) Aprender a navegar
-
-**Engagement manual (45 min):** Interactuar con stories de cuentas relevantes, comentar en posts lifestyle BA, responder todo.
-
-**Tareas operativas:**
-| Tarea | Responsable | Deadline |
-|-------|-------------|----------|
-| Revisar insights piece-01 (24h) | Bruno | 16/04 |
-| Coordinar salida de filmacion de reels | Jose + Manu | 16/04 |
-
-**Objetivo dia 2:** 100-200 seguidores acumulados.
-
----
-
-### Dia 3 — Viernes 17 de abril
-
-**FEED IG:**
-- 12:15 ART — `piece-03` "No salis con una marca. Salis con nosotros." (auto-publish)
-- **Pauta IG:** ARS 8.000 — Awareness — Audiencias: Experiencias BA + Lifestyle Parejas
-
-**FEED FB:**
-- 12:15 ART — `piece-03` (auto-publish)
-
-**Stories IG:**
-- 09:00 — Presentacion del equipo
-- 12:30 — Compartir post
-- 15:00 — Encuesta: "Con cuantas personas vendrias?"
-- 18:00 — Teaser del carrusel de manana: "Manana publicamos algo que muchos nos preguntan..."
-- 21:00 — CTA "Si este finde no tenes plan, nosotros tenemos uno."
-
-**Engagement manual (60 min — viernes es clave):**
-- 20 min: comentar en cuentas planes de finde
-- 20 min: buscar hashtags #PlanesBuenosAires #FinDeSemanaBA, comentarios relevantes
-- 20 min: responder DMs, agradecer follows
-
-**Tareas operativas:**
-| Tarea | Responsable | Deadline |
-|-------|-------------|----------|
-| Adaptar script publicacion para carruseles (IG Carousel API) | Dani | 17/04 |
-| Stagear carrusel-cuanto-sale | Nico | 17/04 |
-| Revisar datos teaser 14/04 (48h) + piece-01 (48h) + piece-02 (24h) | Bruno | 17/04 |
-
-**Si filmacion de reel es posible hoy o manana:** Jose + Dani filman "4 horas en el rio" + "Primera vez" en la misma salida. Marina dirige creativamente (guiones impresos, tomas marcadas). Edicion en 24-48h.
-
-**Objetivo dia 3:** 200-350 seguidores acumulados.
-
----
-
-### Dia 4 — Sabado 18 de abril
-
-**FEED IG:**
-- 12:15 ART — `carrusel-cuanto-sale` "Cuanto sale navegar en Buenos Aires?" (publicar manualmente si script no esta listo, auto si esta)
-- 12:15 ART — `piece-04` "Salir a navegar no deberia ser complicado." (auto-publish)
-- **Pauta IG:** ARS 12.000 en carrusel-cuanto-sale
-
-**FEED FB:**
-- 12:15 ART — `carrusel-cuanto-sale` (publicar). Fijar como post #2.
-- 10:00 ART — Evento FB: "Navegacion en velero — Sabado 19 abr"
-
-**Stories IG:**
-- Compartir carrusel a stories a las 18:00 (segunda ventana de visibilidad)
-- Encuesta sobre el carrusel
-
-**Engagement manual (45 min).**
-
-**Si reel "4 horas" esta editado:** Publicarlo hoy en vez de manana. Es sabado = alto reach organico. Pautar con ARS 20.000-25.000 (reasignar de estaticos).
-
-**Objetivo dia 4:** Primer carrusel activo, alto engagement por fin de semana.
-
----
-
-### Dia 5 — Domingo 19 de abril
-
-**FEED IG:**
-- 12:15 ART — `piece-05` "Cuatro frentes, una misma forma de trabajar el rio." (auto-publish)
-- **Pauta IG:** ARS 7.000
-
-**FEED FB:**
-- 12:15 ART — `piece-05` (auto-publish)
-
-**Stories:** Contenido de fin de semana, behind the scenes si hubo filmacion.
-
-**Engagement manual (45 min).**
-
----
-
-### Dia 6 — Lunes 20 de abril
-
-**FEED IG:**
-- 12:15 ART — `piece-06` "Delta en velero desde Costanera Norte." (auto-publish)
-- Sin pauta (lunes bajo rendimiento)
-
-**FEED FB:**
-- 12:15 ART — `piece-06` (auto-publish)
-
-**Stories:** Inicio de semana, retomar ritmo.
-
-**Engagement manual (55 min).**
-
----
-
-### Dia 7 — Martes 21 de abril
-
-**FEED IG:**
-- 12:15 ART — `piece-07` "A veces unas horas en el rio cambian la semana." (auto-publish)
-- Sin pauta
-
-**FEED FB:**
-- 19:00 ART — Encuesta exclusiva FB: "Que tipo de salida te tienta?"
-
-**Engagement manual (55 min).**
-
-**Checkpoints fin de semana 1:**
-| Metrica | Target tier minimo | Target tier realista |
-|---------|-------------------|---------------------|
-| Seguidores acumulados | 150-300 | 300-500 |
-| CPS blended | ARS 60-80 | ARS 40-60 |
-| Engagement rate | > 4% | > 5% |
-| Alcance total/semana | 5K-15K | 15K-30K |
-
-**Tareas operativas:**
-| Tarea | Responsable | Deadline |
-|-------|-------------|----------|
-| Primer reporte de calibracion (teaser + piece-01 a piece-05) | Bruno | 18/04 |
-| Publicar evento FB para travesia 26/04 | Jose / Nico | 21/04 |
-| Crear Lookalike de IG Engagers (si > 100) | Jose / Bruno | 21/04 |
-
-**Trigger de escalacion:** Si seguidores < 200 al final de dia 7, reunion de emergencia. Revisar audiencias, creatividades, CPS, todo.
+**Checkpoints fin de semana 1 (25/04):** primer reporte Bruno con data real de 7 dias de pauta.
 
 ---
 
 ## 5. Timeline semana por semana — Semanas 2-4
+
+> **NOTA (19/04):** Los montos de pauta en esta seccion son de la version $250K original. Los montos vigentes estan en `presupuesto-v3-final.md` (seccion 3, $500K). La estructura de contenido (que piezas, que dias) sigue siendo referencia valida pero las fechas corren +4 dias por re-baseline (dia 1 = 19/04 en vez de 15/04).
 
 ### Semana 2 (22-28 abr): Optimizacion basada en datos
 
@@ -483,21 +354,27 @@ Si la filmacion NO se hizo en semana 1, el 25/04 es la fecha maxima para "4 hora
 
 ---
 
-## 7. Dependencias criticas
+## 7. Dependencias criticas — Estado
 
-Estas dependencias son bloqueantes. Si no se resuelven, partes del plan no se pueden ejecutar.
+| Dependencia | Estado | Resolucion |
+|-------------|--------|------------|
+| Meta Business Manager configurado | **RESUELTO** | Business ID 814334400927137, Ad Account act_2303565156801569 |
+| Cuenta publicitaria con metodo de pago | **RESUELTO** | Mastercard ····8307, limite $700K |
+| IG y FB vinculados en Business Suite | **RESUELTO** | Vinculados |
+| Meta Pixel en espacionautico.com.ar | **RESUELTO** | Event Data 1273048378266952 activo. Dominio autorizado 19/04. |
+| GA4 en espacionautico.com.ar | **RESUELTO** | G-XVN36KPHBL instalado en enba-web/index.html |
+| Script de carruseles | **RESUELTO** | `scripts/publish-carousel.mjs` creado 19/04, verificado dry-run |
+| Filmacion reel "4 horas" | **RESUELTO** | Filmado, editado, publicado 17/04. Corriendo como ad engagement. |
+| Filmacion reel "primera vez" | **EN PROGRESO** | Material crudo disponible + material colega. Direccion creativa lista (Marina 9/10). Falta edit-sheet y edicion. |
+| Definicion presupuesto | **RESUELTO** | $500K solo pauta. Produccion aparte. Confirmado 19/04. |
 
-| Dependencia | Bloquea | Responsable | Deadline | Fallback |
-|-------------|---------|-------------|----------|----------|
-| **Meta Business Manager configurado** | Toda la pauta pagada | Jose | 15/04 | Sin pauta, solo organico. Crecimiento cae a tier minimo bajo (500-1.000). |
-| **Cuenta publicitaria con metodo de pago** | Activacion de ads | Jose | 15/04 | Misma que arriba. |
-| **IG y FB vinculados en Business Suite** | Pauta cruzada, insights unificados | Jose | 15/04 | Pauta por separado, menos eficiente. |
-| **Meta Pixel en espacionautico.com.ar** | Retargeting, audiencias de web visitors, optimizacion de ads | Jose | 17/04 | Pauta sin pixel funciona pero es mas cara y menos optimizada. |
-| **GA4 en espacionautico.com.ar** | Medicion de trafico y conversiones del sitio | Jose | 17/04 | Sin GA4 se pierde atribucion pero las metricas de redes siguen midiendo. |
-| **Script de carruseles adaptado** | Publicacion automatica de carruseles | Dani | 17/04 | Publicacion manual de carruseles. |
-| **Filmacion de reels** | Publicacion de reels (formato de mayor crecimiento) | Jose + Dani | 25/04 max | Solo contenido estatico. Se pierde reach potencial significativo. |
-| **Gimbal comprado** | Calidad de filmacion de reels | Jose | Antes de filmacion | Filmar con celular sin estabilizacion. Calidad menor pero funcional. |
-| **Definicion presupuesto pauta vs produccion** | Planificacion de gasto real | Jose | 15/04 | Asumo pauta separada de produccion. |
+### Dependencias nuevas (19/04)
+
+| Dependencia | Bloquea | Deadline |
+|-------------|---------|----------|
+| Creative para C3 Corporativo | Activacion ad set Leads (dia 8 = 26/04) | 25/04 |
+| Pieza con ER > 1% para TopPerformers | Activacion ad set TopPerformers (dia 10 = 28/04) | Esperar data |
+| Edit-sheet reel "primera vez" | Produccion del segundo reel | Esta semana |
 
 ---
 
@@ -524,28 +401,24 @@ Estos son los momentos donde hay que tomar una decision fuera del plan normal.
 
 ## 9. Resumen de presupuesto
 
-### Pauta (ARS 250.000 neto)
+**FUENTE DE VERDAD:** `presupuesto-v3-final.md`. Este resumen es solo referencia rapida.
+
+### Pauta (ARS 500.000 neto — confirmado 19/04, solo pauta)
 
 | Dimension | Valor |
 |-----------|-------|
-| Split IG / FB | 75% / 25% (ARS 187.500 / ARS 62.500) |
-| Semana 1 / 2 / 3 / 4 | ARS 50K / 70K / 80K / 50K |
-| Por objetivo: Awareness / Engagement-Followers / Trafico / Leads / Reserva | 25% / 35% / 10% / 20% / 10% |
-| CPS target | < ARS 60 promedio. Ideal < ARS 40 |
-| Umbral de corte CPS | > ARS 80 (pausar despues de 72h) |
-| Umbral de escalado CPS | < ARS 30 (escalar +20% cada 48h) |
-
-### Produccion (SEPARADO de pauta — pendiente confirmacion)
-
-| Item | Costo estimado |
-|------|---------------|
-| Gimbal celular (DJI OM 6 o similar) | ARS 80.000-120.000 |
-| Funda waterproof | ARS 10.000-15.000 |
-| Total produccion | ARS 90.000-135.000 |
+| Split IG / FB | 75% / 25% (ARS 375.000 / ARS 125.000). Revision dia 10 (28/04). |
+| Por objetivo | Awareness 50% ($250K) / Engagement 25% ($125K) / Leads 10% ($50K) / Reserva 15% ($75K) |
+| Semana 1-4 | $100K / $140K / $160K / $100K (curva 20/28/32/20) |
+| CPS target | < ARS 45 promedio (calibrado v3) |
+| Umbral de corte | CPS > $100 o ER < 1% o CTR < 0.4% (despues de 72h) |
+| Umbral de escalado | CPS < $30 + ER > 3% → +25% cada 48h |
+| Fatigue | Frecuencia > 3.5 → apagar |
+| Max por pieza | 14 dias (excepcion: CPS < $20 + freq < 2 → extension 7 dias, aprobacion Bruno) |
 
 ### Impuestos Meta
 
-Meta cobra ~40% adicional (IVA + impuesto PAIS + percepcion ganancias). Debito real en tarjeta: ~ARS 350.000. **Verificar limite de tarjeta.**
+Debito real en tarjeta: ~ARS 700.000 (impuestos ~40%). Tarjeta Mastercard ····8307, limite confirmado.
 
 ---
 
@@ -632,4 +505,5 @@ El plan esta disenado para que alguien pueda leerlo y saber exactamente que hace
 ---
 
 *Plan maestro producido por Manu (Coordinador de Produccion) — 15 de abril de 2026*
+*Actualizado: 19 de abril de 2026 — secciones 1, 2, 4, 5, 7, 9 con estado real de ejecucion*
 *Fuentes: Bruno, Franco, Marina — Team 4, ENBA*

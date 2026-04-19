@@ -1,3 +1,5 @@
+> **NOTA (19/04):** Setup completado. Business Manager, cuenta publicitaria, pixel, audiencias y credenciales estan operativos. Este documento se conserva como guia de referencia por si hay que reconfigurar algo. IDs reales en `meta-ids.json`.
+
 # Meta Business Suite — Guia de configuracion paso a paso
 
 **Autor:** Bruno (Social Growth & Performance Director)

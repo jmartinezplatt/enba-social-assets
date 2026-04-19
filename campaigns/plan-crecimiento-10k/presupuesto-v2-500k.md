@@ -1,3 +1,5 @@
+> **HISTORICO — Superseded por `presupuesto-v3-final.md`. Este documento se conserva como registro de la version v2.**
+
 # Presupuesto v2 — Recalibrado con ARS 500.000/mes
 
 **Autor:** Bruno (Social Growth & Performance Director)

@@ -2,3 +2,7 @@ node_modules/
 .claude/settings.local.json
 .claude/worktrees/
 .env
+
+# Material crudo de video/foto (pesado, no va en git — CLAUDE.md)
+campaigns/reels/*/material-crudo/
+campaigns/reels/*/clip-review/

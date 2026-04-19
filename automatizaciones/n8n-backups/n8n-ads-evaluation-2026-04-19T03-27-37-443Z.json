@@ -1,0 +1,139 @@
+{
+  "name": "ENBA - Ads Evaluation Diaria 9:00",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * *"
+            }
+          ]
+        }
+      },
+      "id": "node-schedule-eval",
+      "name": "Schedule 9:00 ART",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        200,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://graph.facebook.com/v21.0/act_2303565156801569/insights?level=ad&fields=ad_id,ad_name,impressions,reach,clicks,spend,actions,cost_per_action_type,ctr,frequency&date_preset=lifetime&limit=50",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "id": "node-get-insights",
+      "name": "Get Ad Insights",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        420,
+        300
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "6LxWcVxeyZgsBTUU",
+          "name": "Meta Ads API ENB"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Evaluate Ads Performance — Code Node para n8n\n// Input: Meta Insights API response (GET /act_.../insights?level=ad)\n// Output: email subject, HTML body, Bruno prompt\n//\n// Reglas de evaluación: presupuesto-v3-final.md secciones 9-10\n// CORTAR (después de 72h): CPS > $100 ó ER < 1% ó CTR < 0.4%\n// WINNER (después de 72h): CPS < $30 + ER > 3%\n// FATIGUE: frecuencia > 3.5\n// MAX_REACHED: > 14 días\n// FATIGUE_WARNING: >= 10 días (preparar reemplazo)\n\nconst response = $input.first().json;\nconst adsData = response.data || [];\n\n// Fecha actual en ART\nconst now = new Date();\nconst artNow = new Date(now.getTime() - 3 * 60 * 60 * 1000);\nconst dd = String(artNow.getUTCDate()).padStart(2, '0');\nconst mm = String(artNow.getUTCMonth() + 1).padStart(2, '0');\nconst yyyy = artNow.getUTCFullYear();\nconst todayStr = dd + '/' + mm + '/' + yyyy;\n\n// Fechas de activación por ad ID (de meta-ids.json)\n// ACTUALIZAR cuando se activen nuevos ads (C2, TopPerformers, C3)\nconst activationDates = {\n  '120239058261910139': '2026-04-19', // AD_A2_P01 piece01dp\n  '120239058262400139': '2026-04-19', // AD_B1_P01 piece01dp\n  '120239057858590139': '2026-04-19', // AD_C1_P02 piece02\n  '120239057859170139': '2026-04-19', // AD_B2_P02 piece02\n  '120239061361640139': '2026-04-19', // AD_A3_P03 piece03\n  '120239075118770139': '2026-04-19', // AD_B1_P03 piece03\n  '120239078453020139': '2026-04-19', // AD_ENG_REEL reel4horas\n};\n\n// Nombres legibles\nconst adLabels = {\n  '120239058261910139': 'piece01dp > A2 InteresNav',\n  '120239058262400139': 'piece01dp > B1 Experiencias',\n  '120239057858590139': 'piece02 > C1 TurismoBA',\n  '120239057859170139': 'piece02 > B2 Outdoor',\n  '120239061361640139': 'piece03 > A3 Aspiracional',\n  '120239075118770139': 'piece03 > B1 Experiencias',\n  '120239078453020139': 'reel4horas > ENG Reel',\n};\n\nfunction getAction(actions, type) {\n  const found = (actions || []).find(function(a) { return a.action_type === type; });\n  return found ? parseInt(found.value) : 0;\n}\n\nfunction getDaysActive(adId) {\n  const activation = activationDates[adId] || '2026-04-19';\n  return Math.floor((now - new Date(activation + 'T00:10:00-03:00')) / (1000 * 60 * 60 * 24));\n}\n\n// Caso sin datos\nif (adsData.length === 0) {\n  var noDataSubject = '[ENBA Ads] ' + todayStr + ' — Sin datos de insights';\n  var noDataHtml = '<html><body style=\"font-family:Arial,sans-serif;\">'\n    + '<h2>ENBA Meta Ads — Sin datos</h2>'\n    + '<p>Fecha: ' + todayStr + '</p>'\n    + '<p>La API de Meta no devolvio datos de insights. Posibles causas:</p>'\n    + '<ul><li>Los ads llevan menos de unas horas activos</li>'\n    + '<li>Meta aun esta procesando impresiones</li></ul>'\n    + '<p>Se reintentara manana a las 9:00 ART.</p>'\n    + '</body></html>';\n  return [{ json: { subject: noDataSubject, html: noDataHtml, brunoPrompt: '', totalSpend: 0, adsCount: 0 } }];\n}\n\n// Procesar cada ad\nvar results = adsData.map(function(ad) {\n  var impressions = parseInt(ad.impressions || 0);\n  var reach = parseInt(ad.reach || 0);\n  var clicks = parseInt(ad.clicks || 0);\n  var spend = parseFloat(ad.spend || 0);\n  var ctr = parseFloat(ad.ctr || 0);\n  var frequency = parseFloat(ad.frequency || 0);\n  var engagements = getAction(ad.actions, 'post_engagement');\n  var follows = getAction(ad.actions, 'follow');\n  var er = reach > 0 ? (engagements / reach * 100) : 0;\n  var cps = follows > 0 ? Math.round(spend / follows) : null;\n  var daysActive = getDaysActive(ad.ad_id);\n\n  var verdict = 'VIABLE';\n  var reasons = [];\n\n  if (daysActive < 3) {\n    verdict = 'LEARNING';\n    reasons.push(daysActive + 'd activo, esperar 72h');\n  } else if (frequency > 3.5) {\n    verdict = 'FATIGUE';\n    reasons.push('Freq ' + frequency.toFixed(1) + ' > 3.5');\n  } else if (daysActive > 14) {\n    verdict = 'MAX_REACHED';\n    reasons.push(daysActive + 'd > 14 max');\n  } else if ((cps !== null && cps > 100) || er < 1 || ctr < 0.4) {\n    verdict = 'CORTAR';\n    if (cps !== null && cps > 100) reasons.push('CPS $' + cps + ' > $100');\n    if (er < 1) reasons.push('ER ' + er.toFixed(1) + '% < 1%');\n    if (ctr < 0.4) reasons.push('CTR ' + ctr.toFixed(2) + '% < 0.4%');\n  } else if (cps !== null && cps < 30 && er > 3) {\n    verdict = 'WINNER';\n    reasons.push('CPS $' + cps + ' < $30, ER ' + er.toFixed(1) + '% > 3%');\n  } else if (daysActive >= 10) {\n    verdict = 'FATIGUE_WARNING';\n    reasons.push(daysActive + 'd, preparar reemplazo');\n  }\n\n  return {\n    adId: ad.ad_id,\n    adName: adLabels[ad.ad_id] || ad.ad_name,\n    impressions: impressions, reach: reach, clicks: clicks,\n    spend: Math.round(spend),\n    ctr: ctr.toFixed(2),\n    frequency: frequency.toFixed(1),\n    engagements: engagements, follows: follows,\n    er: er.toFixed(1),\n    cps: cps !== null ? '$' + cps : 'N/A',\n    cpsRaw: cps,\n    daysActive: daysActive, verdict: verdict,\n    reason: reasons.join(', ') || 'Dentro de parametros'\n  };\n});\n\n// Conteo de veredictos\nvar counts = {};\nresults.forEach(function(r) { counts[r.verdict] = (counts[r.verdict] || 0) + 1; });\n\nvar summaryParts = [];\nif (counts.WINNER) summaryParts.push(counts.WINNER + ' WINNER');\nif (counts.VIABLE) summaryParts.push(counts.VIABLE + ' VIABLE');\nif (counts.LEARNING) summaryParts.push(counts.LEARNING + ' LEARNING');\nif (counts.CORTAR) summaryParts.push(counts.CORTAR + ' CORTAR');\nif (counts.FATIGUE) summaryParts.push(counts.FATIGUE + ' FATIGUE');\nif (counts.FATIGUE_WARNING) summaryParts.push(counts.FATIGUE_WARNING + ' WARNING');\nif (counts.MAX_REACHED) summaryParts.push(counts.MAX_REACHED + ' MAX');\nvar summaryStr = summaryParts.join(' | ') || 'Sin datos';\n\nvar totalSpend = results.reduce(function(s, r) { return s + r.spend; }, 0);\nvar totalFollows = results.reduce(function(s, r) { return s + r.follows; }, 0);\nvar totalReach = results.reduce(function(s, r) { return s + r.reach; }, 0);\n\n// Estilo por veredicto\nfunction verdictStyle(v) {\n  var map = {\n    'WINNER': { color: '#16a34a', bg: '#f0fdf4' },\n    'VIABLE': { color: '#2563eb', bg: '#eff6ff' },\n    'LEARNING': { color: '#7c3aed', bg: '#f5f3ff' },\n    'CORTAR': { color: '#dc2626', bg: '#fef2f2' },\n    'FATIGUE': { color: '#ea580c', bg: '#fff7ed' },\n    'FATIGUE_WARNING': { color: '#ca8a04', bg: '#fefce8' },\n    'MAX_REACHED': { color: '#dc2626', bg: '#fef2f2' },\n  };\n  return map[v] || { color: '#6b7280', bg: '#f9fafb' };\n}\n\n// Tabla HTML\nvar tableRows = results.map(function(r) {\n  var s = verdictStyle(r.verdict);\n  return '<tr style=\"border-bottom:1px solid #e5e7eb;\">'\n    + '<td style=\"padding:6px 8px;font-size:12px;\">' + r.adName + '</td>'\n    + '<td style=\"padding:6px;text-align:center;\">' + r.daysActive + 'd</td>'\n    + '<td style=\"padding:6px;text-align:right;\">$' + r.spend.toLocaleString() + '</td>'\n    + '<td style=\"padding:6px;text-align:right;\">' + r.reach.toLocaleString() + '</td>'\n    + '<td style=\"padding:6px;text-align:center;\">' + r.frequency + '</td>'\n    + '<td style=\"padding:6px;text-align:center;\">' + r.ctr + '%</td>'\n    + '<td style=\"padding:6px;text-align:center;\">' + r.er + '%</td>'\n    + '<td style=\"padding:6px;text-align:right;\">' + r.engagements + '</td>'\n    + '<td style=\"padding:6px;text-align:right;\">' + r.follows + '</td>'\n    + '<td style=\"padding:6px;text-align:right;\">' + r.cps + '</td>'\n    + '<td style=\"padding:6px;text-align:center;background:' + s.bg + ';color:' + s.color + ';font-weight:bold;\">' + r.verdict + '</td>'\n    + '<td style=\"padding:6px;font-size:11px;color:#6b7280;\">' + r.reason + '</td>'\n    + '</tr>';\n}).join('\\n');\n\n// Subject\nvar subject = '[ENBA Ads] ' + todayStr + ' | ' + summaryStr + ' | $' + totalSpend.toLocaleString() + ' gastado';\n\n// Prompt para Bruno\nvar promptTableHeader = '| Ad | Dias | Spend | Reach | CTR | ER | Eng | Follows | CPS | Freq | Veredicto | Razon |';\nvar promptTableSep = '|---|---|---|---|---|---|---|---|---|---|---|---|';\nvar promptTableRows = results.map(function(r) {\n  return '| ' + r.adName + ' | ' + r.daysActive + 'd | $' + r.spend + ' | ' + r.reach + ' | ' + r.ctr + '% | ' + r.er + '% | ' + r.engagements + ' | ' + r.follows + ' | ' + r.cps + ' | ' + r.frequency + ' | ' + r.verdict + ' | ' + r.reason + ' |';\n}).join('\\n');\n\nvar firstAdDays = getDaysActive(Object.keys(activationDates)[0]);\n\nvar brunoPrompt = 'Contexto REDES. Carga /bruno.\\n\\n'\n  + 'Reporte automatico Meta Ads — ' + todayStr + '.\\n'\n  + 'Campana ENBA activa desde 19/04/2026. Dia ' + firstAdDays + ' de 27.\\n'\n  + 'Spend total: $' + totalSpend.toLocaleString() + ' | Follows totales: ' + totalFollows + ' | Reach total: ' + totalReach.toLocaleString() + '\\n\\n'\n  + '## Datos de rendimiento (lifetime)\\n\\n'\n  + promptTableHeader + '\\n' + promptTableSep + '\\n' + promptTableRows + '\\n\\n'\n  + '## Reglas del plan v3 (presupuesto-v3-final.md)\\n'\n  + '- CORTAR: CPS > $100 o ER < 1% o CTR < 0.4%\\n'\n  + '- WINNER: CPS < $30 + ER > 3%\\n'\n  + '- FATIGUE: Frecuencia > 3.5\\n'\n  + '- MAX: > 14 dias\\n'\n  + '- Escalar WINNER: +25% cada 48h, triple scale si win 5 dias\\n\\n'\n  + '## Tu tarea\\n'\n  + '1. Confirma o corregi cada veredicto automatico\\n'\n  + '2. Propone acciones: que apagar, escalar, rotar\\n'\n  + '3. Si hay WINNERS, propone escalado\\n'\n  + '4. Si hay FATIGUE_WARNING, propone reemplazo antes de dia 14\\n'\n  + '5. Revisa split IG/FB y propone ajuste si corresponde\\n\\n'\n  + 'Entrega tu analisis y espera aprobacion antes de ejecutar.';\n\n// HTML completo\nvar html = '<!DOCTYPE html><html><head><meta charset=\"utf-8\"></head>'\n  + '<body style=\"font-family:Arial,sans-serif;max-width:960px;margin:0 auto;padding:16px;\">'\n  + '<h2 style=\"color:#1e293b;margin-bottom:4px;\">ENBA Meta Ads — Reporte Diario</h2>'\n  + '<p style=\"color:#64748b;margin-top:4px;\">Fecha: ' + todayStr + ' &middot; Dia ' + firstAdDays + ' de 27 &middot; Spend: $' + totalSpend.toLocaleString() + ' &middot; Follows: ' + totalFollows + ' &middot; Reach: ' + totalReach.toLocaleString() + '</p>'\n  + '<p style=\"font-size:18px;font-weight:bold;color:#1e293b;\">' + summaryStr + '</p>'\n  + '<table style=\"border-collapse:collapse;width:100%;font-size:12px;margin-top:12px;\">'\n  + '<thead><tr style=\"background:#f1f5f9;border-bottom:2px solid #cbd5e1;\">'\n  + '<th style=\"padding:6px 8px;text-align:left;\">Ad</th>'\n  + '<th style=\"padding:6px;\">Dias</th>'\n  + '<th style=\"padding:6px;text-align:right;\">Spend</th>'\n  + '<th style=\"padding:6px;text-align:right;\">Reach</th>'\n  + '<th style=\"padding:6px;\">Freq</th>'\n  + '<th style=\"padding:6px;\">CTR</th>'\n  + '<th style=\"padding:6px;\">ER</th>'\n  + '<th style=\"padding:6px;text-align:right;\">Eng</th>'\n  + '<th style=\"padding:6px;text-align:right;\">Follows</th>'\n  + '<th style=\"padding:6px;text-align:right;\">CPS</th>'\n  + '<th style=\"padding:6px;\">Veredicto</th>'\n  + '<th style=\"padding:6px;\">Razon</th>'\n  + '</tr></thead><tbody>\\n'\n  + tableRows\n  + '\\n</tbody></table>'\n  + '<hr style=\"margin:24px 0;border:1px solid #e5e7eb;\">'\n  + '<h3 style=\"color:#1e293b;\">Prompt para Bruno</h3>'\n  + '<p style=\"color:#64748b;font-size:12px;\">Copia y pega esto en Claude Code para que Bruno analice:</p>'\n  + '<pre style=\"background:#f8fafc;padding:16px;border-radius:8px;font-size:11px;overflow-x:auto;white-space:pre-wrap;border:1px solid #e2e8f0;\">'\n  + brunoPrompt.replace(/</g, '&lt;').replace(/>/g, '&gt;')\n  + '</pre>'\n  + '<hr style=\"margin:24px 0;border:1px solid #e5e7eb;\">'\n  + '<p style=\"color:#94a3b8;font-size:10px;\">Generado por ENBA Ads Evaluation Workflow &middot; ' + new Date().toISOString() + '</p>'\n  + '</body></html>';\n\nreturn [{ json: { subject: subject, html: html, brunoPrompt: brunoPrompt, totalSpend: totalSpend, totalFollows: totalFollows, adsCount: results.length, summaryStr: summaryStr } }];\n"
+      },
+      "id": "node-evaluate",
+      "name": "Evaluate Ads",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        640,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "jmartinezplatt@gmail.com",
+        "toEmail": "jmartinezplatt@gmail.com",
+        "subject": "={{ $json.subject }}",
+        "emailFormat": "html",
+        "html": "={{ $json.html }}",
+        "options": {}
+      },
+      "id": "node-send-report",
+      "name": "Send Report Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        860,
+        300
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "HpJBfNd1BCHaLYfY",
+          "name": "Gmail ENBA"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Schedule 9:00 ART": {
+      "main": [
+        [
+          {
+            "node": "Get Ad Insights",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Ad Insights": {
+      "main": [
+        [
+          {
+            "node": "Evaluate Ads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Evaluate Ads": {
+      "main": [
+        [
+          {
+            "node": "Send Report Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Argentina/Buenos_Aires",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "active": false,
+  "versionId": "bc9ea9f1-c166-4a4c-84c6-771b778d69f0",
+  "id": "1qRywsEWAl7VoO5o",
+  "description": null,
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "activeVersionId": null,
+  "updatedAt": "2026-04-19T03:27:36.675Z",
+  "createdAt": "2026-04-19T03:27:36.675Z",
+  "isArchived": false,
+  "versionCounter": 1,
+  "triggerCount": 0
+}

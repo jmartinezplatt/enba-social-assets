@@ -1,3 +1,5 @@
+> **NOTA (19/04):** GA4 instalado y activo (G-XVN36KPHBL en enba-web/index.html). Eventos personalizados y UTMs pendientes de verificar. Este documento se conserva como guia de referencia.
+
 # Google Analytics 4 + UTMs + Medicion
 
 **Autor:** Bruno (Social Growth & Performance Director)

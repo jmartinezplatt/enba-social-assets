@@ -1,3 +1,5 @@
+> **HISTORICO — Superseded por `presupuesto-v3-final.md` ($500K). Este documento se conserva como registro de la version original.**
+
 # Presupuesto — Distribucion ARS 250.000
 
 **Autor:** Bruno (Social Growth & Performance Director)
