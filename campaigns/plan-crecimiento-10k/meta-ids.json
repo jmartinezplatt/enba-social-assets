@@ -1,30 +1,59 @@
 {
-  "timestamp": "2026-04-16T04:24:39.505Z",
+  "last_verified": "2026-04-18T23:40:00-03:00",
+  "ad_account": "act_2303565156801569",
+  "ad_account_name": "Espacio Nautico",
+  "ad_account_status": 1,
+  "currency": "ARS",
+  "amount_spent": "0",
+  "page_id": "1064806400040502",
+  "ig_business_account_id": "17841473329749713",
   "phase_1_custom_audiences": {
     "D1": {
+      "id": "120239059710310139",
       "name": "ENBA_Custom_WebVisitors_30d",
-      "status": "failed",
-      "error": "2654: Failed to create custom audience | El parámetro \"subtipo\" no se admite en la versión actual de la API."
+      "subtype": "WEBSITE",
+      "status": "active",
+      "delivery": "too_small",
+      "created_via": "API",
+      "notes": "Originalmente reportada como failed en meta-ids.json, pero existe y funciona. Delivery 'too small' es normal para cuenta nueva."
     },
     "D2": {
+      "id": "120239059862040139",
       "name": "ENBA_Custom_IGEngagers_90d",
-      "status": "failed",
-      "error": "2654: (#2654) Nombre de evento no válido para público personalizado: El nombre del evento debe tener menos de 50 caracteres y solo puede contener caracteres alfanuméricos y guiones bajos."
+      "subtype": "IG_BUSINESS",
+      "status": "active",
+      "delivery": "too_small",
+      "created_via": "API",
+      "notes": "Mismo caso que D1 — existía pero meta-ids.json decía failed."
     },
     "D3": {
+      "id": "120239060128140139",
       "name": "ENBA_Custom_FBEngagers_90d",
-      "status": "failed",
-      "error": "2654: (#2654) Nombre de evento no válido para público personalizado: El nombre del evento debe tener menos de 50 caracteres y solo puede contener caracteres alfanuméricos y guiones bajos."
+      "subtype": "ENGAGEMENT",
+      "status": "active",
+      "delivery": "too_small",
+      "created_via": "API",
+      "notes": "Mismo caso que D1 y D2."
     },
     "D4": {
+      "id": "120239146204050139",
       "name": "ENBA_Custom_VideoViewers_30d",
-      "status": "deferred",
-      "reason": "requires published video_id, not yet available"
+      "subtype": "ENGAGEMENT",
+      "status": "active",
+      "delivery": "ready",
+      "created_via": "UI (Ads Manager)",
+      "created_date": "2026-04-18",
+      "notes": "Creada por Jose desde UI. Regla: personas que vieron al menos 50% del video. API no permitía crearla (error #2654)."
     },
     "D5": {
+      "id": "120239146215040139",
       "name": "ENBA_Custom_FBPageLikers_exclusion",
-      "status": "failed",
-      "error": "2654: (#2654) Nombre de evento no válido para público personalizado: El nombre del evento debe tener menos de 50 caracteres y solo puede contener caracteres alfanuméricos y guiones bajos."
+      "subtype": "ENGAGEMENT",
+      "status": "active",
+      "delivery": "too_small",
+      "created_via": "UI (Ads Manager)",
+      "created_date": "2026-04-18",
+      "notes": "Creada por Jose desde UI. Personas que siguen/likean la page. Para exclusión en ad sets de awareness."
     }
   },
   "phase_3_campaigns": {
@@ -44,7 +73,8 @@
       "id": "120238976549000139",
       "name": "ENBA_Traffic_abr2026",
       "objective": "OUTCOME_TRAFFIC",
-      "status": "PAUSED"
+      "status": "PAUSED",
+      "notes": "Sin ad sets. Presupuesto v3 la descartó salvo burst condicional semana 3."
     },
     "C_LEA": {
       "id": "120238976549780139",
@@ -60,7 +90,8 @@
       "campaign": "AWR",
       "daily_budget_ars": 2500,
       "optimization": "REACH",
-      "status": "PAUSED"
+      "status": "PAUSED",
+      "ready": true
     },
     "AS_AWR_A2": {
       "id": "120238978174670139",
@@ -68,7 +99,8 @@
       "campaign": "AWR",
       "daily_budget_ars": 1500,
       "optimization": "REACH",
-      "status": "PAUSED"
+      "status": "PAUSED",
+      "ready": true
     },
     "AS_AWR_C1": {
       "id": "120238978175200139",
@@ -76,7 +108,8 @@
       "campaign": "AWR",
       "daily_budget_ars": 1500,
       "optimization": "REACH",
-      "status": "PAUSED"
+      "status": "PAUSED",
+      "ready": true
     },
     "AS_AWR_B2": {
       "id": "120238978175860139",
@@ -84,7 +117,8 @@
       "campaign": "AWR",
       "daily_budget_ars": 1500,
       "optimization": "REACH",
-      "status": "PAUSED"
+      "status": "PAUSED",
+      "ready": true
     },
     "AS_AWR_A3": {
       "id": "120238978176270139",
@@ -92,15 +126,45 @@
       "campaign": "AWR",
       "daily_budget_ars": 1500,
       "optimization": "REACH",
-      "status": "PAUSED"
+      "status": "PAUSED",
+      "ready": true
     },
     "AS_ENG_C2": {
-      "id": "120238978177080139",
-      "name": "ENBA_Engagement_C2_RegalosExperienciales",
+      "id": "120239146114130139",
+      "name": "ENBA_Engagement_C2_RegalosExperienciales_v2",
       "campaign": "ENG",
       "daily_budget_ars": 1500,
       "optimization": "POST_ENGAGEMENT",
-      "status": "PAUSED"
+      "promoted_object": "page_id:1064806400040502",
+      "destination_type": "ON_POST",
+      "status": "PAUSED",
+      "ready": true,
+      "replaced": "120238978177080139 (v1, sin promoted_object — roto, inmutable)",
+      "created_date": "2026-04-18"
+    },
+    "AS_ENG_REEL": {
+      "id": "120239078452300139",
+      "name": "ENBA_Engagement_Reel4horas",
+      "campaign": "ENG",
+      "daily_budget_ars": 3000,
+      "optimization": "POST_ENGAGEMENT",
+      "promoted_object": "page_id:1064806400040502",
+      "destination_type": "ON_POST",
+      "status": "PAUSED",
+      "ready": true
+    },
+    "AS_ENG_TOP": {
+      "id": "120239146126860139",
+      "name": "ENBA_Engagement_TopPerformers_v2",
+      "campaign": "ENG",
+      "daily_budget_ars": 1500,
+      "optimization": "POST_ENGAGEMENT",
+      "promoted_object": "page_id:1064806400040502",
+      "destination_type": "ON_POST",
+      "status": "PAUSED",
+      "ready": true,
+      "replaced": "120239078061910139 (v1, sin promoted_object — roto, inmutable)",
+      "created_date": "2026-04-18"
     },
     "AS_LEA_C3": {
       "id": "120238978180620139",
@@ -108,119 +172,54 @@
       "campaign": "LEA",
       "daily_budget_ars": 3500,
       "optimization": "LEAD_GENERATION",
-      "status": "PAUSED"
-    },
-    "AS_ENG_REEL": {
-      "id": "120239078452300139",
-      "name": "ENBA_Engagement_Reel4horas",
-      "campaign": "ENG",
-      "daily_budget_ars": 3000,
-      "status": "PAUSED"
+      "promoted_object": "page_id:1064806400040502",
+      "status": "PAUSED",
+      "ready": true,
+      "notes": "destination_type UNDEFINED es normal para LEAD_GENERATION. Lead form ENBA_LeadForm_Corporativo activo (creado 17/04 desde UI). Necesita ad con creative antes de activar."
     }
   },
-  "phase_6_7_ads": "SKIPPED — pending post_ids from launch team",
-  "errors": [
-    {
-      "phase": "1",
-      "code": "D1",
-      "error": "100: Invalid parameter | Formato JSON de regla no válido."
+  "deprecated_adsets": {
+    "AS_ENG_C2_v1": {
+      "id": "120238978177080139",
+      "name": "ENBA_Engagement_C2_RegalosExperienciales",
+      "reason": "Sin promoted_object, inmutable. Reemplazado por v2 (120239146114130139)."
     },
-    {
-      "phase": "1",
-      "code": "D2",
-      "error": "2654: (#2654) Nombre de evento no válido para público personalizado: El nombre del evento debe tener menos de 50 caracteres y solo puede contener caracteres alfanuméricos y guiones bajos."
-    },
-    {
-      "phase": "1",
-      "code": "D3",
-      "error": "2654: (#2654) Nombre de evento no válido para público personalizado: El nombre del evento debe tener menos de 50 caracteres y solo puede contener caracteres alfanuméricos y guiones bajos."
-    },
-    {
-      "phase": "1",
-      "code": "D4",
-      "error": "2654: (#2654) Nombre de evento no válido para público personalizado: El nombre del evento debe tener menos de 50 caracteres y solo puede contener caracteres alfanuméricos y guiones bajos."
-    },
-    {
-      "phase": "4",
-      "code": "AS_AWR_A2",
-      "error": "100: Invalid parameter | La especificación de segmentación indicada no es válida porque: Invalid data for field flexible_spec. Especificación de segmentación no válida: La especificación de segmentación indicada no es válida porque: Invalid data for field interests. Especificación de segmentación no válida: La especificación de segmentación indicada no es válida porque: El interés con el identificador 6003237580025 no es válido."
-    },
-    {
-      "phase": "4",
-      "code": "AS_AWR_B1",
-      "error": "100: Invalid parameter | La especificación de segmentación indicada no es válida porque: Invalid data for field flexible_spec. Especificación de segmentación no válida: La especificación de segmentación indicada no es válida porque: Invalid data for field interests. Especificación de segmentación no válida: La especificación de segmentación indicada no es válida porque: El interés con el identificador 6003283852750 no es válido."
-    },
-    {
-      "phase": "4",
-      "code": "AS_AWR_B2",
-      "error": "100: Invalid parameter | La especificación de segmentación indicada no es válida porque: Invalid data for field flexible_spec. Especificación de segmentación no válida: La especificación de segmentación indicada no es válida porque: Invalid data for field interests. Especificación de segmentación no válida: La especificación de segmentación indicada no es válida porque: El interés con el identificador 6003256851918 no es válido."
-    },
-    {
-      "phase": "4",
-      "code": "AS_AWR_C1",
-      "error": "100: Invalid parameter | La especificación de segmentación indicada no es válida porque: Invalid data for field flexible_spec. Especificación de segmentación no válida: La especificación de segmentación indicada no es válida porque: Invalid data for field interests. Especificación de segmentación no válida: La especificación de segmentación indicada no es válida porque: El interés con el identificador 6003143131033 no es válido."
-    },
-    {
-      "phase": "4",
-      "code": "AS_AWR_A3",
-      "error": "100: Invalid parameter | La especificación de segmentación indicada no es válida porque: Invalid data for field flexible_spec. Especificación de segmentación no válida: La especificación de segmentación indicada no es válida porque: Invalid data for field interests. Especificación de segmentación no válida: La especificación de segmentación indicada no es válida porque: El interés con el identificador 6003251053575 no es válido."
-    },
-    {
-      "phase": "4",
-      "code": "AS_ENG_C2",
-      "error": "100: Invalid parameter | La especificación de segmentación indicada no es válida porque: Invalid data for field flexible_spec. Especificación de segmentación no válida: La especificación de segmentación indicada no es válida porque: Invalid data for field interests. Especificación de segmentación no válida: La especificación de segmentación indicada no es válida porque: El interés con el identificador 6003295320538 no es válido."
-    },
-    {
-      "phase": "4",
-      "code": "AS_LEA_C3",
-      "error": "100: Invalid parameter | La especificación de segmentación indicada no es válida porque: Invalid data for field flexible_spec. Especificación de segmentación no válida: La especificación de segmentación indicada no es válida porque: Invalid data for field interests. Especificación de segmentación no válida: La especificación de segmentación indicada no es válida porque: El interés con el identificador 6003297699432 no es válido."
+    "AS_ENG_TOP_v1": {
+      "id": "120239078061910139",
+      "name": "ENBA_Engagement_TopPerformers",
+      "reason": "Sin promoted_object, inmutable. Reemplazado por v2 (120239146126860139)."
     }
-  ],
-  "phase_1_custom_audiences_status": "DEFERRED — preflight schema no coincide con API real",
-  "phase_2_v2_run": {
-    "timestamp": "2026-04-16T06:11:01.062Z",
-    "errors": []
   },
   "ad_images": {
     "piece-01-darkpost": {
       "hash": "e300bc9295a0cfa9b24ab363ce093beb",
-      "url": "https://scontent.faep24-2.fna.fbcdn.net/v/t45.1600-4/674619869_1587258249047378_4242223295558205491_n.png?stp=dst-jpg_tt6&_nc_cat=110&ccb=1-7&_nc_sid=890911&_nc_ohc=hya2sMrkuL0Q7kNvwGSLLjj&_nc_oc=AdoGGWW3rH1GLDr8X2oYVIPjtWDoQn06AcuY29fs96QihtL2_EkH8himeoycDsORQiM&_nc_zt=1&_nc_ht=scontent.faep24-2.fna&edm=AJNyvH4EAAAA&_nc_gid=mjgVh3jMLNB4Lcb7MLUdkw&_nc_tpa=Q5bMBQEIMH9ADVfaptJ2LAJLY5wlShF_By48pBRau7s--7Dp1KIAFUuZn88rYZ7mFz-0DafpnDyRnq8_cA&oh=00_Af2wJizxiIyVLhjVNBJyOrceOINZ1aCxNebYbmdDoJTJYw&oe=69E81F7C",
       "status": "uploaded"
     }
   },
   "ad_creatives": {
     "piece-01-darkpost": {
       "id": "1292865366142826",
-      "status": "created"
+      "status": "ACTIVE"
     },
     "piece-02-existing": {
       "id": "4224600687684576",
-      "status": "created"
+      "status": "ACTIVE"
     },
     "piece-03-existing": {
       "id": "1902623250399897",
-      "status": "created"
+      "status": "ACTIVE"
     },
     "reel-4horas-existing": {
       "id": "950413604375752",
-      "status": "created"
+      "status": "ACTIVE"
+    },
+    "reel-4horas-alt": {
+      "id": "1996455587614987",
+      "status": "ACTIVE",
+      "notes": "Creative alternativo del reel, no asignado a ningún ad actualmente."
     }
   },
   "ads": {
-    "AD_C1_P02": {
-      "id": "120239057858590139",
-      "name": "ENBA_ad_piece02_C1",
-      "adset": "AS_AWR_C1",
-      "creative": "piece-02-existing",
-      "status": "PAUSED"
-    },
-    "AD_B2_P02": {
-      "id": "120239057859170139",
-      "name": "ENBA_ad_piece02_B2",
-      "adset": "AS_AWR_B2",
-      "creative": "piece-02-existing",
-      "status": "PAUSED"
-    },
     "AD_A2_P01": {
       "id": "120239058261910139",
       "name": "ENBA_ad_piece01dp_A2",
@@ -233,6 +232,20 @@
       "name": "ENBA_ad_piece01dp_B1",
       "adset": "AS_AWR_B1",
       "creative": "piece-01-darkpost",
+      "status": "PAUSED"
+    },
+    "AD_C1_P02": {
+      "id": "120239057858590139",
+      "name": "ENBA_ad_piece02_C1",
+      "adset": "AS_AWR_C1",
+      "creative": "piece-02-existing",
+      "status": "PAUSED"
+    },
+    "AD_B2_P02": {
+      "id": "120239057859170139",
+      "name": "ENBA_ad_piece02_B2",
+      "adset": "AS_AWR_B2",
+      "creative": "piece-02-existing",
       "status": "PAUSED"
     },
     "AD_A3_P03": {
@@ -257,9 +270,31 @@
       "status": "PAUSED"
     }
   },
+  "pixels": {
+    "enba_pixel": {
+      "id": "830831356111912",
+      "name": "ENBA Pixel",
+      "last_fired": "nunca"
+    },
+    "event_data": {
+      "id": "1273048378266952",
+      "name": "Espacio Nautico Buenos Aires Event Data",
+      "last_fired": "2026-04-18T17:14:43-03:00"
+    }
+  },
+  "lead_forms": {
+    "corporativo": {
+      "name": "ENBA_LeadForm_Corporativo",
+      "status": "active",
+      "created_date": "2026-04-17",
+      "leads": 0,
+      "verified_via": "UI (screenshot de Jose 18/04)"
+    }
+  },
   "reel_published": {
     "ig_post_id": "18585972517007777",
     "fb_post_id": "1435389215002068",
     "timestamp": "2026-04-17T15:49:36.346Z"
-  }
+  },
+  "errors_historical": "Errores de la ejecución original (16/04) archivados. Los ad sets con intereses inválidos fueron corregidos en una segunda pasada (phase_2_v2_run). Los ad sets de engagement sin promoted_object fueron reemplazados con versiones _v2 el 18/04."
 }
