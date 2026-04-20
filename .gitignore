@@ -16,6 +16,16 @@ asset-bank/servicios/
 asset-bank/travesias-navegacion/
 asset-bank/veleros-broker/
 
+# Reel intermedios y outputs (pesados, regenerables con build scripts)
+campaigns/reels/*/reel-primera-vez-*.mp4
+campaigns/reels/*/segments/
+campaigns/reels/*/voiceover/
+campaigns/reels/*/*.jpg
+campaigns/reels/*/*.png
+campaigns/reels/*/verify-frames/
+campaigns/reels/*/build-v3*.sh
+campaigns/reels/*/edit-reel.sh
+
 # Thumbnails y contact sheets de clasificación (temporales)
 thumbs-preview/
 thumbs-videos/
