@@ -6,3 +6,27 @@ node_modules/
 # Material crudo de video/foto (pesado, no va en git — CLAUDE.md)
 campaigns/reels/*/material-crudo/
 campaigns/reels/*/clip-review/
+
+# Asset-bank subcarpetas (fotos/videos clasificados, pesados)
+asset-bank/buenos-aires-paisaje/
+asset-bank/destinos/
+asset-bank/escuela-aprendizaje/
+asset-bank/grupos-experiencia/
+asset-bank/servicios/
+asset-bank/travesias-navegacion/
+asset-bank/veleros-broker/
+
+# Thumbnails y contact sheets de clasificación (temporales)
+thumbs-preview/
+thumbs-videos/
+contact-sheet-*.jpg
+video-sheet-*.jpg
+photo-metadata.json
+photo-classifications.json
+video-classifications.json
+bank-candidates.json
+preview-clasificar-fotos.html
+preview-clasificar-videos.html
+preview-corporativo.html
+preview-fb-marina.html
+preview-fb-franco.html

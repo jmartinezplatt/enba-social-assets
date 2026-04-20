@@ -54,13 +54,25 @@ Todas las decisiones originales fueron resueltas. Pendientes nuevos al final.
 | 6 | Equipo de filmacion | **RESUELTO** | No se compro gimbal. Se filmo con celular, calidad aceptable. |
 | 7 | Engagement manual | **RESUELTO 19/04** | Jose con su gente. |
 
-### Decisiones pendientes nuevas (19/04)
+### Decisiones pendientes nuevas (19/04) — Estado
 
-| # | Decision | Impacto | Deadline |
-|---|----------|---------|----------|
-| 8 | **Que creative para C3 Corporativo (lead gen)?** | Sin creative no se puede activar el ad set de Leads | Antes del 26/04 (dia 8) |
-| 9 | **Cuando publicar carruseles organicos?** | 3 carruseles aprobados con script listo | Cuando Jose decida |
-| 10 | **Acceso a Google Photos** | Jose esta trabajando en darlo, amplia el asset-bank | No bloqueante |
+| # | Decision | Estado | Respuesta |
+|---|----------|--------|-----------|
+| 8 | Que creative para C3 Corporativo (lead gen)? | **RESUELTO 19/04** | Lead form v2 (944664581514608) + creative con grupo-cockpit-cielo-azul-4x5.jpg + copy Sole. Campana C_LEA + ad set C3 + ad ACTIVE. |
+| 9 | Cuando publicar carruseles organicos? | **RESUELTO 19/04** | cuanto-sale publicado IG (carrusel) + FB (slide-04 imagen unica) 19/04. no-es-tour 24/04. elegi-aventura 03/05. FB no soporta carruseles organicos: se publica slide hero como imagen unica (decision Marina). |
+| 10 | Acceso a Google Photos | **EN PROGRESO** | Jose trabajando en compartir album. |
+
+### Acciones sesion 19/04 (tarde)
+
+- User token regenerado con 19 permisos (agregados: pages_manage_ads, leads_retrieval, pages_read_user_content, instagram_manage_insights, instagram_manage_comments, read_insights, pages_manage_metadata, catalog_management)
+- Lead form v1 archivado, v2 creado (thank you page → home en vez de /travesias)
+- TOS de lead gen aceptados en FB
+- Ad C3 Corporativo creado y activado: campana C_LEA + ad set AS_LEA_C3 + ad AD_C3_CORP ACTIVE, $3.500/dia
+- Carrusel cuanto-sale publicado IG (6 slides) + FB (slide-04 imagen unica, caption variante 4 de Sole)
+- Regla FB: no publicar carruseles como album. Publicar slide hero como imagen unica (fbHeroSlide en captions.json)
+- Script publish-fb-single.mjs creado para publicacion FB de imagen unica
+- Captions FB reescritos para los 3 carruseles (sin referencia a "carrusel", URLs corregidas)
+- Asset grupo-cockpit-cielo-azul-4x5.jpg creado (crop 4:5 para ad C3)
 
 ---
 

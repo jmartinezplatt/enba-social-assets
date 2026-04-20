@@ -82,7 +82,8 @@
       "id": "120238976549780139",
       "name": "ENBA_Leads_abr2026",
       "objective": "OUTCOME_LEADS",
-      "status": "PAUSED"
+      "status": "ACTIVE",
+      "activated": "2026-04-19"
     }
   },
   "phase_4_adsets": {
@@ -181,9 +182,11 @@
       "daily_budget_ars": 3500,
       "optimization": "LEAD_GENERATION",
       "promoted_object": "page_id:1064806400040502",
-      "status": "PAUSED",
+      "status": "ACTIVE",
+      "activated": "2026-04-19",
+      "destination_type": "ON_AD",
       "ready": true,
-      "notes": "destination_type UNDEFINED es normal para LEAD_GENERATION. Lead form ENBA_LeadForm_Corporativo activo (creado 17/04 desde UI). Necesita ad con creative antes de activar."
+      "notes": "Lead form v2 (944664581514608). Activado 19/04 con creative corporativo."
     }
   },
   "deprecated_adsets": {
@@ -207,6 +210,11 @@
       "hash": "ec0a8279da0434e053627a0cfba0a569",
       "status": "uploaded",
       "source": "asset-bank/grupo-merienda-atardecer-cockpit.jpg"
+    },
+    "corporativo-C3": {
+      "hash": "262a830f13da8bddfd33f51c2be4804b",
+      "status": "uploaded",
+      "source": "asset-bank/grupo-cockpit-cielo-azul-4x5.jpg"
     }
   },
   "ad_creatives": {
@@ -235,6 +243,12 @@
       "id": "1996455587614987",
       "status": "ACTIVE",
       "notes": "Creative alternativo del reel, no asignado a ningún ad actualmente."
+    },
+    "corporativo-C3": {
+      "id": "942857891855079",
+      "status": "ACTIVE",
+      "created_date": "2026-04-19",
+      "lead_form_id": "944664581514608"
     }
   },
   "ads": {
@@ -302,6 +316,14 @@
       "status": "PAUSED",
       "created_date": "2026-04-19",
       "activation": "dia 5 (23/04)"
+    },
+    "AD_C3_CORP": {
+      "id": "120239169468780139",
+      "name": "ENBA_ad_corporativo_C3",
+      "adset": "AS_LEA_C3",
+      "creative": "corporativo-C3",
+      "status": "ACTIVE",
+      "activated": "2026-04-19"
     }
   },
   "pixels": {
@@ -317,12 +339,15 @@
     }
   },
   "lead_forms": {
-    "corporativo": {
-      "name": "ENBA_LeadForm_Corporativo",
-      "status": "active",
-      "created_date": "2026-04-17",
+    "corporativo_v2": {
+      "id": "944664581514608",
+      "name": "ENBA_LeadForm_Corporativo_v2",
+      "status": "ACTIVE",
+      "created_date": "2026-04-19",
       "leads": 0,
-      "verified_via": "UI (screenshot de Jose 18/04)"
+      "fields": ["tipo_de_evento (custom select)", "nombre_de_empresa (custom text)", "email", "full_name", "phone_number"],
+      "thank_you_url": "https://espacionautico.com.ar",
+      "notes": "Reemplaza v1 (860937493677801, archivada). Thank you page apunta a home en vez de /travesias."
     }
   },
   "reel_published": {
