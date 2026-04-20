@@ -2,8 +2,8 @@
 
 **Autor:** Manu (Coordinador de Produccion)
 **Fecha original:** 15 de abril de 2026
-**Ultima actualizacion:** 19 de abril de 2026
-**Periodo:** 19 de abril - 15 de mayo de 2026 (27 dias, re-baselineado)
+**Ultima actualizacion:** 20 de abril de 2026
+**Periodo:** 20 de abril - 16 de mayo de 2026 (27 dias, re-baselineado al primer gasto real)
 **Plan de pauta vigente:** `presupuesto-v3-final.md` (fuente de verdad de pauta, reemplaza este resumen)
 **Fuentes:** diagnostico-inicial (Bruno), estrategia-instagram (Franco), estrategia-facebook (Franco), analisis-reels (Marina), review-estrategia-ig (Marina), meta-business-setup (Bruno), google-analytics-medicion (Bruno), kpis (Bruno), presupuesto-v3-final (Bruno), reporte-semanal-template (Bruno), calendario-integrado.json
 
@@ -61,6 +61,7 @@ Todas las decisiones originales fueron resueltas. Pendientes nuevos al final.
 | 8 | Que creative para C3 Corporativo (lead gen)? | **RESUELTO 19/04** | Lead form v2 (944664581514608) + creative con grupo-cockpit-cielo-azul-4x5.jpg + copy Sole. Campana C_LEA + ad set C3 + ad ACTIVE. |
 | 9 | Cuando publicar carruseles organicos? | **RESUELTO 19/04** | cuanto-sale publicado IG (carrusel) + FB (slide-04 imagen unica) 19/04. no-es-tour 24/04. elegi-aventura 03/05. FB no soporta carruseles organicos: se publica slide hero como imagen unica (decision Marina). |
 | 10 | Acceso a Google Photos | **EN PROGRESO** | Jose trabajando en compartir album. |
+| 11 | Ad sets B1 y C1 sin gasto | **PENDIENTE** | 5 de 7 ad sets gastando. B1 ExperienciasBA y C1 TurismoBA siguen en $0 después del onboarding fix (20/04). Sin diferencias de config vs los que sí gastan. Verificar próxima sesión — si siguen en $0, evaluar duplicarlos. |
 
 ### Acciones sesion 19/04 (tarde)
 
@@ -174,9 +175,9 @@ Publicacion organica via n8n desde 15/04. Pauta NO activa todavia.
 
 Incidentes: CTAs duplicados en campaign.pieces.json detectados y corregidos (Sole reescribio 15, Marina+Franco aprobaron). Pieces 01-04 ya publicadas con CTAs viejos, no se pueden corregir. Pieces 05+ tienen CTAs corregidos.
 
-### Dia 1 pauta — Sabado 19 de abril
+### Dia 1 pauta — Sabado 19 de abril (activado, sin gasto hasta 20/04)
 
-**Meta Ads activados a las 00:10 ART:**
+**Meta Ads activados a las 00:10 ART (primer gasto real: 20/04 ~03:00 ART, post incidente onboarding):**
 - Campana AWR (Awareness) → ACTIVE
 - Campana ENG (Engagement) → ACTIVE
 - 5 ad sets Awareness: B1 ($2500), A2 ($1500), C1 ($1500), B2 ($1500), A3 ($1500)
@@ -192,11 +193,18 @@ Incidentes: CTAs duplicados en campaign.pieces.json detectados y corregidos (Sol
 - Asset-bank ampliado 53→65 JPGs
 - Script publish-carousel.mjs creado y verificado
 - Cortes pauta reel 4h (30s + 15s) producidos
-- Re-baseline presupuesto-v3: dia 1 = 19/04, fin = 15/05
+- Re-baseline presupuesto-v3: dia 1 = 20/04 (primer gasto real), fin = 16/05
 - Direccion creativa reel "primera vez" completada (Marina, score 9/10)
 - Captions darkpost regalos escritos (Sole) y aprobados
 
-### Dias 2-7 pauta — 20-25 de abril (por ejecutar)
+### Incidente onboarding Meta Ads (19-20/04)
+
+Ads activados 19/04 00:10 ART. 48h con $0 gasto, columna Entrega vacía en Ads Manager.
+Causa: cuenta nueva configurada 100% por API, checkpoints internos de onboarding no disparados.
+Resolución: creación de campaña TEST_onboarding desde UI de Ads Manager + toggle de ad sets.
+Primer gasto real: 20/04 ~03:00 ART. Token META_ADS_USER_TOKEN migrado de User Token LL (expirado) a System User Token (eterno).
+
+### Dias 1-6 pauta — 20-25 de abril (en ejecucion)
 
 | Dia | Fecha | Accion planificada (presupuesto-v3) |
 |-----|-------|-------------------------------------|
@@ -207,7 +215,7 @@ Incidentes: CTAs duplicados en campaign.pieces.json detectados y corregidos (Sol
 | 6 | 24/04 | piece-10 organica. |
 | 7 | 25/04 | piece-11 organica. **Activar C3 Corporativo (si creative listo).** |
 
-**Checkpoints fin de semana 1 (25/04):** primer reporte Bruno con data real de 7 dias de pauta.
+**Checkpoints fin de semana 1 (26/04):** primer reporte Bruno con data real de 6 dias de pauta (ajustado por incidente onboarding).
 
 ---
 
@@ -440,11 +448,11 @@ Debito real en tarjeta: ~ARS 700.000 (impuestos ~40%). Tarjeta Mastercard ···
 
 | Reporte | Fecha | Contenido |
 |---------|-------|-----------|
-| Reporte 72 hs | 18/04 | Primer corte de datos, calibracion CPS y engagement |
-| Reporte semanal 1 | 22/04 | Primera semana completa, tier check |
-| Reporte semanal 2 | 29/04 | Segunda semana, datos para proyectar cierre |
-| Reporte semanal 3 | 06/05 | Tercera semana, ajustes finales |
-| Reporte de cierre | 15/05 | Resultado final, aprendizajes, plan mes 2 |
+| Reporte 72 hs | 23/04 | Primer corte de datos, calibracion CPS y engagement |
+| Reporte semanal 1 | 23/04 | Primera semana completa, tier check |
+| Reporte semanal 2 | 30/04 | Segunda semana, datos para proyectar cierre |
+| Reporte semanal 3 | 07/05 | Tercera semana, ajustes finales |
+| Reporte de cierre | 16/05 | Resultado final, aprendizajes, plan mes 2 |
 
 ### KPIs primarios a mirar diariamente
 
@@ -517,5 +525,5 @@ El plan esta disenado para que alguien pueda leerlo y saber exactamente que hace
 ---
 
 *Plan maestro producido por Manu (Coordinador de Produccion) — 15 de abril de 2026*
-*Actualizado: 19 de abril de 2026 — secciones 1, 2, 4, 5, 7, 9 con estado real de ejecucion*
+*Actualizado: 20 de abril de 2026 — re-baseline dia 1 a 20/04 (primer gasto real), incidente onboarding documentado*
 *Fuentes: Bruno, Franco, Marina — Team 4, ENBA*

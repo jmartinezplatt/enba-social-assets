@@ -307,7 +307,7 @@ Secrets NO van en `.env`. Viven en Windows User scope o credenciales encriptadas
 | Variable | Contenido | Owner | Notas |
 |---|---|---|---|
 | `META_ACCESS_TOKEN` | Page Access Token LL (expires:never) | Frente lanzamiento/redes | Fuente para credencial n8n |
-| `META_ADS_USER_TOKEN` | User Access Token LL (expires:never, scope ads) | Frente 10K/ads | Solo para scripts de ads |
+| `META_ADS_USER_TOKEN` | System User Token (expires:never, 41 scopes) | Frente 10K/ads | System User "Conversions API System User" del BM. Reemplaza User Token LL que expiraba cada 60 días. |
 | `META_APP_ID` | App ID | Compartido | No es secret |
 | `META_APP_SECRET` | App Secret | Compartido | Secret |
 | `META_IG_BUSINESS_ACCOUNT_ID` | IG Business Account ID | Compartido | No es secret |
