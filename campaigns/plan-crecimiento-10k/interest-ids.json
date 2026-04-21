@@ -1,29 +1,30 @@
 {
+  "_note": "Sincronizado con API en vivo 22/04. IDs validados en preflight-meta-api.md.",
   "A2": [
+    {
+      "id": "6002878991172",
+      "name": "Embarcación",
+      "verified": true
+    },
     {
       "id": "6003125161176",
       "name": "Sailing World",
-      "query": "Sailing"
+      "verified": true
     },
     {
       "id": "6003187081552",
-      "name": "vela  (deporte)",
-      "query": "Sailboat"
+      "name": "vela (deporte)",
+      "verified": true
     },
     {
-      "id": "6794460135704",
-      "name": "Jugadores de fútbol alemanes (fútbol)",
-      "query": "Boat"
-    },
-    {
-      "id": "6003225930699",
-      "name": "Cruceros (empresa de viajes y turismo)",
-      "query": "Catamaran"
+      "id": "6004160148624",
+      "name": "Yacht racing",
+      "verified": true
     },
     {
       "id": "6023137421020",
       "name": "Motor Boat & Yachting",
-      "query": "Yachting"
+      "verified": true
     }
   ],
   "A3": [
@@ -45,19 +46,24 @@
   ],
   "B1": [
     {
-      "id": "6003349868805",
-      "name": "Travel Adventures (organización profesional)",
-      "query": "Travel"
-    },
-    {
       "id": "6002985584323",
       "name": "Recreación al aire libre (actividades al aire libre)",
-      "query": "Outdoor recreation"
+      "verified": true
     },
     {
-      "id": "6003096481532",
-      "name": "A&W Restaurants",
-      "query": "Restaurants"
+      "id": "6003249531267",
+      "name": "Ocio (concepto social)",
+      "verified": true
+    },
+    {
+      "id": "6003415019460",
+      "name": "Gastronomía (comida y bebida)",
+      "verified": true
+    },
+    {
+      "id": "6004160395895",
+      "name": "Viajes (viajes y turismo)",
+      "verified": true
     }
   ],
   "B2": [

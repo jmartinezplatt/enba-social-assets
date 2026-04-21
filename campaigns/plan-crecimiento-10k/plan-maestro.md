@@ -28,8 +28,9 @@
 **Infraestructura (actualizado 19/04):**
 - n8n workflow publicacion diaria activo (12:15 ART, ID `MipwleZNu8EG5v6C`, v7.2, 34 nodos). URLs de imagen apuntan a `enba-social-assets.pages.dev` (no custom domain, por bloqueo Cloudflare a crawler IG).
 - n8n workflow evaluacion ads diaria activo (9:00 ART, ID `1qRywsEWAl7VoO5o`).
-- Meta Ads: 3 campanas ACTIVE (AWR + ENG + LEA pausada). **Reestructurado 21/04:** AWR CBO $6,500/dia (A2 $3K + B1 $3.5K, pausados B2/C1/A3). ENG Reel $5,000/dia. C3 LEA PAUSED.
+- Meta Ads: 3 campanas ACTIVE (AWR + ENG + LEA pausada). **Reestructurado 21/04 + audit fix 22/04:** AWR CBO $6,500/dia (A2 $3K + B1 $3.5K, pausados B2/C1/A3) con video ads agregados. ENG Reel $7,250/dia (escalado de $5K). Reel "primera vez" en pauta. C3 LEA PAUSED. Total diario: $13,750.
 - Darkpost C2 Regalos creado (PAUSED, activacion 23/04).
+- UTMs configurados en todos los ads activos (22/04).
 - Credenciales n8n: Meta API ENBA (page token), Meta Ads API ENBA (ads token), Gmail ENBA.
 - GA4 instalado (G-XVN36KPHBL), Pixel Event Data activo (1273048378266952).
 - Dominio autorizado en Events Manager.
@@ -62,6 +63,14 @@ Todas las decisiones originales fueron resueltas. Pendientes nuevos al final.
 | 9 | Cuando publicar carruseles organicos? | **RESUELTO 19/04** | cuanto-sale publicado IG (carrusel) + FB (slide-04 imagen unica) 19/04. no-es-tour 24/04. elegi-aventura 03/05. FB no soporta carruseles organicos: se publica slide hero como imagen unica (decision Marina). |
 | 10 | Acceso a Google Photos | **RESUELTO 19/04** | Album descargado, material incorporado a asset-bank. |
 | 11 | Ad sets B1 y C1 sin gasto | **RESUELTO 20/04** | Ambos gastando tras fix onboarding. B1: $1.998 spend, 8.860 reach. C1: $399 spend, 1.960 reach. Delivery normal. |
+
+### Pendientes auditoria 22/04
+
+| # | Pendiente | Owner | Deadline | Estado |
+|---|-----------|-------|----------|--------|
+| A1 | G-3 Plan B warm: si D2 sigue too_small al 01/05, crear ReelPrimeraVez_Warm solo con D4 (VideoViewers) | Bruno + Jose | 01/05 | PENDIENTE |
+| A2 | G-9 Producir 2-3 darkposts nuevos para reemplazo fatigue dia 14 | Dani | 28/04 | PENDIENTE |
+| A3 | Custom audiences: D1 y D3 pasaron a "ready" (22/04). D2 y D5 siguen "too_small". Re-verificar al 29/04 (Gate 2). | Bruno | 29/04 | MONITOREO |
 
 ### Acciones sesion 19/04 (tarde)
 
@@ -459,15 +468,15 @@ Estos son los momentos donde hay que tomar una decision fuera del plan normal.
 
 ## 9. Resumen de presupuesto
 
-**FUENTE DE VERDAD:** `presupuesto-v3-final.md`. Este resumen es solo referencia rapida.
+**FUENTE DE VERDAD:** `presupuesto-v4-reestructuracion.md`. Este resumen es solo referencia rapida.
 
 ### Pauta (ARS 500.000 neto — confirmado 19/04, solo pauta)
 
 | Dimension | Valor |
 |-----------|-------|
-| Split IG / FB | 75% / 25% (ARS 375.000 / ARS 125.000). Revision dia 10 (28/04). |
-| Por objetivo | Awareness 50% ($250K) / Engagement 25% ($125K) / Leads 10% ($50K) / Reserva 15% ($75K) |
-| Semana 1-4 | $100K / $140K / $160K / $100K (curva 20/28/32/20) |
+| Split IG / FB | 75% / 25% (ARS 359.562 / ARS 119.854). Revision dia 10 (29/04). |
+| Por objetivo | Awareness 25% ($119K) / Engagement 45% ($215K) / Leads 10% ($47K) / Reserva 20% ($95K) |
+| Semana 1-4 | $55K / $130K / $165K / $129K (post-reestructuración v4) |
 | CPS target | < ARS 45 promedio (calibrado v3) |
 | Umbral de corte | CPS > $100 o ER < 1% o CTR < 0.4% (despues de 72h) |
 | Umbral de escalado | CPS < $30 + ER > 3% → +25% cada 48h |

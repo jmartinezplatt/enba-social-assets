@@ -1,7 +1,9 @@
 {
-  "last_verified": "2026-04-21T23:00:00-03:00",
+  "last_verified": "2026-04-22T01:30:00-03:00",
   "v4_restructure_date": "2026-04-21",
-  "v4_restructure_summary": "Paused B2/C1/A3/C3. Scaled A2 $3K, B1 $3.5K (CBO $6.5K), Reel $5K. Video-first pivot.",
+  "v4_restructure_summary": "Paused B2/C1/A3/C3. Scaled A2 $3K, B1 $3.5K (CBO $6.5K), Reel $7.25K. Video-first pivot + video ads AWR.",
+  "audit_fix_date": "2026-04-22",
+  "audit_fix_summary": "G-2: video ads en A2+B1. G-4: reel primera vez en ENG. G-6: ENG_REEL $5K→$7.25K. Total diario: $13,750.",
   "ad_account": "act_2303565156801569",
   "ad_account_name": "Espacio Nautico",
   "ad_account_status": 1,
@@ -15,7 +17,8 @@
       "name": "ENBA_Custom_WebVisitors_30d",
       "subtype": "WEBSITE",
       "status": "active",
-      "delivery": "too_small",
+      "delivery": "ready",
+      "pixel_id": "1273048378266952",
       "created_via": "API",
       "notes": "Originalmente reportada como failed en meta-ids.json, pero existe y funciona. Delivery 'too small' es normal para cuenta nueva."
     },
@@ -33,7 +36,7 @@
       "name": "ENBA_Custom_FBEngagers_90d",
       "subtype": "ENGAGEMENT",
       "status": "active",
-      "delivery": "too_small",
+      "delivery": "ready",
       "created_via": "API",
       "notes": "Mismo caso que D1 y D2."
     },
@@ -162,14 +165,14 @@
       "id": "120239078452300139",
       "name": "ENBA_Engagement_Reel4horas",
       "campaign": "ENG",
-      "daily_budget_ars": 5000,
+      "daily_budget_ars": 7250,
       "optimization": "POST_ENGAGEMENT",
       "promoted_object": "page_id:1064806400040502",
       "destination_type": "ON_POST",
       "status": "ACTIVE",
       "activated": "2026-04-19T00:10:00-03:00",
       "ready": true,
-      "v4_change": "Budget $3,000 → $5,000 (reestructuración 22/04)"
+      "v4_change": "Budget $3,000 → $5,000 (reestructuración 22/04) → $7,250 (audit fix G-6 22/04)"
     },
     "AS_ENG_TOP": {
       "id": "120239146126860139",
@@ -252,7 +255,13 @@
     "reel-4horas-alt": {
       "id": "1996455587614987",
       "status": "ACTIVE",
-      "notes": "Creative alternativo del reel, no asignado a ningún ad actualmente."
+      "notes": "Asignado a AD_A2_REEL4HALT (audit fix G-2+G-10, 22/04)"
+    },
+    "reel-primera-vez-existing": {
+      "id": "2001279037934414",
+      "status": "ACTIVE",
+      "created_date": "2026-04-22",
+      "notes": "Creative del reel 'primera vez' para amplificación inmediata (audit fix G-4)"
     },
     "corporativo-C3": {
       "id": "942857891855079",
@@ -338,6 +347,33 @@
       "status": "PAUSED_BY_ADSET",
       "activated": "2026-04-19",
       "v4_change": "Ad set C3 pausado 22/04 — ad heredó pausa"
+    },
+    "AD_B1_REEL4H": {
+      "id": "120239287388330139",
+      "name": "ENBA_ad_reel4h_B1",
+      "adset": "AS_AWR_B1",
+      "creative": "reel-4horas-existing",
+      "status": "IN_PROCESS",
+      "created_date": "2026-04-22",
+      "notes": "Video ad en Awareness (audit fix G-2)"
+    },
+    "AD_A2_REEL4HALT": {
+      "id": "120239287392190139",
+      "name": "ENBA_ad_reel4hAlt_A2",
+      "adset": "AS_AWR_A2",
+      "creative": "reel-4horas-alt",
+      "status": "IN_PROCESS",
+      "created_date": "2026-04-22",
+      "notes": "Video ad alternativo en Awareness (audit fix G-2+G-10)"
+    },
+    "AD_ENG_REEL_PV": {
+      "id": "120239287424800139",
+      "name": "ENBA_ad_reelPV_ENG",
+      "adset": "AS_ENG_REEL",
+      "creative": "reel-primera-vez-existing",
+      "status": "IN_PROCESS",
+      "created_date": "2026-04-22",
+      "notes": "Reel 'primera vez' amplificación inmediata (audit fix G-4)"
     }
   },
   "pixels": {

@@ -1,4 +1,5 @@
 [
+  {"_WARNING": "RAW REFERENCE ONLY — No usar directamente para targeting. IDs validados en interest-ids.json y preflight-meta-api.md. Muchos IDs aqui son falsos positivos (Sailor Moon, Noruega, etc)."},
   {
     "query": "Yacht",
     "id": "6003161318055",
