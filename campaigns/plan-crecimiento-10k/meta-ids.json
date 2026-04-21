@@ -84,8 +84,9 @@
       "id": "120238976549780139",
       "name": "ENBA_Leads_abr2026",
       "objective": "OUTCOME_LEADS",
-      "status": "ACTIVE",
-      "activated": "2026-04-19"
+      "status": "PAUSED",
+      "activated": "2026-04-19",
+      "v4_change": "PAUSED 22/04 — ad set C3 pausado, campaña sin ad sets activos"
     }
   },
   "phase_4_adsets": {
@@ -174,7 +175,7 @@
       "id": "120239146126860139",
       "name": "ENBA_Engagement_TopPerformers_v2",
       "campaign": "ENG",
-      "daily_budget_ars": 1500,
+      "daily_budget_ars": 2000,
       "optimization": "POST_ENGAGEMENT",
       "promoted_object": "page_id:1064806400040502",
       "destination_type": "ON_POST",
@@ -282,24 +283,27 @@
       "name": "ENBA_ad_piece02_C1",
       "adset": "AS_AWR_C1",
       "creative": "piece-02-existing",
-      "status": "ACTIVE",
-      "activated": "2026-04-19T00:10:00-03:00"
+      "status": "PAUSED_BY_ADSET",
+      "activated": "2026-04-19T00:10:00-03:00",
+      "v4_change": "Ad set C1 pausado 22/04 — ad heredó pausa"
     },
     "AD_B2_P02": {
       "id": "120239057859170139",
       "name": "ENBA_ad_piece02_B2",
       "adset": "AS_AWR_B2",
       "creative": "piece-02-existing",
-      "status": "ACTIVE",
-      "activated": "2026-04-19T00:10:00-03:00"
+      "status": "PAUSED_BY_ADSET",
+      "activated": "2026-04-19T00:10:00-03:00",
+      "v4_change": "Ad set B2 pausado 22/04 — ad heredó pausa"
     },
     "AD_A3_P03": {
       "id": "120239061361640139",
       "name": "ENBA_ad_piece03_A3",
       "adset": "AS_AWR_A3",
       "creative": "piece-03-existing",
-      "status": "ACTIVE",
-      "activated": "2026-04-19T00:10:00-03:00"
+      "status": "PAUSED_BY_ADSET",
+      "activated": "2026-04-19T00:10:00-03:00",
+      "v4_change": "Ad set A3 pausado 22/04 — ad heredó pausa"
     },
     "AD_B1_P03": {
       "id": "120239075118770139",
@@ -331,8 +335,9 @@
       "name": "ENBA_ad_corporativo_C3",
       "adset": "AS_LEA_C3",
       "creative": "corporativo-C3",
-      "status": "ACTIVE",
-      "activated": "2026-04-19"
+      "status": "PAUSED_BY_ADSET",
+      "activated": "2026-04-19",
+      "v4_change": "Ad set C3 pausado 22/04 — ad heredó pausa"
     }
   },
   "pixels": {
