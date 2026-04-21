@@ -241,14 +241,19 @@ Primer gasto real: 20/04 ~03:00 ART. Token META_ADS_USER_TOKEN migrado de User T
 - Gate 2: dia 10 (29/04) — follows > 200, ER > 3%
 
 **Pendientes post-reestructuracion:**
-- [ ] Jose: reescribir bio IG (conversion-focused)
-- [ ] Jose: pin story con clips reel "primera vez"
+- [x] Jose: reescribir bio IG (conversion-focused) — HECHO 21/04, CTA + verticales + ubicacion
+- [ ] Jose: pin story con clips reel "primera vez" — diferido
+- [ ] Jose: fijar reel "4 horas" en grid IG — diferido
+- [x] Verificar tamanos audiencia A2 y B1 en Ads Manager UI — HECHO 21/04. A2: 377K-443K, B1: 3.6M-4.2M. Ambas viables. Monitorear CBO distribution (B1 puede absorber >80% del budget por tamano).
+- [x] Verificar C_LEA campaign PAUSED en UI — HECHO 21/04. Campana pausada manualmente.
 - [ ] Activar C2 Regalos dia 5 (23/04)
 - [ ] Crear nuevos ads AWR con CTA "Ver perfil"
 - [ ] Sole: caption variante reel 4h ("Seguinos para mas") deadline 24/04
-- [ ] Verificar tamanos audiencia A2 y B1 en Ads Manager UI
 - [ ] Dani: producir reel "Lo que nadie te dice" (material existente) deadline 30/04
 - [ ] Dani: producir reel "Buenos Aires desde el agua" deadline 02/05
+
+**Publicacion organica 21/04:**
+- piece-07 "A veces unas horas en el rio cambian la semana" publicada IG+FB 12:15 ART via n8n. IG post ID 18120377908649051.
 
 ---
 
