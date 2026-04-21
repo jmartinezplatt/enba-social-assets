@@ -1,5 +1,7 @@
 {
-  "last_verified": "2026-04-20T01:45:00-03:00",
+  "last_verified": "2026-04-21T23:00:00-03:00",
+  "v4_restructure_date": "2026-04-21",
+  "v4_restructure_summary": "Paused B2/C1/A3/C3. Scaled A2 $3K, B1 $3.5K (CBO $6.5K), Reel $5K. Video-first pivot.",
   "ad_account": "act_2303565156801569",
   "ad_account_name": "Espacio Nautico",
   "ad_account_status": 1,
@@ -91,21 +93,23 @@
       "id": "120238978173190139",
       "name": "ENBA_Awareness_B1_ExperienciasBA",
       "campaign": "AWR",
-      "daily_budget_ars": 2500,
+      "daily_budget_ars": 3500,
       "optimization": "REACH",
       "status": "ACTIVE",
       "activated": "2026-04-19T00:10:00-03:00",
-      "ready": true
+      "ready": true,
+      "v4_change": "Budget $2,500 → $3,500 (reestructuración 22/04)"
     },
     "AS_AWR_A2": {
       "id": "120238978174670139",
       "name": "ENBA_Awareness_A2_InteresNavegacion",
       "campaign": "AWR",
-      "daily_budget_ars": 1500,
+      "daily_budget_ars": 3000,
       "optimization": "REACH",
       "status": "ACTIVE",
       "activated": "2026-04-19T00:10:00-03:00",
-      "ready": true
+      "ready": true,
+      "v4_change": "Budget $1,500 → $3,000 (reestructuración 22/04)"
     },
     "AS_AWR_C1": {
       "id": "120238978175200139",
@@ -113,9 +117,10 @@
       "campaign": "AWR",
       "daily_budget_ars": 1500,
       "optimization": "REACH",
-      "status": "ACTIVE",
+      "status": "PAUSED",
       "activated": "2026-04-19T00:10:00-03:00",
-      "ready": true
+      "ready": true,
+      "v4_change": "PAUSED 22/04 — geo Argentina demasiado amplia, 6 eng en $1,355"
     },
     "AS_AWR_B2": {
       "id": "120238978175860139",
@@ -123,9 +128,10 @@
       "campaign": "AWR",
       "daily_budget_ars": 1500,
       "optimization": "REACH",
-      "status": "ACTIVE",
+      "status": "PAUSED",
       "activated": "2026-04-19T00:10:00-03:00",
-      "ready": true
+      "ready": true,
+      "v4_change": "PAUSED 22/04 — 0 eng, overlap C1, owner aprobó corte"
     },
     "AS_AWR_A3": {
       "id": "120238978176270139",
@@ -133,9 +139,10 @@
       "campaign": "AWR",
       "daily_budget_ars": 1500,
       "optimization": "REACH",
-      "status": "ACTIVE",
+      "status": "PAUSED",
       "activated": "2026-04-19T00:10:00-03:00",
-      "ready": true
+      "ready": true,
+      "v4_change": "PAUSED 22/04 — lujo desalineado con marca accesible"
     },
     "AS_ENG_C2": {
       "id": "120239146114130139",
@@ -154,13 +161,14 @@
       "id": "120239078452300139",
       "name": "ENBA_Engagement_Reel4horas",
       "campaign": "ENG",
-      "daily_budget_ars": 3000,
+      "daily_budget_ars": 5000,
       "optimization": "POST_ENGAGEMENT",
       "promoted_object": "page_id:1064806400040502",
       "destination_type": "ON_POST",
       "status": "ACTIVE",
       "activated": "2026-04-19T00:10:00-03:00",
-      "ready": true
+      "ready": true,
+      "v4_change": "Budget $3,000 → $5,000 (reestructuración 22/04)"
     },
     "AS_ENG_TOP": {
       "id": "120239146126860139",
@@ -182,11 +190,12 @@
       "daily_budget_ars": 3500,
       "optimization": "LEAD_GENERATION",
       "promoted_object": "page_id:1064806400040502",
-      "status": "ACTIVE",
+      "status": "PAUSED",
       "activated": "2026-04-19",
       "destination_type": "ON_AD",
       "ready": true,
-      "notes": "Lead form v2 (944664581514608). Activado 19/04 con creative corporativo."
+      "notes": "Lead form v2 (944664581514608). Activado 19/04 con creative corporativo.",
+      "v4_change": "PAUSED 22/04 — prematuro, $7,145 → 0 leads. Reactivar día 15+ si follows>500"
     }
   },
   "deprecated_adsets": {

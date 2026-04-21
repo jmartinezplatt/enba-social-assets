@@ -2,9 +2,9 @@
 
 **Autor:** Manu (Coordinador de Produccion)
 **Fecha original:** 15 de abril de 2026
-**Ultima actualizacion:** 20 de abril de 2026
-**Periodo:** 20 de abril - 16 de mayo de 2026 (27 dias, re-baselineado al primer gasto real)
-**Plan de pauta vigente:** `presupuesto-v3-final.md` (fuente de verdad de pauta, reemplaza este resumen)
+**Ultima actualizacion:** 21 de abril de 2026
+**Periodo:** 19 de abril - 16 de mayo de 2026 (27 dias, re-baselineado al primer gasto real)
+**Plan de pauta vigente:** `presupuesto-v4-reestructuracion.md` (fuente de verdad de pauta, reemplaza v3)
 **Fuentes:** diagnostico-inicial (Bruno), estrategia-instagram (Franco), estrategia-facebook (Franco), analisis-reels (Marina), review-estrategia-ig (Marina), meta-business-setup (Bruno), google-analytics-medicion (Bruno), kpis (Bruno), presupuesto-v3-final (Bruno), reporte-semanal-template (Bruno), calendario-integrado.json
 
 ---
@@ -13,7 +13,7 @@
 
 **Objetivo declarado:** 10.000 seguidores en IG + FB en 27 dias.
 
-**Target realista:** 7.000-10.000 seguidores (Bruno, presupuesto-v3, probabilidad 35-50%). Piso minimo: 5.900 pagados + 2.500 organicos.
+**Target realista:** 7.000-10.000 seguidores (Bruno, presupuesto-v4 post-reestructuracion, probabilidad 40-55%). Piso minimo: 5.900 pagados + 2.500 organicos.
 
 **Presupuesto pauta:** ARS 500.000 neto para Meta Ads. Debito real en tarjeta ~ARS 700.000 (impuestos argentinos ~40%). Tarjeta Mastercard ····8307, limite confirmado. **500K es solo pauta, produccion es gasto aparte (confirmado 19/04).**
 
@@ -28,13 +28,13 @@
 **Infraestructura (actualizado 19/04):**
 - n8n workflow publicacion diaria activo (12:15 ART, ID `MipwleZNu8EG5v6C`, v7.2, 34 nodos). URLs de imagen apuntan a `enba-social-assets.pages.dev` (no custom domain, por bloqueo Cloudflare a crawler IG).
 - n8n workflow evaluacion ads diaria activo (9:00 ART, ID `1qRywsEWAl7VoO5o`).
-- Meta Ads: 2 campanas ACTIVE (AWR + ENG), 6 ad sets ACTIVE, 7 ads ACTIVE. AWR migrada a CBO $8.500/dia (21/04, fix overlap C1 vs B2). ENG mantiene ABO $3.000/dia.
+- Meta Ads: 3 campanas ACTIVE (AWR + ENG + LEA pausada). **Reestructurado 21/04:** AWR CBO $6,500/dia (A2 $3K + B1 $3.5K, pausados B2/C1/A3). ENG Reel $5,000/dia. C3 LEA PAUSED.
 - Darkpost C2 Regalos creado (PAUSED, activacion 23/04).
 - Credenciales n8n: Meta API ENBA (page token), Meta Ads API ENBA (ads token), Gmail ENBA.
 - GA4 instalado (G-XVN36KPHBL), Pixel Event Data activo (1273048378266952).
 - Dominio autorizado en Events Manager.
 
-**Distribucion de pauta:** ver `presupuesto-v3-final.md` seccion 3 (tabla semanal con $500K, curva 20/28/32/20).
+**Distribucion de pauta:** ver `presupuesto-v4-reestructuracion.md` (fuente de verdad). Redistribucion: AWR 25% / ENG 45% / LEA 10% (diferido) / Reserva 20%.
 
 **Split plataformas (Bruno):** IG 75% / FB 25%. Revision dia 10 (28/04).
 
@@ -215,11 +215,46 @@ Primer gasto real: 20/04 ~03:00 ART. Token META_ADS_USER_TOKEN migrado de User T
 
 **Checkpoints fin de semana 1 (26/04):** primer reporte Bruno con data real de 6 dias de pauta (ajustado por incidente onboarding).
 
+### REESTRUCTURACION URGENTE — 21/04/2026 (dia 2 de pauta)
+
+**Trigger:** Reporte automatico dia 2 mostro $20,584 gastados con 0 follows, 0 leads, 0 profile visits, 0 DMs. Auditoria completa de Team 4 (Bruno + Marina + Franco + Auditor) identifico 3 fallas criticas y diseno plan de reestructuracion.
+
+**Cambios ejecutados 21/04:**
+
+| Accion | Detalle | Estado |
+|--------|---------|--------|
+| PAUSE AS_AWR_B2 (Outdoor) | 0 eng, overlap C1 | EJECUTADO via API |
+| PAUSE AS_AWR_C1 (Turismo) | Geo Argentina amplia, 6 eng en $1,355 | EJECUTADO via API |
+| PAUSE AS_AWR_A3 (Aspiracional) | "Lujo" desalineado con marca | EJECUTADO via API |
+| PAUSE AS_LEA_C3 (Corporativo) | Prematuro, $7,145 → 0 leads | EJECUTADO via API |
+| SCALE AS_AWR_A2 | $1,500 → $3,000/dia | EJECUTADO via API |
+| SCALE AS_AWR_B1 | $2,500 → $3,500/dia (CBO $6,500) | EJECUTADO via API |
+| SCALE AS_ENG_REEL | $3,000 → $5,000/dia | EJECUTADO via API |
+| Crear presupuesto-v4 | Nueva distribucion: AWR 25% / ENG 45% / LEA 10% (diferido) / Reserva 20% | CREADO |
+
+**Pivot creativo:** Video-first. Estaticos organic-only. CTA "Ver perfil" reemplaza "Escribinos".
+
+**Nuevas fuentes de verdad:**
+- Plan de pauta: `presupuesto-v4-reestructuracion.md`
+- Decision gates: v4 seccion 7 (5 gates con metricas medibles)
+- Gate 1: dia 6 (25/04) — follows > 30, ThruPlays > 500/dia
+- Gate 2: dia 10 (29/04) — follows > 200, ER > 3%
+
+**Pendientes post-reestructuracion:**
+- [ ] Jose: reescribir bio IG (conversion-focused)
+- [ ] Jose: pin story con clips reel "primera vez"
+- [ ] Activar C2 Regalos dia 5 (23/04)
+- [ ] Crear nuevos ads AWR con CTA "Ver perfil"
+- [ ] Sole: caption variante reel 4h ("Seguinos para mas") deadline 24/04
+- [ ] Verificar tamanos audiencia A2 y B1 en Ads Manager UI
+- [ ] Dani: producir reel "Lo que nadie te dice" (material existente) deadline 30/04
+- [ ] Dani: producir reel "Buenos Aires desde el agua" deadline 02/05
+
 ---
 
 ## 5. Timeline semana por semana — Semanas 2-4
 
-> **NOTA (19/04):** Los montos de pauta en esta seccion son de la version $250K original. Los montos vigentes estan en `presupuesto-v3-final.md` (seccion 3, $500K). La estructura de contenido (que piezas, que dias) sigue siendo referencia valida pero las fechas corren +4 dias por re-baseline (dia 1 = 19/04 en vez de 15/04).
+> **NOTA (21/04):** Los montos de pauta vigentes estan en `presupuesto-v4-reestructuracion.md`. La estructura de contenido (que piezas, que dias) sigue siendo referencia valida.
 
 ### Semana 2 (22-28 abr): Optimizacion basada en datos
 
