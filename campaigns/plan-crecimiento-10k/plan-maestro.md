@@ -21,14 +21,14 @@
 - 30 piezas estaticas: en staging, publicacion diaria via n8n. Pieces 01-05 ya publicadas.
 - 3 carruseles organicos: slides renderizados, captions aprobados, QA PASS. Script `publish-carousel.mjs` listo.
 - Reel "4 horas en el rio": editado, publicado IG+FB 17/04, corriendo como ad de engagement.
-- Reel "primera vez": guion listo, material crudo + material de colega disponible, direccion creativa Marina (score 9/10), pendiente edit-sheet y edicion.
+- Reel "primera vez": v8 final, publicado IG+FB 21/04. IG reel ID 18061312631443687 (instagram.com/reel/DXYeFzUDE6f/), FB video ID 4467029896876277. Musica "Let Good Times Roll", logo oficial, QA PASS Nico, captions Sole.
 - 65 assets curados en asset-bank.
 - Cortes de pauta reel 4h: 30s y 15s listos.
 
 **Infraestructura (actualizado 19/04):**
 - n8n workflow publicacion diaria activo (12:15 ART, ID `MipwleZNu8EG5v6C`, v7.2, 34 nodos). URLs de imagen apuntan a `enba-social-assets.pages.dev` (no custom domain, por bloqueo Cloudflare a crawler IG).
 - n8n workflow evaluacion ads diaria activo (9:00 ART, ID `1qRywsEWAl7VoO5o`).
-- Meta Ads: 2 campanas ACTIVE (AWR + ENG), 6 ad sets ACTIVE, 7 ads ACTIVE, $11.500/dia.
+- Meta Ads: 2 campanas ACTIVE (AWR + ENG), 6 ad sets ACTIVE, 7 ads ACTIVE. AWR migrada a CBO $8.500/dia (21/04, fix overlap C1 vs B2). ENG mantiene ABO $3.000/dia.
 - Darkpost C2 Regalos creado (PAUSED, activacion 23/04).
 - Credenciales n8n: Meta API ENBA (page token), Meta Ads API ENBA (ads token), Gmail ENBA.
 - GA4 instalado (G-XVN36KPHBL), Pixel Event Data activo (1273048378266952).
@@ -60,8 +60,8 @@ Todas las decisiones originales fueron resueltas. Pendientes nuevos al final.
 |---|----------|--------|-----------|
 | 8 | Que creative para C3 Corporativo (lead gen)? | **RESUELTO 19/04** | Lead form v2 (944664581514608) + creative con grupo-cockpit-cielo-azul-4x5.jpg + copy Sole. Campana C_LEA + ad set C3 + ad ACTIVE. |
 | 9 | Cuando publicar carruseles organicos? | **RESUELTO 19/04** | cuanto-sale publicado IG (carrusel) + FB (slide-04 imagen unica) 19/04. no-es-tour 24/04. elegi-aventura 03/05. FB no soporta carruseles organicos: se publica slide hero como imagen unica (decision Marina). |
-| 10 | Acceso a Google Photos | **EN PROGRESO** | Jose trabajando en compartir album. |
-| 11 | Ad sets B1 y C1 sin gasto | **PENDIENTE** | 5 de 7 ad sets gastando. B1 ExperienciasBA y C1 TurismoBA siguen en $0 después del onboarding fix (20/04). Sin diferencias de config vs los que sí gastan. Verificar próxima sesión — si siguen en $0, evaluar duplicarlos. |
+| 10 | Acceso a Google Photos | **RESUELTO 19/04** | Album descargado, material incorporado a asset-bank. |
+| 11 | Ad sets B1 y C1 sin gasto | **RESUELTO 20/04** | Ambos gastando tras fix onboarding. B1: $1.998 spend, 8.860 reach. C1: $399 spend, 1.960 reach. Delivery normal. |
 
 ### Acciones sesion 19/04 (tarde)
 
@@ -121,11 +121,9 @@ Como Coordinador de Produccion, estas son las inconsistencias que encontre entre
 
 **Resolucion:** Para el mes 1, los 2 reels principales son la prioridad. Los reels adicionales ("Lo que nadie te dice", "Buenos Aires desde el agua") se producen en semanas 3-4 con material sobrante de las filmaciones, si hay capacidad. No bloquear nada por esto.
 
-### Gap 3: Cover frames para reels en el grid
+### ~~Gap 3: Cover frames para reels en el grid~~ — DESCARTADO 21/04
 
-**Marina** requiere cover frames disenados en 1:1 con paleta de marca para que los reels no rompan la coherencia del grid.
-
-**Responsable:** Dani. Debe disenar cover frames antes de publicar cada reel. Tarea a agregar al pipeline.
+Descartado por usuario. Se usa frame del propio video como portada desde IG. Cover frames disenados repiten fotos del asset-bank y no aportan valor en esta etapa.
 
 ### Gap 4: Cortes alternativos y subtitulos para pauta de reels
 
@@ -145,7 +143,7 @@ Como Coordinador de Produccion, estas son las inconsistencias que encontre entre
 - [x] IG y FB vinculados en Business Suite
 - [x] Meta Pixel instalado: Event Data 1273048378266952 activo (ENBA Pixel 830831356111912 no instalado, ignorar)
 - [x] Dominio autorizado en Events Manager (19/04)
-- [x] GA4 propiedad instalada: G-XVN36KPHBL en enba-web/index.html
+- [x] GA4 propiedad instalada: G-XVN36KPHBL en enba-web/index.html. Search Console vinculado (21/04, sc-domain:espacionautico.com.ar, flujo ENBA Web).
 - [x] 5 Custom Audiences creadas: D1 WebVisitors, D2 IGEngagers, D3 FBEngagers (API), D4 VideoViewers, D5 FBPageLikers (UI)
 - [x] 5 Saved Audiences en ad sets: B1 Experiencias, A2 InteresNav, C1 Turismo, B2 Outdoor, A3 Aspiracional
 - [x] n8n workflow publicacion verificado y activo (pieces 01-05 publicadas)
@@ -156,9 +154,9 @@ Como Coordinador de Produccion, estas son las inconsistencias que encontre entre
 - [x] Reel "4 horas" filmado, editado, publicado IG+FB (17/04), ad de engagement activo
 - [x] Cortes pauta reel 4h: 30s y 15s listos
 - [ ] ~~Gimbal~~ — no se compro, se filmo con celular
-- [ ] ~~Eventos GA4 configurados~~ — pendiente verificar
-- [ ] ~~UTMs en link bio~~ — pendiente verificar
-- [ ] ~~Posts fijados FB~~ — pendiente verificar
+- [x] Eventos GA4 configurados — **RESUELTO 21/04.** Implementados y verificados en GA4 Realtime: click_cta ✓, scroll_depth ✓, click_whatsapp ✓, generate_lead (implementado, no testeado por submit). Deploy Cloudflare OK.
+- [x] UTMs en link bio — **RESUELTO 21/04.** Ruta /bio desplegada, redirect 302 verificado, link bio IG actualizado a espacionautico.com.ar/bio. GA4 Realtime confirma UTMs llegando correctamente.
+- [x] Posts fijados FB — **RESUELTO 20/04.** Post fijado: reel "4 horas en el rio" (17/04, 10 likes, 1 share) — mejor engagement de la page. Fijado manualmente por usuario.
 
 ---
 
@@ -385,7 +383,7 @@ Si la filmacion NO se hizo en semana 1, el 25/04 es la fecha maxima para "4 hora
 | GA4 en espacionautico.com.ar | **RESUELTO** | G-XVN36KPHBL instalado en enba-web/index.html |
 | Script de carruseles | **RESUELTO** | `scripts/publish-carousel.mjs` creado 19/04, verificado dry-run |
 | Filmacion reel "4 horas" | **RESUELTO** | Filmado, editado, publicado 17/04. Corriendo como ad engagement. |
-| Filmacion reel "primera vez" | **EN PROGRESO** | Material crudo disponible + material colega. Direccion creativa lista (Marina 9/10). Falta edit-sheet y edicion. |
+| Filmacion reel "primera vez" | **RESUELTO** | v8 publicado IG+FB 21/04. QA PASS. |
 | Definicion presupuesto | **RESUELTO** | $500K solo pauta. Produccion aparte. Confirmado 19/04. |
 
 ### Dependencias nuevas (19/04)
@@ -394,7 +392,7 @@ Si la filmacion NO se hizo en semana 1, el 25/04 es la fecha maxima para "4 hora
 |-------------|---------|----------|
 | Creative para C3 Corporativo | Activacion ad set Leads (dia 8 = 26/04) | 25/04 |
 | Pieza con ER > 1% para TopPerformers | Activacion ad set TopPerformers (dia 10 = 28/04) | Esperar data |
-| Edit-sheet reel "primera vez" | Produccion del segundo reel | Esta semana |
+| ~~Edit-sheet reel "primera vez"~~ | ~~Produccion del segundo reel~~ | **RESUELTO 21/04** |
 
 ---
 
