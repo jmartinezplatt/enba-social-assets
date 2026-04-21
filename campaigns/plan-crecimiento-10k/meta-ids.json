@@ -1,5 +1,5 @@
 {
-  "last_verified": "2026-04-22T01:30:00-03:00",
+  "last_verified": "2026-04-23T10:00:00-03:00",
   "v4_restructure_date": "2026-04-21",
   "v4_restructure_summary": "Paused B2/C1/A3/C3. Scaled A2 $3K, B1 $3.5K (CBO $6.5K), Reel $7.25K. Video-first pivot + video ads AWR.",
   "audit_fix_date": "2026-04-22",
@@ -156,10 +156,12 @@
       "optimization": "POST_ENGAGEMENT",
       "promoted_object": "page_id:1064806400040502",
       "destination_type": "ON_POST",
-      "status": "PAUSED",
+      "status": "ACTIVE",
       "ready": true,
       "replaced": "120238978177080139 (v1, sin promoted_object — roto, inmutable)",
-      "created_date": "2026-04-18"
+      "created_date": "2026-04-18",
+      "activated": "2026-04-23",
+      "v4_change": "ACTIVATED 23/04 — día 5 según plan"
     },
     "AS_ENG_REEL": {
       "id": "120239078452300139",
@@ -335,9 +337,9 @@
       "name": "ENBA_ad_regalos_C2",
       "adset": "AS_ENG_C2",
       "creative": "darkpost-regalos-C2",
-      "status": "PAUSED",
+      "status": "ACTIVE",
       "created_date": "2026-04-19",
-      "activation": "dia 5 (23/04)"
+      "activated": "2026-04-23"
     },
     "AD_C3_CORP": {
       "id": "120239169468780139",

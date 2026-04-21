@@ -28,8 +28,8 @@
 **Infraestructura (actualizado 19/04):**
 - n8n workflow publicacion diaria activo (12:15 ART, ID `MipwleZNu8EG5v6C`, v7.2, 34 nodos). URLs de imagen apuntan a `enba-social-assets.pages.dev` (no custom domain, por bloqueo Cloudflare a crawler IG).
 - n8n workflow evaluacion ads diaria activo (9:00 ART, ID `1qRywsEWAl7VoO5o`).
-- Meta Ads: 3 campanas ACTIVE (AWR + ENG + LEA pausada). **Reestructurado 21/04 + audit fix 22/04:** AWR CBO $6,500/dia (A2 $3K + B1 $3.5K, pausados B2/C1/A3) con video ads agregados. ENG Reel $7,250/dia (escalado de $5K). Reel "primera vez" en pauta. C3 LEA PAUSED. Total diario: $13,750.
-- Darkpost C2 Regalos creado (PAUSED, activacion 23/04).
+- Meta Ads: 3 campanas ACTIVE (AWR + ENG + LEA pausada). **Reestructurado 21/04 + audit fix 22/04:** AWR CBO $6,500/dia (A2 $3K + B1 $3.5K, pausados B2/C1/A3) con video ads agregados. ENG Reel $7,250/dia (escalado de $5K). Reel "primera vez" en pauta. C3 LEA PAUSED. C2 Regalos ACTIVE 23/04. Total diario: $15,250.
+- C2 Regalos ACTIVE (activado 23/04, $1,500/dia). Total diario: $15,250.
 - UTMs configurados en todos los ads activos (22/04).
 - Credenciales n8n: Meta API ENBA (page token), Meta Ads API ENBA (ads token), Gmail ENBA.
 - GA4 instalado (G-XVN36KPHBL), Pixel Event Data activo (1273048378266952).
@@ -255,7 +255,7 @@ Primer gasto real: 20/04 ~03:00 ART. Token META_ADS_USER_TOKEN migrado de User T
 - [ ] Jose: fijar reel "4 horas" en grid IG — diferido
 - [x] Verificar tamanos audiencia A2 y B1 en Ads Manager UI — HECHO 21/04. A2: 377K-443K, B1: 3.6M-4.2M. Ambas viables. Monitorear CBO distribution (B1 puede absorber >80% del budget por tamano).
 - [x] Verificar C_LEA campaign PAUSED en UI — HECHO 21/04. Campana pausada manualmente.
-- [ ] Activar C2 Regalos dia 5 (23/04)
+- [x] Activar C2 Regalos dia 5 (23/04) — HECHO 23/04. Ad set + ad ACTIVE.
 - [ ] Crear nuevos ads AWR con CTA "Ver perfil"
 - [ ] Sole: caption variante reel 4h ("Seguinos para mas") deadline 24/04
 - [ ] Dani: producir reel "Lo que nadie te dice" (material existente) deadline 30/04
