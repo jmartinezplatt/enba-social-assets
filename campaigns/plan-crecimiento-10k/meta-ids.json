@@ -1,9 +1,11 @@
 {
-  "last_verified": "2026-04-23T10:00:00-03:00",
+  "last_verified": "2026-04-23T18:00:00-03:00",
   "v4_restructure_date": "2026-04-21",
   "v4_restructure_summary": "Paused B2/C1/A3/C3. Scaled A2 $3K, B1 $3.5K (CBO $6.5K), Reel $7.25K. Video-first pivot + video ads AWR.",
   "audit_fix_date": "2026-04-22",
   "audit_fix_summary": "G-2: video ads en A2+B1. G-4: reel primera vez en ENG. G-6: ENG_REEL $5K→$7.25K. Total diario: $13,750.",
+  "audience_audit_date": "2026-04-23",
+  "audience_audit_summary": "Auditoría profunda de audiencias: interest-ids.json estaba desactualizado (no reflejaba correcciones en vivo). Sincronizado con API. Todos los ad sets tienen IDs correctos. D5 (FBPageLikers) agregada como exclusión en los 4 ad sets activos (A2, B1, ENG_REEL, C2).",
   "ad_account": "act_2303565156801569",
   "ad_account_name": "Espacio Nautico",
   "ad_account_status": 1,

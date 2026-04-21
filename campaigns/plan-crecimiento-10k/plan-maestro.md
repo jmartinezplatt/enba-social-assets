@@ -72,6 +72,18 @@ Todas las decisiones originales fueron resueltas. Pendientes nuevos al final.
 | A2 | G-9 Producir 2-3 darkposts nuevos para reemplazo fatigue dia 14 | Dani | 28/04 | PENDIENTE |
 | A3 | Custom audiences: D1 y D3 pasaron a "ready" (22/04). D2 y D5 siguen "too_small". Re-verificar al 29/04 (Gate 2). | Bruno | 29/04 | MONITOREO |
 
+### Auditoria profunda de audiencias 23/04
+
+**Hallazgos:**
+- interest-ids.json estaba desactualizado: contenía IDs basura (Filipinas, Singapur, Franquicias de juegos) que ya habían sido corregidos en Meta Ads pero nunca en el archivo. Sincronizado con API.
+- Todos los ad sets (activos y pausados) tienen IDs de intereses correctos en producción. Todos verified.
+- D5 (FBPageLikers) no estaba implementada como exclusión en ningún ad set.
+
+**Acciones ejecutadas:**
+- [x] interest-ids.json sincronizado con API en vivo — todos los ad sets verified
+- [x] D5 agregada como excluded_custom_audience en A2, B1, ENG_REEL, C2 (verificado via API)
+- [x] meta-ids.json actualizado con resultado de auditoría
+
 ### Acciones sesion 19/04 (tarde)
 
 - User token regenerado con 19 permisos (agregados: pages_manage_ads, leads_retrieval, pages_read_user_content, instagram_manage_insights, instagram_manage_comments, read_insights, pages_manage_metadata, catalog_management)

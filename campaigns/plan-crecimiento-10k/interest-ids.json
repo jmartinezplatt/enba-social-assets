@@ -1,5 +1,7 @@
 {
-  "_note": "Sincronizado con API en vivo 22/04. IDs validados en preflight-meta-api.md.",
+  "_note": "Sincronizado con API en vivo 23/04. Todos los IDs verificados contra GET /ad_set?fields=targeting.",
+  "_audit_date": "2026-04-23",
+  "_audit_finding": "Archivo estaba desactualizado — no reflejaba correcciones hechas en Meta Ads Manager. Sincronizado con realidad de API.",
   "A2": [
     {
       "id": "6002878991172",
@@ -29,19 +31,19 @@
   ],
   "A3": [
     {
+      "id": "6002868021822",
+      "name": "Viajes de aventura (viajes y turismo)",
+      "verified": true
+    },
+    {
+      "id": "6002985584323",
+      "name": "Recreación al aire libre (actividades al aire libre)",
+      "verified": true
+    },
+    {
       "id": "6007828099136",
       "name": "Artículos de lujo (comercio minorista)",
-      "query": "Luxury goods"
-    },
-    {
-      "id": "6003175578350",
-      "name": "Filipinas (lugar)",
-      "query": "Adventure travel"
-    },
-    {
-      "id": "6003572379887",
-      "name": "Hoteles (alojamiento)",
-      "query": "Premium travel"
+      "verified": true
     }
   ],
   "B1": [
@@ -68,55 +70,116 @@
   ],
   "B2": [
     {
+      "id": "6003074033139",
+      "name": "Caminatas (actividades al aire libre)",
+      "verified": true
+    },
+    {
       "id": "6003077915229",
       "name": "Kayaking",
-      "query": "Kayaking"
+      "verified": true
     },
     {
-      "id": "6003380546441",
-      "name": "Hiking boot",
-      "query": "Hiking"
-    },
-    {
-      "id": "6003403012818",
-      "name": "camping (camping)",
-      "query": "Camping"
+      "id": "6003252804967",
+      "name": "Excursionismo (naturaleza)",
+      "verified": true
     },
     {
       "id": "6003290325569",
       "name": "Paddleboarding",
-      "query": "Paddleboarding"
+      "verified": true
+    },
+    {
+      "id": "6003403012818",
+      "name": "camping (camping)",
+      "verified": true
     }
   ],
   "C1": [
     {
-      "id": "6003197718872",
-      "name": "Singapur",
-      "query": "Tourism"
+      "id": "6002868021822",
+      "name": "Viajes de aventura (viajes y turismo)",
+      "verified": true
     },
     {
-      "id": "6003258965702",
-      "name": "Buenos Aires",
-      "query": "Buenos Aires"
+      "id": "6003038269845",
+      "name": "Viajes Y Turismo",
+      "verified": true
+    },
+    {
+      "id": "6004160395895",
+      "name": "Viajes (viajes y turismo)",
+      "verified": true
     }
   ],
   "C2": [
     {
       "id": "6003019539929",
       "name": "Regalos (concepto social)",
-      "query": "Gift"
+      "verified": true
     },
     {
-      "id": "6801794771707",
-      "name": "Franquicias basadas en juegos (entretenimiento y medios de comunicación)",
-      "query": "Anniversary"
+      "id": "6003310766888",
+      "name": "Día de San Valentín",
+      "verified": true
+    },
+    {
+      "id": "6003409392877",
+      "name": "Bodas (concepto social)",
+      "verified": true
     }
   ],
   "C3": [
     {
+      "id": "6003092932417",
+      "name": "Gestión de eventos (organización de eventos)",
+      "verified": true
+    },
+    {
+      "id": "6003371567474",
+      "name": "Espíritu empresarial (negocios y finanzas)",
+      "verified": true
+    },
+    {
       "id": "6003508907986",
       "name": "Professional in Human Resources",
-      "query": "Human resources"
+      "verified": true
     }
-  ]
+  ],
+  "ENG_REEL": [
+    {
+      "id": "6002985584323",
+      "name": "Recreación al aire libre (actividades al aire libre)",
+      "verified": true
+    },
+    {
+      "id": "6003187081552",
+      "name": "vela (deporte)",
+      "verified": true
+    },
+    {
+      "id": "6003415019460",
+      "name": "Gastronomía (comida y bebida)",
+      "verified": true
+    },
+    {
+      "id": "6004160395895",
+      "name": "Viajes (viajes y turismo)",
+      "verified": true
+    },
+    {
+      "id": "6023137421020",
+      "name": "Motor Boat & Yachting",
+      "verified": true
+    }
+  ],
+  "exclusions": {
+    "status": "IMPLEMENTED",
+    "implemented_date": "2026-04-23",
+    "D5_FBPageLikers": {
+      "id": "120239146215040139",
+      "excluded_in": ["A2", "B1", "ENG_REEL", "C2"],
+      "verified_via_api": true
+    }
+  }
 }
