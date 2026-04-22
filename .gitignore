@@ -16,6 +16,9 @@ asset-bank/servicios/
 asset-bank/travesias-navegacion/
 asset-bank/veleros-broker/
 
+# Videos MP4 — todos excluidos (>25 MB rompe Cloudflare Pages, regenerables con scripts)
+*.mp4
+
 # Reel intermedios y outputs (pesados, regenerables con build scripts)
 campaigns/reels/*/reel-primera-vez-*.mp4
 campaigns/reels/*/segments/
