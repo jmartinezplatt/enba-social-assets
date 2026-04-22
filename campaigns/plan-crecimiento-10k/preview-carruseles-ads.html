@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>ENBA — Preview Carruseles Ads</title>
+<style>
+body { background: #111; color: #fff; font-family: system-ui; margin: 0; padding: 20px; }
+h1 { text-align: center; font-size: 1.4rem; margin-bottom: 5px; }
+.subtitle { text-align: center; color: #888; margin-bottom: 30px; }
+h2 { color: #4fc3f7; border-bottom: 2px solid #4fc3f7; padding-bottom: 8px; margin-top: 50px; }
+
+.carousel-container {
+  max-width: 420px;
+  margin: 20px auto;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.carousel-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; background: #1a1a1a;
+}
+.carousel-header .avatar {
+  width: 36px; height: 36px; border-radius: 50%; background: #4fc3f7;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: bold; font-size: 14px; color: #111;
+}
+.carousel-header .username { font-weight: 600; font-size: 14px; }
+.carousel-header .sponsored { font-size: 11px; color: #888; }
+
+.carousel-track-wrapper {
+  position: relative; overflow: hidden;
+}
+.carousel-track {
+  display: flex; transition: transform 0.4s ease;
+}
+.carousel-slide {
+  min-width: 100%; position: relative;
+}
+.carousel-slide img {
+  width: 100%; height: 420px; object-fit: cover; display: block;
+}
+.carousel-slide .slide-label {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  padding: 40px 16px 16px;
+  font-size: 18px; font-weight: 700; letter-spacing: 0.5px;
+}
+.carousel-slide .logo-overlay {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+}
+.carousel-slide .logo-overlay { background: rgba(0,0,0,0.55); padding: 15px 20px; border-radius: 12px; width: 90%; }
+.carousel-slide .logo-overlay img { width: 100%; height: auto; filter: drop-shadow(0 2px 12px rgba(0,0,0,0.8)); }
+
+.carousel-dots {
+  display: flex; justify-content: center; gap: 6px; padding: 10px;
+}
+.carousel-dots .dot {
+  width: 8px; height: 8px; border-radius: 50%; background: #555; cursor: pointer;
+}
+.carousel-dots .dot.active { background: #4fc3f7; }
+
+.carousel-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,0.2); border: none; color: #fff;
+  width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
+  font-size: 18px; display: flex; align-items: center; justify-content: center;
+}
+.carousel-nav.prev { left: 8px; }
+.carousel-nav.next { right: 8px; }
+
+.carousel-caption {
+  padding: 12px 14px; background: #1a1a1a; font-size: 13px; line-height: 1.5;
+}
+.carousel-caption .hook { font-weight: 700; }
+.carousel-caption .cta-btn {
+  display: inline-block; margin-top: 8px; padding: 6px 16px;
+  background: #4fc3f7; color: #111; border-radius: 6px; font-weight: 700; font-size: 12px;
+}
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 900px; margin: 0 auto; }
+@media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<h1>Preview Carruseles — Ads Plan Follows</h1>
+<p class="subtitle">MVP visual — carrusel destinos + carrusel nosotros</p>
+
+<div class="two-col">
+
+<!-- CARRUSEL DESTINOS -->
+<div>
+<h2 style="text-align:center">Ad PRODUCTOS — Destinos</h2>
+<div class="carousel-container" id="carousel-destinos">
+  <div class="carousel-header">
+    <div class="avatar">EN</div>
+    <div><div class="username">espacionauticobsas</div><div class="sponsored">Publicidad</div></div>
+  </div>
+  <div class="carousel-track-wrapper">
+    <button class="carousel-nav prev" onclick="moveCarousel('destinos', -1)">&#8249;</button>
+    <button class="carousel-nav next" onclick="moveCarousel('destinos', 1)">&#8250;</button>
+    <div class="carousel-track" id="track-destinos">
+      <div class="carousel-slide">
+        <img src="../../asset-bank/travesias-colonia-openwater.jpg">
+        <div class="slide-label">Colonia del Sacramento</div>
+      </div>
+      <div class="carousel-slide">
+        <img src="../../asset-bank/destino-lacaze-puerto-sauce.jpg">
+        <div class="slide-label">Lacaze · Puerto Sauce</div>
+      </div>
+      <div class="carousel-slide">
+        <img src="../../asset-bank/destino-riachuelo.jpg">
+        <div class="slide-label">Riachuelo</div>
+      </div>
+      <div class="carousel-slide">
+        <img src="../../asset-bank/destino-delta-pajarito.jpg">
+        <div class="slide-label">El Pajarito · Delta</div>
+      </div>
+      <div class="carousel-slide">
+        <img src="../../asset-bank/destino-martin-garcia.jpg">
+        <div class="slide-label">Isla Martín García</div>
+      </div>
+      <div class="carousel-slide">
+        <img src="../../asset-bank/destino-hero-travesias.jpg">
+        <div class="logo-overlay"><img src="../../campaigns/reels/reel-primera-vez/segments/logo-official.png"></div>
+        <div class="slide-label" style="text-align:center; font-size: 15px;">Seguinos para ver más destinos</div>
+      </div>
+    </div>
+  </div>
+  <div class="carousel-dots" id="dots-destinos"></div>
+  <div class="carousel-caption">
+    <span class="hook">No necesitás experiencia. Solo ganas. Seguinos.</span><br>
+    Salimos desde Costanera Norte a Colonia, Lacaze, el Delta y más. Cada travesía es única.
+    <br><br>#EspacioNautico #ENBA #NavegaElRioDeLaPlata #VelerosBuenosAires #SalidaDistinta
+    <br><span class="cta-btn">Ver perfil de Instagram</span>
+  </div>
+</div>
+</div>
+
+<!-- CARRUSEL NOSOTROS -->
+<div>
+<h2 style="text-align:center">Ad NOSOTROS — Grupo</h2>
+<div class="carousel-container" id="carousel-nosotros">
+  <div class="carousel-header">
+    <div class="avatar">EN</div>
+    <div><div class="username">espacionauticobsas</div><div class="sponsored">Publicidad</div></div>
+  </div>
+  <div class="carousel-track-wrapper">
+    <button class="carousel-nav prev" onclick="moveCarousel('nosotros', -1)">&#8249;</button>
+    <button class="carousel-nav next" onclick="moveCarousel('nosotros', 1)">&#8250;</button>
+    <div class="carousel-track" id="track-nosotros">
+      <div class="carousel-slide">
+        <img src="../../asset-bank/selfie-trio-cockpit-sol.jpg">
+      </div>
+      <div class="carousel-slide">
+        <img src="../../asset-bank/grupo-jovenes-cockpit-picnic-navegando.jpg">
+      </div>
+      <div class="carousel-slide">
+        <img src="../../asset-bank/pareja-cockpit-sunset-risas.jpg">
+      </div>
+      <div class="carousel-slide">
+        <img src="../../asset-bank/encuentro-marina-picada-grupo.jpg">
+      </div>
+      <div class="carousel-slide">
+        <img src="../../asset-bank/tripulacion-cockpit-bramador-bandera-argentina.jpg">
+      </div>
+      <div class="carousel-slide">
+        <img src="../../asset-bank/destino-hero-travesias.jpg">
+        <div class="logo-overlay"><img src="../../campaigns/reels/reel-primera-vez/segments/logo-official.png"></div>
+        <div class="slide-label" style="text-align:center; font-size: 15px;">Seguinos para ser parte</div>
+      </div>
+    </div>
+  </div>
+  <div class="carousel-dots" id="dots-nosotros"></div>
+  <div class="carousel-caption">
+    <span class="hook">Esto pasa cuando dejás la ciudad atrás y te unís a nuestras aventuras. Dale follow y mirá más.</span><br>
+    Gente real, río real. Sin filtro, sin guión. Vos podés ser el próximo.
+    <br><br>#EspacioNautico #ENBA #NavegaElRioDeLaPlata #PlanesBuenosAires #ExperienciasBuenosAires
+    <br><span class="cta-btn">Ver perfil de Instagram</span>
+  </div>
+</div>
+</div>
+
+</div>
+
+<script>
+const state = { destinos: 0, nosotros: 0 };
+
+function initDots(name) {
+  const track = document.getElementById('track-' + name);
+  const dots = document.getElementById('dots-' + name);
+  const count = track.children.length;
+  dots.innerHTML = '';
+  for (let i = 0; i < count; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.onclick = () => goTo(name, i);
+    dots.appendChild(dot);
+  }
+}
+
+function goTo(name, idx) {
+  const track = document.getElementById('track-' + name);
+  const count = track.children.length;
+  if (idx < 0) idx = 0;
+  if (idx >= count) idx = count - 1;
+  state[name] = idx;
+  track.style.transform = `translateX(-${idx * 100}%)`;
+  const dots = document.getElementById('dots-' + name).children;
+  for (let i = 0; i < dots.length; i++) {
+    dots[i].className = i === idx ? 'dot active' : 'dot';
+  }
+}
+
+function moveCarousel(name, dir) {
+  goTo(name, state[name] + dir);
+}
+
+initDots('destinos');
+initDots('nosotros');
+</script>
+
+<div style="text-align:center; margin: 50px 0; color: #666; font-size: 12px;">
+  Preview 23/04/2026 — Plan "Todo a Follows"
+</div>
+
+</body>
+</html>

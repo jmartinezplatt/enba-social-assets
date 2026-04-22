@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>ENBA — Preview Collage FB</title>
+<style>
+body { background: #111; color: #fff; font-family: system-ui; margin: 0; padding: 20px; }
+h1 { text-align: center; font-size: 1.3rem; margin-bottom: 5px; }
+.subtitle { text-align: center; color: #888; margin-bottom: 30px; }
+h2 { color: #4fc3f7; text-align: center; margin-top: 40px; }
+
+.collage-wrapper {
+  max-width: 500px;
+  margin: 20px auto;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.collage-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; background: #1a1a1a;
+}
+.collage-header .avatar {
+  width: 36px; height: 36px; border-radius: 50%; background: #4fc3f7;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: bold; font-size: 14px; color: #111;
+}
+.collage-header .username { font-weight: 600; font-size: 14px; }
+.collage-header .sponsored { font-size: 11px; color: #888; }
+
+.collage-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 3px;
+  aspect-ratio: 1;
+  position: relative;
+}
+.collage-grid .cell {
+  position: relative;
+  overflow: hidden;
+}
+.collage-grid .cell img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.collage-grid .cell .cell-label {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  padding: 20px 8px 6px;
+  font-size: 13px; font-weight: 700; text-align: center;
+  letter-spacing: 0.5px;
+}
+.collage-grid .cell .flag {
+  position: absolute; top: 6px; right: 6px;
+  font-size: 16px;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.8));
+}
+
+.collage-logo {
+  position: absolute;
+  background: rgba(0,0,0,0.5);
+  padding: 6px 12px;
+  border-radius: 8px;
+  z-index: 10;
+}
+.collage-logo img { width: 150px; height: auto; }
+.logo-top-left { top: 8px; left: 8px; }
+.logo-top-center-right { top: 8px; right: 25%; transform: translateX(50%); }
+.logo-center-carmelo { top: 52%; right: 25%; transform: translateX(50%); }
+.logo-top-right { top: 8px; right: 8px; }
+
+.collage-caption {
+  padding: 12px 14px; background: #1a1a1a; font-size: 13px; line-height: 1.5;
+}
+.collage-caption .hook { font-weight: 700; }
+.collage-caption .cta-btn {
+  display: inline-block; margin-top: 8px; padding: 6px 16px;
+  background: #4fc3f7; color: #111; border-radius: 6px; font-weight: 700; font-size: 12px;
+}
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 1050px; margin: 0 auto; }
+@media (max-width: 1050px) { .two-col { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<h1>Preview Collage FB — Ads Plan Follows</h1>
+<p class="subtitle">Imagen única 4 cuadros para Facebook (no carrusel)</p>
+
+<div class="two-col">
+
+<!-- COLLAGE PRODUCTOS -->
+<div>
+<h2>Ad PRODUCTOS — Destinos</h2>
+<div class="collage-wrapper">
+  <div class="collage-header">
+    <div class="avatar">EN</div>
+    <div><div class="username">Espacio Náutico Buenos Aires</div><div class="sponsored">Publicidad</div></div>
+  </div>
+  <div class="collage-grid">
+    <div class="collage-logo logo-center-carmelo"><img src="../../campaigns/reels/reel-primera-vez/segments/logo-official.png"></div>
+    <div class="cell">
+      <img src="../../asset-bank/destino-lacaze-puerto-sauce.jpg">
+      <div class="flag">🇺🇾</div>
+      <div class="cell-label">Colonia</div>
+    </div>
+    <div class="cell">
+      <img src="../../asset-bank/destino-martin-garcia.jpg">
+      <div class="flag">🇦🇷</div>
+      <div class="cell-label">Martín García</div>
+    </div>
+    <div class="cell">
+      <img src="../../asset-bank/destino-delta-pajarito.jpg">
+      <div class="flag">🇦🇷</div>
+      <div class="cell-label">El Pajarito</div>
+    </div>
+    <div class="cell">
+      <img src="../../asset-bank/destino-carmelo.jpg">
+      <div class="flag">🇺🇾</div>
+      <div class="cell-label">Carmelo</div>
+    </div>
+  </div>
+  <div class="collage-caption">
+    <span class="hook">No necesitás experiencia. Solo ganas. Seguinos.</span><br>
+    Salimos desde Costanera Norte a Colonia, Carmelo, el Delta y más. Cada travesía es única.
+    <br><br>#EspacioNautico #ENBA #NavegaElRioDeLaPlata #VelerosBuenosAires #SalidaDistinta
+    <br><span class="cta-btn">Me gusta la página</span>
+  </div>
+</div>
+</div>
+
+<!-- COLLAGE NOSOTROS -->
+<div>
+<h2>Ad NOSOTROS — Grupo</h2>
+<div class="collage-wrapper">
+  <div class="collage-header">
+    <div class="avatar">EN</div>
+    <div><div class="username">Espacio Náutico Buenos Aires</div><div class="sponsored">Publicidad</div></div>
+  </div>
+  <div class="collage-grid">
+    <div class="collage-logo logo-top-right"><img src="../../campaigns/reels/reel-primera-vez/segments/logo-official.png"></div>
+    <div class="cell">
+      <img src="../../asset-bank/grupo-mate-chaleco-cockpit.jpg">
+    </div>
+    <div class="cell">
+      <img src="../../asset-bank/grupo-jovenes-cockpit-picnic-navegando.jpg">
+    </div>
+    <div class="cell">
+      <img src="../../asset-bank/pareja-cockpit-sunset-risas.jpg">
+    </div>
+    <div class="cell">
+      <img src="../../asset-bank/encuentro-marina-picada-grupo.jpg">
+    </div>
+  </div>
+  <div class="collage-caption">
+    <span class="hook">Esto pasa cuando dejás la ciudad atrás y te unís a nuestra comunidad. Seguinos y descubrí más.</span><br>
+    Gente real, río real. Sin filtro, sin guión. Vos podés ser el próximo.
+    <br><br>#EspacioNautico #ENBA #NavegaElRioDeLaPlata #PlanesBuenosAires #ExperienciasBuenosAires
+    <br><span class="cta-btn">Me gusta la página</span>
+  </div>
+</div>
+</div>
+
+</div>
+
+<div style="text-align:center; margin: 50px 0; color: #666; font-size: 12px;">
+  Preview 23/04/2026 — Collage FB para Plan Follows
+</div>
+
+</body>
+</html>

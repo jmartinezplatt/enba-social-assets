@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>ENBA — Slides Renderizados</title>
+<style>
+body { background: #111; color: #fff; font-family: system-ui; margin: 0; padding: 20px; }
+h1 { text-align: center; font-size: 1.3rem; margin-bottom: 5px; }
+.subtitle { text-align: center; color: #888; margin-bottom: 30px; }
+h2 { color: #4fc3f7; text-align: center; margin-top: 40px; border-bottom: 2px solid #4fc3f7; padding-bottom: 8px; }
+.grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; max-width: 1400px; margin: 20px auto; }
+.grid img { width: 100%; border-radius: 6px; cursor: pointer; transition: transform 0.2s; }
+.grid img:hover { transform: scale(1.03); }
+.label { text-align: center; font-size: 0.7rem; color: #888; margin-top: 4px; }
+.modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.95); z-index: 200; justify-content: center; align-items: center; cursor: pointer; }
+.modal.open { display: flex; }
+.modal img { max-width: 90vw; max-height: 90vh; object-fit: contain; }
+</style>
+</head>
+<body>
+
+<h1>Slides Renderizados — Plan Follows</h1>
+<p class="subtitle">Renderizados con render-enba-launch-carousel.mjs — sistema de diseño ENBA</p>
+
+<h2>Carrusel DESTINOS (Ad Productos IG)</h2>
+<div class="grid">
+  <div><img src="carousel-destinos/slide-01.png" onclick="openModal(this.src)"><div class="label">01 · Colonia</div></div>
+  <div><img src="carousel-destinos/slide-02.png" onclick="openModal(this.src)"><div class="label">02 · Lacaze</div></div>
+  <div><img src="carousel-destinos/slide-03.png" onclick="openModal(this.src)"><div class="label">03 · Riachuelo</div></div>
+  <div><img src="carousel-destinos/slide-04.png" onclick="openModal(this.src)"><div class="label">04 · El Pajarito</div></div>
+  <div><img src="carousel-destinos/slide-05.png" onclick="openModal(this.src)"><div class="label">05 · Martín García</div></div>
+  <div><img src="carousel-destinos/slide-06.png" onclick="openModal(this.src)"><div class="label">06 · Cierre</div></div>
+</div>
+
+<h2>Carrusel NOSOTROS (Ad Grupo IG)</h2>
+<div class="grid">
+  <div><img src="carousel-nosotros/slide-01.png" onclick="openModal(this.src)"><div class="label">01 · Mate cockpit</div></div>
+  <div><img src="carousel-nosotros/slide-02.png" onclick="openModal(this.src)"><div class="label">02 · Picnic navegando</div></div>
+  <div><img src="carousel-nosotros/slide-03.png" onclick="openModal(this.src)"><div class="label">03 · Sunset río</div></div>
+  <div><img src="carousel-nosotros/slide-04.png" onclick="openModal(this.src)"><div class="label">04 · Comunidad</div></div>
+  <div><img src="carousel-nosotros/slide-05.png" onclick="openModal(this.src)"><div class="label">05 · Tripulación</div></div>
+  <div><img src="carousel-nosotros/slide-06.png" onclick="openModal(this.src)"><div class="label">06 · Cierre</div></div>
+</div>
+
+<div class="modal" id="modal" onclick="this.classList.remove('open')">
+  <img id="modal-img" src="">
+</div>
+
+<script>
+function openModal(src) {
+  document.getElementById('modal-img').src = src;
+  document.getElementById('modal').classList.add('open');
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.getElementById('modal').classList.remove('open'); });
+</script>
+
+<div style="text-align:center; margin: 50px 0; color: #666; font-size: 12px;">
+  Renderizados 23/04/2026 — render-enba-launch-carousel.mjs
+</div>
+
+</body>
+</html>

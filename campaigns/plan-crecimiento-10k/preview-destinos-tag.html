@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>ENBA — Tagear Destinos</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #111; color: #fff; font-family: system-ui; }
+.header { position: sticky; top: 0; background: #111; padding: 1rem 2rem; border-bottom: 1px solid #333; z-index: 100; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+.header h1 { font-size: 1.1rem; margin-right: 1rem; }
+.filter-btn { padding: 6px 14px; border: 1px solid #555; border-radius: 20px; background: none; color: #aaa; cursor: pointer; font-size: 0.8rem; }
+.filter-btn:hover { border-color: #4fc3f7; color: #4fc3f7; }
+.filter-btn.active { background: #4fc3f7; color: #111; border-color: #4fc3f7; }
+.stats { color: #888; font-size: 0.85rem; margin-left: auto; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 4px; padding: 1rem; }
+.card { position: relative; cursor: pointer; border: 2px solid transparent; border-radius: 4px; overflow: hidden; }
+.card:hover { border-color: #4fc3f7; }
+.card img { width: 100%; height: 220px; object-fit: cover; display: block; }
+.card .label { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.7); padding: 4px 8px; font-size: 0.65rem; color: #ccc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card .tag-badge { position: absolute; top: 4px; right: 4px; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: bold; }
+.tag-lacaze { background: #e91e63; color: #fff; }
+.tag-colonia { background: #ff9800; color: #111; }
+.tag-riachuelo { background: #4caf50; color: #fff; }
+.tag-pajarito { background: #2196f3; color: #fff; }
+.tag-zarpada { background: #9c27b0; color: #fff; }
+.tag-bsas { background: #ffeb3b; color: #111; }
+.tag-martingarcia { background: #00bcd4; color: #fff; }
+.tag-carmelo { background: #ff5722; color: #fff; }
+.tag-mdq { background: #8bc34a; color: #111; }
+.tag-destinos { background: #607d8b; color: #fff; }
+.tag-sintagear { background: #555; color: #aaa; }
+.modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.95); z-index: 200; justify-content: center; align-items: center; flex-direction: column; }
+.modal.open { display: flex; }
+.modal img { max-width: 90vw; max-height: 65vh; object-fit: contain; }
+.modal .actions { display: flex; gap: 8px; margin-top: 1rem; flex-wrap: wrap; justify-content: center; }
+.modal .tag-btn { padding: 10px 20px; border: none; border-radius: 20px; cursor: pointer; font-size: 1rem; font-weight: bold; }
+.modal .close-btn { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; }
+.modal .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.1); border: none; color: #fff; font-size: 2rem; cursor: pointer; padding: 1rem; }
+.modal .nav-btn.prev { left: 1rem; }
+.modal .nav-btn.next { right: 1rem; }
+.modal .filename { color: #aaa; margin-top: 0.5rem; font-size: 0.8rem; }
+.export-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #222; padding: 1rem 2rem; border-top: 1px solid #333; z-index: 100; display: flex; gap: 1rem; align-items: center; }
+.export-btn { padding: 8px 20px; background: #4fc3f7; color: #111; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Tagear Destinos</h1>
+  <button class="filter-btn active" onclick="filterAll()">Todas</button>
+  <button class="filter-btn" onclick="filterTag('sintagear')">Sin tagear</button>
+  <button class="filter-btn" onclick="filterTag('lacaze')">Lacaze</button>
+  <button class="filter-btn" onclick="filterTag('colonia')">Colonia</button>
+  <button class="filter-btn" onclick="filterTag('riachuelo')">Riachuelo</button>
+  <button class="filter-btn" onclick="filterTag('pajarito')">Pajarito</button>
+  <button class="filter-btn" onclick="filterTag('zarpada')">Zarpada</button>
+  <button class="filter-btn" onclick="filterTag('bsas')">BsAs</button>
+  <button class="filter-btn" onclick="filterTag('martingarcia')">M.García</button>
+  <button class="filter-btn" onclick="filterTag('carmelo')">Carmelo</button>
+  <button class="filter-btn" onclick="filterTag('mdq')">MDQ</button>
+  <button class="filter-btn" onclick="filterTag('destinos')">Destinos</button>
+  <div class="stats" id="stats"></div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<div class="modal" id="modal">
+  <button class="close-btn" onclick="closeModal()">&times;</button>
+  <button class="nav-btn prev" onclick="navPrev()">&#8249;</button>
+  <button class="nav-btn next" onclick="navNext()">&#8250;</button>
+  <img id="modal-img" src="">
+  <div class="filename" id="modal-filename"></div>
+  <div class="actions" id="modal-actions"></div>
+</div>
+
+<div class="export-bar">
+  <button class="export-btn" onclick="exportTags()">Exportar tags (JSON)</button>
+  <div class="stats" id="export-stats"></div>
+</div>
+
+<script>
+// All destination-related photos
+const photos = [
+  // destinos/ folder
+  {idx: 0, src: "../../asset-bank/destinos/412603A1-98A3-46E6-A74B-FF4D92A5491E.jpg", name: "412603A1.jpg"},
+  {idx: 1, src: "../../asset-bank/destinos/413BE260-0F56-4A8F-9185-E214AB9000E5.jpg", name: "413BE260.jpg"},
+  {idx: 2, src: "../../asset-bank/destinos/4141C367-CDBD-4E5F-AA66-535D74C008CE.jpg", name: "4141C367.jpg"},
+  {idx: 3, src: "../../asset-bank/destinos/4C644636-AA20-47C5-8E53-B39872E8C384.jpg", name: "4C644636.jpg"},
+  {idx: 4, src: "../../asset-bank/destinos/4c840298-8888-4cbd-bf4e-44a0c3f3ba9a.jpg", name: "4c840298.jpg"},
+  {idx: 5, src: "../../asset-bank/destinos/IMG_0012.jpg", name: "IMG_0012.jpg"},
+  {idx: 6, src: "../../asset-bank/destinos/IMG_0013.jpg", name: "IMG_0013.jpg"},
+  {idx: 7, src: "../../asset-bank/destinos/IMG_0014.jpg", name: "IMG_0014.jpg"},
+  {idx: 8, src: "../../asset-bank/destinos/IMG_0016.jpg", name: "IMG_0016.jpg"},
+  {idx: 9, src: "../../asset-bank/destinos/IMG_0017.jpg", name: "IMG_0017.jpg"},
+  {idx: 10, src: "../../asset-bank/destinos/IMG_0018.jpg", name: "IMG_0018.jpg"},
+  {idx: 11, src: "../../asset-bank/destinos/IMG_0019.jpg", name: "IMG_0019.jpg"},
+  {idx: 12, src: "../../asset-bank/destinos/IMG_0020.jpg", name: "IMG_0020.jpg"},
+  {idx: 13, src: "../../asset-bank/destinos/IMG_1353.jpg", name: "IMG_1353.jpg"},
+  {idx: 14, src: "../../asset-bank/destinos/IMG_1354.jpg", name: "IMG_1354.jpg"},
+  {idx: 15, src: "../../asset-bank/destinos/IMG_1401.jpg", name: "IMG_1401.jpg"},
+  {idx: 16, src: "../../asset-bank/destinos/IMG_1829.jpg", name: "IMG_1829.jpg"},
+  {idx: 17, src: "../../asset-bank/destinos/IMG_1854.jpg", name: "IMG_1854.jpg"},
+  {idx: 18, src: "../../asset-bank/destinos/IMG_1858.jpg", name: "IMG_1858.jpg"},
+  {idx: 19, src: "../../asset-bank/destinos/IMG_1859.jpg", name: "IMG_1859.jpg"},
+  {idx: 20, src: "../../asset-bank/destinos/IMG_1954.jpg", name: "IMG_1954.jpg"},
+  {idx: 21, src: "../../asset-bank/destinos/IMG_1955.jpg", name: "IMG_1955.jpg"},
+  {idx: 22, src: "../../asset-bank/destinos/IMG_1956.jpg", name: "IMG_1956.jpg"},
+  {idx: 23, src: "../../asset-bank/destinos/IMG_1958.jpg", name: "IMG_1958.jpg"},
+  {idx: 24, src: "../../asset-bank/destinos/IMG_2226.JPG", name: "IMG_2226.JPG"},
+  {idx: 25, src: "../../asset-bank/destinos/IMG_2229.jpg", name: "IMG_2229.jpg"},
+  {idx: 26, src: "../../asset-bank/destinos/IMG_3440.jpg", name: "IMG_3440.jpg"},
+  {idx: 27, src: "../../asset-bank/destinos/IMG_3457.jpg", name: "IMG_3457.jpg"},
+  {idx: 28, src: "../../asset-bank/destinos/IMG_3509.jpg", name: "IMG_3509.jpg"},
+  {idx: 29, src: "../../asset-bank/destinos/IMG_5218.jpg", name: "IMG_5218.jpg"},
+  {idx: 30, src: "../../asset-bank/destinos/IMG_8369.jpg", name: "IMG_8369.jpg"},
+  {idx: 31, src: "../../asset-bank/destinos/IMG_8370.jpg", name: "IMG_8370.jpg"},
+  {idx: 32, src: "../../asset-bank/destinos/IMG_8418.jpg", name: "IMG_8418.jpg"},
+  {idx: 33, src: "../../asset-bank/destinos/IMG_8419.jpg", name: "IMG_8419.jpg"},
+  {idx: 34, src: "../../asset-bank/destinos/IMG_8420.jpg", name: "IMG_8420.jpg"},
+  {idx: 35, src: "../../asset-bank/destinos/IMG_8421.jpg", name: "IMG_8421.jpg"},
+  {idx: 36, src: "../../asset-bank/destinos/IMG_8422.jpg", name: "IMG_8422.jpg"},
+  {idx: 37, src: "../../asset-bank/destinos/IMG_8423.jpg", name: "IMG_8423.jpg"},
+  {idx: 38, src: "../../asset-bank/destinos/IMG_8424.jpg", name: "IMG_8424.jpg"},
+  {idx: 39, src: "../../asset-bank/destinos/IMG_8425.jpg", name: "IMG_8425.jpg"},
+  {idx: 40, src: "../../asset-bank/destinos/IMG_8566.jpg", name: "IMG_8566.jpg"},
+  {idx: 41, src: "../../asset-bank/destinos/IMG_8568.jpg", name: "IMG_8568.jpg"},
+  {idx: 42, src: "../../asset-bank/destinos/IMG_8570.jpg", name: "IMG_8570.jpg"},
+  {idx: 43, src: "../../asset-bank/destinos/IMG_8571.jpg", name: "IMG_8571.jpg"},
+  {idx: 44, src: "../../asset-bank/destinos/IMG_8572.jpg", name: "IMG_8572.jpg"},
+  {idx: 45, src: "../../asset-bank/destinos/IMG_8827-PANO.jpg", name: "IMG_8827-PANO.jpg"},
+  {idx: 46, src: "../../asset-bank/destinos/IMG_8828.jpg", name: "IMG_8828.jpg"},
+  {idx: 47, src: "../../asset-bank/destinos/IMG_8829.jpg", name: "IMG_8829.jpg"},
+  {idx: 48, src: "../../asset-bank/destinos/IMG_8837.jpg", name: "IMG_8837.jpg"},
+  // main asset-bank destination images
+  {idx: 49, src: "../../asset-bank/travesias-colonia-openwater.jpg", name: "travesias-colonia-openwater.jpg"},
+  {idx: 50, src: "../../asset-bank/travesias-bandera-uruguay-tormenta.jpg", name: "travesias-bandera-uruguay-tormenta.jpg"},
+  {idx: 51, src: "../../asset-bank/travesias-delta-signature.jpg", name: "travesias-delta-signature.jpg"},
+  {idx: 52, src: "../../asset-bank/travesias-martin-garcia-aerea.jpg", name: "travesias-martin-garcia-aerea.jpg"},
+  {idx: 53, src: "../../asset-bank/travesias-martin-garcia.jpg", name: "travesias-martin-garcia.jpg"},
+  {idx: 54, src: "../../asset-bank/picante-fondeado-delta-verde.jpg", name: "picante-fondeado-delta-verde.jpg"},
+  {idx: 55, src: "../../asset-bank/velero-fondeado-delta-reflejo.jpg", name: "velero-fondeado-delta-reflejo.jpg"},
+  {idx: 56, src: "../../asset-bank/velero-proa-delta-verde-cielo-azul.jpg", name: "velero-proa-delta-verde-cielo-azul.jpg"},
+  {idx: 57, src: "../../asset-bank/velero-proa-rio-delta-nublado.jpg", name: "velero-proa-rio-delta-nublado.jpg"},
+  {idx: 58, src: "../../asset-bank/cubierta-cabos-coloridos-delta-verde.jpg", name: "cubierta-cabos-coloridos-delta-verde.jpg"},
+  {idx: 59, src: "../../asset-bank/proa-delta-palmeras-sol.jpg", name: "proa-delta-palmeras-sol.jpg"},
+  {idx: 60, src: "../../asset-bank/proa-delta-draga-pampero.jpg", name: "proa-delta-draga-pampero.jpg"},
+  {idx: 61, src: "../../asset-bank/travesias-fondeadero-luna-atardecer.jpg", name: "travesias-fondeadero-luna-atardecer.jpg"},
+  {idx: 62, src: "../../asset-bank/travesias-sunset-openwater.jpg", name: "travesias-sunset-openwater.jpg"},
+  {idx: 63, src: "../../asset-bank/travesias-sunset-popa-jarcia.jpg", name: "travesias-sunset-popa-jarcia.jpg"},
+  {idx: 64, src: "../../asset-bank/navegando-cruce-openwater.jpg", name: "navegando-cruce-openwater.jpg"},
+  {idx: 65, src: "../../asset-bank/velero-velas-desplegadas-bandera-uy.jpg", name: "velero-velas-desplegadas-bandera-uy.jpg"},
+  {idx: 66, src: "../../asset-bank/travesias-flota-navegando-jarcia.jpg", name: "travesias-flota-navegando-jarcia.jpg"},
+  {idx: 67, src: "../../asset-bank/travesias-sunset-compas-escotilla.jpg", name: "travesias-sunset-compas-escotilla.jpg"},
+  {idx: 68, src: "../../asset-bank/marina-muelle-atardecer-veleros.jpg", name: "marina-muelle-atardecer-veleros.jpg"},
+  {idx: 69, src: "../../asset-bank/marina-muelle-madera-veleros-atardecer.jpg", name: "marina-muelle-madera-veleros-atardecer.jpg"},
+  {idx: 70, src: "../../asset-bank/marina-muelle-madera-veleros-nubes.jpg", name: "marina-muelle-madera-veleros-nubes.jpg"},
+];
+
+const tags = ["lacaze", "colonia", "riachuelo", "pajarito", "zarpada", "bsas", "martingarcia", "carmelo", "mdq", "destinos"];
+const tagColors = {
+  lacaze: '#e91e63',
+  colonia: '#ff9800',
+  riachuelo: '#4caf50',
+  pajarito: '#2196f3',
+  zarpada: '#9c27b0',
+  bsas: '#ffeb3b',
+  martingarcia: '#00bcd4',
+  carmelo: '#ff5722',
+  mdq: '#8bc34a',
+  destinos: '#607d8b'
+};
+const tagLabels = {
+  lacaze: 'Lacaze',
+  colonia: 'Colonia',
+  riachuelo: 'Riachuelo',
+  pajarito: 'Pajarito',
+  zarpada: 'Zarpada',
+  bsas: 'BsAs',
+  martingarcia: 'M.García',
+  carmelo: 'Carmelo',
+  mdq: 'MDQ',
+  destinos: 'Destinos'
+};
+
+const classifications = JSON.parse(localStorage.getItem('enba-destinos-tags') || '{}');
+let currentFilter = 'all';
+let currentIdx = -1;
+let filteredPhotos = [...photos];
+
+function save() {
+  localStorage.setItem('enba-destinos-tags', JSON.stringify(classifications));
+  updateStats();
+}
+
+function updateStats() {
+  const byTag = {};
+  let tagged = 0;
+  for (const [k, v] of Object.entries(classifications)) {
+    byTag[v] = (byTag[v] || 0) + 1;
+    tagged++;
+  }
+  document.getElementById('stats').textContent = `${tagged}/${photos.length} tageadas`;
+  let exportStats = Object.entries(byTag).map(([t, n]) => `${tagLabels[t] || t}: ${n}`).join(' | ');
+  document.getElementById('export-stats').textContent = exportStats;
+}
+
+function renderGrid() {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  filteredPhotos = photos.filter(p => {
+    if (currentFilter === 'all') return true;
+    if (currentFilter === 'sintagear') return !classifications[p.idx];
+    return classifications[p.idx] === currentFilter;
+  });
+
+  for (const p of filteredPhotos) {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `<img src="${p.src}" loading="lazy"><div class="label">${p.name}</div>`;
+    const tag = classifications[p.idx];
+    if (tag) {
+      card.innerHTML += `<div class="tag-badge tag-${tag}">${tagLabels[tag]}</div>`;
+    }
+    card.onclick = () => openModal(p.idx);
+    grid.appendChild(card);
+  }
+  updateStats();
+}
+
+function openModal(idx) {
+  currentIdx = idx;
+  const p = photos[idx];
+  document.getElementById('modal-img').src = p.src;
+  document.getElementById('modal-filename').textContent = p.name;
+  const actions = document.getElementById('modal-actions');
+  actions.innerHTML = '';
+  for (const tag of tags) {
+    const btn = document.createElement('button');
+    btn.className = 'tag-btn';
+    btn.style.background = tagColors[tag];
+    btn.style.color = tag === 'colonia' ? '#111' : '#fff';
+    btn.textContent = tagLabels[tag];
+    if (classifications[idx] === tag) btn.style.outline = '3px solid #fff';
+    btn.onclick = () => { classifications[idx] = tag; save(); navNext(); };
+    actions.appendChild(btn);
+  }
+  // Clear button
+  const clearBtn = document.createElement('button');
+  clearBtn.className = 'tag-btn';
+  clearBtn.style.background = '#555';
+  clearBtn.style.color = '#fff';
+  clearBtn.textContent = 'Limpiar';
+  clearBtn.onclick = () => { delete classifications[idx]; save(); navNext(); };
+  actions.appendChild(clearBtn);
+
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal() { document.getElementById('modal').classList.remove('open'); renderGrid(); }
+function navNext() {
+  const currFiltered = filteredPhotos.findIndex(p => p.idx === currentIdx);
+  if (currFiltered < filteredPhotos.length - 1) openModal(filteredPhotos[currFiltered + 1].idx);
+  else closeModal();
+}
+function navPrev() {
+  const currFiltered = filteredPhotos.findIndex(p => p.idx === currentIdx);
+  if (currFiltered > 0) openModal(filteredPhotos[currFiltered - 1].idx);
+}
+
+function filterAll() { currentFilter = 'all'; renderGrid(); updateFilterBtns('all'); }
+function filterTag(t) { currentFilter = t; renderGrid(); updateFilterBtns(t); }
+function updateFilterBtns(active) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+function exportTags() {
+  const result = {};
+  for (const [idx, tag] of Object.entries(classifications)) {
+    const p = photos[parseInt(idx)];
+    if (p) result[p.name] = tag;
+  }
+  const blob = new Blob([JSON.stringify(result, null, 2)], {type: 'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'enba-destinos-tags.json';
+  a.click();
+}
+
+document.addEventListener('keydown', e => {
+  if (currentIdx === -1) return;
+  if (e.key === 'ArrowRight') navNext();
+  if (e.key === 'ArrowLeft') navPrev();
+  if (e.key === 'Escape') closeModal();
+  if (e.key === '1') { classifications[currentIdx] = 'lacaze'; save(); navNext(); }
+  if (e.key === '2') { classifications[currentIdx] = 'colonia'; save(); navNext(); }
+  if (e.key === '3') { classifications[currentIdx] = 'riachuelo'; save(); navNext(); }
+  if (e.key === '4') { classifications[currentIdx] = 'pajarito'; save(); navNext(); }
+  if (e.key === '5') { classifications[currentIdx] = 'zarpada'; save(); navNext(); }
+  if (e.key === '6') { classifications[currentIdx] = 'bsas'; save(); navNext(); }
+  if (e.key === '7') { classifications[currentIdx] = 'martingarcia'; save(); navNext(); }
+  if (e.key === '8') { classifications[currentIdx] = 'carmelo'; save(); navNext(); }
+  if (e.key === '9') { classifications[currentIdx] = 'mdq'; save(); navNext(); }
+  if (e.key === 'd') { classifications[currentIdx] = 'destinos'; save(); navNext(); }
+  if (e.key === '0') { delete classifications[currentIdx]; save(); navNext(); }
+});
+
+renderGrid();
+</script>
+
+</body>
+</html>

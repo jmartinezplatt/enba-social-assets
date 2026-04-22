@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>ENBA — Test Logo sobre fotos</title>
+<style>
+body { background: #111; color: #fff; font-family: system-ui; margin: 0; padding: 20px; }
+h1 { text-align: center; font-size: 1.3rem; margin-bottom: 10px; }
+.subtitle { text-align: center; color: #888; margin-bottom: 30px; font-size: 0.9rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
+.card { position: relative; border-radius: 8px; overflow: hidden; background: #1a1a1a; }
+.card img.photo { width: 100%; height: 400px; object-fit: cover; display: block; }
+.card .label { background: rgba(0,0,0,0.7); padding: 6px 10px; font-size: 0.75rem; color: #aaa; }
+
+/* Logo overlay styles */
+.logo-overlay {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logo-overlay img { filter: drop-shadow(0 2px 8px rgba(0,0,0,0.7)); }
+
+/* Position variants */
+.logo-bottom-right { bottom: 50px; right: 15px; }
+.logo-bottom-center { bottom: 50px; left: 50%; transform: translateX(-50%); }
+.logo-bottom-left { bottom: 50px; left: 15px; }
+.logo-center { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+/* Size variants */
+.logo-sm img { width: 120px; }
+.logo-md img { width: 180px; }
+.logo-lg img { width: 250px; }
+.logo-xl img { width: 320px; }
+
+/* With background pill */
+.logo-with-bg {
+  background: rgba(0,0,0,0.55);
+  padding: 10px 18px;
+  border-radius: 12px;
+}
+
+h2 { color: #4fc3f7; margin: 40px 0 15px; border-bottom: 1px solid #333; padding-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<h1>Test Logo ENBA sobre fotos</h1>
+<p class="subtitle">Distintas posiciones, tamaños y con/sin fondo semitransparente</p>
+
+<h2>Sin fondo — esquina inferior derecha</h2>
+<div class="grid">
+  <div class="card">
+    <img class="photo" src="../../asset-bank/selfie-trio-cockpit-sol.jpg">
+    <div class="logo-overlay logo-bottom-right logo-sm"><img src="../../campaigns/lanzamiento-15-abr-2026/brand/lockup-stacked-on-dark.svg"></div>
+    <div class="label">selfie-trio-cockpit-sol — Logo SM sin fondo</div>
+  </div>
+  <div class="card">
+    <img class="photo" src="../../asset-bank/selfie-trio-cockpit-sol.jpg">
+    <div class="logo-overlay logo-bottom-right logo-md"><img src="../../campaigns/lanzamiento-15-abr-2026/brand/lockup-stacked-on-dark.svg"></div>
+    <div class="label">selfie-trio-cockpit-sol — Logo MD sin fondo</div>
+  </div>
+  <div class="card">
+    <img class="photo" src="../../asset-bank/selfie-trio-cockpit-sol.jpg">
+    <div class="logo-overlay logo-bottom-right logo-lg"><img src="../../campaigns/lanzamiento-15-abr-2026/brand/lockup-stacked-on-dark.svg"></div>
+    <div class="label">selfie-trio-cockpit-sol — Logo LG sin fondo</div>
+  </div>
+</div>
+
+<h2>Con fondo semitransparente — esquina inferior derecha</h2>
+<div class="grid">
+  <div class="card">
+    <img class="photo" src="../../asset-bank/travesias-colonia-openwater.jpg">
+    <div class="logo-overlay logo-bottom-right logo-sm logo-with-bg"><img src="../../campaigns/lanzamiento-15-abr-2026/brand/lockup-stacked-on-dark.svg"></div>
+    <div class="label">travesias-colonia — Logo SM con fondo</div>
+  </div>
+  <div class="card">
+    <img class="photo" src="../../asset-bank/travesias-colonia-openwater.jpg">
+    <div class="logo-overlay logo-bottom-right logo-md logo-with-bg"><img src="../../campaigns/lanzamiento-15-abr-2026/brand/lockup-stacked-on-dark.svg"></div>
+    <div class="label">travesias-colonia — Logo MD con fondo</div>
+  </div>
+  <div class="card">
+    <img class="photo" src="../../asset-bank/travesias-colonia-openwater.jpg">
+    <div class="logo-overlay logo-bottom-right logo-lg logo-with-bg"><img src="../../campaigns/lanzamiento-15-abr-2026/brand/lockup-stacked-on-dark.svg"></div>
+    <div class="label">travesias-colonia — Logo LG con fondo</div>
+  </div>
+</div>
+
+<h2>Centro — para slide de cierre</h2>
+<div class="grid">
+  <div class="card">
+    <img class="photo" src="../../asset-bank/destino-hero-travesias.jpg">
+    <div class="logo-overlay logo-center logo-xl"><img src="../../campaigns/lanzamiento-15-abr-2026/brand/lockup-stacked-on-dark.svg"></div>
+    <div class="label">hero-travesias — Logo XL centro (slide cierre)</div>
+  </div>
+  <div class="card">
+    <img class="photo" src="../../asset-bank/destino-hero-travesias.jpg">
+    <div class="logo-overlay logo-center logo-xl logo-with-bg"><img src="../../campaigns/lanzamiento-15-abr-2026/brand/lockup-stacked-on-dark.svg"></div>
+    <div class="label">hero-travesias — Logo XL centro con fondo (slide cierre)</div>
+  </div>
+  <div class="card">
+    <img class="photo" src="../../asset-bank/travesias-sunset-openwater.jpg">
+    <div class="logo-overlay logo-center logo-xl"><img src="../../campaigns/lanzamiento-15-abr-2026/brand/lockup-stacked-on-dark.svg"></div>
+    <div class="label">sunset-openwater — Logo XL centro (slide cierre alt)</div>
+  </div>
+</div>
+
+<h2>Distintas fotos — posición bottom-center con fondo</h2>
+<div class="grid">
+  <div class="card">
+    <img class="photo" src="../../asset-bank/grupo-jovenes-cockpit-picnic-navegando.jpg">
+    <div class="logo-overlay logo-bottom-center logo-md logo-with-bg"><img src="../../campaigns/lanzamiento-15-abr-2026/brand/lockup-stacked-on-dark.svg"></div>
+    <div class="label">grupo-jovenes — Logo MD bottom-center con fondo</div>
+  </div>
+  <div class="card">
+    <img class="photo" src="../../asset-bank/pareja-cockpit-sunset-risas.jpg">
+    <div class="logo-overlay logo-bottom-center logo-md logo-with-bg"><img src="../../campaigns/lanzamiento-15-abr-2026/brand/lockup-stacked-on-dark.svg"></div>
+    <div class="label">pareja-sunset — Logo MD bottom-center con fondo</div>
+  </div>
+  <div class="card">
+    <img class="photo" src="../../asset-bank/encuentro-marina-picada-grupo.jpg">
+    <div class="logo-overlay logo-bottom-center logo-md logo-with-bg"><img src="../../campaigns/lanzamiento-15-abr-2026/brand/lockup-stacked-on-dark.svg"></div>
+    <div class="label">encuentro-marina — Logo MD bottom-center con fondo</div>
+  </div>
+  <div class="card">
+    <img class="photo" src="../../asset-bank/destino-lacaze-puerto-sauce.jpg">
+    <div class="logo-overlay logo-bottom-center logo-md logo-with-bg"><img src="../../campaigns/lanzamiento-15-abr-2026/brand/lockup-stacked-on-dark.svg"></div>
+    <div class="label">lacaze — Logo MD bottom-center con fondo</div>
+  </div>
+  <div class="card">
+    <img class="photo" src="../../asset-bank/destino-riachuelo.jpg">
+    <div class="logo-overlay logo-bottom-center logo-md logo-with-bg"><img src="../../campaigns/lanzamiento-15-abr-2026/brand/lockup-stacked-on-dark.svg"></div>
+    <div class="label">riachuelo — Logo MD bottom-center con fondo</div>
+  </div>
+  <div class="card">
+    <img class="photo" src="../../asset-bank/tripulacion-cockpit-bramador-bandera-argentina.jpg">
+    <div class="logo-overlay logo-bottom-center logo-md logo-with-bg"><img src="../../campaigns/lanzamiento-15-abr-2026/brand/lockup-stacked-on-dark.svg"></div>
+    <div class="label">tripulacion-bramador — Logo MD bottom-center con fondo</div>
+  </div>
+</div>
+
+<div style="text-align:center; margin: 50px 0; color: #666; font-size: 12px;">
+  Test generado 23/04/2026 — decidir: con/sin fondo, tamaño, posición
+</div>
+
+</body>
+</html>

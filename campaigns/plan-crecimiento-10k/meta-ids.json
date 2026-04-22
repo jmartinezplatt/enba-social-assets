@@ -588,6 +588,14 @@
       }
     },
     "ads": {
+      "ENBA_ad_corporativo_IG_Cold": {
+        "id": "120239353874370139",
+        "adset": "120239303658370139",
+        "creative": "984504851198695",
+        "status": "ACTIVE",
+        "created_date": "2026-04-22",
+        "notes": "Test: imagen corporativa C3 (grupo-cockpit-cielo-azul-4x5.jpg) en follow plan IG. Hipótesis: audiencia corporativa convierte mejor a perfil visit. C3 original tuvo 7 visitas perfil + 2 follows con ese creative."
+      },
       "ENBA_ad_microreel_IG_Cold": {
         "id": "120239303661060139",
         "adset": "120239303658370139",

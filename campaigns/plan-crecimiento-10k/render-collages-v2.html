@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a1520; }
+
+.collage {
+  width: 1080px;
+  height: 1080px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 4px;
+  position: relative;
+}
+
+.collage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.collage .logo-overlay {
+  position: absolute;
+  background: rgba(10, 21, 32, 0.6);
+  padding: 8px 16px;
+  border-radius: 8px;
+  z-index: 10;
+}
+
+.collage .logo-overlay img {
+  width: 200px;
+  height: auto;
+}
+
+.collage-destinos .logo-overlay {
+  top: 52%;
+  right: 25%;
+  transform: translateX(50%);
+}
+
+.collage-nosotros .logo-overlay {
+  top: 8px;
+  right: 8px;
+}
+</style>
+</head>
+<body>
+
+<!-- Collage Destinos -->
+<div class="collage collage-destinos" id="collage-destinos">
+  <div class="logo-overlay"><img src="../../src/assets/ENBA-horizontal-oscuro.svg"></div>
+  <img src="carousel-destinos/slide-sq-colonia.png">
+  <img src="carousel-destinos/slide-sq-martingarcia.png">
+  <img src="carousel-destinos/slide-sq-pajarito.png">
+  <img src="carousel-destinos/slide-sq-lacaze.png">
+</div>
+
+<!-- Collage Nosotros -->
+<div class="collage collage-nosotros" id="collage-nosotros" style="margin-top: 20px;">
+  <div class="logo-overlay"><img src="../../src/assets/ENBA-horizontal-oscuro.svg"></div>
+  <img src="carousel-nosotros/slide-sq-mate.png">
+  <img src="carousel-nosotros/slide-sq-jovenes.png">
+  <img src="carousel-nosotros/slide-sq-sunset.png">
+  <img src="carousel-nosotros/slide-sq-comunidad.png">
+</div>
+
+</body>
+</html>

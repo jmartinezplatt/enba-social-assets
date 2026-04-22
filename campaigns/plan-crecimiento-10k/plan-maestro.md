@@ -283,6 +283,32 @@ Primer gasto real: 20/04 ~03:00 ART. Token META_ADS_USER_TOKEN migrado de User T
 - [ ] Edad actualizada: 18-65+ en todos los ad sets
 - [ ] Meta API: instagram_actor_id deprecado v22.0 — usar instagram_user_id
 
+### Sesion 22/04 (noche continuacion) — Perfil IG + Highlights + Test C3 Follow
+
+**Contexto:** Dia 3 pauta. $44,334 gastados. 0 follows IG (follow plan activado solo horas antes). Marina auditó perfil — bio incompleta, 0 highlights, 11 seguidores visibles.
+
+**Acciones ejecutadas:**
+
+| Accion | Detalle | Estado |
+|--------|---------|--------|
+| Perfil IG completado | Bio reescrita: hook + verticales + ubicacion + CTA (wa.me link) | HECHO 22/04 |
+| 6 Highlight covers producidos | Dani: `scripts/render-highlight-covers.mjs` → 6 PNGs 1080x1080 con identidad ENBA | HECHO 22/04 |
+| Highlights IG subidos | 6 highlights activos: Travesías / Paseos / Broker / Escuela / Services / ¿Quiénes somos? | HECHO 22/04 |
+| Test ad C3 en Follow Plan | ENBA_ad_corporativo_IG_Cold creado en ENBA_Follow_IG_Cold. Creative: grupo-cockpit-cielo-azul-4x5.jpg. CTA: VIEW_INSTAGRAM_PROFILE. En PENDING_REVIEW. | HECHO 22/04 |
+| package.json type:module | `"type": "module"` agregado — todos los .js del repo son ES modules | HECHO 22/04 |
+
+**Veredicto Marina perfil:** APROBADO (post-fixes). Bio ✓, highlights ✓, foto de perfil ✓.
+
+**Estado seguidores al cierre 22/04:**
+- IG: 10 seguidores (baseline 11 — posible baja orgánica)
+- FB: 23 seguidores (sin cambios)
+- **Gate 1 (25/04):** necesita >30 follows IG. Faltan 3 dias.
+
+**Pendientes inmediatos:**
+- [ ] Monitorear ENBA_ad_corporativo_IG_Cold post PENDING_REVIEW
+- [ ] Investigar micro-reels $0 delivery (misma causa que onboarding o budget absorption)
+- [ ] Gate 1 check 25/04: follows >30, ThruPlays >500/dia
+
 **Publicacion organica 21/04:**
 - piece-07 "A veces unas horas en el rio cambian la semana" publicada IG+FB 12:15 ART via n8n. IG post ID 18120377908649051.
 
@@ -594,5 +620,5 @@ El plan esta disenado para que alguien pueda leerlo y saber exactamente que hace
 ---
 
 *Plan maestro producido por Manu (Coordinador de Produccion) — 15 de abril de 2026*
-*Actualizado: 22 de abril de 2026 (noche) — follow plan ACTIVADO (12 ads, $30K/dia), estaticos AWR pausados, budget total ~$45,250/dia*
+*Actualizado: 22 de abril de 2026 (noche, cierre sesion) — perfil IG completado, 6 highlight covers subidos, test ad C3 follow plan, package.json type:module*
 *Fuentes: Bruno, Franco, Marina — Team 4, ENBA*
