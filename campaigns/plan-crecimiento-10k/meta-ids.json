@@ -399,7 +399,13 @@
       "status": "ACTIVE",
       "created_date": "2026-04-19",
       "leads": 0,
-      "fields": ["tipo_de_evento (custom select)", "nombre_de_empresa (custom text)", "email", "full_name", "phone_number"],
+      "fields": [
+        "tipo_de_evento (custom select)",
+        "nombre_de_empresa (custom text)",
+        "email",
+        "full_name",
+        "phone_number"
+      ],
       "thank_you_url": "https://espacionautico.com.ar",
       "notes": "Reemplaza v1 (860937493677801, archivada). Thank you page apunta a home en vez de /travesias."
     }
@@ -426,5 +432,105 @@
       "lesson": "Para cuentas nuevas de Meta Ads, el primer ad DEBE crearse desde la UI de Ads Manager, no por API."
     }
   },
-  "errors_historical": "Errores de la ejecución original (16/04) archivados. Los ad sets con intereses inválidos fueron corregidos en una segunda pasada (phase_2_v2_run). Los ad sets de engagement sin promoted_object fueron reemplazados con versiones _v2 el 18/04."
+  "errors_historical": "Errores de la ejecución original (16/04) archivados. Los ad sets con intereses inválidos fueron corregidos en una segunda pasada (phase_2_v2_run). Los ad sets de engagement sin promoted_object fueron reemplazados con versiones _v2 el 18/04.",
+  "follow_plan": {
+    "image_hashes": {
+      "follow-carousel-colonia": "35dd43d0ac9667eb5a1cfd6ecd8c20d1",
+      "follow-carousel-lacaze": "ee0f10883fe52b977afaf8d26dd357d3",
+      "follow-carousel-riachuelo": "ee8bfe106768806ca131d4040432ac1a",
+      "follow-carousel-pajarito": "c2a69f64215985cef2ceb4b61bca3df1",
+      "follow-carousel-martingarcia": "df3d955a9f02c6104dcd40346d808513",
+      "follow-carousel-cierre": "393670b285ff31c56d1ae72481f7d313",
+      "follow-carousel-mate": "311583b51a021c6835d0fbccdbf7c0a2",
+      "follow-carousel-jovenes": "65c53eca11cd8a2897becaa26c375ff9",
+      "follow-carousel-pareja": "add87efa95360b697749321c40e76ead",
+      "follow-carousel-encuentro": "7f6350a15fc8d32af8fe2e6f229e6a26",
+      "follow-carousel-tripulacion": "7fa8a2b52f6e976fb625474ccac5a5c5",
+      "follow-collage-destinos": "86dec232f42507d346d35d4f25e2dcd7",
+      "follow-collage-nosotros": "e68f066ee4abaebf88720b6ef12d0ec0"
+    },
+    "upload_date": "2026-04-21T23:26:41.405Z",
+    "creatives": {
+      "video_ig": "973092698706553",
+      "video_fb": "842939748827934",
+      "destinos_ig": "2113967966046136",
+      "nosotros_ig": "1273685224896455",
+      "destinos_fb": "2227761878038971",
+      "nosotros_fb": "846991285099575"
+    },
+    "ads": {
+      "ENBA_ad_microreel_IG_Cold": {
+        "id": "120239302424810139",
+        "adset": "120239300385090139",
+        "creative": "973092698706553",
+        "status": "PAUSED"
+      },
+      "ENBA_ad_destinos_IG_Cold": {
+        "id": "120239302425340139",
+        "adset": "120239300385090139",
+        "creative": "2113967966046136",
+        "status": "PAUSED"
+      },
+      "ENBA_ad_nosotros_IG_Cold": {
+        "id": "120239302426000139",
+        "adset": "120239300385090139",
+        "creative": "1273685224896455",
+        "status": "PAUSED"
+      },
+      "ENBA_ad_microreel_IG_Retarget": {
+        "id": "120239302426580139",
+        "adset": "120239300375650139",
+        "creative": "973092698706553",
+        "status": "PAUSED"
+      },
+      "ENBA_ad_destinos_IG_Retarget": {
+        "id": "120239302427060139",
+        "adset": "120239300375650139",
+        "creative": "2113967966046136",
+        "status": "PAUSED"
+      },
+      "ENBA_ad_nosotros_IG_Retarget": {
+        "id": "120239302427560139",
+        "adset": "120239300375650139",
+        "creative": "1273685224896455",
+        "status": "PAUSED"
+      },
+      "ENBA_ad_microreel_FB_Cold": {
+        "id": "120239302428110139",
+        "adset": "120239300385490139",
+        "creative": "842939748827934",
+        "status": "PAUSED"
+      },
+      "ENBA_ad_destinos_FB_Cold": {
+        "id": "120239302428770139",
+        "adset": "120239300385490139",
+        "creative": "2227761878038971",
+        "status": "PAUSED"
+      },
+      "ENBA_ad_nosotros_FB_Cold": {
+        "id": "120239302429740139",
+        "adset": "120239300385490139",
+        "creative": "846991285099575",
+        "status": "PAUSED"
+      },
+      "ENBA_ad_microreel_FB_Retarget": {
+        "id": "120239302430630139",
+        "adset": "120239300376060139",
+        "creative": "842939748827934",
+        "status": "PAUSED"
+      },
+      "ENBA_ad_destinos_FB_Retarget": {
+        "id": "120239302431510139",
+        "adset": "120239300376060139",
+        "creative": "2227761878038971",
+        "status": "PAUSED"
+      },
+      "ENBA_ad_nosotros_FB_Retarget": {
+        "id": "120239302432090139",
+        "adset": "120239300376060139",
+        "creative": "846991285099575",
+        "status": "PAUSED"
+      }
+    }
+  }
 }

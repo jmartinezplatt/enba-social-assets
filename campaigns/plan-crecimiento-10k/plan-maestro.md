@@ -30,6 +30,7 @@
 - n8n workflow evaluacion ads diaria activo (9:00 ART, ID `1qRywsEWAl7VoO5o`).
 - Meta Ads: 3 campanas ACTIVE (AWR + ENG + LEA pausada). **Reestructurado 21/04 + audit fix 22/04:** AWR CBO $6,500/dia (A2 $3K + B1 $3.5K, pausados B2/C1/A3) con video ads agregados. ENG Reel $7,250/dia (escalado de $5K). Reel "primera vez" en pauta. C3 LEA PAUSED. C2 Regalos ACTIVE 23/04. Total diario: $15,250.
 - C2 Regalos ACTIVE (activado 23/04, $1,500/dia). Total diario: $15,250.
+- **Plan "Todo a Follows" (23/04):** 12 ads PAUSED en C_TRF (IG follows) + C_ENG (FB follows). 4 ad sets (IG Cold/Retarget + FB Cold/Retarget). 24 intereses nauticos. 18 ciudades. 18-65+. Pendiente: crear campanas separadas, micro-reel 15s, activacion. Ver `meta-ids.json` seccion `follow_plan`.
 - UTMs configurados en todos los ads activos (22/04).
 - Credenciales n8n: Meta API ENBA (page token), Meta Ads API ENBA (ads token), Gmail ENBA.
 - GA4 instalado (G-XVN36KPHBL), Pixel Event Data activo (1273048378266952).
@@ -272,6 +273,14 @@ Primer gasto real: 20/04 ~03:00 ART. Token META_ADS_USER_TOKEN migrado de User T
 - [ ] Sole: caption variante reel 4h ("Seguinos para mas") deadline 24/04
 - [ ] Dani: producir reel "Lo que nadie te dice" (material existente) deadline 30/04
 - [ ] Dani: producir reel "Buenos Aires desde el agua" deadline 02/05
+- [x] Plan "Todo a Follows" armado (23/04): 12 ads PAUSED, carruseles IG + collages FB renderizados, 95 assets nuevos en bank
+- [ ] Follow plan: crear 2 campanas separadas (ENBA_Follow_IG + ENBA_Follow_FB) y mover ad sets — proxima sesion
+- [ ] Follow plan: micro-reel 15s — pendiente produccion (material seleccionado, edicion no aprobada)
+- [ ] Follow plan: activar ads y pausar ads viejos — cuando owner decida
+- [ ] Intereses: Gastronomia/Caminatas/Excursionismo/Camping eliminados de todos los ad sets
+- [ ] Geo actualizada: 18 ciudades (CABA+GBA+Cordoba+Mendoza+Rosario+Santa Fe) en todos los ad sets
+- [ ] Edad actualizada: 18-65+ en todos los ad sets
+- [ ] Meta API: instagram_actor_id deprecado v22.0 — usar instagram_user_id
 
 **Publicacion organica 21/04:**
 - piece-07 "A veces unas horas en el rio cambian la semana" publicada IG+FB 12:15 ART via n8n. IG post ID 18120377908649051.
