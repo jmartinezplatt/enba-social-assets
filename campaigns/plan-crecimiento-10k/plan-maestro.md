@@ -72,13 +72,15 @@ Todas las decisiones originales fueron resueltas. Pendientes nuevos al final.
 | A1 | G-3 Plan B warm: si D2 sigue too_small al 01/05, crear ReelPrimeraVez_Warm solo con D4 (VideoViewers) | Bruno + Jose | 01/05 | PENDIENTE |
 | A2 | G-9 Producir 2-3 darkposts nuevos para reemplazo fatigue dia 14 | Dani | 28/04 | PENDIENTE |
 | A3 | Custom audiences: D1 y D3 pasaron a "ready" (22/04). D2 y D5 siguen "too_small". Re-verificar al 29/04 (Gate 2). | Bruno | 29/04 | MONITOREO |
-| A4 | piece-08 CTA duplicado: posts eliminados y republicados con imagen correcta (22/04 ~17:00). IG nuevo: `18071315231302535`. FB nuevo: `1064806400040502_122110116092620656`. | Jose | ASAP | RESUELTO 22/04 |
+| A4 | piece-08 CTA duplicado: 3 iteraciones hasta resolución real. (1) 1er republish usó imagen vieja — Cloudflare Pages llevaba 7 días sin deployar (MP4 31MB > límite 25MB). (2) Fix: MP4s removidos de git, merge a main, deploy OK, imagen correcta online. (3) A4 final ~14:30: posts eliminados (IG `18071315231302535` + FB `122110116092620656`) y republicados con imagen correcta. **IG final: `18001378085869134`. FB final: `1064806400040502_122110125068620656`.** Token META_ACCESS_TOKEN renovado 2da vez. | Jose | ASAP | RESUELTO 22/04 |
 
 ### Sesion 22/04 cierre — Publicacion organica
 
 **Incidente:** piece-08 fallo a las 12:15 ART (token `META_ACCESS_TOKEN` invalidado por Meta, OAuthException 460). Republicada manualmente a las 16:26 (IG post `17922571914322359`, FB post `1064806400040502_122110114022620656`). Token renovado desde System User — no vuelve a expirar.
 
-**Bug detectado:** CTA duplicado en staging PNGs (commit f1c9c9f del 18/04 — render ejecutado antes de corregir campaign.pieces.json). piece-01 ya publicada con bug (irrecuperable). piece-08 publicada con bug (pendiente delete+republish). Piezas pendientes (09-30): **30 PNGs re-renderizados y verificados el 22/04**. Todos los CTAs correctos, verificacion visual 100%.
+**Bug detectado:** CTA duplicado en staging PNGs (commit f1c9c9f del 18/04 — render ejecutado antes de corregir campaign.pieces.json). piece-01 ya publicada con bug (irrecuperable). piece-08 resuelta (ver A4 arriba). Piezas pendientes (09-30): **30 PNGs re-renderizados y verificados el 22/04**. Todos los CTAs correctos, verificacion visual 100%.
+
+**Incidente Cloudflare Pages (22/04):** Deploy fallando desde hace 7 días por `micro-reel-seguinos-v3.mp4` (31.1 MB > límite 25 MB de Cloudflare Pages). Todos los commits de `plan-crecimiento-10k` llegaban al repo pero nunca al deploy → n8n publicaba imágenes de la version antigua de main (5 días atrás). Fix: git rm --cached todos los MP4s tracked, *.mp4 a .gitignore, merge plan-crecimiento-10k → main, push. Deploy production OK 22/04 14:30. Token META_ACCESS_TOKEN renovado nuevamente (2da invalidación) y credencial n8n actualizada.
 
 ### Auditoria profunda de audiencias 23/04
 
