@@ -532,5 +532,199 @@
         "status": "PAUSED"
       }
     }
+  },
+  "follow_plan_v2": {
+    "migration_date": "2026-04-22T01:21:32.911Z",
+    "campaigns": {
+      "ig": {
+        "id": "120239303658100139",
+        "name": "ENBA_Follow_IG_abr2026",
+        "objective": "OUTCOME_TRAFFIC",
+        "status": "PAUSED"
+      },
+      "fb": {
+        "id": "120239303658190139",
+        "name": "ENBA_Follow_FB_abr2026",
+        "objective": "OUTCOME_ENGAGEMENT",
+        "status": "PAUSED"
+      }
+    },
+    "adsets": {
+      "ig_cold": {
+        "id": "120239303658370139",
+        "campaign": "120239303658100139",
+        "daily_budget": 1260000,
+        "optimization": "VISIT_INSTAGRAM_PROFILE"
+      },
+      "ig_retarget": {
+        "id": "120239303659250139",
+        "campaign": "120239303658100139",
+        "daily_budget": 540000,
+        "optimization": "VISIT_INSTAGRAM_PROFILE"
+      },
+      "fb_cold": {
+        "id": "120239303659650139",
+        "campaign": "120239303658190139",
+        "daily_budget": 840000,
+        "optimization": "PAGE_LIKES"
+      },
+      "fb_retarget": {
+        "id": "120239303660260139",
+        "campaign": "120239303658190139",
+        "daily_budget": 360000,
+        "optimization": "PAGE_LIKES"
+      }
+    },
+    "ads": {
+      "ENBA_ad_microreel_IG_Cold": {
+        "id": "120239303661060139",
+        "adset": "120239303658370139",
+        "creative": "973092698706553",
+        "status": "PAUSED"
+      },
+      "ENBA_ad_destinos_IG_Cold": {
+        "id": "120239303661450139",
+        "adset": "120239303658370139",
+        "creative": "2113967966046136",
+        "status": "PAUSED"
+      },
+      "ENBA_ad_nosotros_IG_Cold": {
+        "id": "120239303662020139",
+        "adset": "120239303658370139",
+        "creative": "1273685224896455",
+        "status": "PAUSED"
+      },
+      "ENBA_ad_microreel_IG_Retarget": {
+        "id": "120239303662540139",
+        "adset": "120239303659250139",
+        "creative": "973092698706553",
+        "status": "PAUSED"
+      },
+      "ENBA_ad_destinos_IG_Retarget": {
+        "id": "120239303663260139",
+        "adset": "120239303659250139",
+        "creative": "2113967966046136",
+        "status": "PAUSED"
+      },
+      "ENBA_ad_nosotros_IG_Retarget": {
+        "id": "120239303663740139",
+        "adset": "120239303659250139",
+        "creative": "1273685224896455",
+        "status": "PAUSED"
+      },
+      "ENBA_ad_microreel_FB_Cold": {
+        "id": "120239303664580139",
+        "adset": "120239303659650139",
+        "creative": "842939748827934",
+        "status": "PAUSED"
+      },
+      "ENBA_ad_destinos_FB_Cold": {
+        "id": "120239303665020139",
+        "adset": "120239303659650139",
+        "creative": "2227761878038971",
+        "status": "PAUSED"
+      },
+      "ENBA_ad_nosotros_FB_Cold": {
+        "id": "120239303666220139",
+        "adset": "120239303659650139",
+        "creative": "846991285099575",
+        "status": "PAUSED"
+      },
+      "ENBA_ad_microreel_FB_Retarget": {
+        "id": "120239303668560139",
+        "adset": "120239303660260139",
+        "creative": "842939748827934",
+        "status": "PAUSED"
+      },
+      "ENBA_ad_destinos_FB_Retarget": {
+        "id": "120239303669700139",
+        "adset": "120239303660260139",
+        "creative": "2227761878038971",
+        "status": "PAUSED"
+      },
+      "ENBA_ad_nosotros_FB_Retarget": {
+        "id": "120239303670130139",
+        "adset": "120239303660260139",
+        "creative": "846991285099575",
+        "status": "PAUSED"
+      }
+    },
+    "creatives": {
+      "video_ig": "977761008544793",
+      "video_fb": "1597843734777894",
+      "video_ig_old_placeholder": "973092698706553",
+      "video_fb_old_placeholder": "842939748827934",
+      "destinos_ig": "2113967966046136",
+      "nosotros_ig": "1273685224896455",
+      "destinos_fb": "2227761878038971",
+      "nosotros_fb": "846991285099575"
+    },
+    "micro_reel_v3": {
+      "video_id": "2118634122255418",
+      "creative_ig": "977761008544793",
+      "creative_fb": "1597843734777894",
+      "thumb_hash": "ec862e47ba64f0c565b37125967d06fd",
+      "upload_date": "2026-04-22",
+      "source": "campaigns/plan-crecimiento-10k/reels/micro-reel-seguinos-v3.mp4",
+      "replaces": "reel primera vez placeholder"
+    },
+    "old_deleted": {
+      "old_adsets": [
+        "120239300385090139",
+        "120239300375650139",
+        "120239300385490139",
+        "120239300376060139"
+      ],
+      "old_ads": [
+        {
+          "name": "ENBA_ad_microreel_IG_Cold",
+          "id": "120239302424810139"
+        },
+        {
+          "name": "ENBA_ad_destinos_IG_Cold",
+          "id": "120239302425340139"
+        },
+        {
+          "name": "ENBA_ad_nosotros_IG_Cold",
+          "id": "120239302426000139"
+        },
+        {
+          "name": "ENBA_ad_microreel_IG_Retarget",
+          "id": "120239302426580139"
+        },
+        {
+          "name": "ENBA_ad_destinos_IG_Retarget",
+          "id": "120239302427060139"
+        },
+        {
+          "name": "ENBA_ad_nosotros_IG_Retarget",
+          "id": "120239302427560139"
+        },
+        {
+          "name": "ENBA_ad_microreel_FB_Cold",
+          "id": "120239302428110139"
+        },
+        {
+          "name": "ENBA_ad_destinos_FB_Cold",
+          "id": "120239302428770139"
+        },
+        {
+          "name": "ENBA_ad_nosotros_FB_Cold",
+          "id": "120239302429740139"
+        },
+        {
+          "name": "ENBA_ad_microreel_FB_Retarget",
+          "id": "120239302430630139"
+        },
+        {
+          "name": "ENBA_ad_destinos_FB_Retarget",
+          "id": "120239302431510139"
+        },
+        {
+          "name": "ENBA_ad_nosotros_FB_Retarget",
+          "id": "120239302432090139"
+        }
+      ]
+    }
   }
 }
