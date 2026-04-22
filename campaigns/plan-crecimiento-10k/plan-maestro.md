@@ -29,8 +29,8 @@
 - n8n workflow publicacion diaria activo (12:15 ART, ID `MipwleZNu8EG5v6C`, v7.2, 34 nodos). URLs de imagen apuntan a `enba-social-assets.pages.dev` (no custom domain, por bloqueo Cloudflare a crawler IG).
 - n8n workflow evaluacion ads diaria activo (9:00 ART, ID `1qRywsEWAl7VoO5o`).
 - Meta Ads: 3 campanas ACTIVE (AWR + ENG + LEA pausada). **Reestructurado 21/04 + audit fix 22/04:** AWR CBO $6,500/dia (A2 $3K + B1 $3.5K, pausados B2/C1/A3) con video ads agregados. ENG Reel $7,250/dia (escalado de $5K). Reel "primera vez" en pauta. C3 LEA PAUSED. C2 Regalos ACTIVE 23/04. Total diario: $15,250.
-- C2 Regalos ACTIVE (activado 23/04, $1,500/dia). Total diario: $15,250.
-- **Plan "Todo a Follows" (23-24/04):** Migrado a campanas dedicadas (22/04): `ENBA_Follow_IG_abr2026` (OUTCOME_TRAFFIC, 2 ad sets: IG Cold $12.6K + IG Retarget $5.4K) + `ENBA_Follow_FB_abr2026` (OUTCOME_ENGAGEMENT, 2 ad sets: FB Cold $8.4K + FB Retarget $3.6K). 12 ads PAUSED. Micro-reel 15s "SEGUINOS..." producido (v3, con musica) y subido a Meta (video ID 2118634122255418). Ads viejos de C_TRF/C_ENG eliminados. Pendiente: activacion cuando owner decida. Ver `meta-ids.json` seccion `follow_plan_v2`.
+- C2 Regalos ACTIVE (activado 23/04, $1,500/dia).
+- **Plan "Todo a Follows" (23-24/04):** Migrado a campanas dedicadas (22/04): `ENBA_Follow_IG_abr2026` (OUTCOME_TRAFFIC, 2 ad sets: IG Cold $12.6K + IG Retarget $5.4K) + `ENBA_Follow_FB_abr2026` (OUTCOME_ENGAGEMENT, 2 ad sets: FB Cold $8.4K + FB Retarget $3.6K). **ACTIVADO 22/04 noche.** 12 ads ACTIVE. Micro-reel 15s v3 subido. Corre en paralelo con ads existentes. Budget diario total ~$45,250. Baseline: FB 23 follows, IG 11 follows. Revision 29/04. Ver `meta-ids.json` seccion `follow_plan_v2`.
 - UTMs configurados en todos los ads activos (22/04).
 - Credenciales n8n: Meta API ENBA (page token), Meta Ads API ENBA (ads token), Gmail ENBA.
 - GA4 instalado (G-XVN36KPHBL), Pixel Event Data activo (1273048378266952).
@@ -276,7 +276,8 @@ Primer gasto real: 20/04 ~03:00 ART. Token META_ADS_USER_TOKEN migrado de User T
 - [x] Plan "Todo a Follows" armado (23/04): 12 ads PAUSED, carruseles IG + collages FB renderizados, 95 assets nuevos en bank
 - [x] Follow plan: crear 2 campanas separadas (ENBA_Follow_IG + ENBA_Follow_FB) — HECHO 22/04. Migrado con script `migrate-follow-campaigns.mjs`. Ads viejos DELETED de C_TRF/C_ENG.
 - [x] Follow plan: micro-reel 15s — HECHO 22/04. v3 aprobado (7 clips + logo + musica kevin-graham). Subido a Meta (video ID 2118634122255418). Script `upload-video-to-ads.mjs` reutilizable. 4 ads microreel actualizados con creative real.
-- [ ] Follow plan: activar ads y pausar ads viejos — cuando owner decida
+- [x] Follow plan: activar ads — HECHO 22/04 noche. 2 campanas, 4 ad sets, 12 ads ACTIVE. Corre en paralelo con ads existentes (no se pausaron). Budget diario total ~$45,250. Baseline: FB 23 follows, IG 11 follows. Revision 29/04.
+- [x] Estaticos AWR pausados — HECHO 22/04 noche. piece01dp_A2 ($137/eng), piece01dp_B1 ($186/eng), piece03_B1 ($1,500/eng). CTR 0.01%-0.19%. Total gastado en estaticos: $10,732 por 31 engagements.
 - [ ] Intereses: Gastronomia/Caminatas/Excursionismo/Camping eliminados de todos los ad sets
 - [ ] Geo actualizada: 18 ciudades (CABA+GBA+Cordoba+Mendoza+Rosario+Santa Fe) en todos los ad sets
 - [ ] Edad actualizada: 18-65+ en todos los ad sets
@@ -593,5 +594,5 @@ El plan esta disenado para que alguien pueda leerlo y saber exactamente que hace
 ---
 
 *Plan maestro producido por Manu (Coordinador de Produccion) — 15 de abril de 2026*
-*Actualizado: 22 de abril de 2026 — follow plan migrado a campanas dedicadas, micro-reel v3 producido y subido*
+*Actualizado: 22 de abril de 2026 (noche) — follow plan ACTIVADO (12 ads, $30K/dia), estaticos AWR pausados, budget total ~$45,250/dia*
 *Fuentes: Bruno, Franco, Marina — Team 4, ENBA*

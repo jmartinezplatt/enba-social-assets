@@ -1,5 +1,6 @@
 {
-  "last_verified": "2026-04-23T18:00:00-03:00",
+  "last_verified": "2026-04-22T23:30:00-03:00",
+  "session_22apr_night": "Estáticos AWR pausados (3 ads). Follow Plan v2 activado completo (2 campañas, 4 ad sets, 12 ads). Budget diario total ~$45,250. Baseline: FB 23 follows, IG 11 follows.",
   "v4_restructure_date": "2026-04-21",
   "v4_restructure_summary": "Paused B2/C1/A3/C3. Scaled A2 $3K, B1 $3.5K (CBO $6.5K), Reel $7.25K. Video-first pivot + video ads AWR.",
   "audit_fix_date": "2026-04-22",
@@ -280,16 +281,18 @@
       "name": "ENBA_ad_piece01dp_A2",
       "adset": "AS_AWR_A2",
       "creative": "piece-01-darkpost",
-      "status": "ACTIVE",
-      "activated": "2026-04-19T00:10:00-03:00"
+      "status": "PAUSED",
+      "activated": "2026-04-19T00:10:00-03:00",
+      "v4_change": "PAUSED 22/04 noche — estático, $137/eng, CTR 0.19%"
     },
     "AD_B1_P01": {
       "id": "120239058262400139",
       "name": "ENBA_ad_piece01dp_B1",
       "adset": "AS_AWR_B1",
       "creative": "piece-01-darkpost",
-      "status": "ACTIVE",
-      "activated": "2026-04-19T00:10:00-03:00"
+      "status": "PAUSED",
+      "activated": "2026-04-19T00:10:00-03:00",
+      "v4_change": "PAUSED 22/04 noche — estático, $186/eng, CTR 0.16%"
     },
     "AD_C1_P02": {
       "id": "120239057858590139",
@@ -323,8 +326,9 @@
       "name": "ENBA_ad_piece03_B1",
       "adset": "AS_AWR_B1",
       "creative": "piece-03-existing",
-      "status": "ACTIVE",
-      "activated": "2026-04-19T00:10:00-03:00"
+      "status": "PAUSED",
+      "activated": "2026-04-19T00:10:00-03:00",
+      "v4_change": "PAUSED 22/04 noche — estático, $1,500/eng, CTR 0.04%"
     },
     "AD_ENG_REEL": {
       "id": "120239078453020139",
@@ -535,18 +539,26 @@
   },
   "follow_plan_v2": {
     "migration_date": "2026-04-22T01:21:32.911Z",
+    "activation_date": "2026-04-22T23:30:00-03:00",
+    "baseline_at_activation": {
+      "fb_followers": 23,
+      "ig_followers": 11,
+      "review_date": "2026-04-29"
+    },
     "campaigns": {
       "ig": {
         "id": "120239303658100139",
         "name": "ENBA_Follow_IG_abr2026",
         "objective": "OUTCOME_TRAFFIC",
-        "status": "PAUSED"
+        "status": "ACTIVE",
+        "activated": "2026-04-22T23:30:00-03:00"
       },
       "fb": {
         "id": "120239303658190139",
         "name": "ENBA_Follow_FB_abr2026",
         "objective": "OUTCOME_ENGAGEMENT",
-        "status": "PAUSED"
+        "status": "ACTIVE",
+        "activated": "2026-04-22T23:30:00-03:00"
       }
     },
     "adsets": {
@@ -580,73 +592,73 @@
         "id": "120239303661060139",
         "adset": "120239303658370139",
         "creative": "973092698706553",
-        "status": "PAUSED"
+        "status": "ACTIVE"
       },
       "ENBA_ad_destinos_IG_Cold": {
         "id": "120239303661450139",
         "adset": "120239303658370139",
         "creative": "2113967966046136",
-        "status": "PAUSED"
+        "status": "ACTIVE"
       },
       "ENBA_ad_nosotros_IG_Cold": {
         "id": "120239303662020139",
         "adset": "120239303658370139",
         "creative": "1273685224896455",
-        "status": "PAUSED"
+        "status": "ACTIVE"
       },
       "ENBA_ad_microreel_IG_Retarget": {
         "id": "120239303662540139",
         "adset": "120239303659250139",
         "creative": "973092698706553",
-        "status": "PAUSED"
+        "status": "ACTIVE"
       },
       "ENBA_ad_destinos_IG_Retarget": {
         "id": "120239303663260139",
         "adset": "120239303659250139",
         "creative": "2113967966046136",
-        "status": "PAUSED"
+        "status": "ACTIVE"
       },
       "ENBA_ad_nosotros_IG_Retarget": {
         "id": "120239303663740139",
         "adset": "120239303659250139",
         "creative": "1273685224896455",
-        "status": "PAUSED"
+        "status": "ACTIVE"
       },
       "ENBA_ad_microreel_FB_Cold": {
         "id": "120239303664580139",
         "adset": "120239303659650139",
         "creative": "842939748827934",
-        "status": "PAUSED"
+        "status": "ACTIVE"
       },
       "ENBA_ad_destinos_FB_Cold": {
         "id": "120239303665020139",
         "adset": "120239303659650139",
         "creative": "2227761878038971",
-        "status": "PAUSED"
+        "status": "ACTIVE"
       },
       "ENBA_ad_nosotros_FB_Cold": {
         "id": "120239303666220139",
         "adset": "120239303659650139",
         "creative": "846991285099575",
-        "status": "PAUSED"
+        "status": "ACTIVE"
       },
       "ENBA_ad_microreel_FB_Retarget": {
         "id": "120239303668560139",
         "adset": "120239303660260139",
         "creative": "842939748827934",
-        "status": "PAUSED"
+        "status": "ACTIVE"
       },
       "ENBA_ad_destinos_FB_Retarget": {
         "id": "120239303669700139",
         "adset": "120239303660260139",
         "creative": "2227761878038971",
-        "status": "PAUSED"
+        "status": "ACTIVE"
       },
       "ENBA_ad_nosotros_FB_Retarget": {
         "id": "120239303670130139",
         "adset": "120239303660260139",
         "creative": "846991285099575",
-        "status": "PAUSED"
+        "status": "ACTIVE"
       }
     },
     "creatives": {
