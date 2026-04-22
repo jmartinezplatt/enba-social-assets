@@ -72,7 +72,7 @@ Todas las decisiones originales fueron resueltas. Pendientes nuevos al final.
 | A1 | G-3 Plan B warm: si D2 sigue too_small al 01/05, crear ReelPrimeraVez_Warm solo con D4 (VideoViewers) | Bruno + Jose | 01/05 | PENDIENTE |
 | A2 | G-9 Producir 2-3 darkposts nuevos para reemplazo fatigue dia 14 | Dani | 28/04 | PENDIENTE |
 | A3 | Custom audiences: D1 y D3 pasaron a "ready" (22/04). D2 y D5 siguen "too_small". Re-verificar al 29/04 (Gate 2). | Bruno | 29/04 | MONITOREO |
-| A4 | piece-08 publicada con CTA duplicado visible (bug commit f1c9c9f: render antes del fix JSON). Staging PNG corregido y verificado. **Pendiente: eliminar post IG+FB y republicar con imagen correcta.** Post IDs: IG `17922571914322359`, FB `1064806400040502_122110114022620656`. | Jose | ASAP | PENDIENTE |
+| A4 | piece-08 CTA duplicado: posts eliminados y republicados con imagen correcta (22/04 ~17:00). IG nuevo: `18071315231302535`. FB nuevo: `1064806400040502_122110116092620656`. | Jose | ASAP | RESUELTO 22/04 |
 
 ### Sesion 22/04 cierre — Publicacion organica
 
