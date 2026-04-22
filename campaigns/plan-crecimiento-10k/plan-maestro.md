@@ -32,7 +32,7 @@
 - C2 Regalos ACTIVE (activado 23/04, $1,500/dia).
 - **Plan "Todo a Follows" (23-24/04):** Migrado a campanas dedicadas (22/04): `ENBA_Follow_IG_abr2026` (OUTCOME_TRAFFIC, 2 ad sets: IG Cold $12.6K + IG Retarget $5.4K) + `ENBA_Follow_FB_abr2026` (OUTCOME_ENGAGEMENT, 2 ad sets: FB Cold $8.4K + FB Retarget $3.6K). **ACTIVADO 22/04 noche.** 12 ads ACTIVE. Micro-reel 15s v3 subido. Corre en paralelo con ads existentes. Budget diario total ~$45,250. Baseline: FB 23 follows, IG 11 follows. Revision 29/04. Ver `meta-ids.json` seccion `follow_plan_v2`.
 - UTMs configurados en todos los ads activos (22/04).
-- Credenciales n8n: Meta API ENBA (page token), Meta Ads API ENBA (ads token), Gmail ENBA.
+- Credenciales n8n: Meta API ENBA (page token), Meta Ads API ENBA (ads token), Gmail ENBA. **Token `META_ACCESS_TOKEN` renovado 22/04:** sesion de usuario invalidada por Meta (OAuthException 460). Nuevo token derivado del System User (`META_ADS_USER_TOKEN`) via `GET /{pageId}?fields=access_token`. No expira nunca. Credencial n8n `Meta API ENBA` (n8scJzbGXnCprioD) actualizada via API.
 - GA4 instalado (G-XVN36KPHBL), Pixel Event Data activo (1273048378266952).
 - Dominio autorizado en Events Manager.
 
@@ -72,6 +72,13 @@ Todas las decisiones originales fueron resueltas. Pendientes nuevos al final.
 | A1 | G-3 Plan B warm: si D2 sigue too_small al 01/05, crear ReelPrimeraVez_Warm solo con D4 (VideoViewers) | Bruno + Jose | 01/05 | PENDIENTE |
 | A2 | G-9 Producir 2-3 darkposts nuevos para reemplazo fatigue dia 14 | Dani | 28/04 | PENDIENTE |
 | A3 | Custom audiences: D1 y D3 pasaron a "ready" (22/04). D2 y D5 siguen "too_small". Re-verificar al 29/04 (Gate 2). | Bruno | 29/04 | MONITOREO |
+| A4 | piece-08 publicada con CTA duplicado visible (bug commit f1c9c9f: render antes del fix JSON). Staging PNG corregido y verificado. **Pendiente: eliminar post IG+FB y republicar con imagen correcta.** Post IDs: IG `17922571914322359`, FB `1064806400040502_122110114022620656`. | Jose | ASAP | PENDIENTE |
+
+### Sesion 22/04 cierre — Publicacion organica
+
+**Incidente:** piece-08 fallo a las 12:15 ART (token `META_ACCESS_TOKEN` invalidado por Meta, OAuthException 460). Republicada manualmente a las 16:26 (IG post `17922571914322359`, FB post `1064806400040502_122110114022620656`). Token renovado desde System User — no vuelve a expirar.
+
+**Bug detectado:** CTA duplicado en staging PNGs (commit f1c9c9f del 18/04 — render ejecutado antes de corregir campaign.pieces.json). piece-01 ya publicada con bug (irrecuperable). piece-08 publicada con bug (pendiente delete+republish). Piezas pendientes (09-30): **30 PNGs re-renderizados y verificados el 22/04**. Todos los CTAs correctos, verificacion visual 100%.
 
 ### Auditoria profunda de audiencias 23/04
 
