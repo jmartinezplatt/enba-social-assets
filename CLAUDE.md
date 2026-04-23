@@ -263,11 +263,13 @@ Siempre usar el slash command correspondiente (`/bruno`, `/marina`, `/franco`, `
 
 1. No mezclar contenido social con el repo del sitio web (`enba-web`)
 2. No commitear fotos crudas — solo JPGs procesados en `asset-bank/`
-3. No publicar precios exactos en captions sin aprobación
-4. No usar "Puerto Madero" ni "Puerto Norte" — siempre "Costanera Norte"
-5. No publicar sin PASS de Nico (QA)
-6. No repetir en la caption lo que ya dicen los slides del carrusel
-7. Captions IG complementan emocionalmente; captions FB informan y contextualizan
+3. No commitear videos MP4 — Cloudflare Pages tiene límite de 25 MB por archivo. Un solo MP4 rompió 7 días de deploys (incidente 22/04/2026). Los MP4 ya están en `.gitignore`. Los videos van directo a Meta via API.
+4. No publicar precios exactos en captions sin aprobación
+5. No usar "Puerto Madero" ni "Puerto Norte" — siempre "Costanera Norte"
+6. No publicar sin PASS de Nico (QA)
+7. No repetir en la caption lo que ya dicen los slides del carrusel
+8. Captions IG complementan emocionalmente; captions FB informan y contextualizan
+9. No asumir que push = deploy. Verificar Cloudflare Pages dashboard o hacer HEAD request a pages.dev después de cada push importante.
 
 ---
 
