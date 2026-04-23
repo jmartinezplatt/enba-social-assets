@@ -1,5 +1,6 @@
 {
-  "last_verified": "2026-04-22T23:30:00-03:00",
+  "last_verified": "2026-04-23T00:00:00-03:00",
+  "session_23apr_plan_reconciliado": "Plan reconciliado Bruno/Experto ejecutado 23/04. Pausados: ig_cold, ig_retarget, reel4h_B1, reel4hAlt_A2, AS_ENG_C2, reelPV_ENG. AS_ENG_REEL reducido $7,250→$3,000/día. fb_cold escalado $8,400→$10,920/día. Burn estimado: ~$17,500/día. Pendiente: Marina auditoría perfil IG antes de reactivar Follow IG.",
   "session_22apr_night": "Estáticos AWR pausados (3 ads). Follow Plan v2 activado completo (2 campañas, 4 ad sets, 12 ads). Budget diario total ~$45,250. Baseline: FB 23 follows, IG 11 follows.",
   "v4_restructure_date": "2026-04-21",
   "v4_restructure_summary": "Paused B2/C1/A3/C3. Scaled A2 $3K, B1 $3.5K (CBO $6.5K), Reel $7.25K. Video-first pivot + video ads AWR.",
@@ -159,25 +160,26 @@
       "optimization": "POST_ENGAGEMENT",
       "promoted_object": "page_id:1064806400040502",
       "destination_type": "ON_POST",
-      "status": "ACTIVE",
+      "status": "PAUSED",
       "ready": true,
       "replaced": "120238978177080139 (v1, sin promoted_object — roto, inmutable)",
       "created_date": "2026-04-18",
       "activated": "2026-04-23",
-      "v4_change": "ACTIVATED 23/04 — día 5 según plan"
+      "paused_date": "2026-04-23",
+      "v4_change": "ACTIVATED 23/04 → PAUSED 23/04 — plan reconciliado: regalos con 0 datos todavía, cortar antes de quemar budget"
     },
     "AS_ENG_REEL": {
       "id": "120239078452300139",
       "name": "ENBA_Engagement_Reel4horas",
       "campaign": "ENG",
-      "daily_budget_ars": 7250,
+      "daily_budget_ars": 3000,
       "optimization": "POST_ENGAGEMENT",
       "promoted_object": "page_id:1064806400040502",
       "destination_type": "ON_POST",
       "status": "ACTIVE",
       "activated": "2026-04-19T00:10:00-03:00",
       "ready": true,
-      "v4_change": "Budget $3,000 → $5,000 (reestructuración 22/04) → $7,250 (audit fix G-6 22/04)"
+      "v4_change": "Budget $3,000 → $5,000 (reestructuración 22/04) → $7,250 (audit fix G-6 22/04) → $3,000 (plan reconciliado 23/04)"
     },
     "AS_ENG_TOP": {
       "id": "120239146126860139",
@@ -361,27 +363,30 @@
       "name": "ENBA_ad_reel4h_B1",
       "adset": "AS_AWR_B1",
       "creative": "reel-4horas-existing",
-      "status": "IN_PROCESS",
+      "status": "PAUSED",
       "created_date": "2026-04-22",
-      "notes": "Video ad en Awareness (audit fix G-2)"
+      "paused_date": "2026-04-23",
+      "notes": "Video ad en Awareness (audit fix G-2). Pausado plan reconciliado 23/04 — sin datos todavía, no quemar."
     },
     "AD_A2_REEL4HALT": {
       "id": "120239287392190139",
       "name": "ENBA_ad_reel4hAlt_A2",
       "adset": "AS_AWR_A2",
       "creative": "reel-4horas-alt",
-      "status": "IN_PROCESS",
+      "status": "PAUSED",
       "created_date": "2026-04-22",
-      "notes": "Video ad alternativo en Awareness (audit fix G-2+G-10)"
+      "paused_date": "2026-04-23",
+      "notes": "Video ad alternativo en Awareness (audit fix G-2+G-10). Pausado plan reconciliado 23/04."
     },
     "AD_ENG_REEL_PV": {
       "id": "120239287424800139",
       "name": "ENBA_ad_reelPV_ENG",
       "adset": "AS_ENG_REEL",
       "creative": "reel-primera-vez-existing",
-      "status": "IN_PROCESS",
+      "status": "PAUSED",
       "created_date": "2026-04-22",
-      "notes": "Reel 'primera vez' amplificación inmediata (audit fix G-4)"
+      "paused_date": "2026-04-23",
+      "notes": "Reel 'primera vez' pausado — plan reconciliado 23/04. Solo reel4horas queda vivo en AS_ENG_REEL."
     }
   },
   "pixels": {
@@ -566,19 +571,28 @@
         "id": "120239303658370139",
         "campaign": "120239303658100139",
         "daily_budget": 1260000,
-        "optimization": "VISIT_INSTAGRAM_PROFILE"
+        "optimization": "VISIT_INSTAGRAM_PROFILE",
+        "status": "PAUSED",
+        "paused_date": "2026-04-23",
+        "paused_reason": "Plan reconciliado 23/04 — IG follow rate 1.0% (bench 15-35%). Reactivar post-auditoría Marina."
       },
       "ig_retarget": {
         "id": "120239303659250139",
         "campaign": "120239303658100139",
         "daily_budget": 540000,
-        "optimization": "VISIT_INSTAGRAM_PROFILE"
+        "optimization": "VISIT_INSTAGRAM_PROFILE",
+        "status": "PAUSED",
+        "paused_date": "2026-04-23",
+        "paused_reason": "Plan reconciliado 23/04 — junto con ig_cold. Reactivar post-auditoría Marina."
       },
       "fb_cold": {
         "id": "120239303659650139",
         "campaign": "120239303658190139",
-        "daily_budget": 840000,
-        "optimization": "PAGE_LIKES"
+        "daily_budget": 1092000,
+        "optimization": "PAGE_LIKES",
+        "scaled_date": "2026-04-23",
+        "scaled_from": 840000,
+        "scaled_reason": "Plan reconciliado 23/04 — FB Likes 233 a $36/like, buen rendimiento. +30%."
       },
       "fb_retarget": {
         "id": "120239303660260139",

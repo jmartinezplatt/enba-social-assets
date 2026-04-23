@@ -1,89 +1,203 @@
-// Evaluate Ads Performance — Code Node para n8n
-// Input: Meta Insights API response (GET /act_.../insights?level=ad)
-// Output: email subject, HTML body, Bruno prompt
+// Evaluate Ads Performance — Code Node para n8n  v4
+// Input esperado: cadena  Get Ad Insights → Get FB Followers → Get IG Followers → [este nodo]
+// Accede a nodos previos por nombre. Si alguno falla con continueOnFail,
+// los try/catch degradan graciosamente (el email igual llega, sin esa sección).
 //
-// Reglas de evaluación: presupuesto-v3-final.md secciones 9-10
-// CORTAR (después de 72h): CPS > $100 ó ER < 1% ó CTR < 0.4%
-// WINNER (después de 72h): CPS < $30 + ER > 3%
+// Plan vigente: presupuesto-v4-reestructuracion.md
+// CORTAR  (72h+): CPS > $100 ó ER < 1% ó CTR < 0.4%
+// WINNER  (72h+): CPS < $30 + ER > 3%
 // FATIGUE: frecuencia > 3.5
-// MAX_REACHED: > 14 días
-// FATIGUE_WARNING: >= 10 días (preparar reemplazo)
+// MAX_REACHED: > 14 días / FATIGUE_WARNING: >= 10 días
+//
+// v4 vs v3:
+// - Lee insights por nombre: $('Get Ad Insights').first().json
+//   (ya no usa $input, que ahora trae el último nodo = IG followers)
+// - Follower counts reales: $('Get FB Followers') + $('Get IG Followers')
+// - Follow rate IG: profile visits → follow (benchmark 15-35%)
+// - Net new followers desde baseline (22/04)
+// - Burn rate diario + días restantes + alerta de presupuesto
+// - Cold vs Retarget inference desde nombre del ad
+// - Tabla de segmentos Cold/Retarget × FB/IG en prompt Bruno
+// - D4 context para ENG ads (ThruPlays → Custom Audience)
 
-const response = $input.first().json;
+// ── Constantes de campaña ──────────────────────────────────────────────
+const CAMPAIGN_BUDGET_TOTAL = 500000;               // ARS — presupuesto-v4
+const CAMPAIGN_BASELINE_FB  = 23;                   // fans FB al 22/04 (baseline Follow Plan)
+const CAMPAIGN_BASELINE_IG  = 11;                   // seguidores IG al 22/04
+const CAMPAIGN_START_DATE   = new Date('2026-04-19T03:00:00Z'); // día 1 ART
+const CAMPAIGN_END_DATE     = new Date('2026-05-16T03:00:00Z'); // fin plan
+const CAMPAIGN_TOTAL_DAYS   = 27;
+
+// ── Input: insights ────────────────────────────────────────────────────
+var response;
+try {
+  response = $('Get Ad Insights').first().json;
+} catch(e) {
+  // fallback por si se ejecuta en contexto sin nodo nombrado (tests manuales)
+  response = $input.first().json;
+}
 const adsData = response.data || [];
 
-// Fecha actual en ART
+// ── Input: follower counts ─────────────────────────────────────────────
+var fbFollowersNow = null;
+var igFollowersNow = null;
+try {
+  var fbData = $('Get FB Followers').first().json;
+  fbFollowersNow = parseInt(fbData.fan_count || fbData.followers_count || 0) || null;
+} catch(e) {}
+try {
+  var igData = $('Get IG Followers').first().json;
+  igFollowersNow = parseInt(igData.followers_count || 0) || null;
+} catch(e) {}
+
+// ── Fecha ART ──────────────────────────────────────────────────────────
 const now = new Date();
 const artNow = new Date(now.getTime() - 3 * 60 * 60 * 1000);
-const dd = String(artNow.getUTCDate()).padStart(2, '0');
-const mm = String(artNow.getUTCMonth() + 1).padStart(2, '0');
+const dd   = String(artNow.getUTCDate()).padStart(2, '0');
+const mm   = String(artNow.getUTCMonth() + 1).padStart(2, '0');
 const yyyy = artNow.getUTCFullYear();
 const todayStr = dd + '/' + mm + '/' + yyyy;
 
-// Fechas de activación por ad ID (de meta-ids.json)
-// ACTUALIZAR cuando se activen nuevos ads (C2, TopPerformers, C3)
-const activationDates = {
-  '120239058261910139': '2026-04-19', // AD_A2_P01 piece01dp
-  '120239058262400139': '2026-04-19', // AD_B1_P01 piece01dp
-  '120239057858590139': '2026-04-19', // AD_C1_P02 piece02
-  '120239057859170139': '2026-04-19', // AD_B2_P02 piece02
-  '120239061361640139': '2026-04-19', // AD_A3_P03 piece03
-  '120239075118770139': '2026-04-19', // AD_B1_P03 piece03
-  '120239078453020139': '2026-04-19', // AD_ENG_REEL reel4horas
+// ── Mapa campaign_id → tipo ────────────────────────────────────────────
+const campaignTypeMap = {
+  '120238976548160139': 'AWR',
+  '120238976548380139': 'ENG',
+  '120238976549000139': 'TRF',
+  '120238976549780139': 'LEA',
+  '120239303658100139': 'FOLLOW',
+  '120239303658190139': 'FOLLOW',
 };
 
-// Nombres legibles
-const adLabels = {
-  '120239058261910139': 'piece01dp > A2 InteresNav',
-  '120239058262400139': 'piece01dp > B1 Experiencias',
-  '120239057858590139': 'piece02 > C1 TurismoBA',
-  '120239057859170139': 'piece02 > B2 Outdoor',
-  '120239061361640139': 'piece03 > A3 Aspiracional',
-  '120239075118770139': 'piece03 > B1 Experiencias',
-  '120239078453020139': 'reel4horas > ENG Reel',
-};
-
+// ── Helpers ────────────────────────────────────────────────────────────
 function getAction(actions, type) {
-  const found = (actions || []).find(function(a) { return a.action_type === type; });
+  var found = (actions || []).find(function(a) { return a.action_type === type; });
   return found ? parseInt(found.value) : 0;
 }
 
-function getDaysActive(adId) {
-  const activation = activationDates[adId] || '2026-04-19';
-  return Math.floor((now - new Date(activation + 'T00:10:00-03:00')) / (1000 * 60 * 60 * 24));
+function getFollowsIG(actions) {
+  return getAction(actions, 'instagram_follow')
+      || getAction(actions, 'omni_instagramapp_follow')
+      || getAction(actions, 'follow');
 }
 
-// Caso sin datos
+function getThruPlays(field) {
+  if (!field) return 0;
+  if (Array.isArray(field)) {
+    var found = field.find(function(a) { return a.action_type === 'video_thruplay_watched'; });
+    return found ? parseInt(found.value) : (field.length > 0 ? parseInt(field[0].value) : 0);
+  }
+  return parseInt(field) || 0;
+}
+
+function getDaysActive(createdTime) {
+  if (!createdTime) return 0;
+  return Math.max(0, Math.floor((now - new Date(createdTime)) / (1000 * 60 * 60 * 24)));
+}
+
+function inferCampaignType(campaignId) {
+  return campaignTypeMap[campaignId] || 'AWR';
+}
+
+function inferPlatform(adName) {
+  var n = (adName || '').toLowerCase();
+  if (n.includes('_ig_') || n.includes('_ig ') || n.endsWith('_ig')) return 'IG';
+  if (n.includes('_fb_') || n.includes('_fb ') || n.endsWith('_fb')) return 'FB';
+  return '—';
+}
+
+function inferSegment(adName) {
+  var n = (adName || '').toLowerCase();
+  if (n.includes('retarget')) return 'Retarget';
+  if (n.includes('cold'))     return 'Cold';
+  return '—';
+}
+
+function rankingInfo(val) {
+  if (!val || val === 'UNKNOWN' || val === '') return { label: '—', color: '#9ca3af' };
+  if (val === 'ABOVE_AVERAGE')    return { label: '▲ TOP', color: '#16a34a' };
+  if (val === 'AVERAGE')          return { label: '≈ AVG', color: '#2563eb' };
+  if (val === 'BELOW_AVERAGE_10') return { label: '▼ -10%', color: '#ca8a04' };
+  if (val === 'BELOW_AVERAGE_20') return { label: '▼ -20%', color: '#ea580c' };
+  if (val === 'BELOW_AVERAGE_35') return { label: '▼▼ BOT', color: '#dc2626' };
+  return { label: val, color: '#6b7280' };
+}
+
+// ── Sin datos ──────────────────────────────────────────────────────────
 if (adsData.length === 0) {
-  var noDataSubject = '[ENBA Ads] ' + todayStr + ' — Sin datos de insights';
-  var noDataHtml = '<html><body style="font-family:Arial,sans-serif;">'
-    + '<h2>ENBA Meta Ads — Sin datos</h2>'
-    + '<p>Fecha: ' + todayStr + '</p>'
-    + '<p>La API de Meta no devolvio datos de insights. Posibles causas:</p>'
-    + '<ul><li>Los ads llevan menos de unas horas activos</li>'
-    + '<li>Meta aun esta procesando impresiones</li></ul>'
-    + '<p>Se reintentara manana a las 9:00 ART.</p>'
-    + '</body></html>';
-  return [{ json: { subject: noDataSubject, html: noDataHtml, brunoPrompt: '', totalSpend: 0, adsCount: 0 } }];
+  return [{ json: {
+    subject: '[ENBA Ads] ' + todayStr + ' — Sin datos de insights',
+    html: '<html><body style="font-family:Arial,sans-serif;"><h2>ENBA Meta Ads — Sin datos</h2>'
+      + '<p>Fecha: ' + todayStr + '</p>'
+      + '<p>Meta no devolvio datos. Los ads pueden llevar menos de unas horas activos.</p>'
+      + '</body></html>',
+    brunoPrompt: '', totalSpend: 0, adsCount: 0
+  } }];
 }
 
-// Procesar cada ad
+// ── Diagnóstico action_types ───────────────────────────────────────────
+var diagActionTypes = {};
+adsData.forEach(function(ad) {
+  (ad.actions || []).forEach(function(a) {
+    if (!diagActionTypes[a.action_type]) diagActionTypes[a.action_type] = 0;
+    diagActionTypes[a.action_type] += parseInt(a.value) || 0;
+  });
+});
+
+// ── Procesar cada ad ───────────────────────────────────────────────────
 var results = adsData.map(function(ad) {
-  var impressions = parseInt(ad.impressions || 0);
-  var reach = parseInt(ad.reach || 0);
-  var clicks = parseInt(ad.clicks || 0);
-  var spend = parseFloat(ad.spend || 0);
-  var ctr = parseFloat(ad.ctr || 0);
-  var frequency = parseFloat(ad.frequency || 0);
+  var impressions  = parseInt(ad.impressions || 0);
+  var reach        = parseInt(ad.reach || 0);
+  var spend        = parseFloat(ad.spend || 0);
+  var ctr          = parseFloat(ad.ctr || 0);
+  var frequency    = parseFloat(ad.frequency || 0);
+  var daysActive   = getDaysActive(ad.created_time);
+  var campaignType = inferCampaignType(ad.campaign_id);
+  var platform     = inferPlatform(ad.ad_name);
+  var segment      = inferSegment(ad.ad_name);
+
   var engagements = getAction(ad.actions, 'post_engagement');
-  var follows = getAction(ad.actions, 'follow');
   var er = reach > 0 ? (engagements / reach * 100) : 0;
-  var cps = follows > 0 ? Math.round(spend / follows) : null;
-  var daysActive = getDaysActive(ad.ad_id);
+
+  var igFollows       = getFollowsIG(ad.actions);
+  var igProfileVisits = parseInt(ad.instagram_profile_visits || 0);
+  var fbLikes         = getAction(ad.actions, 'like');
+
+  var followSignal = 0;
+  var followLabel  = '';
+  if (campaignType === 'FOLLOW') {
+    if (igFollows > 0) {
+      followSignal = igFollows + fbLikes;
+      followLabel = 'F:' + igFollows + (fbLikes > 0 ? '/L:' + fbLikes : '');
+    } else if (igProfileVisits > 0 || fbLikes > 0) {
+      followSignal = igProfileVisits + fbLikes;
+      followLabel = 'V:' + igProfileVisits + (fbLikes > 0 ? '/L:' + fbLikes : '');
+    } else {
+      followLabel = '0';
+    }
+  } else {
+    followLabel = '—';
+  }
+
+  var thruPlays    = getThruPlays(ad.video_thruplay_watched_actions);
+  var thruPlayRate = impressions > 0 ? (thruPlays / impressions * 100) : 0;
+
+  var videoViews3s = getAction(ad.actions, 'video_view');
+  var hookRate     = impressions > 0 ? (videoViews3s / impressions * 100) : 0;
+  var holdRate     = videoViews3s > 0 ? (thruPlays / videoViews3s * 100) : 0;
+  var isVideoAd    = videoViews3s > 0 || thruPlays > 0;
+
+  var cpm      = impressions > 0 ? (spend / impressions * 1000) : 0;
+  var saves    = getAction(ad.actions, 'onsite_conversion.post_net_save');
+
+  var cps    = (campaignType === 'FOLLOW' && followSignal > 0) ? Math.round(spend / followSignal) : null;
+  var cpsStr = cps !== null ? '$' + cps : 'N/A';
+
+  var qualRank = ad.quality_ranking           || 'UNKNOWN';
+  var engRank  = ad.engagement_rate_ranking   || 'UNKNOWN';
+  var conRank  = ad.conversion_rate_ranking   || 'UNKNOWN';
 
   var verdict = 'VIABLE';
   var reasons = [];
-
   if (daysActive < 3) {
     verdict = 'LEARNING';
     reasons.push(daysActive + 'd activo, esperar 72h');
@@ -96,7 +210,7 @@ var results = adsData.map(function(ad) {
   } else if ((cps !== null && cps > 100) || er < 1 || ctr < 0.4) {
     verdict = 'CORTAR';
     if (cps !== null && cps > 100) reasons.push('CPS $' + cps + ' > $100');
-    if (er < 1) reasons.push('ER ' + er.toFixed(1) + '% < 1%');
+    if (er < 1)    reasons.push('ER ' + er.toFixed(1) + '% < 1%');
     if (ctr < 0.4) reasons.push('CTR ' + ctr.toFixed(2) + '% < 0.4%');
   } else if (cps !== null && cps < 30 && er > 3) {
     verdict = 'WINNER';
@@ -107,135 +221,394 @@ var results = adsData.map(function(ad) {
   }
 
   return {
-    adId: ad.ad_id,
-    adName: adLabels[ad.ad_id] || ad.ad_name,
-    impressions: impressions, reach: reach, clicks: clicks,
-    spend: Math.round(spend),
-    ctr: ctr.toFixed(2),
-    frequency: frequency.toFixed(1),
-    engagements: engagements, follows: follows,
-    er: er.toFixed(1),
-    cps: cps !== null ? '$' + cps : 'N/A',
-    cpsRaw: cps,
-    daysActive: daysActive, verdict: verdict,
-    reason: reasons.join(', ') || 'Dentro de parametros'
+    adId: ad.ad_id, adName: ad.ad_name,
+    campaignType: campaignType, platform: platform, segment: segment,
+    daysActive: daysActive, impressions: impressions, reach: reach,
+    spend: Math.round(spend), cpm: cpm.toFixed(0),
+    ctr: ctr.toFixed(2), frequency: frequency.toFixed(1),
+    engagements: engagements, er: er.toFixed(1),
+    igFollows: igFollows, igProfileVisits: igProfileVisits, fbLikes: fbLikes,
+    followLabel: followLabel, followSignal: followSignal,
+    thruPlays: thruPlays, thruPlayRate: thruPlayRate.toFixed(1),
+    videoViews3s: videoViews3s,
+    hookRate: hookRate.toFixed(1), holdRate: holdRate.toFixed(1), isVideoAd: isVideoAd,
+    saves: saves,
+    cps: cpsStr, cpsRaw: cps,
+    qualRank: qualRank, engRank: engRank, conRank: conRank,
+    verdict: verdict, reason: reasons.join(', ') || 'Dentro de parametros'
   };
 });
 
-// Conteo de veredictos
+// ── Segmentar ──────────────────────────────────────────────────────────
+var followAds = results.filter(function(r) { return r.campaignType === 'FOLLOW'; });
+var engAds    = results.filter(function(r) { return r.campaignType === 'ENG'; });
+var awrAds    = results.filter(function(r) { return r.campaignType === 'AWR'; });
+
+// ── Totales ────────────────────────────────────────────────────────────
+var totalSpend       = results.reduce(function(s, r) { return s + r.spend; }, 0);
+var totalReach       = results.reduce(function(s, r) { return s + r.reach; }, 0);
+var totalImpressions = results.reduce(function(s, r) { return s + r.impressions; }, 0);
+var totalIgFollows   = followAds.reduce(function(s, r) { return s + r.igFollows; }, 0);
+var totalIgVisits    = followAds.reduce(function(s, r) { return s + r.igProfileVisits; }, 0);
+var totalFbLikes     = followAds.reduce(function(s, r) { return s + r.fbLikes; }, 0);
+var totalSaves       = results.reduce(function(s, r) { return s + r.saves; }, 0);
+var totalThruPlays   = results.reduce(function(s, r) { return s + r.thruPlays; }, 0);
+var blendedCPM       = totalImpressions > 0 ? (totalSpend / totalImpressions * 1000).toFixed(0) : null;
+var totalFollowSig   = followAds.reduce(function(s, r) {
+  var sig = r.igFollows > 0 ? r.igFollows + r.fbLikes : r.igProfileVisits + r.fbLikes;
+  return s + sig;
+}, 0);
+var blendedCPS = totalFollowSig > 0 ? Math.round(totalSpend / totalFollowSig) : null;
+
+// ── Día de referencia ──────────────────────────────────────────────────
+var refAd = results.find(function(r) { return r.campaignType === 'ENG' && r.daysActive > 0; });
+var dayRef = refAd ? refAd.daysActive : results.reduce(function(m, r) { return Math.max(m, r.daysActive); }, 0);
+
+// ── Burn rate + presupuesto ────────────────────────────────────────────
+var burnRateDaily    = dayRef > 0 ? Math.round(totalSpend / dayRef) : 0;
+var budgetRemaining  = CAMPAIGN_BUDGET_TOTAL - totalSpend;
+var daysToEnd        = Math.max(0, Math.round((CAMPAIGN_END_DATE - now) / (1000 * 60 * 60 * 24)));
+var daysAtBurn       = burnRateDaily > 0 ? Math.floor(budgetRemaining / burnRateDaily) : 999;
+var budgetRisk       = daysAtBurn < daysToEnd; // true = presupuesto se agota antes que el plan
+var exhaustDate      = new Date(now.getTime() + daysAtBurn * 24 * 60 * 60 * 1000);
+var exhaustStr       = String(exhaustDate.getUTCDate()).padStart(2,'0') + '/'
+                     + String(exhaustDate.getUTCMonth()+1).padStart(2,'0');
+
+// ── Follower growth ────────────────────────────────────────────────────
+var fbNetNew  = fbFollowersNow !== null ? fbFollowersNow - CAMPAIGN_BASELINE_FB : null;
+var igNetNew  = igFollowersNow !== null ? igFollowersNow - CAMPAIGN_BASELINE_IG : null;
+// Follow rate IG: net new IG / total IG profile visits
+var igFollowRate = (igNetNew !== null && igNetNew > 0 && totalIgVisits > 0)
+  ? (igNetNew / totalIgVisits * 100).toFixed(1) : null;
+
+// ── Segmento Cold/Retarget × FB/IG para Follow Plan ───────────────────
+var segmentStats = {};
+followAds.forEach(function(r) {
+  var key = r.platform + '_' + r.segment;
+  if (!segmentStats[key]) {
+    segmentStats[key] = { platform: r.platform, segment: r.segment, spend: 0, follows: 0, visits: 0 };
+  }
+  segmentStats[key].spend   += r.spend;
+  segmentStats[key].follows += r.igFollows + r.fbLikes;
+  segmentStats[key].visits  += r.igProfileVisits;
+});
+
+// ── Conteo veredictos ──────────────────────────────────────────────────
 var counts = {};
 results.forEach(function(r) { counts[r.verdict] = (counts[r.verdict] || 0) + 1; });
-
 var summaryParts = [];
-if (counts.WINNER) summaryParts.push(counts.WINNER + ' WINNER');
-if (counts.VIABLE) summaryParts.push(counts.VIABLE + ' VIABLE');
-if (counts.LEARNING) summaryParts.push(counts.LEARNING + ' LEARNING');
-if (counts.CORTAR) summaryParts.push(counts.CORTAR + ' CORTAR');
-if (counts.FATIGUE) summaryParts.push(counts.FATIGUE + ' FATIGUE');
+if (counts.WINNER)          summaryParts.push(counts.WINNER + ' WINNER');
+if (counts.VIABLE)          summaryParts.push(counts.VIABLE + ' VIABLE');
+if (counts.LEARNING)        summaryParts.push(counts.LEARNING + ' LEARNING');
+if (counts.CORTAR)          summaryParts.push(counts.CORTAR + ' CORTAR');
+if (counts.FATIGUE)         summaryParts.push(counts.FATIGUE + ' FATIGUE');
 if (counts.FATIGUE_WARNING) summaryParts.push(counts.FATIGUE_WARNING + ' WARNING');
-if (counts.MAX_REACHED) summaryParts.push(counts.MAX_REACHED + ' MAX');
+if (counts.MAX_REACHED)     summaryParts.push(counts.MAX_REACHED + ' MAX');
 var summaryStr = summaryParts.join(' | ') || 'Sin datos';
 
-var totalSpend = results.reduce(function(s, r) { return s + r.spend; }, 0);
-var totalFollows = results.reduce(function(s, r) { return s + r.follows; }, 0);
-var totalReach = results.reduce(function(s, r) { return s + r.reach; }, 0);
-
-// Estilo por veredicto
+// ── Estilos HTML ───────────────────────────────────────────────────────
 function verdictStyle(v) {
   var map = {
-    'WINNER': { color: '#16a34a', bg: '#f0fdf4' },
-    'VIABLE': { color: '#2563eb', bg: '#eff6ff' },
-    'LEARNING': { color: '#7c3aed', bg: '#f5f3ff' },
-    'CORTAR': { color: '#dc2626', bg: '#fef2f2' },
-    'FATIGUE': { color: '#ea580c', bg: '#fff7ed' },
-    'FATIGUE_WARNING': { color: '#ca8a04', bg: '#fefce8' },
-    'MAX_REACHED': { color: '#dc2626', bg: '#fef2f2' },
+    WINNER:          { color: '#16a34a', bg: '#f0fdf4' },
+    VIABLE:          { color: '#2563eb', bg: '#eff6ff' },
+    LEARNING:        { color: '#7c3aed', bg: '#f5f3ff' },
+    CORTAR:          { color: '#dc2626', bg: '#fef2f2' },
+    FATIGUE:         { color: '#ea580c', bg: '#fff7ed' },
+    FATIGUE_WARNING: { color: '#ca8a04', bg: '#fefce8' },
+    MAX_REACHED:     { color: '#dc2626', bg: '#fef2f2' },
   };
   return map[v] || { color: '#6b7280', bg: '#f9fafb' };
 }
+function typeBadge(type) {
+  var colors = { FOLLOW: '#7c3aed', ENG: '#2563eb', AWR: '#0891b2', LEA: '#059669', TRF: '#d97706' };
+  return '<span style="background:' + (colors[type] || '#9ca3af') + ';color:white;padding:1px 5px;border-radius:3px;font-size:10px;">' + type + '</span>';
+}
+function rankBadge(val) {
+  var info = rankingInfo(val);
+  return '<span style="color:' + info.color + ';font-weight:bold;font-size:10px;">' + info.label + '</span>';
+}
 
-// Tabla HTML
+// ── Tabla principal ────────────────────────────────────────────────────
 var tableRows = results.map(function(r) {
   var s = verdictStyle(r.verdict);
+  var tpCell   = r.thruPlays > 0 ? r.thruPlayRate + '%' : '—';
+  var hookCell = r.isVideoAd ? r.hookRate + '%' : '—';
+  var holdCell = (r.isVideoAd && r.videoViews3s > 0) ? r.holdRate + '%' : '—';
+  var savesCell = r.saves > 0 ? r.saves : '—';
+  var segCell = r.segment !== '—' ? r.segment : '';
   return '<tr style="border-bottom:1px solid #e5e7eb;">'
-    + '<td style="padding:6px 8px;font-size:12px;">' + r.adName + '</td>'
-    + '<td style="padding:6px;text-align:center;">' + r.daysActive + 'd</td>'
-    + '<td style="padding:6px;text-align:right;">$' + r.spend.toLocaleString() + '</td>'
-    + '<td style="padding:6px;text-align:right;">' + r.reach.toLocaleString() + '</td>'
-    + '<td style="padding:6px;text-align:center;">' + r.frequency + '</td>'
-    + '<td style="padding:6px;text-align:center;">' + r.ctr + '%</td>'
-    + '<td style="padding:6px;text-align:center;">' + r.er + '%</td>'
-    + '<td style="padding:6px;text-align:right;">' + r.engagements + '</td>'
-    + '<td style="padding:6px;text-align:right;">' + r.follows + '</td>'
-    + '<td style="padding:6px;text-align:right;">' + r.cps + '</td>'
-    + '<td style="padding:6px;text-align:center;background:' + s.bg + ';color:' + s.color + ';font-weight:bold;">' + r.verdict + '</td>'
-    + '<td style="padding:6px;font-size:11px;color:#6b7280;">' + r.reason + '</td>'
+    + '<td style="padding:5px 8px;font-size:11px;max-width:170px;">' + r.adName + '</td>'
+    + '<td style="padding:4px;text-align:center;">' + typeBadge(r.campaignType) + '</td>'
+    + '<td style="padding:4px;text-align:center;font-size:10px;color:#6b7280;">' + r.platform + '</td>'
+    + '<td style="padding:4px;text-align:center;font-size:10px;color:#6b7280;">' + segCell + '</td>'
+    + '<td style="padding:4px;text-align:center;">' + r.daysActive + 'd</td>'
+    + '<td style="padding:4px;text-align:right;">$' + r.spend.toLocaleString() + '</td>'
+    + '<td style="padding:4px;text-align:right;font-size:10px;color:#6b7280;">$' + r.cpm + '</td>'
+    + '<td style="padding:4px;text-align:right;">' + r.reach.toLocaleString() + '</td>'
+    + '<td style="padding:4px;text-align:center;">' + r.ctr + '%</td>'
+    + '<td style="padding:4px;text-align:center;">' + r.er + '%</td>'
+    + '<td style="padding:4px;text-align:center;">' + r.frequency + '</td>'
+    + '<td style="padding:4px;text-align:center;color:#7c3aed;">' + tpCell + '</td>'
+    + '<td style="padding:4px;text-align:center;color:#0891b2;">' + hookCell + '</td>'
+    + '<td style="padding:4px;text-align:center;color:#0891b2;">' + holdCell + '</td>'
+    + '<td style="padding:4px;text-align:center;color:#059669;">' + savesCell + '</td>'
+    + '<td style="padding:4px;text-align:center;font-size:11px;">' + r.followLabel + '</td>'
+    + '<td style="padding:4px;text-align:right;">' + r.cps + '</td>'
+    + '<td style="padding:4px;text-align:center;background:' + s.bg + ';color:' + s.color + ';font-weight:bold;">' + r.verdict + '</td>'
+    + '<td style="padding:4px;font-size:10px;color:#6b7280;">' + r.reason + '</td>'
     + '</tr>';
 }).join('\n');
 
-// Subject
-var subject = '[ENBA Ads] ' + todayStr + ' | ' + summaryStr + ' | $' + totalSpend.toLocaleString() + ' gastado';
-
-// Prompt para Bruno
-var promptTableHeader = '| Ad | Dias | Spend | Reach | CTR | ER | Eng | Follows | CPS | Freq | Veredicto | Razon |';
-var promptTableSep = '|---|---|---|---|---|---|---|---|---|---|---|---|';
-var promptTableRows = results.map(function(r) {
-  return '| ' + r.adName + ' | ' + r.daysActive + 'd | $' + r.spend + ' | ' + r.reach + ' | ' + r.ctr + '% | ' + r.er + '% | ' + r.engagements + ' | ' + r.follows + ' | ' + r.cps + ' | ' + r.frequency + ' | ' + r.verdict + ' | ' + r.reason + ' |';
+// ── Panel Quality Rankings ─────────────────────────────────────────────
+var qualityRows = results.map(function(r) {
+  return '<tr style="border-bottom:1px solid #e5e7eb;">'
+    + '<td style="padding:4px 8px;font-size:11px;">' + r.adName + '</td>'
+    + '<td style="padding:4px;text-align:center;">' + typeBadge(r.campaignType) + '</td>'
+    + '<td style="padding:4px;text-align:center;">' + rankBadge(r.qualRank) + '</td>'
+    + '<td style="padding:4px;text-align:center;">' + rankBadge(r.engRank) + '</td>'
+    + '<td style="padding:4px;text-align:center;">' + rankBadge(r.conRank) + '</td>'
+    + '</tr>';
 }).join('\n');
 
-var firstAdDays = getDaysActive(Object.keys(activationDates)[0]);
+// ── Prompt Bruno ───────────────────────────────────────────────────────
+function makeBrunoSection(ads, title) {
+  if (ads.length === 0) return '';
+  var hdr = '| Ad | Plat | Seg | Dias | Spend | CPM | Reach | CTR | ER | Hook% | Hold% | ThruPlay | IG Visits | FB Likes | Saves | CPS | Freq | QualRank | EngRank | Veredicto | Razon |';
+  var sep = '|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|';
+  var rows = ads.map(function(r) {
+    var tp = r.thruPlays > 0 ? r.thruPlayRate + '% (' + r.thruPlays + ')' : 'N/A';
+    return '| ' + r.adName + ' | ' + r.platform + ' | ' + r.segment
+      + ' | ' + r.daysActive + 'd'
+      + ' | $' + r.spend + ' | $' + r.cpm
+      + ' | ' + r.reach
+      + ' | ' + r.ctr + '% | ' + r.er + '%'
+      + ' | ' + (r.isVideoAd ? r.hookRate + '%' : '—')
+      + ' | ' + (r.isVideoAd && r.videoViews3s > 0 ? r.holdRate + '%' : '—')
+      + ' | ' + tp
+      + ' | ' + r.igProfileVisits
+      + ' | ' + r.fbLikes
+      + ' | ' + r.saves
+      + ' | ' + r.cps + ' | ' + r.frequency
+      + ' | ' + r.qualRank + ' | ' + r.engRank
+      + ' | ' + r.verdict + ' | ' + r.reason + ' |';
+  }).join('\n');
+  return '\n### ' + title + '\n\n' + hdr + '\n' + sep + '\n' + rows + '\n';
+}
+
+// Tabla segmentos Cold/Retarget × FB/IG
+var segTableLines = ['| Segmento | Spend | Follows/Likes | Visits IG | CPF/CPV |',
+                     '|---|---|---|---|---|'];
+Object.keys(segmentStats).sort().forEach(function(key) {
+  var s = segmentStats[key];
+  var cpf = s.follows > 0 ? '$' + Math.round(s.spend / s.follows) : '—';
+  var cpv = s.visits > 0 && s.platform === 'IG' ? '$' + Math.round(s.spend / s.visits) : '—';
+  segTableLines.push('| ' + s.platform + ' ' + s.segment
+    + ' | $' + s.spend + ' | ' + s.follows + ' | ' + s.visits
+    + ' | ' + (s.platform === 'FB' ? cpf : cpv) + ' |');
+});
+
+// ENG D4 context
+var engThruTotal = engAds.reduce(function(s, r) { return s + r.thruPlays; }, 0);
+var d4Context = engThruTotal > 0
+  ? '\n### D4 Custom Audience (Video Viewers)\n'
+    + engThruTotal.toLocaleString() + ' ThruPlays acumulados en ENG. '
+    + 'D4 debería tener volumen para warm retargeting. '
+    + 'Verificar en Ads Manager → Audiences → D4 Video Viewers.\n'
+    + 'Los ENG reels tienen valor estratégico aunque no generen follows directos: '
+    + 'alimentan la custom audience que baja el CPF en Follow FB Retarget.\n'
+  : '';
+
+// Follower summary para prompt
+var followerSummary = '';
+if (fbFollowersNow !== null || igFollowersNow !== null) {
+  followerSummary = '\n## Estado de seguidores (API en tiempo real)\n';
+  if (fbFollowersNow !== null) {
+    followerSummary += '| Plataforma | Ahora | Baseline 22/04 | Nuevos |\n';
+    followerSummary += '|---|---|---|---|\n';
+    followerSummary += '| Facebook | ' + fbFollowersNow + ' | ' + CAMPAIGN_BASELINE_FB + ' | +' + (fbFollowersNow - CAMPAIGN_BASELINE_FB) + ' |\n';
+    if (igFollowersNow !== null) {
+      followerSummary += '| Instagram | ' + igFollowersNow + ' | ' + CAMPAIGN_BASELINE_IG + ' | +' + (igFollowersNow - CAMPAIGN_BASELINE_IG) + ' |\n';
+    }
+  }
+  if (igFollowRate !== null) {
+    followerSummary += '\n⚠ **Follow rate IG**: ' + igNetNew + ' nuevos IG / ' + totalIgVisits + ' profile visits = **' + igFollowRate + '%**'
+      + ' (benchmark 15–35%). '
+      + (parseFloat(igFollowRate) < 10 ? '🔴 Perfil no convierte — revisar bio, grid y highlights antes de escalar Follow IG.' : '✅ Conversión aceptable.')
+      + '\n';
+  }
+}
+
+// Burn rate para prompt
+var burnSummary = '\n## Presupuesto y burn rate\n'
+  + '| | |\n|---|---|\n'
+  + '| Presupuesto total | $' + CAMPAIGN_BUDGET_TOTAL.toLocaleString() + ' |\n'
+  + '| Gastado (acumulado) | $' + totalSpend.toLocaleString() + ' |\n'
+  + '| Restante | $' + Math.round(budgetRemaining).toLocaleString() + ' |\n'
+  + '| Burn rate (promedio/día) | $' + burnRateDaily.toLocaleString() + ' |\n'
+  + '| Días restantes del plan | ' + daysToEnd + ' (hasta 16/05) |\n'
+  + '| Días de presupuesto al ritmo actual | ' + daysAtBurn + ' |\n'
+  + (budgetRisk
+    ? '\n🔴 **RIESGO PRESUPUESTO**: al ritmo actual ($' + burnRateDaily.toLocaleString() + '/día), el presupuesto se agota el '
+      + exhaustStr + ' — **' + (daysToEnd - daysAtBurn) + ' días antes del cierre del plan**. '
+      + 'Para llegar al 16/05 el budget diario máximo es $' + Math.round(budgetRemaining / daysToEnd).toLocaleString() + '/día.\n'
+    : '\n✅ Presupuesto alcanza hasta el final del plan y más.\n');
 
 var brunoPrompt = 'Contexto REDES. Carga /bruno.\n\n'
   + 'Reporte automatico Meta Ads — ' + todayStr + '.\n'
-  + 'Campana ENBA activa desde 19/04/2026. Dia ' + firstAdDays + ' de 27.\n'
-  + 'Spend total: $' + totalSpend.toLocaleString() + ' | Follows totales: ' + totalFollows + ' | Reach total: ' + totalReach.toLocaleString() + '\n\n'
-  + '## Datos de rendimiento (lifetime)\n\n'
-  + promptTableHeader + '\n' + promptTableSep + '\n' + promptTableRows + '\n\n'
-  + '## Reglas del plan v3 (presupuesto-v3-final.md)\n'
-  + '- CORTAR: CPS > $100 o ER < 1% o CTR < 0.4%\n'
-  + '- WINNER: CPS < $30 + ER > 3%\n'
-  + '- FATIGUE: Frecuencia > 3.5\n'
-  + '- MAX: > 14 dias\n'
-  + '- Escalar WINNER: +25% cada 48h, triple scale si win 5 dias\n\n'
+  + 'Campana ENBA activa desde 19/04/2026. Dia ' + dayRef + ' de ' + CAMPAIGN_TOTAL_DAYS + '.\n'
+  + 'Spend total: $' + totalSpend.toLocaleString()
+  + ' | CPM blended: $' + (blendedCPM || '—')
+  + ' | Reach: ' + totalReach.toLocaleString()
+  + ' | ThruPlays: ' + totalThruPlays.toLocaleString()
+  + ' | Saves: ' + totalSaves
+  + '\n'
+  + followerSummary
+  + burnSummary
+  + '\n## Resumen por segmento — Follow Plan\n'
+  + segTableLines.join('\n') + '\n'
+  + '\n## Benchmarks 2026\n'
+  + '- CPM IG/FB Argentina: $30–$80 normal, < $30 excelente, > $120 problema\n'
+  + '- Hook Rate (3s views / impressions): > 25% bueno, > 40% excelente\n'
+  + '- Hold Rate (thruplay / 3s views): > 25% bueno, > 40% excelente\n'
+  + '- CTR micro-video 15s FB: 3–8% normal, > 10% excepcional\n'
+  + '- CPF cuentas nuevas Argentina: $80–$300 rango normal\n'
+  + '- Follow rate (visit→follow): 15–35% benchmark cuentas nuevas\n'
+  + '- Quality Ranking ABOVE_AVERAGE = top 55%; AVERAGE = ok; BELOW_AVERAGE = problema creativo o saturación\n'
+  + '\n## Datos por objetivo\n'
+  + makeBrunoSection(followAds, 'FOLLOW Plan (objetivo: visitas perfil IG + page likes FB)')
+  + makeBrunoSection(engAds,    'ENGAGEMENT (objetivo: post engagement, ThruPlay, construye D4)')
+  + makeBrunoSection(awrAds,    'AWARENESS (objetivo: reach)')
+  + d4Context
+  + '\n## Reglas plan v4\n'
+  + '- CORTAR (72h+): CPS > $100 o ER < 1% o CTR < 0.4%\n'
+  + '- WINNER (72h+): CPS < $30 + ER > 3%\n'
+  + '- FATIGUE: Frecuencia > 3.5 · MAX: > 14 dias\n'
+  + '- Escalar WINNER: +25% cada 48h, triple scale si win 5 dias\n'
+  + '- Gate 1 dia 6 (25/04): follows>30, ThruPlays>500/dia\n'
+  + '- Gate 2 dia 10 (29/04): follows>200, ER>3%, CPS<$80\n\n'
   + '## Tu tarea\n'
   + '1. Confirma o corregi cada veredicto automatico\n'
-  + '2. Propone acciones: que apagar, escalar, rotar\n'
-  + '3. Si hay WINNERS, propone escalado\n'
-  + '4. Si hay FATIGUE_WARNING, propone reemplazo antes de dia 14\n'
-  + '5. Revisa split IG/FB y propone ajuste si corresponde\n\n'
+  + '2. Propone acciones: pausar, escalar, rotar — con impacto presupuestario\n'
+  + '3. Evalua el riesgo de presupuesto si hay alerta de burn rate\n'
+  + '4. Analiza follow rate IG si hay datos (benchmark 15-35%)\n'
+  + '5. Video ads: Hook Rate < 15% = problema de gancho; Hold Rate < 20% = problema de retención\n'
+  + '6. Quality Rankings BELOW_AVERAGE = señal de fatiga creativa o mismatch de audiencia\n'
+  + '7. Evalua D4 audience y si ya tiene volumen para warm retargeting\n'
+  + '8. Segmento Cold vs Retarget: comparar CPF entre segmentos del mismo canal\n\n'
   + 'Entrega tu analisis y espera aprobacion antes de ejecutar.';
 
-// HTML completo
+// ── HTML email ─────────────────────────────────────────────────────────
+var diagLines = Object.keys(diagActionTypes).sort().map(function(k) {
+  return k + ': ' + diagActionTypes[k];
+});
+
+// Alerta presupuesto (banner en email)
+var budgetBanner = '';
+if (budgetRisk) {
+  budgetBanner = '<div style="background:#fef2f2;border:2px solid #dc2626;border-radius:6px;padding:10px 14px;margin:12px 0;">'
+    + '<b style="color:#dc2626;">⚠ RIESGO PRESUPUESTO:</b>'
+    + ' Burn rate $' + burnRateDaily.toLocaleString() + '/día · Presupuesto restante $' + Math.round(budgetRemaining).toLocaleString()
+    + ' · Se agota el <b>' + exhaustStr + '</b>'
+    + ' (' + (daysToEnd - daysAtBurn) + ' días antes del 16/05)'
+    + ' · Budget diario máximo para llegar al fin: <b>$' + Math.round(budgetRemaining / daysToEnd).toLocaleString() + '/día</b>'
+    + '</div>';
+}
+
+// Panel follower counts
+var followerPanel = '';
+if (fbFollowersNow !== null || igFollowersNow !== null) {
+  var followRateHtml = igFollowRate !== null
+    ? ' &middot; Follow rate IG: <b style="color:' + (parseFloat(igFollowRate) < 10 ? '#dc2626' : '#16a34a') + ';">' + igFollowRate + '%</b>'
+      + ' <span style="color:#6b7280;font-size:10px;">(bench 15–35%)</span>'
+    : '';
+  followerPanel = '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:8px 14px;margin:8px 0;font-size:12px;">'
+    + '👥 <b>Seguidores ahora:</b>'
+    + (fbFollowersNow !== null ? ' FB <b>' + fbFollowersNow + '</b> (+' + (fbFollowersNow - CAMPAIGN_BASELINE_FB) + ' desde 22/04)' : '')
+    + (igFollowersNow !== null ? ' &middot; IG <b>' + igFollowersNow + '</b> (+' + (igFollowersNow - CAMPAIGN_BASELINE_IG) + ' desde 22/04)' : '')
+    + followRateHtml
+    + '</div>';
+}
+
+var followDisplay = totalIgFollows > 0
+  ? 'IG F:' + totalIgFollows + ' FB L:' + totalFbLikes
+  : 'IG V:' + totalIgVisits + ' FB L:' + totalFbLikes;
+var subject = '[ENBA Ads] ' + todayStr
+  + ' | ' + summaryStr
+  + ' | $' + totalSpend.toLocaleString()
+  + ' | ' + followDisplay
+  + ' | Saves:' + totalSaves
+  + (budgetRisk ? ' | ⚠BURN' : '');
+
 var html = '<!DOCTYPE html><html><head><meta charset="utf-8"></head>'
-  + '<body style="font-family:Arial,sans-serif;max-width:960px;margin:0 auto;padding:16px;">'
+  + '<body style="font-family:Arial,sans-serif;max-width:1200px;margin:0 auto;padding:16px;">'
   + '<h2 style="color:#1e293b;margin-bottom:4px;">ENBA Meta Ads — Reporte Diario</h2>'
-  + '<p style="color:#64748b;margin-top:4px;">Fecha: ' + todayStr + ' &middot; Dia ' + firstAdDays + ' de 27 &middot; Spend: $' + totalSpend.toLocaleString() + ' &middot; Follows: ' + totalFollows + ' &middot; Reach: ' + totalReach.toLocaleString() + '</p>'
-  + '<p style="font-size:18px;font-weight:bold;color:#1e293b;">' + summaryStr + '</p>'
-  + '<table style="border-collapse:collapse;width:100%;font-size:12px;margin-top:12px;">'
+  + '<p style="color:#64748b;margin-top:4px;font-size:13px;">'
+  + 'Fecha: ' + todayStr + ' &middot; Dia ' + dayRef + ' de ' + CAMPAIGN_TOTAL_DAYS
+  + ' &middot; Spend: $' + totalSpend.toLocaleString()
+  + ' &middot; CPM: <b>$' + (blendedCPM || '—') + '</b>'
+  + ' &middot; IG Visits: <b>' + totalIgVisits + '</b>'
+  + ' &middot; FB Likes: <b>' + totalFbLikes + '</b>'
+  + ' &middot; Saves: <b>' + totalSaves + '</b>'
+  + ' &middot; CPS blended: <b>' + (blendedCPS !== null ? '$' + blendedCPS : '—') + '</b>'
+  + ' &middot; Reach: ' + totalReach.toLocaleString() + '</p>'
+  + '<p style="font-size:15px;font-weight:bold;color:#1e293b;">' + summaryStr + '</p>'
+  + followerPanel
+  + budgetBanner
+  // Tabla principal
+  + '<div style="overflow-x:auto;">'
+  + '<table style="border-collapse:collapse;width:100%;font-size:11px;margin-top:12px;">'
   + '<thead><tr style="background:#f1f5f9;border-bottom:2px solid #cbd5e1;">'
-  + '<th style="padding:6px 8px;text-align:left;">Ad</th>'
-  + '<th style="padding:6px;">Dias</th>'
-  + '<th style="padding:6px;text-align:right;">Spend</th>'
-  + '<th style="padding:6px;text-align:right;">Reach</th>'
-  + '<th style="padding:6px;">Freq</th>'
-  + '<th style="padding:6px;">CTR</th>'
-  + '<th style="padding:6px;">ER</th>'
-  + '<th style="padding:6px;text-align:right;">Eng</th>'
-  + '<th style="padding:6px;text-align:right;">Follows</th>'
-  + '<th style="padding:6px;text-align:right;">CPS</th>'
-  + '<th style="padding:6px;">Veredicto</th>'
-  + '<th style="padding:6px;">Razon</th>'
+  + '<th style="padding:5px 8px;text-align:left;">Ad</th>'
+  + '<th>Tipo</th><th>Plat</th><th>Seg</th><th>Dias</th>'
+  + '<th style="text-align:right;">Spend</th>'
+  + '<th style="text-align:right;color:#6b7280;">CPM</th>'
+  + '<th style="text-align:right;">Reach</th>'
+  + '<th>CTR</th><th>ER</th><th>Freq</th>'
+  + '<th style="color:#7c3aed;">ThruPly</th>'
+  + '<th style="color:#0891b2;">Hook%</th>'
+  + '<th style="color:#0891b2;">Hold%</th>'
+  + '<th style="color:#059669;">Saves</th>'
+  + '<th>Follows/V</th>'
+  + '<th style="text-align:right;">CPS</th>'
+  + '<th>Veredicto</th><th>Razon</th>'
   + '</tr></thead><tbody>\n'
   + tableRows
-  + '\n</tbody></table>'
-  + '<hr style="margin:24px 0;border:1px solid #e5e7eb;">'
+  + '\n</tbody></table></div>'
+  // Quality Rankings
+  + '<hr style="margin:20px 0;border:1px solid #e5e7eb;">'
+  + '<h3 style="color:#1e293b;font-size:13px;margin-bottom:8px;">Calidad del Anuncio vs Competencia</h3>'
+  + '<p style="font-size:11px;color:#64748b;margin-bottom:8px;">'
+  + '<b>▲ TOP</b> = top 55% &middot; <b>≈ AVG</b> = promedio &middot; <b>▼</b> = señal de problema creativo o saturación.</p>'
+  + '<table style="border-collapse:collapse;font-size:11px;">'
+  + '<thead><tr style="background:#f1f5f9;">'
+  + '<th style="padding:4px 8px;text-align:left;">Ad</th>'
+  + '<th>Tipo</th><th>Calidad</th><th>Engagement</th><th>Conversión</th>'
+  + '</tr></thead><tbody>\n'
+  + qualityRows + '\n</tbody></table>'
+  // Diagnóstico
+  + '<hr style="margin:20px 0;border:1px solid #e5e7eb;">'
+  + '<details><summary style="cursor:pointer;font-size:12px;color:#7c3aed;font-weight:bold;">Diagnóstico: action_types disponibles (expandir)</summary>'
+  + '<pre style="font-size:10px;background:#f8fafc;padding:12px;border-radius:4px;border:1px solid #e2e8f0;max-height:200px;overflow-y:auto;">'
+  + diagLines.join('\n') + '</pre></details>'
+  // Prompt Bruno
+  + '<hr style="margin:20px 0;border:1px solid #e5e7eb;">'
   + '<h3 style="color:#1e293b;">Prompt para Bruno</h3>'
-  + '<p style="color:#64748b;font-size:12px;">Copia y pega esto en Claude Code para que Bruno analice:</p>'
-  + '<pre style="background:#f8fafc;padding:16px;border-radius:8px;font-size:11px;overflow-x:auto;white-space:pre-wrap;border:1px solid #e2e8f0;">'
+  + '<p style="color:#64748b;font-size:12px;">Copia y pega en Claude Code:</p>'
+  + '<pre style="background:#f8fafc;padding:16px;border-radius:8px;font-size:10px;overflow-x:auto;white-space:pre-wrap;border:1px solid #e2e8f0;">'
   + brunoPrompt.replace(/</g, '&lt;').replace(/>/g, '&gt;')
   + '</pre>'
-  + '<hr style="margin:24px 0;border:1px solid #e5e7eb;">'
-  + '<p style="color:#94a3b8;font-size:10px;">Generado por ENBA Ads Evaluation Workflow &middot; ' + new Date().toISOString() + '</p>'
+  + '<p style="color:#94a3b8;font-size:10px;margin-top:16px;">ENBA Ads Evaluation Workflow v4 &middot; ' + new Date().toISOString() + '</p>'
   + '</body></html>';
 
-return [{ json: { subject: subject, html: html, brunoPrompt: brunoPrompt, totalSpend: totalSpend, totalFollows: totalFollows, adsCount: results.length, summaryStr: summaryStr } }];
+return [{ json: {
+  subject: subject, html: html, brunoPrompt: brunoPrompt,
+  totalSpend: totalSpend, totalIgFollows: totalIgFollows,
+  totalIgVisits: totalIgVisits, totalFbLikes: totalFbLikes,
+  totalSaves: totalSaves, blendedCPM: blendedCPM,
+  blendedCPS: blendedCPS, burnRateDaily: burnRateDaily,
+  budgetRemaining: Math.round(budgetRemaining), budgetRisk: budgetRisk,
+  fbFollowersNow: fbFollowersNow, igFollowersNow: igFollowersNow,
+  igFollowRate: igFollowRate,
+  adsCount: results.length, summaryStr: summaryStr,
+  diagActionTypes: diagActionTypes
+} }];

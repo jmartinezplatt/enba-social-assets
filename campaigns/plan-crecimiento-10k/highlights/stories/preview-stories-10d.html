@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preview Stories 10 Días — ENBA</title>
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@600;700&family=Barlow+Semi+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0A1520;
+    color: #E8EDF2;
+    font-family: 'Barlow Semi Condensed', Arial, sans-serif;
+    padding: 48px 40px;
+  }
+
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 48px;
+    gap: 32px;
+  }
+  .header-left h1 {
+    font-family: 'Teko', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    line-height: 1;
+  }
+  .header-left .subtitle {
+    font-size: 17px;
+    color: rgba(232,237,242,0.6);
+    margin-top: 8px;
+    letter-spacing: 0.5px;
+  }
+  .header-stats {
+    display: flex;
+    gap: 24px;
+    flex-shrink: 0;
+  }
+  .stat {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 12px;
+    padding: 16px 24px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Teko', sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: #FFFFFF;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 13px;
+    color: rgba(232,237,242,0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+  .periodo {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 14px;
+    color: rgba(232,237,242,0.55);
+    margin-bottom: 40px;
+    display: flex;
+    gap: 32px;
+  }
+  .periodo span { color: rgba(232,237,242,0.85); }
+
+  /* Day groups */
+  .day-block {
+    margin-bottom: 40px;
+  }
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .day-badge {
+    font-family: 'Teko', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(232,237,242,0.40);
+    white-space: nowrap;
+  }
+  .day-line {
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .stories-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .story-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .story-card:hover { border-color: rgba(255,255,255,0.20); }
+
+  .story-img-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 9/16;
+    background: #0d1e2e;
+    overflow: hidden;
+  }
+  .story-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .slot-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(10,21,32,0.75);
+    backdrop-filter: blur(4px);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+  }
+  .seq-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(10,21,32,0.75);
+    backdrop-filter: blur(4px);
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-family: 'Teko', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: rgba(232,237,242,0.7);
+  }
+
+  .story-meta {
+    padding: 16px 18px 20px;
+  }
+  .story-time {
+    font-size: 12px;
+    color: rgba(232,237,242,0.40);
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .story-category {
+    font-family: 'Teko', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .story-caption {
+    font-size: 14px;
+    color: rgba(232,237,242,0.65);
+    line-height: 1.4;
+  }
+
+  /* Category accent colors */
+  .cat-travesias  { color: #2E817D; }
+  .cat-paseos     { color: #4DB8A0; }
+  .cat-broker     { color: #D4A843; }
+  .cat-escuela    { color: #3A9FD4; }
+  .cat-services   { color: #2E817D; }
+  .cat-quienes    { color: #D4A843; }
+
+  .footer {
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .footer-note {
+    font-size: 14px;
+    color: rgba(232,237,242,0.40);
+    max-width: 600px;
+    line-height: 1.5;
+  }
+  .footer-note strong { color: rgba(232,237,242,0.70); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>Stories 10 Días</h1>
+    <div class="subtitle">Fase 2 — Preview para aprobación · 30 stories · 3 por día · 6 categorías</div>
+  </div>
+  <div class="header-stats">
+    <div class="stat">
+      <div class="stat-num">30</div>
+      <div class="stat-label">Stories</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">10</div>
+      <div class="stat-label">Días</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Slots / día</div>
+    </div>
+  </div>
+</div>
+
+<div class="periodo">
+  <div>Período: <span>24 abr → 3 may 2026</span></div>
+  <div>Horarios: <span>9:00 · 14:00 · 20:00 ART</span></div>
+  <div>Plataforma: <span>Instagram Stories</span></div>
+  <div>Distribución: <span>Travesías · Paseos · Broker · Escuela · Services · ¿Quiénes somos?</span></div>
+</div>
+
+<!-- Day 1 -->
+<div class="day-block">
+  <div class="day-header">
+    <div class="day-badge">Día 1 — Jue 24 abr</div>
+    <div class="day-line"></div>
+  </div>
+  <div class="stories-row">
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/travesias-f2-01.png" alt="">
+        <div class="slot-badge">Mañana</div>
+        <div class="seq-badge">#1</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">09:00 ART</div>
+        <div class="story-category cat-travesias">Travesías</div>
+        <div class="story-caption">El Delta del Paraná, a pocas horas de BA.</div>
+      </div>
+    </div>
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/paseos-f2-01.png" alt="">
+        <div class="slot-badge">Tarde</div>
+        <div class="seq-badge">#2</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">14:00 ART</div>
+        <div class="story-category cat-paseos">Paseos</div>
+        <div class="story-caption">Invitá a tu gente. El río está esperando.</div>
+      </div>
+    </div>
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/broker-f2-01.png" alt="">
+        <div class="slot-badge">Noche</div>
+        <div class="seq-badge">#3</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">20:00 ART</div>
+        <div class="story-category cat-broker">Broker</div>
+        <div class="story-caption">¿Soñás con tu propio velero?</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Day 2 -->
+<div class="day-block">
+  <div class="day-header">
+    <div class="day-badge">Día 2 — Vie 25 abr</div>
+    <div class="day-line"></div>
+  </div>
+  <div class="stories-row">
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/escuela-f2-01.png" alt="">
+        <div class="slot-badge">Mañana</div>
+        <div class="seq-badge">#4</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">09:00 ART</div>
+        <div class="story-category cat-escuela">Escuela</div>
+        <div class="story-caption">Maniobras reales desde el primer día.</div>
+      </div>
+    </div>
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/services-f2-01.png" alt="">
+        <div class="slot-badge">Tarde</div>
+        <div class="seq-badge">#5</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">14:00 ART</div>
+        <div class="story-category cat-services">Services</div>
+        <div class="story-caption">Equipo propio. Trabajo a conciencia.</div>
+      </div>
+    </div>
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/quienes-f2-01.png" alt="">
+        <div class="slot-badge">Noche</div>
+        <div class="seq-badge">#6</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">20:00 ART</div>
+        <div class="story-category cat-quienes">¿Quiénes somos?</div>
+        <div class="story-caption">Navegamos, enseñamos, cuidamos tu barco.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Day 3 -->
+<div class="day-block">
+  <div class="day-header">
+    <div class="day-badge">Día 3 — Sáb 26 abr</div>
+    <div class="day-line"></div>
+  </div>
+  <div class="stories-row">
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/travesias-f2-02.png" alt="">
+        <div class="slot-badge">Mañana</div>
+        <div class="seq-badge">#7</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">09:00 ART</div>
+        <div class="story-category cat-travesias">Travesías</div>
+        <div class="story-caption">Martín García: la isla del río.</div>
+      </div>
+    </div>
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/paseos-f2-02.png" alt="">
+        <div class="slot-badge">Tarde</div>
+        <div class="seq-badge">#8</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">14:00 ART</div>
+        <div class="story-category cat-paseos">Paseos</div>
+        <div class="story-caption">Una tarde diferente en familia.</div>
+      </div>
+    </div>
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/broker-f2-02.png" alt="">
+        <div class="slot-badge">Noche</div>
+        <div class="seq-badge">#9</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">20:00 ART</div>
+        <div class="story-category cat-broker">Broker</div>
+        <div class="story-caption">El próximo velero puede ser tuyo.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Day 4 -->
+<div class="day-block">
+  <div class="day-header">
+    <div class="day-badge">Día 4 — Dom 27 abr</div>
+    <div class="day-line"></div>
+  </div>
+  <div class="stories-row">
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/escuela-f2-02.png" alt="">
+        <div class="slot-badge">Mañana</div>
+        <div class="seq-badge">#10</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">09:00 ART</div>
+        <div class="story-category cat-escuela">Escuela</div>
+        <div class="story-caption">Aprendés navegando, no leyendo.</div>
+      </div>
+    </div>
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/services-f2-02.png" alt="">
+        <div class="slot-badge">Tarde</div>
+        <div class="seq-badge">#11</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">14:00 ART</div>
+        <div class="story-category cat-services">Services</div>
+        <div class="story-caption">Casco, quilla y obra viva en condiciones.</div>
+      </div>
+    </div>
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/quienes-f2-02.png" alt="">
+        <div class="slot-badge">Noche</div>
+        <div class="seq-badge">#12</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">20:00 ART</div>
+        <div class="story-category cat-quienes">¿Quiénes somos?</div>
+        <div class="story-caption">El Río de la Plata es nuestro lugar.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Day 5 -->
+<div class="day-block">
+  <div class="day-header">
+    <div class="day-badge">Día 5 — Lun 28 abr</div>
+    <div class="day-line"></div>
+  </div>
+  <div class="stories-row">
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/travesias-f2-03.png" alt="">
+        <div class="slot-badge">Mañana</div>
+        <div class="seq-badge">#13</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">09:00 ART</div>
+        <div class="story-category cat-travesias">Travesías</div>
+        <div class="story-caption">Fondear y quedarse a dormir bajo las estrellas.</div>
+      </div>
+    </div>
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/paseos-f2-03.png" alt="">
+        <div class="slot-badge">Tarde</div>
+        <div class="seq-badge">#14</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">14:00 ART</div>
+        <div class="story-category cat-paseos">Paseos</div>
+        <div class="story-caption">Tres horas en el río. Sin experiencia previa.</div>
+      </div>
+    </div>
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/broker-f2-03.png" alt="">
+        <div class="slot-badge">Noche</div>
+        <div class="seq-badge">#15</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">20:00 ART</div>
+        <div class="story-category cat-broker">Broker</div>
+        <div class="story-caption">Compramos y vendemos con criterio náutico.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Day 6 -->
+<div class="day-block">
+  <div class="day-header">
+    <div class="day-badge">Día 6 — Mar 29 abr</div>
+    <div class="day-line"></div>
+  </div>
+  <div class="stories-row">
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/escuela-f2-03.png" alt="">
+        <div class="slot-badge">Mañana</div>
+        <div class="seq-badge">#16</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">09:00 ART</div>
+        <div class="story-category cat-escuela">Escuela</div>
+        <div class="story-caption">En todas las condiciones. Eso se aprende.</div>
+      </div>
+    </div>
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/services-f2-03.png" alt="">
+        <div class="slot-badge">Tarde</div>
+        <div class="seq-badge">#17</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">14:00 ART</div>
+        <div class="story-category cat-services">Services</div>
+        <div class="story-caption">Tu embarcación siempre lista para navegar.</div>
+      </div>
+    </div>
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/quienes-f2-03.png" alt="">
+        <div class="slot-badge">Noche</div>
+        <div class="seq-badge">#18</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">20:00 ART</div>
+        <div class="story-category cat-quienes">¿Quiénes somos?</div>
+        <div class="story-caption">Antes de cada salida, estamos con vos.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Day 7 -->
+<div class="day-block">
+  <div class="day-header">
+    <div class="day-badge">Día 7 — Mié 30 abr</div>
+    <div class="day-line"></div>
+  </div>
+  <div class="stories-row">
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/travesias-f2-04.png" alt="">
+        <div class="slot-badge">Mañana</div>
+        <div class="seq-badge">#19</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">09:00 ART</div>
+        <div class="story-category cat-travesias">Travesías</div>
+        <div class="story-caption">Navegar en flota. Una experiencia única.</div>
+      </div>
+    </div>
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/paseos-f2-04.png" alt="">
+        <div class="slot-badge">Tarde</div>
+        <div class="seq-badge">#20</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">14:00 ART</div>
+        <div class="story-category cat-paseos">Paseos</div>
+        <div class="story-caption">El skyline de Buenos Aires desde cubierta.</div>
+      </div>
+    </div>
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/broker-f2-04.png" alt="">
+        <div class="slot-badge">Noche</div>
+        <div class="seq-badge">#21</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">20:00 ART</div>
+        <div class="story-category cat-broker">Broker</div>
+        <div class="story-caption">Tu barco ideal, en el lugar correcto.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Day 8 -->
+<div class="day-block">
+  <div class="day-header">
+    <div class="day-badge">Día 8 — Jue 1 may</div>
+    <div class="day-line"></div>
+  </div>
+  <div class="stories-row">
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/escuela-f2-04.png" alt="">
+        <div class="slot-badge">Mañana</div>
+        <div class="seq-badge">#22</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">09:00 ART</div>
+        <div class="story-category cat-escuela">Escuela</div>
+        <div class="story-caption">Rumbo propio. Con brújula incluida.</div>
+      </div>
+    </div>
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/services-f2-04.png" alt="">
+        <div class="slot-badge">Tarde</div>
+        <div class="seq-badge">#23</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">14:00 ART</div>
+        <div class="story-category cat-services">Services</div>
+        <div class="story-caption">Varadero con experiencia náutica real.</div>
+      </div>
+    </div>
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/quienes-f2-04.png" alt="">
+        <div class="slot-badge">Noche</div>
+        <div class="seq-badge">#24</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">20:00 ART</div>
+        <div class="story-category cat-quienes">¿Quiénes somos?</div>
+        <div class="story-caption">Celebramos cada travesía completada.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Day 9 -->
+<div class="day-block">
+  <div class="day-header">
+    <div class="day-badge">Día 9 — Vie 2 may</div>
+    <div class="day-line"></div>
+  </div>
+  <div class="stories-row">
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/travesias-f2-05.png" alt="">
+        <div class="slot-badge">Mañana</div>
+        <div class="seq-badge">#25</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">09:00 ART</div>
+        <div class="story-category cat-travesias">Travesías</div>
+        <div class="story-caption">El Río de la Plata en todas sus caras.</div>
+      </div>
+    </div>
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/paseos-f2-05.png" alt="">
+        <div class="slot-badge">Tarde</div>
+        <div class="seq-badge">#26</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">14:00 ART</div>
+        <div class="story-category cat-paseos">Paseos</div>
+        <div class="story-caption">Mate, viento y río abierto.</div>
+      </div>
+    </div>
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/broker-f2-05.png" alt="">
+        <div class="slot-badge">Noche</div>
+        <div class="seq-badge">#27</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">20:00 ART</div>
+        <div class="story-category cat-broker">Broker</div>
+        <div class="story-caption">Consultá nuestro stock disponible.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Day 10 -->
+<div class="day-block">
+  <div class="day-header">
+    <div class="day-badge">Día 10 — Sáb 3 may</div>
+    <div class="day-line"></div>
+  </div>
+  <div class="stories-row">
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/escuela-f2-05.png" alt="">
+        <div class="slot-badge">Mañana</div>
+        <div class="seq-badge">#28</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">09:00 ART</div>
+        <div class="story-category cat-escuela">Escuela</div>
+        <div class="story-caption">Un equipo que aprende junto en el río.</div>
+      </div>
+    </div>
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/services-f2-05.png" alt="">
+        <div class="slot-badge">Tarde</div>
+        <div class="seq-badge">#29</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">14:00 ART</div>
+        <div class="story-category cat-services">Services</div>
+        <div class="story-caption">Mantenimiento integral, dentro y fuera.</div>
+      </div>
+    </div>
+    <div class="story-card">
+      <div class="story-img-wrap">
+        <img src="fase2/quienes-f2-05.png" alt="">
+        <div class="slot-badge">Noche</div>
+        <div class="seq-badge">#30</div>
+      </div>
+      <div class="story-meta">
+        <div class="story-time">20:00 ART</div>
+        <div class="story-category cat-quienes">¿Quiénes somos?</div>
+        <div class="story-caption">Costanera Norte, frente al Aeroparque.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-note">
+    <strong>Cómo usar este preview:</strong> Las imágenes se muestran directamente desde los PNGs locales. Una vez subido a Cloudflare Pages estará accesible en <code>enba-social-assets.pages.dev</code> para revisión remota.
+    El workflow n8n se activa solo después de tu aprobación explícita. Las stories se publican en la burbuja de 24h de IG Stories — la asignación a highlights es manual desde la app.
+  </div>
+</div>
+
+</body>
+</html>

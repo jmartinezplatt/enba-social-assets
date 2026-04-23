@@ -97,7 +97,8 @@ const sailIcon = (accent) => `
 
 function buildHTML(h) {
   const iconSvg = icons[h.icon].replaceAll("ACCENT", h.accent);
-  const labelSize = h.label.length > 12 ? 52 : h.label.length > 8 ? 62 : 74;
+  // Label domina — legible al tamaño thumbnail de highlight (~56px círculo en pantalla)
+  const labelSize = h.label.length > 12 ? 110 : h.label.length > 8 ? 140 : 170;
 
   return `<!DOCTYPE html>
 <html>
@@ -122,50 +123,51 @@ function buildHTML(h) {
   }
   .bg-glow {
     position: absolute;
-    width: 600px; height: 600px;
+    width: 700px; height: 700px;
     border-radius: 50%;
-    background: radial-gradient(circle, ${h.accent}18 0%, transparent 70%);
+    background: radial-gradient(circle, ${h.accent}22 0%, transparent 70%);
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
   }
   .sail-wrap {
-    margin-bottom: 32px;
-    opacity: 0.28;
+    position: absolute;
+    top: 60px;
+    opacity: 0.18;
+    z-index: 1;
   }
   .icon-wrap {
-    margin-bottom: 48px;
+    margin-bottom: 36px;
     position: relative;
     z-index: 2;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .icon-wrap svg {
+    width: 100px;
+    height: 100px;
   }
   .label {
     font-family: 'Teko', 'Bebas Neue', sans-serif;
     font-size: ${labelSize}px;
     font-weight: 700;
-    color: #E8EDF2;
-    letter-spacing: 4px;
+    color: #FFFFFF;
+    letter-spacing: 6px;
     text-transform: uppercase;
     text-align: center;
     line-height: 1;
     position: relative;
     z-index: 2;
     padding: 0 60px;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.5);
   }
   .accent-line {
-    width: 60px; height: 3px;
+    width: 80px; height: 4px;
     background: ${h.accent};
-    margin-top: 32px;
+    margin-top: 36px;
     border-radius: 2px;
-    position: relative;
-    z-index: 2;
-  }
-  .sub {
-    font-family: 'Barlow Semi Condensed', Arial, sans-serif;
-    font-size: 20px;
-    font-weight: 500;
-    color: rgba(232,237,242,0.45);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-top: 20px;
     position: relative;
     z-index: 2;
   }
@@ -178,7 +180,6 @@ function buildHTML(h) {
   <div class="icon-wrap">${iconSvg}</div>
   <div class="label">${h.label}</div>
   <div class="accent-line"></div>
-  <div class="sub">Espacio Náutico · Buenos Aires</div>
 </div>
 </body>
 </html>`;

@@ -306,7 +306,7 @@ Primer gasto real: 20/04 ~03:00 ART. Token META_ADS_USER_TOKEN migrado de User T
 | Test ad C3 en Follow Plan | ENBA_ad_corporativo_IG_Cold creado en ENBA_Follow_IG_Cold. Creative: grupo-cockpit-cielo-azul-4x5.jpg. CTA: VIEW_INSTAGRAM_PROFILE. En PENDING_REVIEW. | HECHO 22/04 |
 | package.json type:module | `"type": "module"` agregado — todos los .js del repo son ES modules | HECHO 22/04 |
 
-**Veredicto Marina perfil:** APROBADO (post-fixes). Bio ✓, highlights ✓, foto de perfil ✓.
+**Veredicto Marina perfil (22/04):** APROBADO (post-fixes). Bio ✓, highlights ✓, foto de perfil ✓.
 
 **Estado seguidores al cierre 22/04:**
 - IG: 10 seguidores (baseline 11 — posible baja orgánica)
@@ -317,6 +317,54 @@ Primer gasto real: 20/04 ~03:00 ART. Token META_ADS_USER_TOKEN migrado de User T
 - [ ] Monitorear ENBA_ad_corporativo_IG_Cold post PENDING_REVIEW
 - [ ] Investigar micro-reels $0 delivery (misma causa que onboarding o budget absorption)
 - [ ] Gate 1 check 25/04: follows >30, ThruPlays >500/dia
+
+---
+
+### Sesion 23/04 — Auditoría perfil IG + Plan reconciliado + Gate reactivación Follow IG
+
+**Contexto:** Día 4 pauta. Follow rate IG = 1.0% (915 visitas → 9 follows). Benchmark: 15-35%. Plan reconciliado Bruno/Experto ejecutado (8/8 OK). Follow IG pausado. Marina convocada para auditoría de perfil.
+
+**Hallazgos auditoría Marina 23/04:**
+- Highlights: covers subidos pero **sin contenido adentro** — peor que no tener highlights
+- Cover frames: bajo contraste fondo/texto, ilegibles a tamaño thumb
+- Grid: reels enterrados en fila 2-3, primera fila 100% estáticos
+- Stories: 0 activas al momento de la auditoría
+- Social proof: ~20 seguidores — fricción cognitiva para visitante frío
+
+**Acciones ejecutadas 23/04:**
+
+| Accion | Detalle | Owner | Estado |
+|--------|---------|-------|--------|
+| Reel "4 horas" fijado en cuadrícula principal IG | Acceso desde perfil → tres puntos → "Fijar en cuadrícula principal" | Jose | HECHO 23/04 |
+| Reel "primera vez" fijado en cuadrícula principal IG | Segundo post fijado | Jose | HECHO 23/04 |
+| Plan "Todo a Follows" pausado (ig_cold + ig_retarget) | 8/8 acciones via API: pausas + reducción AS_ENG_REEL $7,250→$3,000 + escala fb_cold $8,400→$10,920 | Claude (API) | HECHO 23/04 |
+| meta-ids.json actualizado | Nuevos estados post-plan reconciliado | Claude | HECHO 23/04 |
+
+**Plan de perfil IG — tareas pendientes (gate reactivación Follow IG):**
+
+| # | Tarea | Owner | Deadline | Verificación | Estado |
+|---|-------|-------|----------|--------------|--------|
+| P2 | Publicar stories diarias (≥1/día) | **Nico** | Desde hoy, permanente | Story activa antes de las 15:00 | ACTIVO — primera story publicada 23/04 |
+| P3 | Push manual: pedir follow IG a 80-100 contactos (clientes anteriores, equipo, conocidos) | **Jose** | 48h | Seguidores IG ≥ 100 | HECHO 23/04 — pendiente confirmar ≥100 seguidores |
+| P4 | Rediseño cover frames 6 highlights: mayor contraste, texto más grande, legible a thumb | **Dani** | 24h | Jose valida legibilidad en celular | HECHO 23/04 |
+| P5 | Cargar contenido real en los 6 highlights (mín. 3 stories por highlight) | **Dani + Jose** | 48h | Tocar cada highlight → hay stories | PENDIENTE |
+| P6 | Procedure diaria stories: si no hay story al mediodía → Nico publica antes de 15:00 | **Nico** | Permanente | Checklist diario | PENDIENTE |
+
+**Nota P3:** P1 (pin reel) ya HECHO. El push a contactos es condición necesaria para reactivar Follow IG — no hay pauta que compense <100 seguidores.
+
+**Gate reactivación Follow IG (Bruno monitorea):**
+- P4 y P5 completados
+- Seguidores IG ≥ 100 (P3 ejecutado)
+- Verificar follow rate 24h post-fixes
+- Si follow rate ≥ 10% → reactivar ig_cold al 50% del budget original ($6,300/día), revisar 48h
+
+**Procedimiento diario stories — Nico (permanente desde 23/04):**
+
+| Frecuencia | Contenido sugerido | Formato |
+|------------|-------------------|---------|
+| Mínimo 1/día | Clip reel del día / pieza feed publicada / foto asset-bank | Story con texto o música |
+| Ideal 2-3/día | Behind the scenes / testimonio / pregunta interactiva | Story nativa |
+| Cada viernes | Encuesta o pregunta sobre próxima salida | Story interactiva |
 
 **Publicacion organica 21/04:**
 - piece-07 "A veces unas horas en el rio cambian la semana" publicada IG+FB 12:15 ART via n8n. IG post ID 18120377908649051.
@@ -629,5 +677,5 @@ El plan esta disenado para que alguien pueda leerlo y saber exactamente que hace
 ---
 
 *Plan maestro producido por Manu (Coordinador de Produccion) — 15 de abril de 2026*
-*Actualizado: 22 de abril de 2026 (noche, cierre sesion) — perfil IG completado, 6 highlight covers subidos, test ad C3 follow plan, package.json type:module*
+*Actualizado: 23 de abril de 2026 — plan reconciliado Bruno/Experto ejecutado (8/8), auditoría perfil IG Marina, P1 hecho (pin reel), P2-P6 pendientes, gate reactivación Follow IG definido*
 *Fuentes: Bruno, Franco, Marina — Team 4, ENBA*
