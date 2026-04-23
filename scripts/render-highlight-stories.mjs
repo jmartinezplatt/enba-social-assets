@@ -202,10 +202,10 @@ async function render() {
       }
       const photoBase64 = (await fs.readFile(photoPath)).toString('base64');
       const html = buildStoryHTML(photoBase64, s.caption, hl.accent, hl.label);
-      const outFile = path.join(outDir, `${hl.slug}-story-0${i + 1}.png`);
+      const outFile = path.join(outDir, `${hl.slug}-story-0${i + 1}.jpg`);
       await page.setContent(html, { waitUntil: 'networkidle' });
       await page.waitForTimeout(600);
-      await page.screenshot({ path: outFile, type: 'png' });
+      await page.screenshot({ path: outFile, type: 'jpeg', quality: 92 });
       console.log(`  ✓ story-0${i + 1}: ${s.file}`);
       total++;
     }

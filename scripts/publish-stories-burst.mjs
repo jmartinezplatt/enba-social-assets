@@ -25,6 +25,7 @@ const logsDir    = path.join(repoRoot, 'logs');
 
 const BASE_URL   = 'https://enba-social-assets.pages.dev/campaigns/plan-crecimiento-10k/highlights/stories/';
 const INTERVAL_MS = 60 * 60 * 1000; // 1 hora
+const WEBHOOK_EMAIL_URL = 'https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier';
 
 // Leer tokens desde Windows User scope
 function getEnvVar(name) {
@@ -37,22 +38,13 @@ function getEnvVar(name) {
   } catch { return null; }
 }
 
-// Email via n8n webhook (patrón existente del workflow de publicación diaria)
+// Email via n8n Email Notifier webhook (workflow "ENBA - Email Notifier", ID yYnyrB7UI52Syf9x)
 async function sendEmail(subject, body) {
-  const N8N_KEY = getEnvVar('N8N_API_KEY');
-  if (!N8N_KEY) {
-    console.log('  [email] N8N_API_KEY no disponible — email omitido');
-    return;
-  }
-  // Usa el mismo endpoint SMTP del workflow de publicación diaria
   try {
-    const response = await fetch('https://espacionautico.app.n8n.cloud/webhook/enba-email-status', {
+    const response = await fetch(WEBHOOK_EMAIL_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${N8N_KEY}`
-      },
-      body: JSON.stringify({ subject, body, to: 'jmartinezplatt@gmail.com' })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ subject, body })
     });
     if (response.ok) {
       console.log(`  [email] Enviado: ${subject}`);
