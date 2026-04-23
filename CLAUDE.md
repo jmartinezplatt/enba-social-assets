@@ -270,6 +270,9 @@ Siempre usar el slash command correspondiente (`/bruno`, `/marina`, `/franco`, `
 7. No repetir en la caption lo que ya dicen los slides del carrusel
 8. Captions IG complementan emocionalmente; captions FB informan y contextualizan
 9. No asumir que push = deploy. Verificar Cloudflare Pages dashboard o hacer HEAD request a pages.dev después de cada push importante.
+10. No renderizar stories/imágenes para Meta API como PNG — Meta rechaza screenshots PNG de Playwright con error 36001/2207083. Siempre usar `type: 'jpeg', quality: 92`. (Incidente 23/04/2026)
+11. Cloudflare Pages deploya desde `main`, no desde ramas feature. Antes de usar una URL en Meta API: (1) mergear a main, (2) esperar que Cloudflare termine el deploy, (3) verificar `Content-Type: image/jpeg` con HEAD request — el SPA fallback devuelve HTML con HTTP 200 para rutas inexistentes, HTTP 200 solo no alcanza. (Incidente 23/04/2026)
+12. Nunca implementar procesos de publicación con intervalos como scripts locales con `setTimeout`. `setTimeout` sobrevive `kill` en Windows/Git Bash — causa procesos zombie y publicaciones duplicadas. Usar n8n para cualquier burst o publicación periódica. (Incidente 23/04/2026: stories #2 y #3 publicadas × 3 frente a seguidores reales)
 
 ---
 
@@ -286,6 +289,19 @@ Siempre usar el slash command correspondiente (`/bruno`, `/marina`, `/franco`, `
 7. Base URL: `https://espacionautico.app.n8n.cloud/api/v1/`
 8. **Timezone de n8n cloud = ART (UTC-3).** Las cron expressions se interpretan en hora argentina, NO en UTC. Para publicar a las 12:15 ART usar `15 12 * * *`, no `15 15 * * *`. Incidente 17-abr-2026: `15 15` disparó a las 15:15 ART (18:15 UTC), 3 horas tarde, causando publicación duplicada.
 9. Después de crear o editar un workflow vía API que tenga Schedule Trigger, hacer ciclo `active:false` → `active:true` (PATCH) para forzar re-registro del cron en el scheduler interno.
+
+---
+
+## Infraestructura n8n activa
+
+| Workflow | ID | Descripción | Estado |
+|---|---|---|---|
+| ENBA - Redes Publicación Diaria v7.2 | `MipwleZNu8EG5v6C` | Publicación feed IG+FB 12:15 ART, 34 nodos | Activo |
+| ENBA - Stories Burst (n8n) | `LBjxUFXarIPV2cIi` | Stories highlights #1-#24, 1 por hora :10 ART. Termina 24/04. | Activo |
+| ENBA - Email Notifier | `yYnyrB7UI52Syf9x` | Webhook `enba-email-notifier` → email Gmail ENBA | Activo |
+
+Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier`
+Body: `{ "subject": "...", "body": "..." }`
 
 ---
 

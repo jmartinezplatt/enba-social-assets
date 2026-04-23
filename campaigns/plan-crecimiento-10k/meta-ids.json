@@ -441,6 +441,35 @@
       "lesson": "Para cuentas nuevas de Meta Ads, el primer ad DEBE crearse desde la UI de Ads Manager, no por API."
     }
   },
+  "n8n_workflows": {
+    "publicacion_diaria": {
+      "id": "MipwleZNu8EG5v6C",
+      "name": "ENBA - Redes Publicación Diaria v7.2",
+      "description": "Publicación diaria feed IG+FB, 12:15 ART. 34 nodos. URLs en pages.dev.",
+      "status": "ACTIVE",
+      "created": "2026-04-15"
+    },
+    "stories_burst": {
+      "id": "LBjxUFXarIPV2cIi",
+      "name": "ENBA - Stories Burst (n8n)",
+      "description": "Publica stories highlights #4-#24, 1 por hora a los :10 ART. Story #1 publicada localmente 23/04 17:10 ART. Termina ~14:10 ART 24/04.",
+      "status": "ACTIVE",
+      "created": "2026-04-23",
+      "trigger": "10 * * * *",
+      "first_pending_seq": 4,
+      "story_1_published_at": "2026-04-23T17:10:46.026Z",
+      "manifest_url": "https://enba-social-assets.pages.dev/campaigns/plan-crecimiento-10k/highlights/stories/burst-manifest.json"
+    },
+    "email_notifier": {
+      "id": "yYnyrB7UI52Syf9x",
+      "name": "ENBA - Email Notifier",
+      "description": "Webhook enba-email-notifier — recibe {subject, body} y envía email a jmartinezplatt@gmail.com vía Gmail ENBA.",
+      "status": "ACTIVE",
+      "webhook_url": "https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier",
+      "credential": "HpJBfNd1BCHaLYfY",
+      "created": "2026-04-23"
+    }
+  },
   "errors_historical": "Errores de la ejecución original (16/04) archivados. Los ad sets con intereses inválidos fueron corregidos en una segunda pasada (phase_2_v2_run). Los ad sets de engagement sin promoted_object fueron reemplazados con versiones _v2 el 18/04.",
   "follow_plan": {
     "image_hashes": {

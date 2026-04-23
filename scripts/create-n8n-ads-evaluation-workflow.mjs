@@ -32,8 +32,8 @@ function buildWorkflow() {
   const evaluateCode = loadCodeNode('evaluate-ads.js');
 
   const insightsUrl = 'https://graph.facebook.com/v21.0/' + AD_ACCOUNT
-    + '/insights?level=ad&fields=ad_id,ad_name,impressions,reach,clicks,spend,actions,cost_per_action_type,ctr,frequency'
-    + '&date_preset=lifetime&limit=50';
+    + '/insights?level=ad&fields=ad_id,ad_name,campaign_id,created_time,impressions,reach,clicks,spend,actions,ctr,frequency,video_thruplay_watched_actions,instagram_profile_visits,quality_ranking,engagement_rate_ranking,conversion_rate_ranking'
+    + '&date_preset=maximum&limit=50';
 
   return {
     name: 'ENBA - Ads Evaluation Diaria 9:00',

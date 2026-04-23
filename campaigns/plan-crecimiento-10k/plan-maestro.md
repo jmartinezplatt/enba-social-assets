@@ -369,6 +369,46 @@ Primer gasto real: 20/04 ~03:00 ART. Token META_ADS_USER_TOKEN migrado de User T
 **Publicacion organica 21/04:**
 - piece-07 "A veces unas horas en el rio cambian la semana" publicada IG+FB 12:15 ART via n8n. IG post ID 18120377908649051.
 
+**Stories highlights — ejecutadas 23/04:**
+
+| Accion | Detalle | Estado |
+|--------|---------|--------|
+| Highlight covers rediseñados (P4) | labelSize 110-170px (vs 52-74px), icon reducido, contraste mejorado. `render-highlight-covers.mjs`. | HECHO 23/04 |
+| 24 stories de highlights renderizadas | 6 highlights × 4 stories = 24 JPEGs 1080×1920. `render-highlight-stories.mjs`. | HECHO 23/04 |
+| Push a contactos (P3) | Jose envió mensajes a ~80-100 contactos pidiendo follow IG. | HECHO 23/04 |
+| Story #1 publicada (burst local) | travesias-story-01.jpg publicada 23/04 ~17:10 ART. | HECHO 23/04 |
+| Stories #2 y #3 publicadas (triplicadas) | Processos zombie — ver incidentes abajo. | HECHO con incidente |
+| Burst migrado a n8n | Workflow "ENBA - Stories Burst (n8n)" (ID: LBjxUFXarIPV2cIi) activo. Publica stories #4–#24, una por hora a los :10 ART. | HECHO 23/04 |
+
+**Incidentes sesión 23/04:**
+
+| Incidente | Causa | Impacto | Fix |
+|-----------|-------|---------|-----|
+| Meta rechaza PNG (error 36001/2207083) | Playwright screenshots PNG tienen metadata que Meta API no puede parsear | Stories no publicaban en primera ejecución del burst | Renderizar como JPEG quality 92. Re-renderizar 54 stories. |
+| Cloudflare sirve HTML para rutas de rama no-main | Stories en rama `plan-crecimiento-10k`, Cloudflare deploya desde `main` — SPA fallback devuelve HTML con HTTP 200 | Meta API recibía HTML en vez de imagen — no alcanza con verificar HTTP 200 | Merge a main → push → verificar Content-Type: image/jpeg |
+| Stories #2 (paseos) y #3 (escuela) triplicadas | `setTimeout` (3.6M ms) sobrevivió `kill` en Windows/Git Bash — 3 instancias corriendo en paralelo publicaron la misma story 3 veces | Contenido duplicado frente a seguidores reales | Burst migrado a n8n. Regla permanente: nunca procesos de publicación con intervalos en scripts locales. |
+| Email webhook 404 | Burst script llamaba `enba-email-status` (inexistente) | Sin emails de status durante burst local | Creado workflow "ENBA - Email Notifier" (ID: yYnyrB7UI52Syf9x) con webhook `enba-email-notifier` |
+
+**Estado burst al cierre sesión 23/04:**
+- Story #1 (travesias-story-01.jpg): publicada 23/04 ~17:10 ART
+- Story #2 (paseos-story-01.jpg): publicada × 3 — agregar solo UNA al highlight Paseos, ignorar duplicados
+- Story #3 (escuela-story-01.jpg): publicada × 3 — agregar solo UNA al highlight Escuela, ignorar duplicados
+- Stories #4–#24: publicando vía n8n, 1 por hora a los :10 ART. Fin estimado ~14:10 ART 24/04.
+
+**Infraestructura n8n al cierre 23/04:**
+
+| Workflow | ID | Estado |
+|---|---|---|
+| ENBA - Redes Publicación Diaria v7.2 | MipwleZNu8EG5v6C | Activo |
+| ENBA - Stories Burst (n8n) | LBjxUFXarIPV2cIi | Activo — publicando #4-#24 |
+| ENBA - Email Notifier | yYnyrB7UI52Syf9x | Activo |
+
+**Pendientes próxima sesión:**
+- [ ] Agregar stories a highlights desde app IG (ventana 24h, o desde Archivo sin límite)
+- [ ] Para #2 (paseos) y #3 (escuela): agregar solo UNA copia al highlight, ignorar los duplicados
+- [ ] Fase 2 stories (3x diarias × 10 días): corregir `top: 72px → 200px` en template, re-renderizar 30 stories, luego ejecutar `create-n8n-stories-daily-workflow.mjs`
+- [ ] Gate reactivación Follow IG: P4 hecho, P5 pendiente (cargar contenido en highlights), seguidores IG ≥ 100, verificar follow rate 24h post-fixes
+
 ---
 
 ## 5. Timeline semana por semana — Semanas 2-4
@@ -677,5 +717,5 @@ El plan esta disenado para que alguien pueda leerlo y saber exactamente que hace
 ---
 
 *Plan maestro producido por Manu (Coordinador de Produccion) — 15 de abril de 2026*
-*Actualizado: 23 de abril de 2026 — plan reconciliado Bruno/Experto ejecutado (8/8), auditoría perfil IG Marina, P1 hecho (pin reel), P2-P6 pendientes, gate reactivación Follow IG definido*
+*Actualizado: 23 de abril de 2026 — plan reconciliado Bruno/Experto (8/8), auditoría perfil IG, highlights P4 rediseñados, 24 stories renderizadas y burst iniciado (stories #1-#3 publicadas, #4-#24 vía n8n LBjxUFXarIPV2cIi), incidentes PNG/Cloudflare/zombie documentados, infraestructura n8n activa documentada*
 *Fuentes: Bruno, Franco, Marina — Team 4, ENBA*
