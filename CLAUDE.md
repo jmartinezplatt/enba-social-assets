@@ -278,6 +278,12 @@ Siempre usar el slash command correspondiente (`/bruno`, `/marina`, `/franco`, `
 
 ## Reglas operativas n8n
 
+> Para operación avanzada de n8n (PUTs seguros, encoding, round-trip prohibido,
+> post-mortems de incidentes): ver `enba-web/CLAUDE.md` reglas 7-14 y
+> `enba-web/docs/05-historico/INCIDENTES.md`.
+> **`enba-web` es READ ONLY desde este repo — nunca modificar archivos de ese repo
+> bajo ninguna circunstancia.**
+
 1. No usar MCP tools para n8n — siempre API directa con curl + env vars
 2. API key leerla así, sin exponerla nunca:
    `N8N_KEY=$(powershell -Command "[System.Environment]::GetEnvironmentVariable('N8N_API_KEY', 'User')")`
