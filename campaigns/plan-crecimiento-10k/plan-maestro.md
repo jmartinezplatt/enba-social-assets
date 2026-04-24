@@ -718,4 +718,5 @@ El plan esta disenado para que alguien pueda leerlo y saber exactamente que hace
 
 *Plan maestro producido por Manu (Coordinador de Produccion) — 15 de abril de 2026*
 *Actualizado: 23 de abril de 2026 — plan reconciliado Bruno/Experto (8/8), auditoría perfil IG, highlights P4 rediseñados, 24 stories renderizadas y burst iniciado (stories #1-#3 publicadas, #4-#24 vía n8n LBjxUFXarIPV2cIi), incidentes PNG/Cloudflare/zombie documentados, infraestructura n8n activa documentada*
+*Actualizado: 24 de abril de 2026 — burst corregido y funcionando: credencial n8n faltaba `authentication: genericCredentialType` (Meta rechazaba token silenciosamente); email migrado de webhook a emailSend directo con Gmail ENBA (ExpressionExtensionError por `\n` literal en expresión). Stories #7 y #8 publicadas manualmente. Burst en curso: #10/24 con email de confirmación recibido. Credencial Meta: IGBqXMQRWJLxzh7f. Email: HpJBfNd1BCHaLYfY.*
 *Fuentes: Bruno, Franco, Marina — Team 4, ENBA*

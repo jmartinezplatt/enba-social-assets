@@ -303,7 +303,7 @@ Siempre usar el slash command correspondiente (`/bruno`, `/marina`, `/franco`, `
 | Workflow | ID | Descripción | Estado |
 |---|---|---|---|
 | ENBA - Redes Publicación Diaria v7.2 | `MipwleZNu8EG5v6C` | Publicación feed IG+FB 12:15 ART, 34 nodos | Activo |
-| ENBA - Stories Burst (n8n) | `LBjxUFXarIPV2cIi` | Stories highlights #1-#24, 1 por hora :10 ART. Termina 24/04. | Activo |
+| ENBA - Stories Burst (n8n) | `LBjxUFXarIPV2cIi` | Stories highlights #1-#24, 1 por hora :01 ART. Termina ~25/04. | Activo |
 | ENBA - Email Notifier | `yYnyrB7UI52Syf9x` | Webhook `enba-email-notifier` → email Gmail ENBA | Activo |
 
 Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier`
@@ -318,7 +318,10 @@ Body: `{ "subject": "...", "body": "..." }`
 3. En los nodos HTTP Request del workflow, referenciar esa credencial por ID con `authentication: "genericCredentialType"` y `genericAuthType: "httpHeaderAuth"` — así el nodo la consume sin que el token aparezca en el JSON del workflow.
 4. Nunca poner tokens en Code nodes, variables de workflow, ni en el body/URL como texto plano.
 5. Nunca commitear, loguear ni exponer tokens de Meta — si se filtran, Meta los revoca automáticamente.
-6. Credencial actual: `Meta API ENBA` (ID: `n8scJzbGXnCprioD`, tipo: `httpHeaderAuth`)
+6. Credencial actual publicación feed: `Meta API ENBA` (ID: `n8scJzbGXnCprioD`, tipo: `httpHeaderAuth`)
+7. Credencial publicación stories: `Meta API ENBA - Page Token` (ID: `IGBqXMQRWJLxzh7f`, tipo: `httpHeaderAuth`, token: `META_ACCESS_TOKEN`)
+8. **Obligatorio en nodos HTTP Request que usen credencial:** incluir `authentication: "genericCredentialType"` y `genericAuthType: "httpHeaderAuth"` en `parameters`. Sin estos campos n8n ignora la credencial y el request va sin token — Meta devuelve "missing permissions" sin indicar que falta el header. (Incidente 24/04/2026)
+9. **Email en workflows n8n:** usar nodo `emailSend` con credencial Gmail ENBA (`HpJBfNd1BCHaLYfY`) directo, NO via webhook intermediario. Preparar subject/body en un Code node previo. No poner expresiones con `\n` (newline real) dentro de `bodyParameters` de HTTP Request — el motor de expresiones de n8n lanza `ExpressionExtensionError: invalid syntax`. (Incidente 24/04/2026)
 
 ---
 

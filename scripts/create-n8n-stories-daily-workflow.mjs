@@ -22,7 +22,7 @@ const repoRoot   = path.resolve(__dirname, '..');
 const nodesDir   = path.join(repoRoot, 'automatizaciones', 'n8n-workflows', 'nodes');
 
 const N8N_BASE   = 'https://espacionautico.app.n8n.cloud/api/v1';
-const IG_USER_ID = '17841473329749713'; // de meta-ids.json
+const IG_USER_ID = '17841443139761422'; // de meta-ids.json
 const BASE_IMG_URL = 'https://enba-social-assets.pages.dev/campaigns/plan-crecimiento-10k/highlights/stories/';
 const MANIFEST_URL = 'https://enba-social-assets.pages.dev/campaigns/plan-crecimiento-10k/highlights/stories/fase2-manifest.json';
 const CYCLE_START  = '2026-04-24';
