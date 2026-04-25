@@ -172,7 +172,7 @@ Descartado por usuario. Se usa frame del propio video como portada desde IG. Cov
 - [x] Cuenta publicitaria creada: act_2303565156801569, ARS, AR (16/04)
 - [x] Metodo de pago configurado: Mastercard ····8307, limite $700K confirmado
 - [x] IG y FB vinculados en Business Suite
-- [x] Meta Pixel instalado: Event Data 1273048378266952 activo (ENBA Pixel 830831356111912 no instalado, ignorar)
+- [x] Meta Pixel instalado: Event Data 1273048378266952 activo — ⚠️ ENBA Pixel 830831356111912 NO SIRVE, NO SE USA, NO ES VÁLIDO, NO FUNCIONA — ignorar siempre
 - [x] Dominio autorizado en Events Manager (19/04)
 - [x] GA4 propiedad instalada: G-XVN36KPHBL en enba-web/index.html. Search Console vinculado (21/04, sc-domain:espacionautico.com.ar, flujo ENBA Web).
 - [x] 5 Custom Audiences creadas: D1 WebVisitors, D2 IGEngagers, D3 FBEngagers (API), D4 VideoViewers, D5 FBPageLikers (UI)

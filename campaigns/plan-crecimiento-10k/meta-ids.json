@@ -394,12 +394,25 @@
     "enba_pixel": {
       "id": "830831356111912",
       "name": "ENBA Pixel",
-      "last_fired": "nunca"
+      "last_fired": "nunca",
+      "notes": "NO instalado en el sitio — no usar"
     },
     "event_data": {
       "id": "1273048378266952",
       "name": "Espacio Nautico Buenos Aires Event Data",
-      "last_fired": "2026-04-18T17:14:43-03:00"
+      "last_fired": "2026-04-25",
+      "notes": "Pixel activo instalado en enba-web index.html línea 53. Fuente de verdad para tracking."
+    }
+  },
+  "custom_conversions": {
+    "enba_lead": {
+      "id": "1634612341204888",
+      "name": "ENBA - Lead (formulario servicios)",
+      "pixel_id": "1273048378266952",
+      "custom_event_type": "LEAD",
+      "rule": "url i_contains espacionautico.com.ar",
+      "created_date": "2026-04-25",
+      "notes": "Trackea fbq Lead desde ServiceConsultForm (solo aparece en /). Contact y ViewContent son Standard Events nativos — no requieren Custom Conversion."
     }
   },
   "lead_forms": {
