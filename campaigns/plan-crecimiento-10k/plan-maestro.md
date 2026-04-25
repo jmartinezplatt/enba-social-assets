@@ -2,7 +2,7 @@
 
 **Autor:** Manu (Coordinador de Produccion)
 **Fecha original:** 15 de abril de 2026
-**Ultima actualizacion:** 22 de abril de 2026
+**Ultima actualizacion:** 25 de abril de 2026
 **Periodo:** 19 de abril - 16 de mayo de 2026 (27 dias, re-baselineado al primer gasto real)
 **Plan de pauta vigente:** `presupuesto-v4-reestructuracion.md` (fuente de verdad de pauta, reemplaza v3)
 **Fuentes:** diagnostico-inicial (Bruno), estrategia-instagram (Franco), estrategia-facebook (Franco), analisis-reels (Marina), review-estrategia-ig (Marina), meta-business-setup (Bruno), google-analytics-medicion (Bruno), kpis (Bruno), presupuesto-v3-final (Bruno), reporte-semanal-template (Bruno), calendario-integrado.json
@@ -61,7 +61,7 @@ Todas las decisiones originales fueron resueltas. Pendientes nuevos al final.
 | # | Decision | Estado | Respuesta |
 |---|----------|--------|-----------|
 | 8 | Que creative para C3 Corporativo (lead gen)? | **RESUELTO 19/04** | Lead form v2 (944664581514608) + creative con grupo-cockpit-cielo-azul-4x5.jpg + copy Sole. Campana C_LEA + ad set C3 + ad ACTIVE. |
-| 9 | Cuando publicar carruseles organicos? | **RESUELTO 19/04** | cuanto-sale publicado IG (carrusel) + FB (slide-04 imagen unica) 19/04. no-es-tour 24/04. elegi-aventura 03/05. FB no soporta carruseles organicos: se publica slide hero como imagen unica (decision Marina). |
+| 9 | Cuando publicar carruseles organicos? | **RESUELTO 19/04** | cuanto-sale publicado IG (carrusel) + FB (slide-04 imagen unica) 19/04. no-es-tour publicado IG (`18317065594280248`) + FB (`1064806400040502_122110365644620656`) 24/04. elegi-aventura 03/05. FB no soporta carruseles organicos: se publica slide hero como imagen unica (decision Marina). |
 | 10 | Acceso a Google Photos | **RESUELTO 19/04** | Album descargado, material incorporado a asset-bank. |
 | 11 | Ad sets B1 y C1 sin gasto | **RESUELTO 20/04** | Ambos gastando tras fix onboarding. B1: $1.998 spend, 8.860 reach. C1: $399 spend, 1.960 reach. Delivery normal. |
 
@@ -347,7 +347,7 @@ Primer gasto real: 20/04 ~03:00 ART. Token META_ADS_USER_TOKEN migrado de User T
 | P2 | Publicar stories diarias (≥1/día) | **Nico** | Desde hoy, permanente | Story activa antes de las 15:00 | ACTIVO — primera story publicada 23/04 |
 | P3 | Push manual: pedir follow IG a 80-100 contactos (clientes anteriores, equipo, conocidos) | **Jose** | 48h | Seguidores IG ≥ 100 | HECHO 23/04 — pendiente confirmar ≥100 seguidores |
 | P4 | Rediseño cover frames 6 highlights: mayor contraste, texto más grande, legible a thumb | **Dani** | 24h | Jose valida legibilidad en celular | HECHO 23/04 |
-| P5 | Cargar contenido real en los 6 highlights (mín. 3 stories por highlight) | **Dani + Jose** | 48h | Tocar cada highlight → hay stories | PENDIENTE |
+| P5 | Cargar contenido real en los 6 highlights (mín. 3 stories por highlight) | **Dani + Jose** | 48h | Tocar cada highlight → hay stories | HECHO — aprobado Marina |
 | P6 | Procedure diaria stories: si no hay story al mediodía → Nico publica antes de 15:00 | **Nico** | Permanente | Checklist diario | PENDIENTE |
 
 **Nota P3:** P1 (pin reel) ya HECHO. El push a contactos es condición necesaria para reactivar Follow IG — no hay pauta que compense <100 seguidores.
@@ -407,7 +407,72 @@ Primer gasto real: 20/04 ~03:00 ART. Token META_ADS_USER_TOKEN migrado de User T
 - [ ] Agregar stories a highlights desde app IG (ventana 24h, o desde Archivo sin límite)
 - [ ] Para #2 (paseos) y #3 (escuela): agregar solo UNA copia al highlight, ignorar los duplicados
 - [ ] Fase 2 stories (3x diarias × 10 días): corregir `top: 72px → 200px` en template, re-renderizar 30 stories, luego ejecutar `create-n8n-stories-daily-workflow.mjs`
-- [ ] Gate reactivación Follow IG: P4 hecho, P5 pendiente (cargar contenido en highlights), seguidores IG ≥ 100, verificar follow rate 24h post-fixes
+- [x] Gate reactivación Follow IG: P4 HECHO, P5 HECHO (highlights con contenido real, Marina OK), seguidores IG ≥ 100 (P3 ejecutado)
+
+---
+
+### Sesion 24/04 — Analisis performance dia 6 + optimizacion pauta
+
+**Contexto:** Dia 6 de 27. Spend acumulado $132,198 ARS. Burn rate $22,033/dia vs target maximo $16,737/dia. Riesgo de agotamiento de budget el 10/05 (6 dias antes del cierre).
+
+**Seguidores al 24/04:**
+- FB: 423 (+400 desde baseline 22/04)
+- IG: 46 (+35 desde baseline 22/04)
+- Follow rate IG: 3.7% (944 visitas de perfil → 35 follows). Benchmark 15-35%. Problema en el perfil, no en los ads.
+
+**Analisis ejecutado:**
+- Bruno (agent Team 4): analisis performance dia 6 con datos del reporte automatico.
+- Reporte ejecutivo (director performance): analisis con datos frescos de Meta Ads API v22.0, cuenta act_2303565156801569.
+
+**Hallazgos criticos:**
+- Microreel = creativo ganador absoluto en todos los segmentos (Hook 25-42%, CTR 8-11% FB, CPF $82-89 FB).
+- IG follows NO son trackeables via Meta Ads API. El CPS de Follow_IG es proxy manual sin atribucion directa.
+- Campana Leads (corporativo_C3): peor ad de la cuenta. CPL $7,472, CPM $5,470, Quality BELOW_AVERAGE_35. No estaba en el radar del reporte automatico.
+- Awareness estaticos: 7 dias, CTR 0.01-0.19%, 0 acciones de negocio. Gasto ineficiente.
+- reel4h_B1 en Awareness: Hook 1.4% vs el mismo reel en ENG/Follow con Hook 20-40%. Mismatch de audiencia/placement.
+
+**13 ads pausados via API — APROBADOS Y EJECUTADOS 24/04:**
+
+| Ad | ID | Motivo |
+|---|---|---|
+| piece02_C1 | 120239057858590139 | 7d, CTR 0.16%, BELOW_AVERAGE_35 |
+| piece02_B2 | 120239057859170139 | 7d, CTR 0.01% |
+| piece01dp_A2 | 120239058261910139 | 7d, CTR 0.19%, 0 acciones |
+| piece01dp_B1 | 120239058262400139 | 7d, CTR 0.16% |
+| piece03_A3 | 120239061361640139 | 7d, CTR 0.05% |
+| piece03_B1 | 120239075118770139 | 7d, CTR 0.04% |
+| reel4h_B1 | 120239287388330139 | Hook 1.4%, $10.5k sin retorno |
+| nosotros_FB_Cold | 120239303666220139 | CPF $104 > target |
+| destinos_FB_Retarget | 120239303669700139 | CPF $151 |
+| destinos_IG_Retarget | 120239303663260139 | CPV $114 |
+| nosotros_IG_Cold | 120239303662020139 | Reach 2, dead on arrival |
+| nosotros_IG_Retarget | 120239303663740139 | Reach 2, dead on arrival |
+| corporativo_C3 | 120239169468780139 | CPL $7,472, CPM $5,470 |
+
+**Estado de la cuenta post-cortes:**
+- Burn rate: $22,033 → ~$13,800/dia. Target $16,737 cumplido.
+- Budget restante (~$368k): alcanza hasta ~21/05 (5 dias despues del plan).
+- Ads RUNNING: microreel_FB_Cold, microreel_FB_Retarget, destinos_FB_Cold, nosotros_FB_Retarget, reel4horas_ENG.
+- En evaluacion 24-72h: corporativo_IG_Cold (CPV $34, 2 dias), reel4hAlt_A2 (CTR 0.41%), nosotros_FB_Retarget (CPF $90).
+- Winners confirmados: microreel_FB_Cold (CPF $82), destinos_FB_Cold (CPF $80).
+
+**Gate 1 — verificar 25/04:**
+
+| Metrica | Target | Accion si pasa |
+|---------|--------|----------------|
+| FB page likes del dia | > 30 | Escalar microreel_FB_Cold +25% |
+| ThruPlays del dia | > 500 | Confirmar ENG activo |
+| CPF microreel_FB_Cold | < $100 | OK |
+| CPV corporativo_IG_Cold | < $60 | Aguantar; si > $60 pausar |
+| CTR reel4hAlt_A2 | >= 0.8% | Mantener; si < 0.8% pausar |
+| CPF nosotros_FB_Retarget | < $100 | Mantener; si > $100 pausar |
+
+**Pendientes inmediatos:**
+- [ ] Optimizar perfil IG: bio, grid, highlights — Marina + Franco — condicion para reactivar Follow_IG
+- [ ] Verificar tamano D4 audience en Ads Manager (debe ser > 1,000 para activarse)
+- [ ] Verificar que Retarget ad sets apuntan a D4 y no a audiencia generica de video viewers
+- [ ] Verificar si reelPV_ENG tiene ad set padre pausado intencionalmente o por error
+- [ ] Brief microreel v2 con hook textual — Franco + Marina — cuando haya margen de presupuesto
 
 ---
 
@@ -719,4 +784,6 @@ El plan esta disenado para que alguien pueda leerlo y saber exactamente que hace
 *Plan maestro producido por Manu (Coordinador de Produccion) — 15 de abril de 2026*
 *Actualizado: 23 de abril de 2026 — plan reconciliado Bruno/Experto (8/8), auditoría perfil IG, highlights P4 rediseñados, 24 stories renderizadas y burst iniciado (stories #1-#3 publicadas, #4-#24 vía n8n LBjxUFXarIPV2cIi), incidentes PNG/Cloudflare/zombie documentados, infraestructura n8n activa documentada*
 *Actualizado: 24 de abril de 2026 — burst corregido y funcionando: credencial n8n faltaba `authentication: genericCredentialType` (Meta rechazaba token silenciosamente); email migrado de webhook a emailSend directo con Gmail ENBA (ExpressionExtensionError por `\n` literal en expresión). Stories #7 y #8 publicadas manualmente. Burst en curso: #10/24 con email de confirmación recibido. Credencial Meta: IGBqXMQRWJLxzh7f. Email: HpJBfNd1BCHaLYfY.*
+*Actualizado: 24 de abril de 2026 (sesión tarde) — Auditoría creativa Marina sobre Follow_IG: carousel Destinos y Nosotros aprobados. Follow_IG activado: IG_Cold $4.000/día + IG_Retarget $1.500/día. Normalización jerarquía Meta Ads: todas las campañas y ad sets en ACTIVE, pausas solo a nivel ad. Burn rate actual: $23.020 ARS/día.*
+*Actualizado: 25 de abril de 2026 — Carrusel "no-es-tour" publicado IG (carrusel 6 slides, ID 18317065594280248) + FB (slide-04 imagen única, ID 1064806400040502_122110365644620656). Reporte ejecutivo performance generado (día 7/27): winners FB microreel (CPF $83-89), tracking IG ciego ($40K sin atribución). Pixel Meta implementado en enba-web: fbq Lead (formulario servicios exitoso), fbq Contact (click WhatsApp), fbq ViewContent (click CTA) — commit 55faaca en enba-web main, pendiente push + deploy + crear Custom Conversions en Meta Ads. Skill /redes actualizado: lee plan-maestro + meta-ids.json + presupuesto-v4 al iniciar. Seguidores IG verificados: 47.*
 *Fuentes: Bruno, Franco, Marina — Team 4, ENBA*

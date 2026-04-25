@@ -1,5 +1,6 @@
 {
-  "last_verified": "2026-04-23T00:00:00-03:00",
+  "last_verified": "2026-04-24T00:00:00-03:00",
+  "session_24apr_tarde": "Auditoría creativa Marina aprobó Follow_IG creativos. IG_Cold activado $4.000/día + IG_Retarget $1.500/día. Normalización jerarquía: todas campañas y ad sets ACTIVE, pausas solo a nivel ad. Corregidas 3 discrepancias: nosotros_FB_Cold, destinos_FB_Retarget, nosotros_IG_Cold → PAUSED. Burn rate: $23.020/día.",
   "session_23apr_plan_reconciliado": "Plan reconciliado Bruno/Experto ejecutado 23/04. Pausados: ig_cold, ig_retarget, reel4h_B1, reel4hAlt_A2, AS_ENG_C2, reelPV_ENG. AS_ENG_REEL reducido $7,250→$3,000/día. fb_cold escalado $8,400→$10,920/día. Burn estimado: ~$17,500/día. Pendiente: Marina auditoría perfil IG antes de reactivar Follow IG.",
   "session_22apr_night": "Estáticos AWR pausados (3 ads). Follow Plan v2 activado completo (2 campañas, 4 ad sets, 12 ads). Budget diario total ~$45,250. Baseline: FB 23 follows, IG 11 follows.",
   "v4_restructure_date": "2026-04-21",
@@ -84,16 +85,16 @@
       "id": "120238976549000139",
       "name": "ENBA_Traffic_abr2026",
       "objective": "OUTCOME_TRAFFIC",
-      "status": "PAUSED",
-      "notes": "Sin ad sets. Presupuesto v3 la descartó salvo burst condicional semana 3."
+      "status": "ACTIVE",
+      "notes": "Sin ad sets. Presupuesto v3 la descartó salvo burst condicional semana 3. Activada 24/04 — normalización jerarquía (campañas siempre ACTIVE)."
     },
     "C_LEA": {
       "id": "120238976549780139",
       "name": "ENBA_Leads_abr2026",
       "objective": "OUTCOME_LEADS",
-      "status": "PAUSED",
+      "status": "ACTIVE",
       "activated": "2026-04-19",
-      "v4_change": "PAUSED 22/04 — ad set C3 pausado, campaña sin ad sets activos"
+      "v4_change": "PAUSED 22/04 — ad set C3 pausado. Reactivada 24/04 — normalización jerarquía. Ad corporativo_C3 sigue PAUSED a nivel ad."
     }
   },
   "phase_4_adsets": {
@@ -125,10 +126,10 @@
       "campaign": "AWR",
       "daily_budget_ars": 1500,
       "optimization": "REACH",
-      "status": "PAUSED",
+      "status": "ACTIVE",
       "activated": "2026-04-19T00:10:00-03:00",
       "ready": true,
-      "v4_change": "PAUSED 22/04 — geo Argentina demasiado amplia, 6 eng en $1,355"
+      "v4_change": "PAUSED 22/04 — geo Argentina demasiado amplia, 6 eng en $1,355. Reactivado 24/04 — normalización jerarquía. Ad piece02_C1 sigue PAUSED."
     },
     "AS_AWR_B2": {
       "id": "120238978175860139",
@@ -136,10 +137,10 @@
       "campaign": "AWR",
       "daily_budget_ars": 1500,
       "optimization": "REACH",
-      "status": "PAUSED",
+      "status": "ACTIVE",
       "activated": "2026-04-19T00:10:00-03:00",
       "ready": true,
-      "v4_change": "PAUSED 22/04 — 0 eng, overlap C1, owner aprobó corte"
+      "v4_change": "PAUSED 22/04 — 0 eng, overlap C1. Reactivado 24/04 — normalización jerarquía. Ad piece02_B2 sigue PAUSED."
     },
     "AS_AWR_A3": {
       "id": "120238978176270139",
@@ -147,10 +148,10 @@
       "campaign": "AWR",
       "daily_budget_ars": 1500,
       "optimization": "REACH",
-      "status": "PAUSED",
+      "status": "ACTIVE",
       "activated": "2026-04-19T00:10:00-03:00",
       "ready": true,
-      "v4_change": "PAUSED 22/04 — lujo desalineado con marca accesible"
+      "v4_change": "PAUSED 22/04 — lujo desalineado con marca accesible. Reactivado 24/04 — normalización jerarquía. Ad piece03_A3 sigue PAUSED."
     },
     "AS_ENG_C2": {
       "id": "120239146114130139",
@@ -160,7 +161,7 @@
       "optimization": "POST_ENGAGEMENT",
       "promoted_object": "page_id:1064806400040502",
       "destination_type": "ON_POST",
-      "status": "PAUSED",
+      "status": "ACTIVE",
       "ready": true,
       "replaced": "120238978177080139 (v1, sin promoted_object — roto, inmutable)",
       "created_date": "2026-04-18",
@@ -189,7 +190,7 @@
       "optimization": "POST_ENGAGEMENT",
       "promoted_object": "page_id:1064806400040502",
       "destination_type": "ON_POST",
-      "status": "PAUSED",
+      "status": "ACTIVE",
       "ready": true,
       "replaced": "120239078061910139 (v1, sin promoted_object — roto, inmutable)",
       "created_date": "2026-04-18"
@@ -201,7 +202,7 @@
       "daily_budget_ars": 3500,
       "optimization": "LEAD_GENERATION",
       "promoted_object": "page_id:1064806400040502",
-      "status": "PAUSED",
+      "status": "ACTIVE",
       "activated": "2026-04-19",
       "destination_type": "ON_AD",
       "ready": true,
@@ -345,7 +346,7 @@
       "name": "ENBA_ad_regalos_C2",
       "adset": "AS_ENG_C2",
       "creative": "darkpost-regalos-C2",
-      "status": "ACTIVE",
+      "status": "PAUSED",
       "created_date": "2026-04-19",
       "activated": "2026-04-23"
     },
@@ -599,20 +600,20 @@
       "ig_cold": {
         "id": "120239303658370139",
         "campaign": "120239303658100139",
-        "daily_budget": 1260000,
+        "daily_budget": 400000,
         "optimization": "VISIT_INSTAGRAM_PROFILE",
-        "status": "PAUSED",
-        "paused_date": "2026-04-23",
-        "paused_reason": "Plan reconciliado 23/04 — IG follow rate 1.0% (bench 15-35%). Reactivar post-auditoría Marina."
+        "status": "ACTIVE",
+        "activated_date": "2026-04-24",
+        "activation_reason": "Auditoría creativa Marina aprobó creativos Follow_IG. Budget reducido $12.600→$4.000/día."
       },
       "ig_retarget": {
         "id": "120239303659250139",
         "campaign": "120239303658100139",
-        "daily_budget": 540000,
+        "daily_budget": 150000,
         "optimization": "VISIT_INSTAGRAM_PROFILE",
-        "status": "PAUSED",
-        "paused_date": "2026-04-23",
-        "paused_reason": "Plan reconciliado 23/04 — junto con ig_cold. Reactivar post-auditoría Marina."
+        "status": "ACTIVE",
+        "activated_date": "2026-04-24",
+        "activation_reason": "Reactivado junto con ig_cold. Budget reducido $5.400→$1.500/día."
       },
       "fb_cold": {
         "id": "120239303659650139",
@@ -655,7 +656,7 @@
         "id": "120239303662020139",
         "adset": "120239303658370139",
         "creative": "1273685224896455",
-        "status": "ACTIVE"
+        "status": "PAUSED"
       },
       "ENBA_ad_microreel_IG_Retarget": {
         "id": "120239303662540139",
@@ -691,7 +692,7 @@
         "id": "120239303666220139",
         "adset": "120239303659650139",
         "creative": "846991285099575",
-        "status": "ACTIVE"
+        "status": "PAUSED"
       },
       "ENBA_ad_microreel_FB_Retarget": {
         "id": "120239303668560139",
@@ -703,7 +704,7 @@
         "id": "120239303669700139",
         "adset": "120239303660260139",
         "creative": "2227761878038971",
-        "status": "ACTIVE"
+        "status": "PAUSED"
       },
       "ENBA_ad_nosotros_FB_Retarget": {
         "id": "120239303670130139",
