@@ -387,7 +387,7 @@ function baseFontsCss(theme) {
     }
 
     .lockup-logo {
-      width: 280px;
+      width: 560px;
       display: block;
       filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.16));
     }

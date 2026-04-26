@@ -304,8 +304,11 @@ Siempre usar el slash command correspondiente (`/bruno`, `/marina`, `/franco`, `
 | Workflow | ID | Descripción | Estado |
 |---|---|---|---|
 | ENBA - Redes Publicación Diaria v7.2 | `MipwleZNu8EG5v6C` | Publicación feed IG+FB 12:15 ART, 34 nodos | Activo |
-| ENBA - Stories Burst (n8n) | `LBjxUFXarIPV2cIi` | Stories highlights #1-#24, 1 por hora :01 ART. Termina ~25/04. | Activo |
+| ENBA - Stories Burst (n8n) | `LBjxUFXarIPV2cIi` | Stories highlights #1-#24. Burst completado 25/04, desactivado 26/04. | INACTIVO |
 | ENBA - Email Notifier | `yYnyrB7UI52Syf9x` | Webhook `enba-email-notifier` → email Gmail ENBA | Activo |
+| ENBA - Stories Fase 2 Mañana | `q1nZVNrtEsxKEFni` | Stories 09:00 ART, slot=morning, ciclo 10 días desde 27/04 | Activo |
+| ENBA - Stories Fase 2 Tarde | `pBP7tkXlD6nzx4wd` | Stories 14:00 ART, slot=afternoon, ciclo 10 días desde 27/04 | Activo |
+| ENBA - Stories Fase 2 Noche | `c8MHANGzW56GORAi` | Stories 20:00 ART, slot=evening, ciclo 10 días desde 27/04 | Activo |
 
 Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier`
 Body: `{ "subject": "...", "body": "..." }`
