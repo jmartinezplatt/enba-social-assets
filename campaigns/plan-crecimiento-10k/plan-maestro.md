@@ -404,8 +404,8 @@ Primer gasto real: 20/04 ~03:00 ART. Token META_ADS_USER_TOKEN migrado de User T
 | ENBA - Email Notifier | yYnyrB7UI52Syf9x | Activo |
 
 **Pendientes próxima sesión:**
-- [ ] Agregar stories a highlights desde app IG (ventana 24h, o desde Archivo sin límite)
-- [ ] Para #2 (paseos) y #3 (escuela): agregar solo UNA copia al highlight, ignorar los duplicados
+- [x] Agregar stories a highlights desde app IG — HECHO 25/04. Las 24 stories del burst están en los highlights.
+- [x] Para #2 (paseos) y #3 (escuela): agregar solo UNA copia al highlight — HECHO 25/04.
 - [ ] Fase 2 stories (3x diarias × 10 días): corregir `top: 72px → 200px` en template, re-renderizar 30 stories, luego ejecutar `create-n8n-stories-daily-workflow.mjs`
 - [x] Gate reactivación Follow IG: P4 HECHO, P5 HECHO (highlights con contenido real, Marina OK), seguidores IG ≥ 100 (P3 ejecutado)
 
