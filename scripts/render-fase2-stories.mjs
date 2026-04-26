@@ -85,7 +85,7 @@ function buildStoryHTML(photoBase64, caption, accent, label) {
     );
   }
   .top-brand {
-    position: absolute; top: 72px; left: 0; right: 0;
+    position: absolute; top: 200px; left: 0; right: 0;
     display: flex; align-items: center; justify-content: center; gap: 16px;
   }
   .top-label {

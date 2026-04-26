@@ -31,7 +31,7 @@ async function main() {
     if (ruleStr.includes("1273048378266952")) {
       console.log("\n✓ D1 usa Event Data pixel (1273048378266952) — CORRECTO");
     } else if (ruleStr.includes("830831356111912")) {
-      console.log("\n✗ D1 usa ENBA Pixel (830831356111912) — INCORRECTO (nunca disparó)");
+      console.log("\n✗ D1 usa ENBA Pixel (830831356111912) — NO SIRVE, NO SE USA, NO ES VÁLIDO, NO FUNCIONA — reemplazar por 1273048378266952");
     } else {
       console.log("\n? No se pudo determinar qué pixel usa. Rule:", ruleStr);
     }

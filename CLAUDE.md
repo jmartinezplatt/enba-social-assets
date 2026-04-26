@@ -362,3 +362,4 @@ Meta deprecó `POST /{pageId}/photos` default en 2024/2025. Usar patrón 2 pasos
 2. No exponer secretos (API keys, tokens, app secrets) en la salida — nunca
 3. Tokens de Meta van en credenciales encriptadas de n8n (httpHeaderAuth), nunca en código ni en Code nodes
 4. Después de publicar en Meta API, verificar que el post existe — no asumir que la respuesta 200 = post visible
+5. **Meta Ads — pausar y despausar solo a nivel ad (último nivel).** Campañas y ad sets se mantienen siempre `ACTIVE`. Nunca pausar a nivel ad set ni campaña. Esto permite leer el estado de la cuenta con un solo nivel de lectura. (Regla establecida 24/04/2026)
