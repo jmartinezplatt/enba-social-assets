@@ -278,11 +278,12 @@ Siempre usar el slash command correspondiente (`/bruno`, `/marina`, `/franco`, `
 
 ## Reglas operativas n8n
 
-> Para operación avanzada de n8n (PUTs seguros, encoding, round-trip prohibido,
-> post-mortems de incidentes): ver `enba-web/CLAUDE.md` reglas 7-14 y
-> `enba-web/docs/05-historico/INCIDENTES.md`.
-> **`enba-web` es READ ONLY desde este repo — nunca modificar archivos de ese repo
-> bajo ninguna circunstancia.**
+> **Reglas de contacto con `enba-web` — leer completo antes de cualquier acción:**
+>
+> 1. **READ ONLY estricto.** El único contacto permitido con `enba-web` desde este repo es lectura, y exclusivamente para contexto de operación n8n (ver `enba-web/CLAUDE.md` reglas 7-14 y `enba-web/docs/05-historico/INCIDENTES.md`).
+> 2. **Ninguna modificación bajo ninguna circunstancia**, ya sea editando archivos locales, haciendo commits, pushes, o llamando APIs externas (GitHub API, scripts, n8n workflows, etc.) que resulten en cambios en ese repo.
+> 3. **Excepción solo con autorización explícita de Jose + reconfirmación.** Si Jose pide algo que implique modificar enba-web, confirmar la acción concreta antes de ejecutar ("Para X necesito hacer Y en enba-web. ¿Autorizás?") y esperar un "sí" explícito. "Publicá", "hacelo", "procedé" no alcanzan.
+> 4. Incidente 26/04/2026: se publicó un post de blog en enba-web vía GitHub API sin pedir autorización explícita, interpretando "publicamos la entrada blog directamente" como aprobación implícita. No repetir.
 
 1. No usar MCP tools para n8n — siempre API directa con curl + env vars
 2. API key leerla así, sin exponerla nunca:

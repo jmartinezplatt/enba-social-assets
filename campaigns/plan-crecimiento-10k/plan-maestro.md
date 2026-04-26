@@ -2,7 +2,7 @@
 
 **Autor:** Manu (Coordinador de Produccion)
 **Fecha original:** 15 de abril de 2026
-**Ultima actualizacion:** 25 de abril de 2026
+**Ultima actualizacion:** 26 de abril de 2026
 **Periodo:** 19 de abril - 16 de mayo de 2026 (27 dias, re-baselineado al primer gasto real)
 **Plan de pauta vigente:** `presupuesto-v4-reestructuracion.md` (fuente de verdad de pauta, reemplaza v3)
 **Fuentes:** diagnostico-inicial (Bruno), estrategia-instagram (Franco), estrategia-facebook (Franco), analisis-reels (Marina), review-estrategia-ig (Marina), meta-business-setup (Bruno), google-analytics-medicion (Bruno), kpis (Bruno), presupuesto-v3-final (Bruno), reporte-semanal-template (Bruno), calendario-integrado.json
@@ -287,9 +287,9 @@ Primer gasto real: 20/04 ~03:00 ART. Token META_ADS_USER_TOKEN migrado de User T
 - [x] Follow plan: micro-reel 15s — HECHO 22/04. v3 aprobado (7 clips + logo + musica kevin-graham). Subido a Meta (video ID 2118634122255418). Script `upload-video-to-ads.mjs` reutilizable. 4 ads microreel actualizados con creative real.
 - [x] Follow plan: activar ads — HECHO 22/04 noche. 2 campanas, 4 ad sets, 12 ads ACTIVE. Corre en paralelo con ads existentes (no se pausaron). Budget diario total ~$45,250. Baseline: FB 23 follows, IG 11 follows. Revision 29/04.
 - [x] Estaticos AWR pausados — HECHO 22/04 noche. piece01dp_A2 ($137/eng), piece01dp_B1 ($186/eng), piece03_B1 ($1,500/eng). CTR 0.01%-0.19%. Total gastado en estaticos: $10,732 por 31 engagements.
-- [ ] Intereses: Gastronomia/Caminatas/Excursionismo/Camping eliminados de todos los ad sets
-- [ ] Geo actualizada: 18 ciudades (CABA+GBA+Cordoba+Mendoza+Rosario+Santa Fe) en todos los ad sets
-- [ ] Edad actualizada: 18-65+ en todos los ad sets
+- [x] Intereses: Gastronomia/Caminatas/Excursionismo/Camping eliminados de todos los ad sets — VERIFICADO 26/04 via API. Todos los ad sets limpios. interest-ids.json sincronizado con estado real.
+- [x] Geo actualizada: 18 ciudades — VERIFICADO 26/04 via API. Todos los ad sets activos tienen geo city-based (18 ciudades).
+- [x] Edad actualizada: 18-65+ — VERIFICADO 26/04 via API. Todos los ad sets tienen age_min=18, age_max=65.
 - [ ] Meta API: instagram_actor_id deprecado v22.0 — usar instagram_user_id
 
 ### Sesion 22/04 (noche continuacion) — Perfil IG + Highlights + Test C3 Follow
@@ -406,7 +406,7 @@ Primer gasto real: 20/04 ~03:00 ART. Token META_ADS_USER_TOKEN migrado de User T
 **Pendientes próxima sesión:**
 - [x] Agregar stories a highlights desde app IG — HECHO 25/04. Las 24 stories del burst están en los highlights.
 - [x] Para #2 (paseos) y #3 (escuela): agregar solo UNA copia al highlight — HECHO 25/04.
-- [ ] Fase 2 stories (3x diarias × 10 días): corregir `top: 72px → 200px` en template, re-renderizar 30 stories, luego ejecutar `create-n8n-stories-daily-workflow.mjs`
+- [x] Fase 2 stories (3x diarias × 10 días): `top: 72px → 200px` corregido, 30 stories re-renderizadas JPEG, 3 workflows n8n activos (q1nZVNrtEsxKEFni / pBP7tkXlD6nzx4wd / c8MHANGzW56GORAi). Primera story dispara 27/04 09:00 ART.
 - [x] Gate reactivación Follow IG: P4 HECHO, P5 HECHO (highlights con contenido real, Marina OK), seguidores IG ≥ 100 (P3 ejecutado)
 
 ---
@@ -785,5 +785,7 @@ El plan esta disenado para que alguien pueda leerlo y saber exactamente que hace
 *Actualizado: 23 de abril de 2026 — plan reconciliado Bruno/Experto (8/8), auditoría perfil IG, highlights P4 rediseñados, 24 stories renderizadas y burst iniciado (stories #1-#3 publicadas, #4-#24 vía n8n LBjxUFXarIPV2cIi), incidentes PNG/Cloudflare/zombie documentados, infraestructura n8n activa documentada*
 *Actualizado: 24 de abril de 2026 — burst corregido y funcionando: credencial n8n faltaba `authentication: genericCredentialType` (Meta rechazaba token silenciosamente); email migrado de webhook a emailSend directo con Gmail ENBA (ExpressionExtensionError por `\n` literal en expresión). Stories #7 y #8 publicadas manualmente. Burst en curso: #10/24 con email de confirmación recibido. Credencial Meta: IGBqXMQRWJLxzh7f. Email: HpJBfNd1BCHaLYfY.*
 *Actualizado: 24 de abril de 2026 (sesión tarde) — Auditoría creativa Marina sobre Follow_IG: carousel Destinos y Nosotros aprobados. Follow_IG activado: IG_Cold $4.000/día + IG_Retarget $1.500/día. Normalización jerarquía Meta Ads: todas las campañas y ad sets en ACTIVE, pausas solo a nivel ad. Burn rate actual: $23.020 ARS/día.*
+*Actualizado: 26 de abril de 2026 — Incidente Gmail 25/04: App Password de credencial Gmail ENBA (`HpJBfNd1BCHaLYfY`) fue revocado por Google. Falló con error 535-5.7.8 BadCredentials. Workflows afectados: (1) Blog Automation `BTs8fTGvGqJE3shj` — post generado pero approval email no enviado → blog del 25/04 no publicado automáticamente. (2) Publicación Diaria `MipwleZNu8EG5v6C` — execución marcada como error, pero piece-11 SÍ se publicó en IG (Meta API corre antes del email). Credenciales reestablecidas por Jose el 26/04. Blog del 25/04 ("OpenCPN para navegantes recreativos") publicado manualmente via GitHub API el 26/04 con datePublished 2026-04-25. Consecutividad del feed no afectada.*
+*Actualizado: 26 de abril de 2026 (sesión tarde) — P2/P3/P4 completados: verificación API confirma que Gastronomía ya había sido removida de B1 y ENG_REEL, Caminatas/Excursionismo/Camping de B2, geo 18-city y age 18-65 correctos en los 13 ad sets activos. interest-ids.json sincronizado. Fase 2 stories activa: 30 JPEG renderizados (top:200px), 3 workflows n8n q1nZVNrtEsxKEFni/pBP7tkXlD6nzx4wd/c8MHANGzW56GORAi activos, primera story 27/04 09:00 ART. CLAUDE.md actualizado: enba-web contacto reglas explícitas 4 puntos (excepción solo con autorización Jose + reconfirmación). Blog 25/04 OpenCPN publicado via GitHub API (commit d9bb7e5, datePublished 2026-04-25). Burn rate real post-cortes 24/04: ~$19.000–$19.500 ARS/día (promedio 24-25/04 con GET fresco). Target: $16.737/día — delta ~$2.500–$2.800 por encima. Seguidores al cierre: IG 55, FB 619.*
 *Actualizado: 25 de abril de 2026 — Carrusel "no-es-tour" publicado IG (carrusel 6 slides, ID 18317065594280248) + FB (slide-04 imagen única, ID 1064806400040502_122110365644620656). Reporte ejecutivo performance generado (día 7/27): winners FB microreel (CPF $83-89), tracking IG ciego ($40K sin atribución). Pixel Meta implementado en enba-web: fbq Lead (formulario servicios exitoso), fbq Contact (click WhatsApp), fbq ViewContent (click CTA) — commit 55faaca en enba-web main, pendiente push + deploy + crear Custom Conversions en Meta Ads. Skill /redes actualizado: lee plan-maestro + meta-ids.json + presupuesto-v4 al iniciar. Seguidores IG verificados: 47.*
 *Fuentes: Bruno, Franco, Marina — Team 4, ENBA*

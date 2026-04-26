@@ -1,7 +1,7 @@
 {
-  "_note": "Sincronizado con API en vivo 23/04. Todos los IDs verificados contra GET /ad_set?fields=targeting.",
-  "_audit_date": "2026-04-23",
-  "_audit_finding": "Archivo estaba desactualizado — no reflejaba correcciones hechas en Meta Ads Manager. Sincronizado con realidad de API.",
+  "_note": "Sincronizado con API en vivo 26/04. Todos los IDs verificados contra GET /ad_set?fields=targeting.",
+  "_audit_date": "2026-04-26",
+  "_audit_finding": "P2/P3/P4 completados. Gastronomía removida de B1 y ENG_REEL. Caminatas/Excursionismo/Camping removidos de B2. Geo 18 ciudades y age 18-65 correctos en todos los ad sets activos.",
   "A2": [
     {
       "id": "6002878991172",
@@ -58,11 +58,6 @@
       "verified": true
     },
     {
-      "id": "6003415019460",
-      "name": "Gastronomía (comida y bebida)",
-      "verified": true
-    },
-    {
       "id": "6004160395895",
       "name": "Viajes (viajes y turismo)",
       "verified": true
@@ -70,28 +65,13 @@
   ],
   "B2": [
     {
-      "id": "6003074033139",
-      "name": "Caminatas (actividades al aire libre)",
-      "verified": true
-    },
-    {
       "id": "6003077915229",
       "name": "Kayaking",
       "verified": true
     },
     {
-      "id": "6003252804967",
-      "name": "Excursionismo (naturaleza)",
-      "verified": true
-    },
-    {
       "id": "6003290325569",
       "name": "Paddleboarding",
-      "verified": true
-    },
-    {
-      "id": "6003403012818",
-      "name": "camping (camping)",
       "verified": true
     }
   ],
@@ -158,8 +138,25 @@
       "verified": true
     },
     {
-      "id": "6003415019460",
-      "name": "Gastronomía (comida y bebida)",
+      "id": "6004160395895",
+      "name": "Viajes (viajes y turismo)",
+      "verified": true
+    },
+    {
+      "id": "6023137421020",
+      "name": "Motor Boat & Yachting",
+      "verified": true
+    }
+  ],
+  "ENG_TOP": [
+    {
+      "id": "6002985584323",
+      "name": "Recreación al aire libre (actividades al aire libre)",
+      "verified": true
+    },
+    {
+      "id": "6003187081552",
+      "name": "vela (deporte)",
       "verified": true
     },
     {
