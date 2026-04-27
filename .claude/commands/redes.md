@@ -1,20 +1,34 @@
-Leé `CLAUDE.md` completo — es la fuente de verdad del repo: reglas, equipos (Team 3 + Team 4), voz de marca, vocabulario prohibido, URLs por vertical, pipeline de publicación y convenciones de naming.
+Arrancá por las fuentes vigentes en este orden:
 
-Leé también estos archivos clave del branch activo — son fuentes de verdad que hay que leer completas antes de reportar nada:
-- `campaigns/plan-crecimiento-10k/plan-maestro.md` — plan vivo, pendientes, decisiones, timeline
-- `campaigns/plan-crecimiento-10k/meta-ids.json` — estado real de infraestructura Meta Ads (campañas, ad sets, ads, budgets, sesiones)
-- `campaigns/plan-crecimiento-10k/presupuesto-v4-reestructuracion.md` — plan de pauta vigente
+1. `CLAUDE.md`
+   Leé al menos estas secciones: branch activo, reglas obligatorias, voz de marca, URLs por vertical, pipeline de publicación, equipos y reglas n8n.
+
+2. `campaigns/plan-crecimiento-10k/STATUS.md`
+   Este es el snapshot corto de sesión. Tratá este archivo como punto de entrada operativo.
+
+3. Profundizá según la tarea:
+   - Estrategia, pendientes, timeline: `campaigns/plan-crecimiento-10k/plan-maestro.md`
+   - Pauta vigente: `campaigns/plan-crecimiento-10k/presupuesto-v4-reestructuracion.md`
+   - Infraestructura Meta Ads y estados reales: `campaigns/plan-crecimiento-10k/meta-ids.json`
+   - QA / medición / analytics: `qa-report.md`, `kpis.md`, `google-analytics-medicion.md`
+   - Handoffs fechados: solo como contexto histórico. Nunca pisan `STATUS.md`, `plan-maestro.md` ni `presupuesto-v4`.
 
 Después hacé un relevamiento rápido del estado actual:
-1. Listá las campañas en `campaigns/` con cantidad de piezas y estado (buscar `captions.json` → aprobado, sin captions → pendiente copy)
-2. Listá los assets disponibles en `asset-bank/` (cantidad de JPGs)
-3. Verificá si hay algo en `staging/` o `published/` (pipeline de publicación)
+1. Verificá que el branch activo sea `plan-crecimiento-10k`.
+2. Relevá campañas y piezas usando la estructura real:
+   - `campaign.pieces.json` = campaña base
+   - `carousel.config.json` + `captions.json` = carrusel listo
+   - `carousel.config.json` sin `captions.json` = pendiente copy/QA
+3. Contá JPGs en `asset-bank/`.
+4. Revisá `staging/`, `published/` y `manifests/` para entender el estado del pipeline.
 
 Luego confirmá con:
-```
+```text
 Contexto REDES cargado ✓
-— Campañas: [lista con estado]
-— Asset-bank: [N] assets curados
-— Pipeline: [staging/published status]
-— Equipos: Team 3 (producción) + Team 4 (expertos) activos
+- Branch: [branch activo]
+- Snapshot: STATUS.md leído
+- Campañas: [lista corta con estado]
+- Asset-bank: [N] JPGs
+- Pipeline: [staging/published/manifests]
+- Equipos: Team 3 (producción) + Team 4 (dirección) activos
 ```

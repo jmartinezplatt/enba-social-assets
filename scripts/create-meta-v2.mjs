@@ -2,7 +2,7 @@
 /**
  * create-meta-v2.mjs — Ejecución Decisión B v2
  *
- * Basado en preflight-meta-api.md (schema real) + presupuesto-v2-500k.md
+ * Basado en preflight-meta-api.md (schema real) + historico/presupuesto-v2-500k.md
  *
  * FASES:
  *   1. Custom Audiences (D1-D5) — schema validado

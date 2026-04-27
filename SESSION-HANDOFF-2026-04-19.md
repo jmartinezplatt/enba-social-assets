@@ -8,7 +8,7 @@ Prompt de continuidad para proximo agente. Leer `plan-maestro.md` para estado co
 
 - **Repo:** `C:\Users\josea\enba-social-assets`
 - **Branch activo:** `plan-crecimiento-10k` (declarado en CLAUDE.md)
-- **Fuente de verdad pauta:** `campaigns/plan-crecimiento-10k/presupuesto-v3-final.md`
+- **Fuente de verdad pauta en ese momento:** `campaigns/plan-crecimiento-10k/historico/presupuesto-v3-final.md`
 - **Fuente de verdad plan:** `campaigns/plan-crecimiento-10k/plan-maestro.md` (actualizado 19/04)
 - **Fuente de verdad infra Meta:** `campaigns/plan-crecimiento-10k/meta-ids.json`
 

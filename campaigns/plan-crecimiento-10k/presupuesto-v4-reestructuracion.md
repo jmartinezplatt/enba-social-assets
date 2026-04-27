@@ -174,9 +174,9 @@ Probabilidad tier realista: 40-55% (vs 35-50% en v3 pre-reestructuración).
 
 | Documento | Estado |
 |---|---|
-| presupuesto-v3-final.md | **Histórico** — superseded por v4 |
-| presupuesto-v2-500k.md | **Histórico** |
-| presupuesto.md | **Histórico** |
+| historico/presupuesto-v3-final.md | **Histórico** — superseded por v4 |
+| historico/presupuesto-v2-500k.md | **Histórico** |
+| historico/presupuesto.md | **Histórico** |
 
 ---
 

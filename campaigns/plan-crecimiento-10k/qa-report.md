@@ -68,7 +68,7 @@
 
 ---
 
-### 5. presupuesto.md (Bruno)
+### 5. historico/presupuesto.md (Bruno)
 **Veredicto: PASS**
 - Vocabulario prohibido: OK — limpio
 - Ubicacion correcta: OK — piece-02 mencionado como "Desde Costanera Norte" (correcto)
