@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan de Pauta v3 — Versión Final Ejecutable</title>
+<style>
+  :root { --navy: #0A1520; --teal: #4DB8A0; --gold: #D4A843; --cream: #E8EDF2; --red: #E74C3C; --green: #27AE60; --orange: #F39C12; --blue: #3498DB; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f5f7fa; color: #333; line-height: 1.6; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+  header { background: var(--navy); color: white; padding: 32px 0; margin-bottom: 24px; }
+  header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  header h1 { font-size: 24px; font-weight: 700; }
+  header h1 span { color: var(--teal); }
+  .badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+  .badge-teal { background: var(--teal); color: var(--navy); }
+  .badge-gold { background: var(--gold); color: var(--navy); }
+  .badge-red { background: var(--red); color: white; }
+  .badge-green { background: var(--green); color: white; }
+  .badge-navy { background: var(--navy); color: white; border: 1px solid #2c3e50; }
+  .meta-bar { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+  .meta-item { background: white; border-radius: 10px; padding: 16px 20px; flex: 1; min-width: 180px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  .meta-item label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 4px; }
+  .meta-item .value { font-size: 22px; font-weight: 700; color: var(--navy); }
+  .meta-item .sub { font-size: 12px; color: #666; margin-top: 4px; }
+  .section { background: white; border-radius: 10px; padding: 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  .section h2 { font-size: 16px; color: var(--navy); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid var(--cream); }
+  .section h3 { font-size: 14px; color: #555; margin: 14px 0 8px; }
+  .section p { font-size: 13px; color: #555; margin-bottom: 8px; }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13px; }
+  th { background: var(--navy); color: white; padding: 8px 12px; text-align: left; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 8px 12px; border-bottom: 1px solid #eee; vertical-align: top; }
+  tr:hover td { background: #f8f9fb; }
+  .money { font-weight: 700; color: var(--navy); }
+  .pct { color: var(--teal); font-weight: 600; }
+  .ok { color: var(--green); font-weight: 600; }
+  .warn { color: var(--orange); }
+  .pending { color: var(--orange); font-weight: 600; }
+  .done { color: var(--green); font-weight: 600; }
+  .id { font-family: 'Consolas', 'Courier New', monospace; font-size: 11px; color: #888; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+  .bar-chart { margin: 10px 0; }
+  .bar-row { display: flex; align-items: center; margin-bottom: 6px; }
+  .bar-label { width: 80px; font-size: 12px; font-weight: 600; color: #555; }
+  .bar-track { flex: 1; height: 26px; background: #eee; border-radius: 4px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 600; color: white; }
+  .bar-fill.teal { background: var(--teal); }
+  .bar-fill.navy { background: var(--navy); }
+  .bar-fill.gold { background: var(--gold); }
+  .bar-fill.orange { background: var(--orange); }
+  .bar-fill.green { background: var(--green); }
+  .bar-fill.blue { background: var(--blue); }
+  .card { background: #f8f9fb; border-radius: 8px; padding: 14px; border-left: 4px solid var(--teal); margin-bottom: 10px; }
+  .card.gold { border-left-color: var(--gold); }
+  .card.red { border-left-color: var(--red); }
+  .card.green { border-left-color: var(--green); }
+  .card.blue { border-left-color: var(--blue); }
+  .card.navy { border-left-color: var(--navy); }
+  .card h4 { font-size: 13px; color: var(--navy); margin-bottom: 4px; }
+  .card p { font-size: 12px; color: #555; }
+  .note { background: #fef9e7; border: 1px solid #f0e0a0; border-radius: 8px; padding: 12px 16px; font-size: 12px; color: #856404; margin: 10px 0; }
+  .note.red { background: #fdecea; border-color: #f5c6cb; color: #721c24; }
+  .note.green { background: #d4edda; border-color: #c3e6cb; color: #155724; }
+  .note.blue { background: #d6eaf8; border-color: #aed6f1; color: #1a5276; }
+  .checklist { list-style: none; padding: 0; margin: 8px 0; }
+  .checklist li { padding: 6px 0; font-size: 13px; border-bottom: 1px solid #f0f0f0; }
+  .checklist li::before { content: '☐ '; color: var(--navy); font-weight: 700; }
+  .superseded { color: #999; text-decoration: line-through; }
+  footer { text-align: center; padding: 24px; color: #999; font-size: 11px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div>
+      <h1>Plan de Pauta v3 — <span>Versión Final Ejecutable</span></h1>
+      <p style="color:#aaa;font-size:13px;">18 abr — 14 may 2026 &middot; 27 días &middot; Consolida y reemplaza v1, v2 y respuesta-auditoria</p>
+    </div>
+    <div>
+      <span class="badge badge-teal">27 días</span>
+      <span class="badge badge-gold">ARS 500K</span>
+      <span class="badge badge-green">v3 FINAL</span>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- Meta bar -->
+  <div class="meta-bar">
+    <div class="meta-item">
+      <label>Presupuesto neto</label>
+      <div class="value">$500.000</div>
+      <div class="sub">Débito real ~$700K (imp. ~40%)</div>
+    </div>
+    <div class="meta-item">
+      <label>Split IG / FB</label>
+      <div class="value">75% / 25%</div>
+      <div class="sub">$375K IG &middot; $125K FB</div>
+    </div>
+    <div class="meta-item">
+      <label>Tier realista</label>
+      <div class="value" style="color:var(--teal);">7K — 10K</div>
+      <div class="sub">Prob. 35-50% de alcanzar 10K</div>
+    </div>
+    <div class="meta-item">
+      <label>Tarjeta</label>
+      <div class="value" style="font-size:18px;">MC ····8307</div>
+      <div class="sub">Límite confirmado por el owner</div>
+    </div>
+  </div>
+
+  <div class="note">Impuestos argentinos ~40%: débito real estimado ~ARS 700.000. Tarjeta Mastercard ····8307, límite confirmado.</div>
+
+  <!-- 1. Split IG / FB -->
+  <div class="section">
+    <h2>1. Split IG / FB</h2>
+    <table>
+      <tr><th>Plataforma</th><th>%</th><th>Monto</th></tr>
+      <tr><td><strong>Instagram</strong></td><td class="pct">75%</td><td class="money">ARS 375.000</td></tr>
+      <tr><td><strong>Facebook</strong></td><td class="pct">25%</td><td class="money">ARS 125.000</td></tr>
+    </table>
+    <div class="note">Revisión al día 10 (27/04): si FB supera a IG en CPS neto, reasignar hasta 35% a FB.</div>
+  </div>
+
+  <!-- 2. Distribución por objetivo -->
+  <div class="section">
+    <h2>2. Distribución por objetivo</h2>
+    <table>
+      <tr><th>Objetivo</th><th>%</th><th>Monto</th><th>Rol</th></tr>
+      <tr><td><strong>Awareness</strong> (REACH)</td><td class="pct">50%</td><td class="money">$250.000</td><td>Instalar marca, primeros seguidores</td></tr>
+      <tr><td><strong>Engagement</strong> (POST_ENGAGEMENT)</td><td class="pct">25%</td><td class="money">$125.000</td><td>Reel + top performers + regalos</td></tr>
+      <tr><td><strong>Leads</strong> (LEAD_GENERATION)</td><td class="pct">10%</td><td class="money">$50.000</td><td>C3 Corporativo</td></tr>
+      <tr><td><strong>Reserva táctica</strong></td><td class="pct">15%</td><td class="money">$75.000</td><td>Escalar winners</td></tr>
+      <tr><td style="font-weight:700;">Total</td><td style="font-weight:700;">100%</td><td class="money">$500.000</td><td></td></tr>
+    </table>
+    <div class="bar-chart">
+      <div class="bar-row"><div class="bar-label">Awareness</div><div class="bar-track"><div class="bar-fill teal" style="width:50%;">50% — $250K</div></div></div>
+      <div class="bar-row"><div class="bar-label">Engagement</div><div class="bar-track"><div class="bar-fill navy" style="width:25%;">25% — $125K</div></div></div>
+      <div class="bar-row"><div class="bar-label">Leads</div><div class="bar-track"><div class="bar-fill gold" style="width:10%;">10% — $50K</div></div></div>
+      <div class="bar-row"><div class="bar-label">Reserva</div><div class="bar-track"><div class="bar-fill orange" style="width:15%;">15% — $75K</div></div></div>
+    </div>
+    <div class="note red">Traffic descartado como objetivo separado. Mínimo diario Meta LINK_CLICKS = $27.865 — inviable con este presupuesto. El tráfico al sitio se genera vía clicks en bio/captions + Pixel captura visitas desde ads de Awareness.</div>
+    <p style="font-size:12px;color:#888;">La campaña <code>ENBA_Traffic_abr2026</code> (ID <code>120238976549000139</code>) queda creada sin ad sets como infraestructura disponible. Si en semana 3 hay winner con ER &gt; 5%, la reserva permite activar 1-2 días de burst OUTCOME_TRAFFIC.</p>
+  </div>
+
+  <!-- 3. Distribución semanal -->
+  <div class="section">
+    <h2>3. Distribución semanal</h2>
+    <p>Re-baseline: día 1 = 18/04/2026. El plan corre 27 días (no 30). Curva 20/28/32/20 preservada.</p>
+    <div class="bar-chart">
+      <div class="bar-row"><div class="bar-label">Sem 1</div><div class="bar-track"><div class="bar-fill teal" style="width:20%;">$100K — Awareness intensivo</div></div></div>
+      <div class="bar-row"><div class="bar-label">Sem 2</div><div class="bar-track"><div class="bar-fill navy" style="width:28%;">$140K — Reel + escalar winners</div></div></div>
+      <div class="bar-row"><div class="bar-label">Sem 3</div><div class="bar-track"><div class="bar-fill gold" style="width:32%;">$160K — Escalar + retargeting + Leads</div></div></div>
+      <div class="bar-row"><div class="bar-label">Sem 4</div><div class="bar-track"><div class="bar-fill orange" style="width:20%;">$100K — Consolidar + cierre</div></div></div>
+    </div>
+    <table>
+      <tr><th>Semana</th><th>Días</th><th>Fechas</th><th>Budget</th><th>Diario prom.</th><th>Foco</th></tr>
+      <tr><td>1</td><td>7</td><td>18-24 abr</td><td class="money">$100.000</td><td>~$14.285</td><td>Awareness intensivo + arranque Engagement</td></tr>
+      <tr><td>2</td><td>7</td><td>25 abr - 1 may</td><td class="money">$140.000</td><td>~$20.000</td><td>Reel + escalar winners</td></tr>
+      <tr><td>3</td><td>7</td><td>2-8 may</td><td class="money">$160.000</td><td>~$22.857</td><td>Escalar + retargeting + Leads</td></tr>
+      <tr><td>4</td><td>6</td><td>9-14 may</td><td class="money">$100.000</td><td>~$16.666</td><td>Consolidar + cierre</td></tr>
+      <tr><td style="font-weight:700;">Total</td><td style="font-weight:700;">27</td><td></td><td class="money">$500.000</td><td></td><td></td></tr>
+    </table>
+
+    <h3>Evolución semanal por objetivo</h3>
+    <table>
+      <tr><th>Objetivo</th><th>Sem 1 (18-24)</th><th>Sem 2 (25-1)</th><th>Sem 3 (2-8)</th><th>Sem 4 (9-14)</th><th>Total</th></tr>
+      <tr><td>Awareness</td><td class="money">$70.000</td><td class="money">$70.000</td><td class="money">$60.000</td><td class="money">$50.000</td><td class="money">$250.000</td></tr>
+      <tr><td>Engagement</td><td>$15.000</td><td class="money">$35.000</td><td class="money">$40.000</td><td class="money">$35.000</td><td class="money">$125.000</td></tr>
+      <tr><td>Leads</td><td>$0</td><td>$10.000</td><td class="money">$20.000</td><td class="money">$20.000</td><td class="money">$50.000</td></tr>
+      <tr><td>Reserva</td><td>$15.000</td><td>$25.000</td><td>$40.000</td><td style="color:var(--red);">-$5.000</td><td class="money">$75.000*</td></tr>
+      <tr><td style="font-weight:700;">Total</td><td class="money">$100.000</td><td class="money">$140.000</td><td class="money">$160.000</td><td class="money">$100.000</td><td class="money">$500.000</td></tr>
+    </table>
+    <p style="font-size:12px;color:#888;">*La reserva se consume a medida que los winners pidan escalado. Si llega a 0 antes de semana 4, no se gasta más de lo asignado por semana.</p>
+  </div>
+
+  <!-- 4. Sprint días 1-3 -->
+  <div class="section">
+    <h2>4. Sprint días 1-3</h2>
+    <table>
+      <tr><th>Día</th><th>Fecha</th><th>Pieza</th><th>Budget</th><th>Audiencias</th></tr>
+      <tr><td><strong>1</strong></td><td>18/04 (Vie)</td><td>piece-01 darkpost "El río te llama"</td><td class="money">$25.000</td><td>B1 Experiencias ($12.500) + A2 Interés Navegación ($12.500)</td></tr>
+      <tr><td><strong>2</strong></td><td>19/04 (Sáb)</td><td>piece-02 "Desde Costanera Norte"</td><td class="money">$15.000</td><td>C1 Turismo BA ($7.500) + B2 Outdoor ($7.500)</td></tr>
+      <tr><td><strong>3</strong></td><td>20/04 (Dom)</td><td>piece-03 "No salís con una marca"</td><td class="money">$15.000</td><td>A3 Aspiracional ($7.500) + B1 Experiencias ($7.500)</td></tr>
+      <tr><td colspan="3" style="text-align:right;font-weight:700;">Total sprint</td><td class="money">$55.000</td><td></td></tr>
+    </table>
+
+    <h3>Resto de semana 1 (21-24 abr)</h3>
+    <table>
+      <tr><th>Día</th><th>Fecha</th><th>Acción</th><th>Budget</th></tr>
+      <tr><td>4</td><td>21/04 (Lun)</td><td>Evaluación 72h piece-01 — cortar/mantener</td><td class="money">$10.000 en ad sets activos</td></tr>
+      <tr><td>5</td><td>22/04 (Mar)</td><td>Activar reel "4 horas" en Engagement + C2 Regalos</td><td class="money">$10.000</td></tr>
+      <tr><td>6-7</td><td>23-24 abr</td><td>Ajuste fino basado en data 72h</td><td class="money">$10.000</td></tr>
+      <tr><td></td><td></td><td>Reserva semana 1</td><td class="money">$15.000</td></tr>
+      <tr><td colspan="2" style="text-align:right;font-weight:700;">Total semana 1</td><td></td><td class="money">$100.000</td></tr>
+    </table>
+
+    <div class="note">El carrusel cuanto-sale NO se pauta en semana 1. Los $20K originalmente asignados al carrusel se reasignan a los ad sets de Awareness. El carrusel se difiere hasta que haya infraestructura técnica para carousel ads.</div>
+  </div>
+
+  <!-- 5. Campañas existentes -->
+  <div class="section">
+    <h2>5. Campañas existentes</h2>
+    <table>
+      <tr><th>ID</th><th>Nombre</th><th>Objetivo</th><th>Estado</th></tr>
+      <tr><td class="id">120238976548160139</td><td><strong>ENBA_Awareness_abr2026</strong></td><td>OUTCOME_AWARENESS</td><td><span class="badge badge-gold">PAUSED</span></td></tr>
+      <tr><td class="id">120238976548380139</td><td><strong>ENBA_Engagement_abr2026</strong></td><td>OUTCOME_ENGAGEMENT</td><td><span class="badge badge-gold">PAUSED</span></td></tr>
+      <tr><td class="id">120238976549000139</td><td><strong>ENBA_Traffic_abr2026</strong></td><td>OUTCOME_TRAFFIC</td><td><span class="badge badge-navy">PAUSED (sin ad sets)</span></td></tr>
+      <tr><td class="id">120238976549780139</td><td><strong>ENBA_Leads_abr2026</strong></td><td>OUTCOME_LEADS</td><td><span class="badge badge-gold">PAUSED</span></td></tr>
+    </table>
+  </div>
+
+  <!-- 6. Ad Sets completos -->
+  <div class="section">
+    <h2>6. Ad Sets completos</h2>
+
+    <h3>Awareness (5 existentes)</h3>
+    <table>
+      <tr><th>Ad Set</th><th>ID</th><th>Audiencia</th><th>Opt.</th><th>Budget/día</th><th>Min Meta</th><th>Activación</th></tr>
+      <tr>
+        <td><strong>B1 Experiencias BA</strong></td>
+        <td class="id">120238978173190139</td>
+        <td>Viajes, Gastronomía, Ocio, Recreación al aire libre. CABA+GBA 40km, 28-45.</td>
+        <td>REACH</td>
+        <td class="money">$2.500</td>
+        <td class="ok">$1.393 &#10003;</td>
+        <td>Día 1 (18/04)</td>
+      </tr>
+      <tr>
+        <td><strong>A2 Interés Navegación</strong></td>
+        <td class="id">120238978174670139</td>
+        <td>Vela, Motor Boat &amp; Yachting, Sailing World, Yacht racing, Embarcación. CABA+GBA 40km, 28-50.</td>
+        <td>REACH</td>
+        <td class="money">$1.500</td>
+        <td class="ok">$1.393 &#10003;</td>
+        <td>Día 1 (18/04)</td>
+      </tr>
+      <tr>
+        <td><strong>C1 Turismo BA</strong></td>
+        <td class="id">120238978175200139</td>
+        <td>Viajes, Viajes de aventura, Viajes Y Turismo. Argentina completa, 28-55.</td>
+        <td>REACH</td>
+        <td class="money">$1.500</td>
+        <td class="ok">$1.393 &#10003;</td>
+        <td>Día 1 (18/04)</td>
+      </tr>
+      <tr>
+        <td><strong>B2 Outdoor Aventura</strong></td>
+        <td class="id">120238978175860139</td>
+        <td>Kayaking, Excursionismo, Camping, Paddleboarding, Caminatas. CABA+GBA 40km, 25-45.</td>
+        <td>REACH</td>
+        <td class="money">$1.500</td>
+        <td class="ok">$1.393 &#10003;</td>
+        <td>Día 2 (19/04)</td>
+      </tr>
+      <tr>
+        <td><strong>A3 Aspiracional Náutico</strong></td>
+        <td class="id">120238978176270139</td>
+        <td>Artículos de lujo, Viajes de aventura, Recreación al aire libre. CABA+GBA 40km, 28-45.</td>
+        <td>REACH</td>
+        <td class="money">$1.500</td>
+        <td class="ok">$1.393 &#10003;</td>
+        <td>Día 3 (20/04)</td>
+      </tr>
+    </table>
+    <p style="font-size:12px;color:#888;">Budget diario total Awareness: $8.500/día. Si corren 27 días: ~$229.500, encaja en $250K.</p>
+
+    <h3>Engagement (1 existente + 2 por crear)</h3>
+    <table>
+      <tr><th>Ad Set</th><th>ID</th><th>Audiencia</th><th>Opt.</th><th>Budget/día</th><th>Min Meta</th><th>Activación</th></tr>
+      <tr>
+        <td><strong>C2 Regalos Experienciales</strong></td>
+        <td class="id">120238978177080139</td>
+        <td>Regalos, Día de San Valentín, Bodas. CABA+GBA 40km, 28-50.</td>
+        <td>POST_ENGAGEMENT</td>
+        <td class="money">$1.500</td>
+        <td class="ok">$1.393 &#10003;</td>
+        <td>Día 5 (22/04)</td>
+      </tr>
+      <tr>
+        <td><strong>Reel 4 horas</strong></td>
+        <td class="pending">POR CREAR</td>
+        <td>A2 + B1 combinada (interés navegación + experiencias). CABA+GBA 40km, 25-50.</td>
+        <td>POST_ENGAGEMENT</td>
+        <td class="money">$3.000</td>
+        <td class="ok">$1.393 &#10003;</td>
+        <td>Día 5 (22/04)</td>
+      </tr>
+      <tr>
+        <td><strong>Top Performers</strong></td>
+        <td class="pending">POR CREAR</td>
+        <td>B1 (Experiencias BA). CABA+GBA 40km, 28-45.</td>
+        <td>POST_ENGAGEMENT</td>
+        <td class="money">$1.500</td>
+        <td class="ok">$1.393 &#10003;</td>
+        <td>Día 10 (27/04)</td>
+      </tr>
+    </table>
+    <p style="font-size:12px;color:#888;">Budget diario total Engagement: $6.000/día. Si corren sus días asignados: ~$124.500, encaja en $125K.</p>
+
+    <h3>Leads (1 existente)</h3>
+    <table>
+      <tr><th>Ad Set</th><th>ID</th><th>Audiencia</th><th>Opt.</th><th>Budget/día</th><th>Min Meta</th><th>Activación</th></tr>
+      <tr>
+        <td><strong>C3 Corporativo</strong></td>
+        <td class="id">120238978180620139</td>
+        <td>Gestión de eventos, HR Professional, Espíritu empresarial. CABA+GBA 40km, 32-55.</td>
+        <td>LEAD_GENERATION</td>
+        <td class="money">$3.500</td>
+        <td class="ok">$3.483 &#10003;</td>
+        <td>Día 8 (25/04)</td>
+      </tr>
+    </table>
+    <div class="note">Budget mensual Leads: $3.500 &times; 20 días = $70K. Pero el plan asigna $50K. Ajuste: <strong>bajar C3 a $3.500/día pero correr solo 14 días</strong> (25/04 al 8/05) = $49K. Entra en $50K. Lead form: <code>ENBA_LeadForm_Corporativo</code> — creado y activo en Ads Manager.</div>
+
+    <h3>Diferidos (activación condicional semana 2-3)</h3>
+    <table>
+      <tr><th>Ad Set</th><th>Cuándo</th><th>Condición</th></tr>
+      <tr><td>Retargeting Web Visitors</td><td>Día 14 (1/05)</td><td>D1 WebVisitors &gt; 100 personas</td></tr>
+      <tr><td>LAL IG Engagers 1%</td><td>Día 10 (27/04)</td><td>D2 IGEngagers &gt; 100 personas</td></tr>
+      <tr><td>LAL Nautica Activa 1%</td><td>Día 14 (1/05)</td><td>A1 creada como Custom Audience</td></tr>
+    </table>
+    <p style="font-size:12px;color:#888;">Estos ad sets no están creados todavía. Se crean cuando la condición se cumpla. Budget: sale de la reserva táctica ($75K).</p>
+  </div>
+
+  <!-- 7. Ads existentes -->
+  <div class="section">
+    <h2>7. Ads existentes (6)</h2>
+    <table>
+      <tr><th>Ad</th><th>Ad Set</th><th>Creative</th><th>Tipo</th></tr>
+      <tr><td><strong>ENBA_ad_piece01dp_A2</strong></td><td>A2 Interés Navegación</td><td>piece-01 darkpost</td><td><span class="badge badge-navy">image_hash</span></td></tr>
+      <tr><td><strong>ENBA_ad_piece01dp_B1</strong></td><td>B1 Experiencias BA</td><td>piece-01 darkpost</td><td><span class="badge badge-navy">image_hash</span></td></tr>
+      <tr><td><strong>ENBA_ad_piece02_C1</strong></td><td>C1 Turismo BA</td><td>piece-02 existing</td><td><span class="badge badge-teal">existing_post_id</span></td></tr>
+      <tr><td><strong>ENBA_ad_piece02_B2</strong></td><td>B2 Outdoor</td><td>piece-02 existing</td><td><span class="badge badge-teal">existing_post_id</span></td></tr>
+      <tr><td><strong>ENBA_ad_piece03_A3</strong></td><td>A3 Aspiracional</td><td>piece-03 existing</td><td><span class="badge badge-teal">existing_post_id</span></td></tr>
+      <tr><td><strong>ENBA_ad_piece03_B1</strong></td><td>B1 Experiencias BA</td><td>piece-03 existing</td><td><span class="badge badge-teal">existing_post_id</span></td></tr>
+    </table>
+    <p style="font-size:12px;color:#888;">Todos en PAUSED, aprobados por Meta, $0 gastado.</p>
+
+    <h3>Ads por crear</h3>
+    <table>
+      <tr><th>Ad</th><th>Ad Set</th><th>Creative</th><th>Cuándo</th></tr>
+      <tr><td>Reel "4 horas"</td><td><code>ENBA_Engagement_Reel4horas</code> (por crear)</td><td>existing_post_id IG <code>18585972517007777</code></td><td>Cuando se cree el ad set (día 5 = 22/04)</td></tr>
+      <tr><td>Ad para C2 Regalos</td><td><code>ENBA_Engagement_C2_Regalos</code></td><td>existing_post_id de pieza con ER &gt; 1%</td><td>Día 5 (22/04)</td></tr>
+      <tr><td>Ad para C3 Corporativo</td><td><code>ENBA_Leads_C3_Corporativo</code></td><td>darkpost corporativo o existing post</td><td>Día 8 (25/04), con lead form vinculado</td></tr>
+    </table>
+  </div>
+
+  <!-- 8. Plan del reel como ad -->
+  <div class="section" style="border-left: 4px solid var(--teal);">
+    <h2>8. Plan del reel como ad</h2>
+    <table>
+      <tr><th>Parámetro</th><th>Valor</th></tr>
+      <tr><td>Campaña</td><td>ENBA_Engagement_abr2026 (<code class="id">120238976548380139</code>)</td></tr>
+      <tr><td>Ad Set</td><td><code>ENBA_Engagement_Reel4horas</code> (por crear)</td></tr>
+      <tr><td>Audiencia</td><td>A2 + B1 combinada (interés navegación + experiencias BA)</td></tr>
+      <tr><td>Geo</td><td>CABA + GBA 40km</td></tr>
+      <tr><td>Edad</td><td>25-50</td></tr>
+      <tr><td>Optimization</td><td>POST_ENGAGEMENT</td></tr>
+      <tr><td>Budget</td><td class="money">$3.000/día</td></tr>
+      <tr><td>Creative</td><td>existing_post_id del reel publicado (IG: <code>18585972517007777</code>)</td></tr>
+      <tr><td>Activación</td><td>Día 5 (22/04)</td></tr>
+      <tr><td>Justificación</td><td>Score 8.5/10 Marina. Mejor retención que estáticos. Alimenta D4 Video Viewers.</td></tr>
+    </table>
+  </div>
+
+  <!-- 9. Ciclo de vida de las piezas en pauta -->
+  <div class="section">
+    <h2>9. Ciclo de vida de las piezas en pauta</h2>
+
+    <h3>Regla 1: Evaluación obligatoria a las 72h</h3>
+    <div class="grid-2">
+      <div class="card green">
+        <h4>WINNER</h4>
+        <p>CPS &lt; $30 + ER &gt; 3% &rarr; sigue corriendo, candidata a escalado</p>
+      </div>
+      <div class="card">
+        <h4>VIABLE</h4>
+        <p>CPS $30-$100 + ER &gt; 1% &rarr; sigue corriendo sin cambios</p>
+      </div>
+      <div class="card red">
+        <h4>CORTAR</h4>
+        <p>CPS &gt; $100 o ER &lt; 1% o CTR &lt; 0.4% &rarr; se apaga el ad</p>
+      </div>
+      <div class="card gold">
+        <h4>FATIGUE</h4>
+        <p>Frecuencia &gt; 3.5 &rarr; se apaga independientemente de otros KPIs</p>
+      </div>
+    </div>
+
+    <h3>Regla 2: Máximo 14 días por pieza</h3>
+    <p>Las piezas del sprint (piece-01 darkpost, piece-02, piece-03) tienen ciclo máximo de 14 días en pauta:</p>
+    <table>
+      <tr><th>Día</th><th>Acción</th></tr>
+      <tr><td>1-3</td><td>Sprint. Corren todas.</td></tr>
+      <tr><td>3 (72h)</td><td>Primera evaluación. Cortar las que cumplan criterio.</td></tr>
+      <tr><td>7</td><td>Segunda evaluación. Winners se mantienen, viables se reevalúan.</td></tr>
+      <tr><td><strong>14</strong></td><td><strong>Corte máximo.</strong> Se apaga sin importar performance (creative fatigue).</td></tr>
+    </table>
+    <div class="note green">Excepción: CPS &lt; $20 + frecuencia &lt; 2 a día 14 &rarr; extensión 7 días más (máximo día 21). Requiere aprobación de Bruno.</div>
+
+    <h3>Regla 3: Incorporación de piezas nuevas</h3>
+    <p>Las piezas orgánicas (1/día vía n8n) con ER &gt; 1% en primeras 24h son candidatas a pauta.</p>
+    <table>
+      <tr><th>Paso</th><th>Acción</th></tr>
+      <tr><td>1</td><td>Día siguiente a publicación: verificar ER orgánico</td></tr>
+      <tr><td>2</td><td>ER &gt; 1%: crear ad con <code>existing_post_id</code></td></tr>
+      <tr><td>3</td><td>ER &lt; 1%: solo orgánica</td></tr>
+      <tr><td>4</td><td>Máximo 2 piezas nuevas por semana (revisar con data real en semana 2)</td></tr>
+    </table>
+
+    <h3>Regla 4: Máximo 3 ads por ad set</h3>
+    <table>
+      <tr><th>Situación</th><th>Acción</th></tr>
+      <tr><td>1-3 ads</td><td class="ok">OK</td></tr>
+      <tr><td>4+ ads</td><td style="color:var(--red);">Se apaga el ad con peor CPS</td></tr>
+    </table>
+
+    <h3>Regla 5: Rotación semanal</h3>
+    <p>Cada lunes (o primer día de cada semana):</p>
+    <ul class="checklist">
+      <li>Revisar todos los ads activos</li>
+      <li>Apagar los que cumplan criterio de corte o fatigue</li>
+      <li>Incorporar 1-2 piezas nuevas</li>
+      <li>Actualizar <code>meta-ids.json</code></li>
+    </ul>
+    <p style="font-size:12px;color:#888;">Responsable: Bruno propone &rarr; owner aprueba antes de ejecutar.</p>
+
+    <h3>Regla 6: Reemplazo obligatorio antes de fatigue</h3>
+    <p>Ninguna pieza se apaga por fatigue si el ad set queda sin creative.</p>
+    <table>
+      <tr><th>Día</th><th>Acción</th></tr>
+      <tr><td>10</td><td>Alerta fatigue inminente. Verificar si hay reemplazo.</td></tr>
+      <tr><td>10-12</td><td>Producir reemplazo: (1) existing post con buen ER, (2) nuevo darkpost, (3) variante de la misma pieza</td></tr>
+      <tr><td>13</td><td>Reemplazo listo en PAUSED</td></tr>
+      <tr><td><strong>14</strong></td><td><strong>Swap:</strong> activa reemplazo + apaga fatigada</td></tr>
+    </table>
+    <div class="card navy">
+      <h4>Caso piece-01 darkpost:</h4>
+      <p>&bull; Prioridad 1: reel como ad en A2/B1 (cambia formato, resetea fatigue)<br>
+      &bull; Prioridad 2: piece-01 variante B (distinto crop/headline, 30 min producción)<br>
+      &bull; Prioridad 3: existing post con ER &gt; 2%</p>
+    </div>
+    <div class="note red">Regla dura: si al día 13 no hay reemplazo, extender 3 días más con budget -50%. Máximo absoluto día 17.</div>
+  </div>
+
+  <!-- 10. Criterios de corte y escalado -->
+  <div class="grid-2">
+    <div class="section">
+      <h2>10. Cuándo APAGAR (después de 72h)</h2>
+      <div class="card red">
+        <h4>Cortar si:</h4>
+        <p>&bull; CPS &gt; ARS 100<br>&bull; CTR &lt; 0.4%<br>&bull; Frecuencia &gt; 3.5</p>
+      </div>
+    </div>
+    <div class="section">
+      <h2>10. Cuándo ESCALAR (después de 72h)</h2>
+      <div class="card green">
+        <h4>Escalar si:</h4>
+        <p>&bull; CPS &lt; ARS 30<br>&bull; Engagement rate &gt; 3%<br>&bull; Follow rate &gt; 20%<br>&bull; Incremento: +25% cada 48h<br>&bull; Win 5 días &rarr; triple scale (+100% en 48h)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11. Tests primeras 72h -->
+  <div class="section">
+    <h2>11. Tests primeras 72h</h2>
+    <div class="card">
+      <h4>Test 1: B1 Experiencias vs A2 Interés Navegación (misma pieza piece-01 darkpost)</h4>
+      <p>Hipótesis: B1 mejor CPS bruto, A2 mejor follow rate.<br>Criterio: al día 3, quedarse con mejor CPS calificado.<br>Acción: reasignar budget de la perdedora a la ganadora.</p>
+    </div>
+    <div class="card gold">
+      <h4>Test 2: C1 Turismo BA vs B2 Outdoor (misma pieza piece-02)</h4>
+      <p>Hipótesis: C1 gana CPS por alcance, B2 gana en DMs.<br>Criterio: al día 5, evaluar DMs por audiencia.<br>Acción: si B2 gana en DMs aunque CPS más alto, mantenerlo.</p>
+    </div>
+    <div class="card blue">
+      <h4>Test 3: C3 Corporativo LEAD_GEN ($3.500/día, desde día 8)</h4>
+      <p>Hipótesis: mínimo alto se compensa con ticket alto.<br>Criterio: al día 14, 3+ consultas corporativas.<br>Acción: si cumple, escalar a $5K/día. Si no, apagar y reasignar.</p>
+    </div>
+  </div>
+
+  <!-- 12. Exclusiones -->
+  <div class="section">
+    <h2>12. Exclusiones</h2>
+
+    <h3>Custom Audiences de exclusión (por crear en UI)</h3>
+    <table>
+      <tr><th>Nombre</th><th>Fuente</th><th>Evento</th><th>Retención</th><th>Propósito</th></tr>
+      <tr><td><code>ENBA_Exclusion_FBPageLikers</code></td><td>Página Facebook</td><td>Personas que les gusta tu página</td><td>Sin límite</td><td>Excluir likers actuales de FB</td></tr>
+      <tr><td><code>ENBA_Exclusion_IGEngaged365</code></td><td>Cuenta Instagram</td><td>Cualquier persona que interactuó</td><td>365 días</td><td>Proxy para excluir followers IG</td></tr>
+    </table>
+    <div class="note">Cuándo: crear antes de semana 2 (25/04). No bloqueante para activar semana 1 (impacto bajo con pocos seguidores). Una vez creadas, actualizar todos los ad sets con <code>excluded_custom_audiences</code> vía API PATCH.</div>
+
+    <h3>Exclusión cruzada entre audiencias</h3>
+    <p>Diferida a semana 3+. Depende de que A1 (Náutica Activa) exista como Custom Audience. Sin A1, los 5 ad sets de Awareness compiten internamente — Meta lo maneja con su algoritmo. No es ideal pero no es bloqueante.</p>
+  </div>
+
+  <!-- 13. Custom Audiences -->
+  <div class="section">
+    <h2>13. Custom Audiences</h2>
+    <table>
+      <tr><th>#</th><th>Nombre</th><th>Estado</th><th>Fuente</th></tr>
+      <tr><td>D1</td><td><code>ENBA_Custom_WebVisitors_30d</code></td><td><span class="done">Creada en UI</span></td><td>Pixel, 30 días</td></tr>
+      <tr><td>D2</td><td><code>ENBA_Custom_IGEngagers_90d</code></td><td><span class="done">Creada en UI</span></td><td>IG engagement, 90 días</td></tr>
+      <tr><td>D3</td><td><code>ENBA_Custom_FBEngagers_90d</code></td><td><span class="done">Creada en UI</span></td><td>FB Page engagement, 90 días</td></tr>
+      <tr><td>D4</td><td><code>ENBA_Custom_VideoViewers_30d</code></td><td><span class="pending">Por crear</span></td><td>Video viewers, 30 días</td></tr>
+    </table>
+    <div class="note blue">D4 se puede crear ahora en UI de Ads Manager: fuente "Video", seleccionar reel "4 horas en el río", retención 30 días. Lookalikes se crean cuando D1/D2/D3 superen 100 personas (estimado: semana 2-3).</div>
+  </div>
+
+  <!-- 14. Acciones bloqueantes -->
+  <div class="section" style="border-left: 4px solid var(--gold);">
+    <h2>14. Acciones bloqueantes antes de activar</h2>
+    <table>
+      <tr><th>#</th><th>Acción</th><th>Estado</th><th>Quién</th></tr>
+      <tr><td>1</td><td>Targeting patcheado con IDs válidos (7 ad sets)</td><td class="done">HECHO</td><td>Técnico</td></tr>
+      <tr><td>2</td><td>Lead form C3 creado</td><td class="done">HECHO</td><td>Owner</td></tr>
+      <tr><td>3</td><td>Tarjeta $700K confirmada</td><td class="done">HECHO</td><td>Owner</td></tr>
+      <tr><td>4</td><td>Crear ad set <code>ENBA_Engagement_Reel4horas</code></td><td class="pending">PENDIENTE</td><td>Técnico (API)</td></tr>
+      <tr><td>5</td><td>Crear ad set <code>ENBA_Engagement_TopPerformers</code></td><td class="pending">PENDIENTE</td><td>Técnico (API)</td></tr>
+      <tr><td>6</td><td>Crear ad del reel en el ad set nuevo</td><td class="pending">PENDIENTE</td><td>Técnico (API)</td></tr>
+    </table>
+    <div class="note green"><strong>Una vez que se completen 4-6, se puede activar día 1 (18/04).</strong> Los ad sets de Awareness + sus ads ya están listos. Los de Engagement se activan en día 5 (22/04) — hay margen para crearlos.</div>
+  </div>
+
+  <!-- 15. Calendario de activación -->
+  <div class="section">
+    <h2>15. Calendario de activación</h2>
+    <table>
+      <tr><th>Día</th><th>Fecha</th><th>Qué se activa</th><th>Budget diario total</th></tr>
+      <tr><td><strong>1</strong></td><td>18/04 (Vie)</td><td>A2, B1, C1 (Awareness)</td><td class="money">$5.500</td></tr>
+      <tr><td><strong>2</strong></td><td>19/04 (Sáb)</td><td>+ B2 (Awareness)</td><td class="money">$7.000</td></tr>
+      <tr><td><strong>3</strong></td><td>20/04 (Dom)</td><td>+ A3 (Awareness)</td><td class="money">$8.500</td></tr>
+      <tr><td><strong>5</strong></td><td>22/04 (Mar)</td><td>+ Reel ad + C2 Regalos (Engagement)</td><td class="money">$13.000</td></tr>
+      <tr><td><strong>8</strong></td><td>25/04 (Vie)</td><td>+ C3 Corporativo (Leads)</td><td class="money">$16.500</td></tr>
+      <tr><td><strong>10</strong></td><td>27/04 (Dom)</td><td>+ LAL IG Engagers (si D2 &gt; 100)</td><td class="money">~$18.500</td></tr>
+      <tr><td><strong>14</strong></td><td>1/05 (Jue)</td><td>+ Retargeting Web + Top Performers (Engagement)</td><td class="money">~$21.500</td></tr>
+    </table>
+    <p style="font-size:12px;color:#888;">Quién activa: Manu coordina &rarr; owner aprueba &rarr; técnico ejecuta el cambio de status PAUSED &rarr; ACTIVE.</p>
+  </div>
+
+  <!-- 16. Métricas proyectadas -->
+  <div class="section" style="border-left: 4px solid var(--teal);">
+    <h2>16. Métricas proyectadas con $500K</h2>
+    <p>CPS promedio estimado: <strong>$45 ARS</strong> (mercado AR, nicho experiencias, cuenta nueva, abril 2026).</p>
+    <table>
+      <tr><th>Concepto</th><th>Cálculo</th><th>Seguidores</th></tr>
+      <tr><td>Teórico bruto</td><td>$500K / $45</td><td>~11.100</td></tr>
+      <tr><td>Ajuste calibración sem 1 (-20%)</td><td>-$100K efectivo</td><td>-2.200</td></tr>
+      <tr><td>Ajuste CPS variable (-15%)</td><td>CPS &gt; $45 en C3, A3</td><td>-1.500</td></tr>
+      <tr><td>Ajuste conversión parcial (-20%)</td><td>Engagement/Leads no todos convierten</td><td>-1.500</td></tr>
+      <tr><td><strong>Pagados realistas</strong></td><td></td><td class="money">~5.900</td></tr>
+      <tr><td>+ Orgánico (30 posts + reel + carruseles)</td><td></td><td style="color:var(--teal);">+2.500</td></tr>
+      <tr><td style="font-size:16px;"><strong>TOTAL REALISTA</strong></td><td></td><td style="font-size:16px;color:var(--teal);font-weight:700;">7.000 — 10.000</td></tr>
+      <tr><td>Probabilidad de alcanzar 10K</td><td></td><td style="color:var(--green);font-weight:700;">35-50%</td></tr>
+    </table>
+    <p style="font-size:12px;color:#888;">(vs 5-10% con $250K original)</p>
+  </div>
+
+  <!-- 17. Decisiones operativas para Manu -->
+  <div class="section">
+    <h2>17. Decisiones operativas para Manu</h2>
+
+    <h3>Antes de día 1 (18/04)</h3>
+    <table>
+      <tr><th>#</th><th>Acción</th><th>Quién</th><th>Aprobación</th></tr>
+      <tr><td>1</td><td>Crear ad set <code>ENBA_Engagement_Reel4horas</code> vía API</td><td>Técnico</td><td>Owner + Bruno</td></tr>
+      <tr><td>2</td><td>Crear ad set <code>ENBA_Engagement_TopPerformers</code> vía API</td><td>Técnico</td><td>Owner + Bruno</td></tr>
+      <tr><td>3</td><td>Crear ad del reel con existing_post_id</td><td>Técnico</td><td>Owner</td></tr>
+      <tr><td>4</td><td>Activar ad sets A2, B1, C1 (PAUSED &rarr; ACTIVE)</td><td>Técnico</td><td>Owner</td></tr>
+    </table>
+
+    <h3>Día 5 (22/04)</h3>
+    <table>
+      <tr><th>#</th><th>Acción</th></tr>
+      <tr><td>5</td><td>Activar reel ad + C2 Regalos</td></tr>
+      <tr><td>6</td><td>Crear D4 Video Viewers en UI (si no se hizo antes)</td></tr>
+    </table>
+
+    <h3>Día 7 (24/04)</h3>
+    <table>
+      <tr><th>#</th><th>Acción</th></tr>
+      <tr><td>7</td><td>Primer reporte Bruno: evaluación 72h de Awareness</td></tr>
+      <tr><td>8</td><td>Cortar ad sets/ads que cumplan criterio</td></tr>
+      <tr><td>9</td><td>Crear 2 Custom Audiences de exclusión en UI</td></tr>
+    </table>
+
+    <h3>Día 8 (25/04)</h3>
+    <table>
+      <tr><th>#</th><th>Acción</th></tr>
+      <tr><td>10</td><td>Activar C3 Corporativo con lead form vinculado</td></tr>
+    </table>
+
+    <h3>Día 10 (27/04)</h3>
+    <table>
+      <tr><th>#</th><th>Acción</th></tr>
+      <tr><td>11</td><td>Crear LAL IG Engagers 1% si D2 &gt; 100</td></tr>
+      <tr><td>12</td><td>Activar Top Performers si hay pieza con ER &gt; 1%</td></tr>
+    </table>
+
+    <h3>Semanal (cada lunes)</h3>
+    <table>
+      <tr><th>#</th><th>Acción</th></tr>
+      <tr><td>13</td><td>Bruno entrega reporte semanal</td></tr>
+      <tr><td>14</td><td>Rotación de piezas (regla 5)</td></tr>
+      <tr><td>15</td><td>Incorporación de nuevas piezas (regla 3)</td></tr>
+      <tr><td>16</td><td>Actualizar meta-ids.json</td></tr>
+    </table>
+
+    <div class="note red"><strong>Toda acción de activación requiere:</strong> (1) Bruno propone &rarr; (2) Owner aprueba &rarr; (3) Técnico ejecuta. Nadie activa nada sin aprobación del owner.</div>
+  </div>
+
+  <!-- 18. Documentos reemplazados -->
+  <div class="section">
+    <h2>18. Documentos que este plan reemplaza</h2>
+    <table>
+      <tr><th>Documento</th><th>Estado</th></tr>
+      <tr><td>presupuesto.md ($250K, v1)</td><td><span class="superseded">Histórico — superseded</span></td></tr>
+      <tr><td>presupuesto-v2-500k.md ($500K, v2)</td><td><span class="superseded">Histórico — superseded</span></td></tr>
+      <tr><td>respuesta-auditoria-bruno.md</td><td><span class="superseded">Histórico — integrado acá</span></td></tr>
+      <tr><td>audiencias-ampliadas.md (tablas $250K)</td><td><span class="superseded">Histórico — proporciones válidas, montos superseded</span></td></tr>
+    </table>
+    <div class="note green">Este documento es la <strong>fuente de verdad única</strong> del plan de pauta del frente 10K.</div>
+  </div>
+
+  <!-- Síntesis -->
+  <div class="section" style="background: var(--navy); color: var(--cream);">
+    <h2 style="color: var(--teal); border-bottom-color: rgba(255,255,255,0.1);">Síntesis v3</h2>
+    <p style="font-size: 14px; line-height: 1.8; color: #ccc;">
+      Plan final ejecutable con <strong style="color:var(--teal);">$500K neto en 27 días</strong> (18 abr — 14 may).
+      Awareness 50% ($250K), Engagement 25% ($125K), Leads 10% ($50K), reserva táctica 15% ($75K).
+      Traffic descartado como objetivo propio — inviable por mínimo diario Meta.
+      Curva semanal 20/28/32/20. Sprint días 1-3 con 3 piezas + $55K.
+      6 ads creados y aprobados. 3 ad sets + ads pendientes de creación.
+      Reglas de corte (72h), escalado, rotación semanal y reemplazo obligatorio antes de fatigue.
+      Proyección realista: <strong style="color:var(--teal);">7.000 — 10.000 seguidores</strong> (35-50% prob. de 10K).
+    </p>
+  </div>
+
+</div>
+
+<footer>
+  Bruno — Social Growth &amp; Performance Director &middot; Plan 10K v3 Final &middot; 17 abril 2026 &middot; Confidencial
+</footer>
+
+</body>
+</html>

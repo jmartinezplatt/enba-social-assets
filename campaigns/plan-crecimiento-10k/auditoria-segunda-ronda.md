@@ -2,7 +2,7 @@
 
 **Auditor:** Paid Media Auditor (Team 4)
 **Fecha:** 17 de abril de 2026
-**Material revisado:** respuesta-auditoria-bruno.md (respuesta a los 7 gaps críticos + 2 puntos adicionales)
+**Material revisado:** historico/respuesta-auditoria-bruno.md (respuesta a los 7 gaps críticos + 2 puntos adicionales)
 
 ---
 

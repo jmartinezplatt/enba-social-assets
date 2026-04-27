@@ -12,11 +12,13 @@ Repositorio de contenido social para Espacio Náutico Buenos Aires (ENBA). Conti
 
 **Branch:** `plan-crecimiento-10k`
 **Fuentes de verdad del frente:**
+- `campaigns/plan-crecimiento-10k/STATUS.md` — snapshot corto vigente para inicio de sesión
 - `campaigns/plan-crecimiento-10k/plan-maestro.md` — plan vivo, pendientes, timeline
 - `campaigns/plan-crecimiento-10k/presupuesto-v4-reestructuracion.md` — plan de pauta vigente
 - `campaigns/plan-crecimiento-10k/meta-ids.json` — infraestructura Meta Ads
 
 Al arrancar sesión, verificar que estás en este branch. Si no, hacer `git checkout plan-crecimiento-10k`.
+Orden de lectura recomendado para este frente: `CLAUDE.md` → `STATUS.md` → documento específico según tarea.
 
 ---
 
@@ -278,12 +280,15 @@ Siempre usar el slash command correspondiente (`/bruno`, `/marina`, `/franco`, `
 
 ## Reglas operativas n8n
 
-> **Reglas de contacto con `enba-web` — leer completo antes de cualquier acción:**
+> **Memoria local obligatoria para n8n:**
 >
-> 1. **READ ONLY estricto.** El único contacto permitido con `enba-web` desde este repo es lectura, y exclusivamente para contexto de operación n8n (ver `enba-web/CLAUDE.md` reglas 7-14 y `enba-web/docs/05-historico/INCIDENTES.md`).
-> 2. **Ninguna modificación bajo ninguna circunstancia**, ya sea editando archivos locales, haciendo commits, pushes, o llamando APIs externas (GitHub API, scripts, n8n workflows, etc.) que resulten en cambios en ese repo.
-> 3. **Excepción solo con autorización explícita de Jose + reconfirmación.** Si Jose pide algo que implique modificar enba-web, confirmar la acción concreta antes de ejecutar ("Para X necesito hacer Y en enba-web. ¿Autorizás?") y esperar un "sí" explícito. "Publicá", "hacelo", "procedé" no alcanzan.
-> 4. Incidente 26/04/2026: se publicó un post de blog en enba-web vía GitHub API sin pedir autorización explícita, interpretando "publicamos la entrada blog directamente" como aprobación implícita. No repetir.
+> 1. Antes de cualquier trabajo no trivial de n8n, leer `automatizaciones/n8n-workflows/OPERACION-N8N.md` y `automatizaciones/n8n-workflows/INCIDENTES.md`.
+> 2. Si un aprendizaje de `enba-web` aplica acá, importarlo a esta memoria local. No usar `enba-web` como fuente de arranque por default.
+> 3. `enba-web` **no se consulta sin autorización explícita de Jose**. Ni siquiera en read-only.
+> 4. Si Jose autoriza la consulta, `enba-web` solo se puede mirar en **READ ONLY estricto** y de forma excepcional, cuando falte contexto local para un patrón general de n8n.
+> 5. **Ninguna modificación bajo ninguna circunstancia** en `enba-web`, ya sea editando archivos locales, haciendo commits, pushes, o llamando APIs externas (GitHub API, scripts, n8n workflows, etc.) que resulten en cambios en ese repo.
+> 6. **Excepción solo con autorización explícita de Jose + reconfirmación.** Si Jose pide algo que implique modificar `enba-web`, confirmar la acción concreta antes de ejecutar ("Para X necesito hacer Y en enba-web. ¿Autorizás?") y esperar un "sí" explícito. "Publicá", "hacelo", "procedé" no alcanzan.
+> 7. Incidente 26/04/2026: se publicó un post de blog en `enba-web` vía GitHub API sin pedir autorización explícita, interpretando "publicamos la entrada blog directamente" como aprobación implícita. No repetir.
 
 1. No usar MCP tools para n8n — siempre API directa con curl + env vars
 2. API key leerla así, sin exponerla nunca:
