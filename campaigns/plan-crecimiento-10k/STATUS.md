@@ -1,6 +1,6 @@
 # STATUS — Frente REDES
 
-**Última actualización:** 27 de abril de 2026
+**Última actualización:** 27 de abril de 2026 (sesión tarde)
 **Owner de mantenimiento:** quien cierre la sesión del frente redes
 **Uso:** punto de entrada corto para inicio de sesión. Si este archivo contradice un handoff viejo, manda este archivo.
 
@@ -51,14 +51,18 @@ Los `SESSION-HANDOFF-*.md` sirven como contexto histórico, lecciones e incident
 
 - Workflow de publicación diaria feed IG+FB v7.2: `MipwleZNu8EG5v6C`
 - Workflow de evaluación diaria de ads: `1qRywsEWAl7VoO5o`
-- Fase 2 de stories: documentada en `plan-maestro.md` como activa al 26/04
+- Fase 2 de stories: 3 workflows activos (Mañana / Tarde / Noche) — patcheados 27/04 con nodo Log to Sheet
+- **Nuevo 27/04:** `ENBA - Stories FB Best IG` (`ZGIGw47IYuwHv3Wh`) — corre 08:30 ART, publica en FB la story IG con mayor reach del día anterior
+- Google Sheet stories log: `1DimMWT7rNXNd2jS_rnCNs0qHLqSahwYLc3s9m7wpw1U`
 
 ### Últimos hitos relevantes
 
-- Pixel stack completado y Custom Conversions creadas en Meta Ads
-- `Contact` todavía muestra 0 eventos; verificar href/flujo de WhatsApp antes de asumir que mide bien
-- Burn rate real reportado por encima del target al cierre del 26/04
-- `STATUS.md` pasa a ser la capa corta para arranque de sesión del frente redes
+- Pixel stack completado: Custom Conversions Contact + ViewContent creadas. **Fix Contact pixel deployado** (commit `a9a2e67` enba-web main, 27/04): `openWhatsappFallback` en `chat.ts` ahora llama `fbq("Contact")`. Verificar eventos en Events Manager 24-48h post-deploy.
+- D4 audience (VideoViewers_30d): 3.000–3.500 personas, lista para usar. Retarget ad sets (IG + FB) confirmados con D4 en targeting vía API.
+- Stories Fase 2: 3 workflows activos (Mañana 09:00 / Tarde 14:00 / Noche 20:00 ART). Secuencia intacta. Monitorear cron Mañana 09:00 — falló el 26/04 y requirió retry manual.
+- Burn rate 26/04: $24.038 (+23% vs día anterior). Benigno — ad sets madurando y alcanzando caps. Frecuencias 1.0–1.3, sin fatiga. Decisión de ajuste en Gate 2 (29/04).
+- `jq` instalado en el entorno (`winget install jqlang.jq`) — disponible para llamadas API.
+- **27/04 sesión tarde:** Automatización FB stories construida y activa. Los 3 workflows de Fase 2 loguean cada story publicada en Google Sheets (date/slot/media_id/image_url/seq). Workflow selector `ZGIGw47IYuwHv3Wh` corre 08:30 ART: lee sheet, consulta reach IG de las 3 stories del día anterior, publica la ganadora como story en FB. Primera ejecución: 28/04 08:30 ART. Credencial Google Sheets OAuth2 reautorizada (`w3CGca02rWZppDL9`).
 
 ---
 
