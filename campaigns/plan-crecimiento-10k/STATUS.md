@@ -49,11 +49,18 @@ Los `SESSION-HANDOFF-*.md` sirven como contexto histórico, lecciones e incident
 
 ### Infra y operación documentadas como activas
 
-- Workflow de publicación diaria feed IG+FB v7.2: `MipwleZNu8EG5v6C`
-- Workflow de evaluación diaria de ads: `1qRywsEWAl7VoO5o`
-- Fase 2 de stories: 3 workflows activos (Mañana / Tarde / Noche) — patcheados 27/04 con nodo Log to Sheet
-- **Nuevo 27/04:** `ENBA - Stories FB Best IG` (`ZGIGw47IYuwHv3Wh`) — corre 08:30 ART, publica en FB la story IG con mayor reach del día anterior
-- Google Sheet stories log: `1DimMWT7rNXNd2jS_rnCNs0qHLqSahwYLc3s9m7wpw1U`
+| Workflow | ID | Descripción | Estado |
+|---|---|---|---|
+| ENBA - Redes Publicación Diaria v7.2 | `MipwleZNu8EG5v6C` | Publicación feed IG+FB 12:15 ART, 34 nodos | Activo |
+| ENBA - Email Notifier | `yYnyrB7UI52Syf9x` | Webhook `enba-email-notifier` → email Gmail ENBA | Activo |
+| ENBA - Evaluación Diaria Ads | `1qRywsEWAl7VoO5o` | Evaluación diaria de performance de ads | Activo |
+| ENBA - Stories Fase 2 Mañana | `q1nZVNrtEsxKEFni` | Story IG+log sheet 09:00 ART | Activo |
+| ENBA - Stories Fase 2 Tarde | `pBP7tkXlD6nzx4wd` | Story IG+log sheet 14:00 ART | Activo |
+| ENBA - Stories Fase 2 Noche | `c8MHANGzW56GORAi` | Story IG+log sheet 20:00 ART | Activo |
+| ENBA - Stories FB Best IG | `ZGIGw47IYuwHv3Wh` | Lee sheet, elige story con mayor reach, publica en FB 08:30 ART | Activo |
+
+Google Sheet stories log: `1DimMWT7rNXNd2jS_rnCNs0qHLqSahwYLc3s9m7wpw1U`
+Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier`
 
 ### Últimos hitos relevantes
 

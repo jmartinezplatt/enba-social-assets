@@ -108,3 +108,59 @@ Si la lección vino de `enba-web`, marcarla como **importada** y adaptada.
 **Lección importada:** cualquier cambio en código o payloads con español exige UTF-8 explícito y verificación posterior.
 
 **Regla que queda:** si se toca texto sensible en n8n, verificar que no haya mojibake después del cambio.
+
+---
+
+## INC-REDES-N8N-008 — PUT workflow rechaza campos extra
+
+**Fecha:** 27/04/2026
+
+**Síntoma:** al hacer PUT de un workflow después de GET completo, n8n devuelve `request/body must NOT have additional properties` o `is read-only`.
+
+**Causa raíz:** el PUT solo acepta `{name, nodes, connections, settings}`. Cualquier campo extra (tags, versionId, shared, active, createdAt, updatedAt) es rechazado.
+
+**Fix:** construir el payload de PUT con solo esos 4 campos extraídos del GET.
+
+**Regla que queda:** antes de hacer PUT, filtrar el objeto a solo `{name, nodes, connections, settings}`.
+
+---
+
+## INC-REDES-N8N-009 — Google Sheets credential incompatible con HTTP Request node
+
+**Fecha:** 27/04/2026
+
+**Síntoma:** `Credential "xxx" does not exist for type "oAuth2Api"` al usar credencial `googleSheetsOAuth2Api` en nodo HTTP Request.
+
+**Causa raíz:** el tipo `googleSheetsOAuth2Api` no es compatible con el nodo HTTP Request (que espera `oAuth2Api`). Son tipos distintos en n8n.
+
+**Fix:** usar el nodo nativo `n8n-nodes-base.googleSheets` para cualquier operación con Google Sheets.
+
+**Regla que queda:** nunca usar HTTP Request node con credencial `googleSheetsOAuth2Api`. Siempre usar el nodo nativo Google Sheets.
+
+---
+
+## INC-REDES-N8N-010 — FB photo_stories no acepta URL directa
+
+**Fecha:** 27/04/2026
+
+**Síntoma:** al intentar publicar una story en FB pasando `url` o `file_url` directamente al endpoint `photo_stories`, Meta rechaza el request.
+
+**Causa raíz:** el endpoint `photo_stories` solo acepta un `photo_id` (FBID) que ya esté subido.
+
+**Fix:** publicar en 2 pasos: (1) `POST /{pageId}/photos?url=...&published=false` → obtener `photo_fbid`, (2) `POST /{pageId}/photo_stories?photo_id={photo_fbid}`.
+
+**Regla que queda:** FB Stories siempre requieren el patrón 2 pasos. Documentado también en `OPERACION-N8N.md` regla 15.
+
+---
+
+## INC-REDES-N8N-011 — Story publicada en FB durante prueba sin autorización previa
+
+**Fecha:** 27/04/2026
+
+**Síntoma:** durante la verificación del endpoint `photo_stories`, se ejecutó un POST real que publicó una story en el FB público de ENBA sin consultar al usuario antes.
+
+**Causa raíz:** se asumió que una llamada de "verificación técnica" era inofensiva porque no modificaba el feed.
+
+**Fix:** no existe fix retroactivo. La story quedó publicada.
+
+**Regla que queda:** cualquier POST a Meta que publique o modifique contenido visible (feed, story, foto, video) requiere autorización explícita del usuario antes de ejecutarse. "Verificar si funciona" no alcanza como justificación.

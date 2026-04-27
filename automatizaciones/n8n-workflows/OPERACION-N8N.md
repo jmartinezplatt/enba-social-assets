@@ -41,6 +41,11 @@ Si un aprendizaje de `enba-web` aplica acá, la regla es:
 8. Base URL: `https://espacionautico.app.n8n.cloud/api/v1/`
 9. Timezone de n8n cloud = ART (UTC-3). Las cron expressions se piensan en hora argentina.
 10. Después de crear o editar un workflow con Schedule Trigger vía API: hacer ciclo `active:false → active:true` para re-registrar el cron.
+11. **PUT workflow** solo acepta `{name, nodes, connections, settings}`. Rechaza `tags`, `versionId`, `shared`, `active`, `createdAt`, `updatedAt`, etc. con "request/body must NOT have additional properties" o "is read-only".
+12. **Activar/desactivar workflow:** usar `POST /workflows/{id}/activate` y `POST /workflows/{id}/deactivate`. PATCH no está soportado ("PATCH method not allowed").
+13. **Workflow con trigger manual no se puede ejecutar vía API.** Para testing, crear un workflow con Webhook node, activar, llamar el webhook, desactivar y borrar al terminar.
+14. **Google Sheets en n8n:** usar nodo nativo `n8n-nodes-base.googleSheets` con credencial tipo `googleSheetsOAuth2Api`. El nodo HTTP Request **no** puede usar esa credencial (tipo incompatible `oAuth2Api`). En sheet vacío, el nodo append con `defineBelow` crea los headers automáticamente en la primera ejecución.
+15. **FB photo_stories (validado 27/04):** requiere 2 pasos: (1) `POST /{pageId}/photos?url=...&published=false` → `{id: photo_fbid}`, (2) `POST /{pageId}/photo_stories?photo_id={photo_fbid}` → `{success:true, post_id:...}`. No acepta `url` / `file_url` directamente en `photo_stories`.
 
 ---
 
@@ -66,7 +71,39 @@ Si un aprendizaje de `enba-web` aplica acá, la regla es:
 
 ---
 
-## 5. Cuándo mirar `enba-web`
+## 6. Credenciales Meta en n8n
+
+### Cómo crear una credencial de token Meta
+
+1. En la UI de n8n: Settings → Credentials → Add → "Header Auth"
+2. Nombre del header: `Authorization`, valor: `Bearer <token>`. El token queda encriptado en n8n.
+3. Anotar el credential ID que n8n asigna.
+
+### Cómo referenciar la credencial en un nodo HTTP Request
+
+En `parameters` del nodo, incluir siempre:
+```
+"authentication": "genericCredentialType",
+"genericAuthType": "httpHeaderAuth"
+```
+Sin estos campos n8n ignora la credencial y el request sale sin token. Meta devuelve "missing permissions" sin indicar que falta el header. (INC-REDES-N8N-002)
+
+### Credenciales activas
+
+| Nombre | ID | Tipo | Uso |
+|---|---|---|---|
+| Meta API ENBA | `n8scJzbGXnCprioD` | httpHeaderAuth | Publicación feed IG+FB |
+| Meta API ENBA - Page Token | `IGBqXMQRWJLxzh7f` | httpHeaderAuth | Stories / Page Token |
+| Gmail ENBA | `HpJBfNd1BCHaLYfY` | gmailOAuth2 | Email notificaciones |
+| Google Sheets ENBA | `w3CGca02rWZppDL9` | googleSheetsOAuth2Api | Stories log sheet |
+
+### Email en workflows
+
+Usar nodo `emailSend` con credencial Gmail ENBA (`HpJBfNd1BCHaLYfY`) directo. No usar webhook intermediario. Preparar subject/body en Code node previo.
+
+---
+
+## 7. Cuándo mirar `enba-web`
 
 Solo si pasa esto:
 
