@@ -412,7 +412,25 @@
       "custom_event_type": "LEAD",
       "rule": "url i_contains espacionautico.com.ar",
       "created_date": "2026-04-25",
-      "notes": "Trackea fbq Lead desde ServiceConsultForm (solo aparece en /). Contact y ViewContent son Standard Events nativos — no requieren Custom Conversion."
+      "notes": "Trackea fbq Lead desde ServiceConsultForm tras envío exitoso."
+    },
+    "enba_contact": {
+      "id": "945609238261267",
+      "name": "ENBA - Contact (click WhatsApp)",
+      "pixel_id": "1273048378266952",
+      "custom_event_type": "CONTACT",
+      "rule": "url starts_with https://espacionautico.com.ar",
+      "created_date": "2026-04-27",
+      "notes": "Trackea fbq Contact desde ga4-events.ts — click en href con wa.me o whatsapp. 0 eventos al 27/04 — verificar href de botones WhatsApp en enba-web."
+    },
+    "enba_viewcontent": {
+      "id": "2216541158753262",
+      "name": "ENBA - ViewContent (click CTA)",
+      "pixel_id": "1273048378266952",
+      "custom_event_type": "CONTENT_VIEW",
+      "rule": "url starts_with https://www.espacionautico.com.ar",
+      "created_date": "2026-04-27",
+      "notes": "Trackea fbq ViewContent desde ga4-events.ts — click en botón con clase bg-primary o bg-accent. 4 eventos registrados al 27/04."
     }
   },
   "lead_forms": {
