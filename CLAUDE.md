@@ -1,7 +1,7 @@
 # ENBA Social Assets
 
 ## Propósito
-Repositorio de contenido social para Espacio Náutico Buenos Aires (ENBA). Contiene campañas, carruseles, asset-bank curado, scripts de rendering y pipeline de publicación para Instagram y Facebook.
+Repositorio de contenido social para Espacio Náutico Buenos Aires (ENBA). Contiene campañas, carruseles, asset-bank curado, scripts de rendering y pipeline de publicación para Instagram, Facebook y TikTok.
 
 **Dominio:** `social-assets.espacionautico.com.ar` (Cloudflare Pages)
 **Repo del sitio web:** `enba-web` (separado — no mezclar)
@@ -26,6 +26,8 @@ Orden de lectura recomendado para este frente: `CLAUDE.md` → `STATUS.md` → d
 **COMMITS Y PUSH**: nunca hacer commit ni push sin consulta previa. Esperar aprobación explícita del usuario.
 
 **AUTONOMÍA EN READ-ONLY**: trabajar en modo autónomo para lectura, análisis, búsqueda. Pedir confirmación antes de cualquier acción que modifique estado.
+
+**TIKTOK — RESTRICCIÓN ACTIVA**: mientras la app "ENBA Social" esté en review en TikTok Developer Portal, no asumir que la publicación via API es pública. Videos publicados por apps no auditadas quedan en modo privado. Publicación manual hasta recibir aprobación explícita de TikTok.
 
 ---
 

@@ -771,6 +771,31 @@ Acciones:
 
 ---
 
+## 12. TikTok — Canal en configuración
+
+**Estado al 27/04/2026**
+
+| Item | Detalle |
+|---|---|
+| Cuenta | `@espacionauticobsas` creada |
+| App Developer | "ENBA Social" — enviada a revisión |
+| Sandbox | Configurado, cuenta ENBA agregada como test user |
+| DNS | TXT record TikTok verificado en Cloudflare (`espacionautico.com.ar`) |
+| Publicación via API | Bloqueada hasta aprobación — videos quedan privados en app no auditada |
+| Publicación actual | Manual desde la app |
+
+**Decisión operativa:** los primeros 30 días TikTok se publica manualmente. La integración con n8n se activa cuando TikTok apruebe la app.
+
+**Post-aprobación — pasos pendientes:**
+1. Hacer OAuth con cuenta ENBA → obtener access token
+2. Configurar credencial en n8n
+3. Integrar workflow de publicación TikTok
+4. Definir KPIs y frecuencia según material disponible (coordinado con agente wip-tiktok-30d-pilot)
+
+**Relación con el frente de producción TikTok:** existe un frente de trabajo paralelo produciendo el material de contenido (piezas, posters, scripts de curación). Cuando esté listo se integra a este frente.
+
+---
+
 ## Nota de Manu
 
 Este plan integra el trabajo de Bruno (diagnostico, presupuesto, KPIs, infraestructura, medicion), Franco (estrategia IG, estrategia FB, calendario), y Marina (analisis de reels, review creativa con ajustes). Los ajustes de Marina fueron adoptados donde corresponde y estan marcados en el texto.

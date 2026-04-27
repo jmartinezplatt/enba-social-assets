@@ -70,6 +70,7 @@ Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier
 - Burn rate 26/04: $24.038 (+23% vs día anterior). Benigno — ad sets madurando y alcanzando caps. Frecuencias 1.0–1.3, sin fatiga. Decisión de ajuste en Gate 2 (29/04).
 - `jq` instalado en el entorno (`winget install jqlang.jq`) — disponible para llamadas API.
 - **27/04 sesión tarde:** Automatización FB stories construida y activa. Los 3 workflows de Fase 2 loguean cada story publicada en Google Sheets (date/slot/media_id/image_url/seq). Workflow selector `ZGIGw47IYuwHv3Wh` corre 08:30 ART: lee sheet, consulta reach IG de las 3 stories del día anterior, publica la ganadora como story en FB. Primera ejecución: 28/04 08:30 ART. Credencial Google Sheets OAuth2 reautorizada (`w3CGca02rWZppDL9`).
+- **27/04 sesión:** TikTok incorporado como canal. Cuenta `@espacionauticobsas` creada. App "ENBA Social" en TikTok Developer Portal enviada a revisión. Sandbox configurado con cuenta ENBA como test user. DNS TXT record verificado en Cloudflare. **Restricción activa:** videos publicados via API quedan en modo privado hasta que TikTok apruebe la app. Publicación manual desde la app hasta recibir aprobación.
 
 ---
 
