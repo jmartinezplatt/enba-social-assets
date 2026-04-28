@@ -1,5 +1,6 @@
 {
-  "last_verified": "2026-04-24T00:00:00-03:00",
+  "last_verified": "2026-04-28T00:00:00-03:00",
+  "session_28apr": "Sesión día 9/27. Análisis performance completo via API. Exclusiones corregidas: fb_retarget → D5 agregada; ig_cold → D5 (irrelevante) reemplazada por D6; ig_retarget → D6 agregada. D6 (IGFollowers_exclusion) creada por Jose desde UI (ID: 120239621840990139). Hallazgo: ig_cold tenía D5 FBPageLikers como exclusión — completamente irrelevante para campaña IG. Audiencia D4 VideoViewers ~2.400-3.000 personas no seguidoras ya dentro de ig_retarget post-fix.",
   "session_24apr_tarde": "Auditoría creativa Marina aprobó Follow_IG creativos. IG_Cold activado $4.000/día + IG_Retarget $1.500/día. Normalización jerarquía: todas campañas y ad sets ACTIVE, pausas solo a nivel ad. Corregidas 3 discrepancias: nosotros_FB_Cold, destinos_FB_Retarget, nosotros_IG_Cold → PAUSED. Burn rate: $23.020/día.",
   "session_23apr_plan_reconciliado": "Plan reconciliado Bruno/Experto ejecutado 23/04. Pausados: ig_cold, ig_retarget, reel4h_B1, reel4hAlt_A2, AS_ENG_C2, reelPV_ENG. AS_ENG_REEL reducido $7,250→$3,000/día. fb_cold escalado $8,400→$10,920/día. Burn estimado: ~$17,500/día. Pendiente: Marina auditoría perfil IG antes de reactivar Follow IG.",
   "session_22apr_night": "Estáticos AWR pausados (3 ads). Follow Plan v2 activado completo (2 campañas, 4 ad sets, 12 ads). Budget diario total ~$45,250. Baseline: FB 23 follows, IG 11 follows.",
@@ -63,7 +64,17 @@
       "delivery": "too_small",
       "created_via": "UI (Ads Manager)",
       "created_date": "2026-04-18",
-      "notes": "Creada por Jose desde UI. Personas que siguen/likean la page. Para exclusión en ad sets de awareness."
+      "notes": "Creada por Jose desde UI. Personas que siguen/likean la page de FB. Para exclusión en ad sets FB. Estaba en ig_cold por error — corregido 28/04."
+    },
+    "D6": {
+      "id": "120239621840990139",
+      "name": "ENBA_Custom_IGFollowers_exclusion",
+      "subtype": "IG_BUSINESS",
+      "status": "active",
+      "delivery": "too_small",
+      "created_via": "UI (Ads Manager)",
+      "created_date": "2026-04-28",
+      "notes": "Creada por Jose desde UI (API no permite subtype IG_BUSINESS). Seguidores actuales del perfil IG. Para exclusión en ad sets Follow IG — evita gastar en usuarios que ya siguen. Aplicada a ig_cold e ig_retarget el 28/04."
     }
   },
   "phase_3_campaigns": {
@@ -635,7 +646,11 @@
         "optimization": "VISIT_INSTAGRAM_PROFILE",
         "status": "ACTIVE",
         "activated_date": "2026-04-24",
-        "activation_reason": "Auditoría creativa Marina aprobó creativos Follow_IG. Budget reducido $12.600→$4.000/día."
+        "activation_reason": "Auditoría creativa Marina aprobó creativos Follow_IG. Budget reducido $12.600→$4.000/día.",
+        "exclusions": {
+          "D6": "120239621840990139",
+          "note": "Excluye seguidores actuales IG. Corregido 28/04: tenía D5 (FBPageLikers) por error — completamente irrelevante para campaña IG."
+        }
       },
       "ig_retarget": {
         "id": "120239303659250139",
@@ -644,7 +659,11 @@
         "optimization": "VISIT_INSTAGRAM_PROFILE",
         "status": "ACTIVE",
         "activated_date": "2026-04-24",
-        "activation_reason": "Reactivado junto con ig_cold. Budget reducido $5.400→$1.500/día."
+        "activation_reason": "Reactivado junto con ig_cold. Budget reducido $5.400→$1.500/día.",
+        "exclusions": {
+          "D6": "120239621840990139",
+          "note": "Excluye seguidores actuales IG. Agregada 28/04. Targeting incluye D4 VideoViewers_30d (2.400-3.000 no-seguidores estimados)."
+        }
       },
       "fb_cold": {
         "id": "120239303659650139",
@@ -653,13 +672,20 @@
         "optimization": "PAGE_LIKES",
         "scaled_date": "2026-04-23",
         "scaled_from": 840000,
-        "scaled_reason": "Plan reconciliado 23/04 — FB Likes 233 a $36/like, buen rendimiento. +30%."
+        "scaled_reason": "Plan reconciliado 23/04 — FB Likes 233 a $36/like, buen rendimiento. +30%.",
+        "exclusions": {
+          "note": "No se configuró exclusión explícita al 28/04. Revisar si conviene mantenerlo así."
+        }
       },
       "fb_retarget": {
         "id": "120239303660260139",
         "campaign": "120239303658190139",
         "daily_budget": 360000,
-        "optimization": "PAGE_LIKES"
+        "optimization": "PAGE_LIKES",
+        "exclusions": {
+          "D5": "120239146215040139",
+          "note": "Excluye fans actuales de la page FB. Agregada 28/04."
+        }
       }
     },
     "ads": {
