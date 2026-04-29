@@ -10,19 +10,20 @@ Repositorio de contenido social para Espacio Náutico Buenos Aires (ENBA). Conti
 
 ## Branch de trabajo activo
 
-**Branch:** `plan-crecimiento-10k`
+**Branch:** `main`
 **Fuentes de verdad del frente:**
 - `campaigns/plan-crecimiento-10k/STATUS.md` — snapshot corto vigente para inicio de sesión
 - `campaigns/plan-crecimiento-10k/plan-maestro.md` — plan vivo, pendientes, timeline
 - `campaigns/plan-crecimiento-10k/presupuesto-v4-reestructuracion.md` — plan de pauta vigente
 - `campaigns/plan-crecimiento-10k/meta-ids.json` — infraestructura Meta Ads
 
-Al arrancar sesión para este frente:
+**Frente TikTok:** rama separada `wip-tiktok-30d-pilot`. Integración futura a `main`.
+
+Al arrancar sesión:
 1. Verificar branch actual y worktrees (`git branch --show-current` + `git worktree list`).
-2. Si ya estás en `plan-crecimiento-10k`, continuar.
-3. Si `plan-crecimiento-10k` está abierto en otro worktree, usar ese directorio como workspace correcto de la sesión.
-4. Si no existe otro worktree con ese branch, recién entonces hacer `git checkout plan-crecimiento-10k`.
-5. Si no podés entrar al branch correcto o al worktree correcto, frenar y reportar el bloqueo exacto.
+2. Si ya estás en `main`, continuar.
+3. Si `main` está abierto en otro worktree, usar ese directorio como workspace correcto de la sesión.
+4. Si no podés entrar al branch correcto o al worktree correcto, frenar y reportar el bloqueo exacto.
 Orden de lectura recomendado para este frente: `CLAUDE.md` → `STATUS.md` → documento específico según tarea.
 
 ---
