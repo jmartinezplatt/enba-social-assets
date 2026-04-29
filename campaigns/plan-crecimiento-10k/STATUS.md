@@ -74,7 +74,7 @@ Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier
   - **fb_cold exclusión:** D5 (FBPageLikers) SÍ estaba configurada — nota en meta-ids.json era incorrecta. Corregida.
   - **Discrepancia de status:** `destinos_IG_Retarget` y `nosotros_IG_Retarget` marcados ACTIVE en meta-ids.json pero API retornó PAUSED. Corregidos.
   - **Burn rate real:** $23.020/día (Follow Plan v2 $20.020 + ENG_REEL $3.000). AWR ad sets tienen presupuesto CBO a nivel campaña pero todos sus ads están pausados → $0 gasto efectivo.
-  - **3 ads ACTIVE+CORTAR pendientes:** `microreel_FB_Cold`, `microreel_FB_Retarget`, `nosotros_FB_Retarget` — pendiente aprobación Jose para pausar.
+  - **3 ads CORTAR pausados 28/04 13:11 ART:** `microreel_FB_Cold` (CPS $114), `microreel_FB_Retarget` (CPS $116), `nosotros_FB_Retarget` (CPS $103) — pausados vía API (Conversions API System User). Confirmado por activity log Meta.
   - **Reporte diario ciego al estado real:** workflow `1qRywsEWAl7VoO5o` usa `date_preset=lifetime` sin `effective_status` → mezcla activos y pausados. Plan de mejora iniciado (ver `presupuesto-v4.1-estado-dia10.md`).
   - `meta-ids.json` sincronizado con API. `last_api_verified: 2026-04-28`.
 - **27/04 sesión tarde:** Automatización FB stories construida y activa. Los 3 workflows de Fase 2 loguean cada story publicada en Google Sheets (date/slot/media_id/image_url/seq). Workflow selector `ZGIGw47IYuwHv3Wh` corre 08:30 ART: lee sheet, consulta reach IG de las 3 stories del día anterior, publica la ganadora como story en FB. Primera ejecución: 28/04 08:30 ART. Credencial Google Sheets OAuth2 reautorizada (`w3CGca02rWZppDL9`).
