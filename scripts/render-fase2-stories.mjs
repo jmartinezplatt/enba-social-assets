@@ -59,7 +59,7 @@ const fase2Stories = [
   { id: 'quienes-f2-05', file: 'capitan-popa-bandera-mate.jpg',            label: '¿QUIÉNES SOMOS?', accent: '#D4A843', caption: 'Costanera Norte, frente al Aeroparque.' },
 ];
 
-function buildStoryHTML(photoBase64, caption, accent, label, svgLogo) {
+function buildStoryHTML(photoBase64, caption, accent, label) {
   const photoUrl = 'data:image/jpeg;base64,' + photoBase64;
   return `<!DOCTYPE html>
 <html>
@@ -99,8 +99,10 @@ function buildStoryHTML(photoBase64, caption, accent, label, svgLogo) {
     font-family: 'Barlow Semi Condensed', Arial, sans-serif;
     font-size: 52px; font-weight: 500; color: #FFFFFF; line-height: 1.2; letter-spacing: 0.5px;
   }
-  .enba-logo { margin-top: 5px; width: 520px; opacity: 0.72; }
-  .enba-logo svg { width: 100%; height: auto; display: block; }
+  .enba-tag {
+    margin-top: 28px; font-family: 'Teko', sans-serif; font-size: 30px; font-weight: 600;
+    color: rgba(232,237,242,0.55); letter-spacing: 4px; text-transform: uppercase;
+  }
 </style>
 </head>
 <body>
@@ -114,7 +116,7 @@ function buildStoryHTML(photoBase64, caption, accent, label, svgLogo) {
   <div class="bottom">
     <div class="accent-line"></div>
     <div class="caption">${caption}</div>
-    <div class="enba-logo">${svgLogo}</div>
+    <div class="enba-tag">Espacio Náutico · Buenos Aires</div>
   </div>
 </body>
 </html>`;
@@ -122,10 +124,6 @@ function buildStoryHTML(photoBase64, caption, accent, label, svgLogo) {
 
 async function render() {
   await fs.mkdir(outDir, { recursive: true });
-  const svgLogo = await fs.readFile(
-    path.join(repoRoot, 'src', 'assets', 'ENBA-horizontal-oscuro.svg'),
-    'utf8'
-  );
   const browser = await chromium.launch();
   const page    = await browser.newPage();
   await page.setViewportSize({ width: 1080, height: 1920 });
@@ -139,7 +137,7 @@ async function render() {
       continue;
     }
     const photoBase64 = (await fs.readFile(photoPath)).toString('base64');
-    const html = buildStoryHTML(photoBase64, s.caption, s.accent, s.label, svgLogo);
+    const html = buildStoryHTML(photoBase64, s.caption, s.accent, s.label);
     const outFile = path.join(outDir, `${s.id}.jpg`);
     await page.setContent(html, { waitUntil: 'networkidle' });
     await page.waitForTimeout(600);

@@ -69,9 +69,9 @@ Todas las decisiones originales fueron resueltas. Pendientes nuevos al final.
 
 | # | Pendiente | Owner | Deadline | Estado |
 |---|-----------|-------|----------|--------|
-| A1 | G-3 Plan B warm: si D2 sigue too_small al 01/05, crear ReelPrimeraVez_Warm solo con D4 (VideoViewers) | Bruno + Jose | 01/05 | CONDICIÓN CAÍDA — D2 ya tiene 1.700–2.000 (código 200) al 26/04. No aplica. |
+| A1 | G-3 Plan B warm: si D2 sigue too_small al 01/05, crear ReelPrimeraVez_Warm solo con D4 (VideoViewers) | Bruno + Jose | 01/05 | PENDIENTE |
 | A2 | G-9 Producir 2-3 darkposts nuevos para reemplazo fatigue dia 14 | Dani | 28/04 | PENDIENTE |
-| A3 | Custom audiences: todas en código 200 con tamaños reales al 26/04. D1: 1K, D2: 1.7K–2K, D3: 1K–1.2K, D4: 2.5K–3K, D5: 1K. | Bruno | 29/04 | RESUELTO ANTICIPADO 26/04 |
+| A3 | Custom audiences: D1 y D3 pasaron a "ready" (22/04). D2 y D5 siguen "too_small". Re-verificar al 29/04 (Gate 2). | Bruno | 29/04 | MONITOREO |
 | A4 | piece-08 CTA duplicado: 3 iteraciones hasta resolución real. (1) 1er republish usó imagen vieja — Cloudflare Pages llevaba 7 días sin deployar (MP4 31MB > límite 25MB). (2) Fix: MP4s removidos de git, merge a main, deploy OK, imagen correcta online. (3) A4 final ~14:30: posts eliminados (IG `18071315231302535` + FB `122110116092620656`) y republicados con imagen correcta. **IG final: `18001378085869134`. FB final: `1064806400040502_122110125068620656`.** Token META_ACCESS_TOKEN renovado 2da vez. | Jose | ASAP | RESUELTO 22/04 |
 
 ### Sesion 22/04 cierre — Publicacion organica
@@ -273,8 +273,8 @@ Primer gasto real: 20/04 ~03:00 ART. Token META_ADS_USER_TOKEN migrado de User T
 
 **Pendientes post-reestructuracion:**
 - [x] Jose: reescribir bio IG (conversion-focused) — HECHO 21/04, CTA + verticales + ubicacion
-- [ ] Jose: pin story con clips reel "primera vez" — diferido. Verificado 26/04: reel fijado en grid ✓ pero story con clips aún no publicada.
-- [x] Jose: fijar reel "4 horas" en grid IG — HECHO 23/04
+- [ ] Jose: pin story con clips reel "primera vez" — diferido
+- [ ] Jose: fijar reel "4 horas" en grid IG — diferido
 - [x] Verificar tamanos audiencia A2 y B1 en Ads Manager UI — HECHO 21/04. A2: 377K-443K, B1: 3.6M-4.2M. Ambas viables. Monitorear CBO distribution (B1 puede absorber >80% del budget por tamano).
 - [x] Verificar C_LEA campaign PAUSED en UI — HECHO 21/04. Campana pausada manualmente.
 - [x] Activar C2 Regalos dia 5 (23/04) — HECHO 23/04. Ad set + ad ACTIVE.
@@ -314,9 +314,9 @@ Primer gasto real: 20/04 ~03:00 ART. Token META_ADS_USER_TOKEN migrado de User T
 - **Gate 1 (25/04):** necesita >30 follows IG. Faltan 3 dias.
 
 **Pendientes inmediatos:**
-- [x] Monitorear ENBA_ad_corporativo_IG_Cold post PENDING_REVIEW — RESUELTO. Corriendo: $26.246 spend 7d, 864 clicks, CPV $30.
-- [x] Investigar micro-reels $0 delivery — RESUELTO. Era incidente de onboarding (19-20/04), solucionado.
-- [x] Gate 1 check 25/04 — SUPERADO. FB 619 fans, IG 55 seguidores.
+- [ ] Monitorear ENBA_ad_corporativo_IG_Cold post PENDING_REVIEW
+- [ ] Investigar micro-reels $0 delivery (misma causa que onboarding o budget absorption)
+- [ ] Gate 1 check 25/04: follows >30, ThruPlays >500/dia
 
 ---
 
@@ -468,32 +468,11 @@ Primer gasto real: 20/04 ~03:00 ART. Token META_ADS_USER_TOKEN migrado de User T
 | CPF nosotros_FB_Retarget | < $100 | Mantener; si > $100 pausar |
 
 **Pendientes inmediatos:**
-- [x] Optimizar perfil IG: bio, grid, highlights — RESUELTO. Bio ✓, highlights con contenido ✓, Follow_IG activado 24/04.
-- [x] Verificar tamaño D4 audience — RESUELTO 26/04 GET fresco. D4 VideoViewers: 2.500–3.000 (código 200).
-- [x] Verificar que Retarget ad sets apuntan a D4 — VERIFICADO 26/04 via API. FP_IG_Retarget y FP_FB_Retarget incluyen D1 + D3 + D4. ✓
-- [x] Verificar si reelPV_ENG tiene ad set padre pausado por error — VERIFICADO 26/04. AS_ENG_REEL ACTIVE/ACTIVE. reelPV_ENG PAUSED por decisión explícita plan reconciliado 23/04. No es error.
+- [ ] Optimizar perfil IG: bio, grid, highlights — Marina + Franco — condicion para reactivar Follow_IG
+- [ ] Verificar tamano D4 audience en Ads Manager (debe ser > 1,000 para activarse)
+- [ ] Verificar que Retarget ad sets apuntan a D4 y no a audiencia generica de video viewers
+- [ ] Verificar si reelPV_ENG tiene ad set padre pausado intencionalmente o por error
 - [ ] Brief microreel v2 con hook textual — Franco + Marina — cuando haya margen de presupuesto
-
-### Pendientes sesión 26/04 — operativos
-
-| # | Pendiente | Owner | Deadline |
-|---|---|---|---|
-| OP-1 | Gate 2: follows IG > 200 (en 55 al 26/04), ER > 3% | Bruno | **29/04** |
-| OP-2 | Burn rate ~$19.000/día vs target $16.737 — revisar y decidir acción | Bruno | **29/04** |
-| OP-3 | G-9: producir 2–3 darkposts nuevos para reemplazo fatigue día 14 | Dani | **28/04** |
-| OP-4 | Reporte semanal 2 | Bruno | 30/04 |
-
-### Sesión 26/04 (tarde) — Identidad visual assets + fix preview
-
-**Acciones ejecutadas:**
-
-| Accion | Detalle | Estado |
-|--------|---------|--------|
-| Stories Fase 2: logo oficial | Reemplazado texto `.enba-tag` ("Espacio Náutico · Buenos Aires") por SVG oficial `src/assets/ENBA-horizontal-oscuro.svg` (mark + "ESPACIO NÁUTICO BsAs" + coordenadas). Tamaño 520px, margin-top 5px, alineación izquierda. 30 JPGs re-renderizados. | HECHO 26/04 |
-| Feed piezas lanzamiento: logo más grande | `.lockup-logo` aumentado de 280px → 560px en `render-enba-launch-campaign.mjs`. 30 PNGs re-renderizados (pieces 01–30). | HECHO 26/04 |
-| preview-stories-10d.html fix | Referencias `.png` corregidas a `.jpg` (el renderer siempre genera JPEG, el preview estaba desactualizado). | HECHO 26/04 |
-
-**Pendientes próxima sesión (sin cambios):** OP-1 Gate 2 29/04, OP-2 burn rate, OP-3 darkposts Dani 28/04, OP-4 reporte semanal Bruno 30/04.
 
 ---
 
@@ -831,7 +810,7 @@ El plan esta disenado para que alguien pueda leerlo y saber exactamente que hace
 *Actualizado: 23 de abril de 2026 — plan reconciliado Bruno/Experto (8/8), auditoría perfil IG, highlights P4 rediseñados, 24 stories renderizadas y burst iniciado (stories #1-#3 publicadas, #4-#24 vía n8n LBjxUFXarIPV2cIi), incidentes PNG/Cloudflare/zombie documentados, infraestructura n8n activa documentada*
 *Actualizado: 24 de abril de 2026 — burst corregido y funcionando: credencial n8n faltaba `authentication: genericCredentialType` (Meta rechazaba token silenciosamente); email migrado de webhook a emailSend directo con Gmail ENBA (ExpressionExtensionError por `\n` literal en expresión). Stories #7 y #8 publicadas manualmente. Burst en curso: #10/24 con email de confirmación recibido. Credencial Meta: IGBqXMQRWJLxzh7f. Email: HpJBfNd1BCHaLYfY.*
 *Actualizado: 24 de abril de 2026 (sesión tarde) — Auditoría creativa Marina sobre Follow_IG: carousel Destinos y Nosotros aprobados. Follow_IG activado: IG_Cold $4.000/día + IG_Retarget $1.500/día. Normalización jerarquía Meta Ads: todas las campañas y ad sets en ACTIVE, pausas solo a nivel ad. Burn rate actual: $23.020 ARS/día.*
-*Actualizado: 26 de abril de 2026 — Incidente Gmail 25/04: App Password de credencial Gmail ENBA (`HpJBfNd1BCHaLYfY`) fue revocado por Google. Falló con error 535-5.7.8 BadCredentials. Workflows afectados: (1) Blog Automation `BTs8fTGvGqJE3shj` — post generado pero approval email no enviado → blog del 25/04 no publicado automáticamente. (2) Publicación Diaria `MipwleZNu8EG5v6C` — execución marcada como error, pero piece-11 SÍ se publicó en IG (Meta API corre antes del email). (3) Ads Evaluation Diaria `1qRywsEWAl7VoO5o` — reporte del 25/04 y 26/04 no enviado. Credencial `HpJBfNd1BCHaLYfY` actualizada vía PATCH n8n API el 26/04 13:39 UTC con nuevo App Password. Ejecuciones manuales de Blog Automation y Ads Evaluation disparadas para recuperar el día. Blog del 25/04 ("OpenCPN para navegantes recreativos") publicado manualmente via GitHub API el 26/04 con datePublished 2026-04-25. Consecutividad del feed no afectada.*
+*Actualizado: 26 de abril de 2026 — Incidente Gmail 25/04: App Password de credencial Gmail ENBA (`HpJBfNd1BCHaLYfY`) fue revocado por Google. Falló con error 535-5.7.8 BadCredentials. Workflows afectados: (1) Blog Automation `BTs8fTGvGqJE3shj` — post generado pero approval email no enviado → blog del 25/04 no publicado automáticamente. (2) Publicación Diaria `MipwleZNu8EG5v6C` — execución marcada como error, pero piece-11 SÍ se publicó en IG (Meta API corre antes del email). Credenciales reestablecidas por Jose el 26/04. Blog del 25/04 ("OpenCPN para navegantes recreativos") publicado manualmente via GitHub API el 26/04 con datePublished 2026-04-25. Consecutividad del feed no afectada.*
 *Actualizado: 26 de abril de 2026 (sesión tarde) — P2/P3/P4 completados: verificación API confirma que Gastronomía ya había sido removida de B1 y ENG_REEL, Caminatas/Excursionismo/Camping de B2, geo 18-city y age 18-65 correctos en los 13 ad sets activos. interest-ids.json sincronizado. Fase 2 stories activa: 30 JPEG renderizados (top:200px), 3 workflows n8n q1nZVNrtEsxKEFni/pBP7tkXlD6nzx4wd/c8MHANGzW56GORAi activos, primera story 27/04 09:00 ART. CLAUDE.md actualizado: enba-web contacto reglas explícitas 4 puntos (excepción solo con autorización Jose + reconfirmación). Blog 25/04 OpenCPN publicado via GitHub API (commit d9bb7e5, datePublished 2026-04-25). Burn rate real post-cortes 24/04: ~$19.000–$19.500 ARS/día (promedio 24-25/04 con GET fresco). Target: $16.737/día — delta ~$2.500–$2.800 por encima. Seguidores al cierre: IG 55, FB 619.*
 *Actualizado: 25 de abril de 2026 — Carrusel "no-es-tour" publicado IG (carrusel 6 slides, ID 18317065594280248) + FB (slide-04 imagen única, ID 1064806400040502_122110365644620656). Reporte ejecutivo performance generado (día 7/27): winners FB microreel (CPF $83-89), tracking IG ciego ($40K sin atribución). Pixel Meta implementado en enba-web: fbq Lead (formulario servicios exitoso), fbq Contact (click WhatsApp), fbq ViewContent (click CTA) — commit 55faaca en enba-web main, pendiente push + deploy + crear Custom Conversions en Meta Ads. Skill /redes actualizado: lee plan-maestro + meta-ids.json + presupuesto-v4 al iniciar. Seguidores IG verificados: 47.*
 *Actualizado: 27 de abril de 2026 — Sesión Bruno día 8/27. Pixel stack completado: Custom Conversions creadas en Meta Ads vía API — Contact/click WhatsApp (ID 945609238261267), ViewContent/click CTA (ID 2216541158753262). Lead ya existía (ID 1634612341204888). Lead TEST (ID 1497440055361281, archivada, 0 eventos) eliminada. __missing_event bloqueado en Events Manager (1 disparo aislado el 24/04, no intencional). Estado pixel al 27/04: PageView funciona desde 15/04 (605 total), ViewContent 4 eventos (25-26/04 — clicks en CTAs), Contact 0 eventos (href WhatsApp a verificar). CAPI diferido a mes 2-3 — decisión vigente. Script de creación: scripts/create-missing-conversions.mjs.*
