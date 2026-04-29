@@ -64,6 +64,11 @@ Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier
 
 ### Últimos hitos relevantes
 
+- **29/04 sesión cont. (día 11/27):** Verificación API Meta — 3 pendientes inmediatos cerrados.
+  - microreel_IG_Cold + microreel_IG_Retarget: confirmados ACTIVE con creative original (`977761008544793`). Incidente de restauración de anoche resuelto.
+  - AD_ENG_REEL_V2 día 1: CPV $0.94 (vs $1.10 reel4h), CPE $0.92 (vs $1.09), retención 25% = 46% (vs 24%). Señales positivas pero prematuro — revisar 01/05 con >$2.500 de spend.
+  - 3 ads CORTAR (microreel_FB_Cold, microreel_FB_Retarget, nosotros_FB_Retarget): confirmados PAUSED desde 28/04. Sin cambios.
+  - meta-ids.json sin discrepancias vs API.
 - **29/04 sesión (día 11/27):** Mejora emails de automatizaciones + documentación encoding.
   - Emails stories IG (Mañana/Tarde/Noche): agregado link directo para ver la story en IG (expira 24h).
   - Email stories FB Best IG: body reescrito con detalle completo (fecha, slot ganador, reach IG, imagen, FB post_id) + fix `emailFormat: text` (llegaba vacío).
