@@ -1,6 +1,6 @@
 # STATUS — Frente REDES
 
-**Última actualización:** 27 de abril de 2026 (sesión tarde)
+**Última actualización:** 28 de abril de 2026 (sesión noche — día 10/27)
 **Owner de mantenimiento:** quien cierre la sesión del frente redes
 **Uso:** punto de entrada corto para inicio de sesión. Si este archivo contradice un handoff viejo, manda este archivo.
 
@@ -32,7 +32,7 @@ Los `SESSION-HANDOFF-*.md` sirven como contexto histórico, lecciones e incident
 
 ### Estado general del frente
 
-- La fuente de verdad de pauta vigente es `presupuesto-v4-reestructuracion.md`.
+- La fuente de verdad de pauta vigente es `presupuesto-v4-reestructuracion.md` + **`presupuesto-v4.1-estado-dia10.md`** (parche operativo al día 10 — leer junto con v4).
 - La fuente de verdad operativa y de decisiones sigue siendo `plan-maestro.md`.
 - La fuente de verdad de infraestructura Meta Ads es `meta-ids.json`.
 - El contrato de producción de contenido sigue siendo:
@@ -69,6 +69,14 @@ Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier
 - Stories Fase 2: 3 workflows activos (Mañana 09:00 / Tarde 14:00 / Noche 20:00 ART). Secuencia intacta. Monitorear cron Mañana 09:00 — falló el 26/04 y requirió retry manual.
 - Burn rate 26/04: $24.038 (+23% vs día anterior). Benigno — ad sets madurando y alcanzando caps. Frecuencias 1.0–1.3, sin fatiga. Decisión de ajuste en Gate 2 (29/04).
 - `jq` instalado en el entorno (`winget install jqlang.jq`) — disponible para llamadas API.
+- **28/04 sesión noche (día 10/27):** Verificación completa con API Meta. Hallazgos críticos:
+  - **WINNER confirmado:** `ENBA_ad_corporativo_IG_Cold` usa imagen estática (`grupo-cockpit-cielo-azul-4x5.jpg`) — **hipótesis video-first FALSADA**. El mejor performer es imagen estática, no video.
+  - **fb_cold exclusión:** D5 (FBPageLikers) SÍ estaba configurada — nota en meta-ids.json era incorrecta. Corregida.
+  - **Discrepancia de status:** `destinos_IG_Retarget` y `nosotros_IG_Retarget` marcados ACTIVE en meta-ids.json pero API retornó PAUSED. Corregidos.
+  - **Burn rate real:** $23.020/día (Follow Plan v2 $20.020 + ENG_REEL $3.000). AWR ad sets tienen presupuesto CBO a nivel campaña pero todos sus ads están pausados → $0 gasto efectivo.
+  - **3 ads ACTIVE+CORTAR pendientes:** `microreel_FB_Cold`, `microreel_FB_Retarget`, `nosotros_FB_Retarget` — pendiente aprobación Jose para pausar.
+  - **Reporte diario ciego al estado real:** workflow `1qRywsEWAl7VoO5o` usa `date_preset=lifetime` sin `effective_status` → mezcla activos y pausados. Plan de mejora iniciado (ver `presupuesto-v4.1-estado-dia10.md`).
+  - `meta-ids.json` sincronizado con API. `last_api_verified: 2026-04-28`.
 - **27/04 sesión tarde:** Automatización FB stories construida y activa. Los 3 workflows de Fase 2 loguean cada story publicada en Google Sheets (date/slot/media_id/image_url/seq). Workflow selector `ZGIGw47IYuwHv3Wh` corre 08:30 ART: lee sheet, consulta reach IG de las 3 stories del día anterior, publica la ganadora como story en FB. Primera ejecución: 28/04 08:30 ART. Credencial Google Sheets OAuth2 reautorizada (`w3CGca02rWZppDL9`).
 - **27/04 sesión:** TikTok incorporado como canal. Cuenta `@espacionauticobsas` creada. App "ENBA Social" en TikTok Developer Portal enviada a revisión. Sandbox configurado con cuenta ENBA como test user. DNS TXT record verificado en Cloudflare. **Restricción activa:** videos publicados via API quedan en modo privado hasta que TikTok apruebe la app. Publicación manual desde la app hasta recibir aprobación.
 

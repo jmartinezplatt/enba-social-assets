@@ -13,14 +13,22 @@ Arrancá por las fuentes vigentes en este orden:
    - QA / medición / analytics: `qa-report.md`, `kpis.md`, `google-analytics-medicion.md`
    - Handoffs fechados: solo como contexto histórico. Nunca pisan `STATUS.md`, `plan-maestro.md` ni `presupuesto-v4`.
 
+Antes de cargar contexto REDES, resolvé el workspace correcto:
+1. Verificá branch actual y worktrees (`git branch --show-current` + `git worktree list`).
+2. Si ya estás en `plan-crecimiento-10k`, continuá.
+3. Si `plan-crecimiento-10k` está abierto en otro worktree, cambiá a ese directorio y seguí la sesión ahí.
+4. Si no existe otro worktree con ese branch, recién entonces intentá `git checkout plan-crecimiento-10k`.
+5. Si no podés entrar al branch correcto o al worktree correcto, frená y reportá el bloqueo exacto.
+
 Después hacé un relevamiento rápido del estado actual:
-1. Verificá que el branch activo sea `plan-crecimiento-10k`.
+1. Confirmá que el workspace activo ya quedó en `plan-crecimiento-10k`.
 2. Relevá campañas y piezas usando la estructura real:
    - `campaign.pieces.json` = campaña base
    - `carousel.config.json` + `captions.json` = carrusel listo
    - `carousel.config.json` sin `captions.json` = pendiente copy/QA
 3. Contá JPGs en `asset-bank/`.
 4. Revisá `staging/`, `published/` y `manifests/` para entender el estado del pipeline.
+5. No anuncies `Contexto REDES cargado` hasta estar en el workspace correcto.
 
 Luego confirmá con:
 ```text
