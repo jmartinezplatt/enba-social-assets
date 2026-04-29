@@ -47,7 +47,7 @@ function renderPieces(group) {
 
 function renderPieceCard(piece) {
   const media = piece.mediaType === "video"
-    ? `<video src="${piece.media}" ${piece.poster ? `poster="${piece.poster}"` : ""} ${piece.mediaStyle ? `style="${piece.mediaStyle}"` : ""} autoplay muted loop playsinline preload="metadata"></video>`
+    ? `<video src="${piece.media}" ${piece.poster ? `poster="${piece.poster}"` : ""} ${piece.mediaStyle ? `style="${piece.mediaStyle}"` : ""} autoplay muted ${piece.previewLoop === false ? "" : "loop"} playsinline preload="metadata"></video>`
     : `<img src="${piece.media}" alt="${piece.alt}" ${piece.mediaStyle ? `style="${piece.mediaStyle}"` : ""} loading="lazy">`;
 
   const screenText = piece.screenText
@@ -57,6 +57,8 @@ function renderPieceCard(piece) {
   const screenTextList = piece.screenText
     .map((line) => `<li>${line}</li>`)
     .join("");
+
+  const hashtags = (piece.hashtags || []).join(" ");
 
   return `
     <article class="piece-card">
@@ -89,6 +91,10 @@ function renderPieceCard(piece) {
           <div class="meta-block">
             <div class="meta-label">CTA</div>
             <div class="meta-text">${piece.cta}</div>
+          </div>
+          <div class="meta-block">
+            <div class="meta-label">Hashtags</div>
+            <div class="meta-text">${hashtags}</div>
           </div>
           <div class="meta-block">
             <div class="meta-label">Asset local</div>

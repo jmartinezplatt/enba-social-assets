@@ -307,6 +307,37 @@ a { color: inherit; }
   margin-right: 8px;
 }
 
+.caption-box {
+  margin: 0;
+  white-space: pre-wrap;
+  font-family: "Cascadia Code", "Consolas", monospace;
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(236, 244, 248, 0.92);
+}
+
+.toolbar {
+  margin-top: 12px;
+}
+
+.copy-button {
+  appearance: none;
+  border: 1px solid rgba(120, 208, 203, 0.24);
+  background: rgba(120, 208, 203, 0.14);
+  color: #dffbfa;
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.18s ease, background 0.18s ease;
+}
+
+.copy-button:hover {
+  transform: translateY(-1px);
+  background: rgba(120, 208, 203, 0.22);
+}
+
 .link-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

@@ -103,6 +103,32 @@ Usar nodo `emailSend` con credencial Gmail ENBA (`HpJBfNd1BCHaLYfY`) directo. No
 
 ---
 
+## 8. Scripts locales on-demand
+
+### `meta-state-snapshot.mjs`
+
+**Ubicación:** `automatizaciones/n8n-workflows/nodes/meta-state-snapshot.mjs`
+
+**Qué hace:** GET batch de todos los ads Follow Plan v2 + ENG_REEL contra Meta API. Muestra effective_status real, budgets, exclusiones, burn rate real y riesgo de presupuesto. Compara exclusiones vs meta-ids.json y reporta discrepancias.
+
+**Cuándo usarlo:**
+- Al iniciar una sesión donde se va a tomar decisiones de pauta (Gate X, pausar/escalar ads)
+- Cuando meta-ids.json pueda estar desactualizado (más de 24h sin verificar)
+- Para confirmar el estado real antes de cualquier análisis de Bruno
+- Como reemplazo de "ir a Ads Manager manualmente"
+
+**Cómo usarlo:**
+```
+cd automatizaciones/n8n-workflows/nodes
+node meta-state-snapshot.mjs
+```
+
+**Resultado típico:** lista de ads con 🟢 (ACTIVE) / ⚪ (PAUSED), ad sets con budget y exclusiones, burn rate real, alerta de presupuesto si aplica. Output en < 5 segundos.
+
+**Requiere:** `META_ADS_USER_TOKEN` en Windows User scope.
+
+---
+
 ## 7. Cuándo mirar `enba-web`
 
 Solo si pasa esto:
