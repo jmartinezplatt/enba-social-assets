@@ -3,7 +3,7 @@
 **Autor:** Bruno (Social Growth & Performance Director)
 **Fecha:** 15 de abril de 2026
 **Contexto:** Revision solicitada por el owner. Critica especifica: solo "Nautica BA" toca el nicho vela. Pedido: audiencias mas amplias y mejor seleccionadas con criterio de eficiencia.
-**Nota:** este documento revisa la seccion 5 de `meta-business-setup.md` y la seccion 4 de `presupuesto.md`. NO los reemplaza — los complementa. La decision final de adoptar esta ampliacion queda del owner.
+**Nota:** este documento revisa la seccion 5 de `meta-business-setup.md` y la seccion 4 de `historico/presupuesto.md`. NO los reemplaza — los complementa. La decision final de adoptar esta ampliacion queda del owner.
 
 ---
 

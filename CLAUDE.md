@@ -1,7 +1,7 @@
 # ENBA Social Assets
 
 ## Propósito
-Repositorio de contenido social para Espacio Náutico Buenos Aires (ENBA). Contiene campañas, carruseles, asset-bank curado, scripts de rendering y pipeline de publicación para Instagram y Facebook.
+Repositorio de contenido social para Espacio Náutico Buenos Aires (ENBA). Contiene campañas, carruseles, asset-bank curado, scripts de rendering y pipeline de publicación para Instagram, Facebook y TikTok.
 
 **Dominio:** `social-assets.espacionautico.com.ar` (Cloudflare Pages)
 **Repo del sitio web:** `enba-web` (separado — no mezclar)
@@ -12,11 +12,18 @@ Repositorio de contenido social para Espacio Náutico Buenos Aires (ENBA). Conti
 
 **Branch:** `plan-crecimiento-10k`
 **Fuentes de verdad del frente:**
+- `campaigns/plan-crecimiento-10k/STATUS.md` — snapshot corto vigente para inicio de sesión
 - `campaigns/plan-crecimiento-10k/plan-maestro.md` — plan vivo, pendientes, timeline
 - `campaigns/plan-crecimiento-10k/presupuesto-v4-reestructuracion.md` — plan de pauta vigente
 - `campaigns/plan-crecimiento-10k/meta-ids.json` — infraestructura Meta Ads
 
-Al arrancar sesión, verificar que estás en este branch. Si no, hacer `git checkout plan-crecimiento-10k`.
+Al arrancar sesión para este frente:
+1. Verificar branch actual y worktrees (`git branch --show-current` + `git worktree list`).
+2. Si ya estás en `plan-crecimiento-10k`, continuar.
+3. Si `plan-crecimiento-10k` está abierto en otro worktree, usar ese directorio como workspace correcto de la sesión.
+4. Si no existe otro worktree con ese branch, recién entonces hacer `git checkout plan-crecimiento-10k`.
+5. Si no podés entrar al branch correcto o al worktree correcto, frenar y reportar el bloqueo exacto.
+Orden de lectura recomendado para este frente: `CLAUDE.md` → `STATUS.md` → documento específico según tarea.
 
 ---
 
@@ -24,6 +31,8 @@ Al arrancar sesión, verificar que estás en este branch. Si no, hacer `git chec
 **COMMITS Y PUSH**: nunca hacer commit ni push sin consulta previa. Esperar aprobación explícita del usuario.
 
 **AUTONOMÍA EN READ-ONLY**: trabajar en modo autónomo para lectura, análisis, búsqueda. Pedir confirmación antes de cualquier acción que modifique estado.
+
+**TIKTOK — RESTRICCIÓN ACTIVA**: mientras la app "ENBA Social" esté en review en TikTok Developer Portal, no asumir que la publicación via API es pública. Videos publicados por apps no auditadas quedan en modo privado. Publicación manual hasta recibir aprobación explícita de TikTok.
 
 ---
 
@@ -278,54 +287,26 @@ Siempre usar el slash command correspondiente (`/bruno`, `/marina`, `/franco`, `
 
 ## Reglas operativas n8n
 
-> **Reglas de contacto con `enba-web` — leer completo antes de cualquier acción:**
+> **Memoria local obligatoria para n8n:**
 >
-> 1. **READ ONLY estricto.** El único contacto permitido con `enba-web` desde este repo es lectura, y exclusivamente para contexto de operación n8n (ver `enba-web/CLAUDE.md` reglas 7-14 y `enba-web/docs/05-historico/INCIDENTES.md`).
-> 2. **Ninguna modificación bajo ninguna circunstancia**, ya sea editando archivos locales, haciendo commits, pushes, o llamando APIs externas (GitHub API, scripts, n8n workflows, etc.) que resulten en cambios en ese repo.
-> 3. **Excepción solo con autorización explícita de Jose + reconfirmación.** Si Jose pide algo que implique modificar enba-web, confirmar la acción concreta antes de ejecutar ("Para X necesito hacer Y en enba-web. ¿Autorizás?") y esperar un "sí" explícito. "Publicá", "hacelo", "procedé" no alcanzan.
-> 4. Incidente 26/04/2026: se publicó un post de blog en enba-web vía GitHub API sin pedir autorización explícita, interpretando "publicamos la entrada blog directamente" como aprobación implícita. No repetir.
+> 1. Antes de cualquier trabajo no trivial de n8n, leer `automatizaciones/n8n-workflows/OPERACION-N8N.md` y `automatizaciones/n8n-workflows/INCIDENTES.md`.
+> 2. Si un aprendizaje de `enba-web` aplica acá, importarlo a esta memoria local. No usar `enba-web` como fuente de arranque por default.
+> 3. `enba-web` **no se consulta sin autorización explícita de Jose**. Ni siquiera en read-only.
+> 4. Si Jose autoriza la consulta, `enba-web` solo se puede mirar en **READ ONLY estricto** y de forma excepcional, cuando falte contexto local para un patrón general de n8n.
+> 5. **Ninguna modificación bajo ninguna circunstancia** en `enba-web`, ya sea editando archivos locales, haciendo commits, pushes, o llamando APIs externas (GitHub API, scripts, n8n workflows, etc.) que resulten en cambios en ese repo.
+> 6. **Excepción solo con autorización explícita de Jose + reconfirmación.** Si Jose pide algo que implique modificar `enba-web`, confirmar la acción concreta antes de ejecutar ("Para X necesito hacer Y en enba-web. ¿Autorizás?") y esperar un "sí" explícito. "Publicá", "hacelo", "procedé" no alcanzan.
+> 7. Incidente 26/04/2026: se publicó un post de blog en `enba-web` vía GitHub API sin pedir autorización explícita, interpretando "publicamos la entrada blog directamente" como aprobación implícita. No repetir.
 
-1. No usar MCP tools para n8n — siempre API directa con curl + env vars
-2. API key leerla así, sin exponerla nunca:
-   `N8N_KEY=$(powershell -Command "[System.Environment]::GetEnvironmentVariable('N8N_API_KEY', 'User')")`
-   Solo decir CARGADA o VACÍA. Nunca imprimir, echar ni mostrar el valor.
-3. `--ssl-no-revoke` en todos los curl a n8n cloud (exit code 35 sin esto)
-4. Code nodes: escribir JS a archivo .js primero, nunca componer JS dentro de template literals de bash
-5. Caracteres especiales / español — asegurar UTF-8 explícito en el payload
-6. Crear workflow = POST limpio OK. Modificar nodos con jsCode/jsonBody/expresiones → hacerlo desde UI o patch quirúrgico, nunca GET completo → mutar → PUT completo
-7. Base URL: `https://espacionautico.app.n8n.cloud/api/v1/`
-8. **Timezone de n8n cloud = ART (UTC-3).** Las cron expressions se interpretan en hora argentina, NO en UTC. Para publicar a las 12:15 ART usar `15 12 * * *`, no `15 15 * * *`. Incidente 17-abr-2026: `15 15` disparó a las 15:15 ART (18:15 UTC), 3 horas tarde, causando publicación duplicada.
-9. Después de crear o editar un workflow vía API que tenga Schedule Trigger, hacer ciclo `active:false` → `active:true` (PATCH) para forzar re-registro del cron en el scheduler interno.
+Las reglas técnicas operativas (curl, flags, Code nodes, API patterns, credenciales, timezone, cron) viven en `automatizaciones/n8n-workflows/OPERACION-N8N.md`. Leer ese archivo — y `INCIDENTES.md` — antes de cualquier trabajo no trivial de n8n.
 
 ---
 
-## Infraestructura n8n activa
+## Seguridad de tokens Meta en n8n
 
-| Workflow | ID | Descripción | Estado |
-|---|---|---|---|
-| ENBA - Redes Publicación Diaria v7.2 | `MipwleZNu8EG5v6C` | Publicación feed IG+FB 12:15 ART, 34 nodos | Activo |
-| ENBA - Stories Burst (n8n) | `LBjxUFXarIPV2cIi` | Stories highlights #1-#24. Burst completado 25/04, desactivado 26/04. | INACTIVO |
-| ENBA - Email Notifier | `yYnyrB7UI52Syf9x` | Webhook `enba-email-notifier` → email Gmail ENBA | Activo |
-| ENBA - Stories Fase 2 Mañana | `q1nZVNrtEsxKEFni` | Stories 09:00 ART, slot=morning, ciclo 10 días desde 27/04 | Activo |
-| ENBA - Stories Fase 2 Tarde | `pBP7tkXlD6nzx4wd` | Stories 14:00 ART, slot=afternoon, ciclo 10 días desde 27/04 | Activo |
-| ENBA - Stories Fase 2 Noche | `c8MHANGzW56GORAi` | Stories 20:00 ART, slot=evening, ciclo 10 días desde 27/04 | Activo |
+**Nunca poner tokens en Code nodes, variables de workflow, ni en el body/URL como texto plano.**
+**Nunca commitear, loguear ni exponer tokens de Meta — si se filtran, Meta los revoca automáticamente.**
 
-Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier`
-Body: `{ "subject": "...", "body": "..." }`
-
----
-
-## Meta API tokens en n8n cloud
-
-1. Crear la credencial en la UI de n8n (Settings → Credentials → Add → "Header Auth" con nombre `Authorization` y valor `Bearer <token>`). El token queda encriptado en n8n.
-2. Anotar el credential ID que n8n le asigna.
-3. En los nodos HTTP Request del workflow, referenciar esa credencial por ID con `authentication: "genericCredentialType"` y `genericAuthType: "httpHeaderAuth"` — así el nodo la consume sin que el token aparezca en el JSON del workflow.
-4. Nunca poner tokens en Code nodes, variables de workflow, ni en el body/URL como texto plano.
-5. Nunca commitear, loguear ni exponer tokens de Meta — si se filtran, Meta los revoca automáticamente.
-6. Credencial actual publicación feed: `Meta API ENBA` (ID: `n8scJzbGXnCprioD`, tipo: `httpHeaderAuth`)
-7. Credencial publicación stories: `Meta API ENBA - Page Token` (ID: `IGBqXMQRWJLxzh7f`, tipo: `httpHeaderAuth`, token: `META_ACCESS_TOKEN`)
-8. **Obligatorio en nodos HTTP Request que usen credencial:** incluir `authentication: "genericCredentialType"` y `genericAuthType: "httpHeaderAuth"` en `parameters`. Sin estos campos n8n ignora la credencial y el request va sin token — Meta devuelve "missing permissions" sin indicar que falta el header. (Incidente 24/04/2026)
-9. **Email en workflows n8n:** usar nodo `emailSend` con credencial Gmail ENBA (`HpJBfNd1BCHaLYfY`) directo, NO via webhook intermediario. Preparar subject/body en un Code node previo. No poner expresiones con `\n` (newline real) dentro de `bodyParameters` de HTTP Request — el motor de expresiones de n8n lanza `ExpressionExtensionError: invalid syntax`. (Incidente 24/04/2026)
+Para el patrón técnico de creación y referencia de credenciales en nodos HTTP Request, ver `automatizaciones/n8n-workflows/OPERACION-N8N.md` sección 6.
 
 ---
 

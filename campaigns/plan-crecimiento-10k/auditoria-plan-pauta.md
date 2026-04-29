@@ -2,7 +2,7 @@
 
 **Auditor:** Paid Media Auditor (Team 4)
 **Fecha:** 17 de abril de 2026
-**Material auditado:** presupuesto-v2-500k.md, audiencias-ampliadas.md, meta-ids.json, preflight-meta-api.md, diagnostico-inicial.md, kpis.md, meta-business-setup.md, decision-b-v2-propuesta.md
+**Material auditado:** historico/presupuesto-v2-500k.md, audiencias-ampliadas.md, meta-ids.json, preflight-meta-api.md, diagnostico-inicial.md, kpis.md, meta-business-setup.md, historico/decision-b-v2-propuesta.md
 **Autor del plan:** Bruno (Social Growth & Performance Director)
 
 ---
@@ -73,7 +73,7 @@
 
 1. **Todos los objetos mapeados en meta-ids.json coinciden con el plan.** Las 4 campañas, 7 ad sets y 5 ads están documentados con IDs reales.
 
-2. **Falta 1 ad documentado en el plan:** piece-03 debía ir a A3 + B1 según presupuesto-v2-500k.md (sprint día 3: "piece-03 → A3 Aspiracional + B1"). Solo se creó en A3. **Falta el ad de piece-03 en B1.**
+2. **Falta 1 ad documentado en el plan:** piece-03 debía ir a A3 + B1 según `historico/presupuesto-v2-500k.md` (sprint día 3: "piece-03 → A3 Aspiracional + B1"). Solo se creó en A3. **Falta el ad de piece-03 en B1.**
 
 3. **Los ad sets en meta-ids.json incluyen errores de targeting en todos (7/7).** Los 7 ad sets se crearon pero todos registran errores de interest IDs inválidos. Esto significa que los ad sets existen como objetos pero sus audiencias de targeting probablemente no están configuradas correctamente.
 
@@ -179,7 +179,7 @@
 
 ### Hallazgos
 
-1. **El plan numérico no cierra con la estructura real.** La distribución de presupuesto-v2-500k.md asigna:
+1. **El plan numérico no cierra con la estructura real.** La distribución de `historico/presupuesto-v2-500k.md` asigna:
    - Awareness 35% = $175K
    - Engagement 42% = $210K
    - Leads 14% = $70K
@@ -245,13 +245,13 @@
 
 1. **Nada se puede activar tal cual.** Los 7 ad sets tienen targeting inválido. Los 5 ads dependen de ad sets con targeting roto. Las Custom Audiences de exclusión no existen. El lead form de C3 no existe. Si alguien activa los ads mañana, Meta o los rechaza o los corre con targeting broad (sin los intereses segmentados que Bruno diseñó).
 
-2. **El plan de presupuesto v2 ($500K) se escribió el 16/04, pero no se actualizó la estructura en Meta.** Los ad sets creados tienen budgets del Plan B original (decision-b-v2-propuesta.md), no del presupuesto v2. Ejemplo: B1 tiene $2.500/día en Meta pero el presupuesto v2 no define budgets por ad set (solo por audiencia, y B1 aparece como $2.500 en la tabla de sección 4).
+2. **El plan de presupuesto v2 ($500K) se escribió el 16/04, pero no se actualizó la estructura en Meta.** Los ad sets creados tienen budgets del Plan B original (`historico/decision-b-v2-propuesta.md`), no del presupuesto v2. Ejemplo: B1 tiene $2.500/día en Meta pero el presupuesto v2 no define budgets por ad set (solo por audiencia, y B1 aparece como $2.500 en la tabla de sección 4).
 
 3. **Documentos con números de presupuestos distintos no reconciliados:**
    - diagnostico-inicial.md: $250K
    - audiencias-ampliadas.md: $250K (tabla de redistribución)
-   - presupuesto-v2-500k.md: $500K
-   - decision-b-v2-propuesta.md: $250K (con mención de que excede)
+   - historico/presupuesto-v2-500k.md: $500K
+   - historico/decision-b-v2-propuesta.md: $250K (con mención de que excede)
    - Los documentos previos ($250K) nunca se actualizaron para reflejar los $500K
 
 4. **El plan de activación escalonada requiere re-planificación.** El día 1 era el 15/04. Hoy es 17/04 (día 3). Los ad sets que debían activarse día 1 (B1, A2, B2, C1) siguen en PAUSED. A3 debía activarse hoy (día 3). C2 el día 5 (19/04). **El cronograma completo necesita re-baseline desde el día de activación real.**

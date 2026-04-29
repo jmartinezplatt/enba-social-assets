@@ -2,10 +2,10 @@
 
 **Autor:** Manu (Coordinador de Produccion)
 **Fecha original:** 15 de abril de 2026
-**Ultima actualizacion:** 26 de abril de 2026
+**Ultima actualizacion:** 29 de abril de 2026
 **Periodo:** 19 de abril - 16 de mayo de 2026 (27 dias, re-baselineado al primer gasto real)
 **Plan de pauta vigente:** `presupuesto-v4-reestructuracion.md` (fuente de verdad de pauta, reemplaza v3)
-**Fuentes:** diagnostico-inicial (Bruno), estrategia-instagram (Franco), estrategia-facebook (Franco), analisis-reels (Marina), review-estrategia-ig (Marina), meta-business-setup (Bruno), google-analytics-medicion (Bruno), kpis (Bruno), presupuesto-v3-final (Bruno), reporte-semanal-template (Bruno), calendario-integrado.json
+**Fuentes:** diagnostico-inicial (Bruno), estrategia-instagram (Franco), estrategia-facebook (Franco), analisis-reels (Marina), review-estrategia-ig (Marina), meta-business-setup (Bruno), google-analytics-medicion (Bruno), kpis (Bruno), historico/presupuesto-v3-final (Bruno), reporte-semanal-template (Bruno), calendario-integrado.json
 
 ---
 
@@ -792,6 +792,31 @@ Acciones:
 
 ---
 
+## 12. TikTok — Canal en configuración
+
+**Estado al 27/04/2026**
+
+| Item | Detalle |
+|---|---|
+| Cuenta | `@espacionauticobsas` creada |
+| App Developer | "ENBA Social" — enviada a revisión |
+| Sandbox | Configurado, cuenta ENBA agregada como test user |
+| DNS | TXT record TikTok verificado en Cloudflare (`espacionautico.com.ar`) |
+| Publicación via API | Bloqueada hasta aprobación — videos quedan privados en app no auditada |
+| Publicación actual | Manual desde la app |
+
+**Decisión operativa:** los primeros 30 días TikTok se publica manualmente. La integración con n8n se activa cuando TikTok apruebe la app.
+
+**Post-aprobación — pasos pendientes:**
+1. Hacer OAuth con cuenta ENBA → obtener access token
+2. Configurar credencial en n8n
+3. Integrar workflow de publicación TikTok
+4. Definir KPIs y frecuencia según material disponible (coordinado con agente wip-tiktok-30d-pilot)
+
+**Relación con el frente de producción TikTok:** existe un frente de trabajo paralelo produciendo el material de contenido (piezas, posters, scripts de curación). Cuando esté listo se integra a este frente.
+
+---
+
 ## Nota de Manu
 
 Este plan integra el trabajo de Bruno (diagnostico, presupuesto, KPIs, infraestructura, medicion), Franco (estrategia IG, estrategia FB, calendario), y Marina (analisis de reels, review creativa con ajustes). Los ajustes de Marina fueron adoptados donde corresponde y estan marcados en el texto.
@@ -809,4 +834,8 @@ El plan esta disenado para que alguien pueda leerlo y saber exactamente que hace
 *Actualizado: 26 de abril de 2026 — Incidente Gmail 25/04: App Password de credencial Gmail ENBA (`HpJBfNd1BCHaLYfY`) fue revocado por Google. Falló con error 535-5.7.8 BadCredentials. Workflows afectados: (1) Blog Automation `BTs8fTGvGqJE3shj` — post generado pero approval email no enviado → blog del 25/04 no publicado automáticamente. (2) Publicación Diaria `MipwleZNu8EG5v6C` — execución marcada como error, pero piece-11 SÍ se publicó en IG (Meta API corre antes del email). (3) Ads Evaluation Diaria `1qRywsEWAl7VoO5o` — reporte del 25/04 y 26/04 no enviado. Credencial `HpJBfNd1BCHaLYfY` actualizada vía PATCH n8n API el 26/04 13:39 UTC con nuevo App Password. Ejecuciones manuales de Blog Automation y Ads Evaluation disparadas para recuperar el día. Blog del 25/04 ("OpenCPN para navegantes recreativos") publicado manualmente via GitHub API el 26/04 con datePublished 2026-04-25. Consecutividad del feed no afectada.*
 *Actualizado: 26 de abril de 2026 (sesión tarde) — P2/P3/P4 completados: verificación API confirma que Gastronomía ya había sido removida de B1 y ENG_REEL, Caminatas/Excursionismo/Camping de B2, geo 18-city y age 18-65 correctos en los 13 ad sets activos. interest-ids.json sincronizado. Fase 2 stories activa: 30 JPEG renderizados (top:200px), 3 workflows n8n q1nZVNrtEsxKEFni/pBP7tkXlD6nzx4wd/c8MHANGzW56GORAi activos, primera story 27/04 09:00 ART. CLAUDE.md actualizado: enba-web contacto reglas explícitas 4 puntos (excepción solo con autorización Jose + reconfirmación). Blog 25/04 OpenCPN publicado via GitHub API (commit d9bb7e5, datePublished 2026-04-25). Burn rate real post-cortes 24/04: ~$19.000–$19.500 ARS/día (promedio 24-25/04 con GET fresco). Target: $16.737/día — delta ~$2.500–$2.800 por encima. Seguidores al cierre: IG 55, FB 619.*
 *Actualizado: 25 de abril de 2026 — Carrusel "no-es-tour" publicado IG (carrusel 6 slides, ID 18317065594280248) + FB (slide-04 imagen única, ID 1064806400040502_122110365644620656). Reporte ejecutivo performance generado (día 7/27): winners FB microreel (CPF $83-89), tracking IG ciego ($40K sin atribución). Pixel Meta implementado en enba-web: fbq Lead (formulario servicios exitoso), fbq Contact (click WhatsApp), fbq ViewContent (click CTA) — commit 55faaca en enba-web main, pendiente push + deploy + crear Custom Conversions en Meta Ads. Skill /redes actualizado: lee plan-maestro + meta-ids.json + presupuesto-v4 al iniciar. Seguidores IG verificados: 47.*
+*Actualizado: 27 de abril de 2026 — Sesión Bruno día 8/27. Pixel stack completado: Custom Conversions creadas en Meta Ads vía API — Contact/click WhatsApp (ID 945609238261267), ViewContent/click CTA (ID 2216541158753262). Lead ya existía (ID 1634612341204888). Lead TEST (ID 1497440055361281, archivada, 0 eventos) eliminada. __missing_event bloqueado en Events Manager (1 disparo aislado el 24/04, no intencional). Estado pixel al 27/04: PageView funciona desde 15/04 (605 total), ViewContent 4 eventos (25-26/04 — clicks en CTAs), Contact 0 eventos (href WhatsApp a verificar). CAPI diferido a mes 2-3 — decisión vigente. Script de creación: scripts/create-missing-conversions.mjs.*
+*Actualizado: 27 de abril de 2026 (sesión tarde) — D4 audience verificada vía API: 3.000-3.500 personas, estado "listo para usar" — umbral 1.000 superado, disponible para AS_ENG_ReelPrimeraVez_Warm (02/05). Fix Contact pixel: openWhatsappFallback en enba-web/src/lib/chat.ts usaba window.open() sin llamar fbq — event delegation de ga4-events.ts no lo capturaba. 9 componentes afectados (BookingSection, VeleroCard, VeleroDetailModal, BlogPost, DestinoDetalle, Destinos, EscuelaNautica, PaseosVelero, VeleroDetalle). Fix: window.fbq?.("track", "Contact") agregado antes de window.open(). Commit a9a2e67 pusheado a enba-web main — Cloudflare deploy iniciado. Verificar eventos Contact en Events Manager 24-48h post-deploy. Retarget ad sets verificados vía API: IG_Retarget y FB_Retarget tienen D1+D3+D4 en targeting — correcto. Stories Fase 2 verificadas: 3 workflows activos (Mañana 09:00/Tarde 14:00/Noche 20:00 ART). Secuencia INTACTA — workflow es date-based, no stateful counter. Story seq=1 publicada 26/04 a las 13:54 ART (5h tarde por fallo cron 09:00 ART — ejecución 16095 falló antes de llegar a nodo). Tarde y Noche del 26/04 publicaron en horario. Monitorear cron 09:00 ART hoy 27/04 (seq=4 escuela). Spike gasto 26/04 ($24.038 vs $19.567): benigno — ad sets madurando y alcanzando caps diarios. Deltas: ENG_REEL +61% ($1.943→$3.121), IG_Retarget +107% ($764→$1.584), IG_Cold +44% ($2.944→$4.246). Frecuencias bajas (1.0–1.3), sin fatiga. A burn rate actual presupuesto alcanza ~10 mayo. Decisión de ajuste diferida a Gate 2 (29/04): si follows justifican, mantener; si no, recortar IG_Cold y/o ENG_REEL. jq instalado en el entorno (winget install jqlang.jq) — disponible para futuras llamadas API.*
+*Actualizado: 27 de abril de 2026 (sesión tarde/noche) — Automatización FB stories construida de punta a punta. (1) Patch quirúrgico en los 3 workflows de Fase 2 (q1nZVNrtEsxKEFni/pBP7tkXlD6nzx4wd/c8MHANGzW56GORAi): nodo "Log to Sheet" agregado después de "Email OK" — loguea date/slot/media_id/image_url/seq en Google Sheet `1DimMWT7rNXNd2jS_rnCNs0qHLqSahwYLc3s9m7wpw1U` tras cada publicación. (2) Nuevo workflow "ENBA - Stories FB Best IG" (ZGIGw47IYuwHv3Wh): corre 08:30 ART diario — lee sheet, consulta IG Insights reach de las 3 stories del día anterior, publica la ganadora en FB (2 pasos: upload photo unpublished → photo_stories). Confirma vía email. Primera ejecución: 28/04 08:30 ART. Credencial Google Sheets OAuth2 reautorizada. Aprendizajes técnicos: PUT n8n acepta solo {name, nodes, connections, settings}; credential googleSheetsOAuth2Api no compatible con HTTP Request node (usar nodo nativo); test story publicada en FB durante verificación del endpoint (incidente menor). Scripts en repo: scripts/patch-stories-add-sheets-log.mjs, scripts/n8n-stories-fb-best-ig.json. Seguidores al cierre: IG 64, FB 736.*
+*Actualizado: 29 de abril de 2026 (sesión noche — día 11/27) — reel-eng-v2 producido y publicado como darkpost ad (AD_ENG_REEL_V2, ID 120239691829210139) en AS_ENG_REEL ($3.000/día, POST_ENGAGEMENT, C_ENG). Compite con ENBA_ad_reel4horas_ENG en el mismo ad set — Meta optimiza entre creativos 48-72h. Video: 26.87s, 1080x1920, 30fps, H.264. Caption IG aprobado: 4 hashtags (#EspacioNautico #SailingArgentina #TravesiaEnVelero #RioDeLaPlata). CTA: VIEW_INSTAGRAM_PROFILE → @espacionauticobsas. Incidente: upload-video-to-ads.mjs actualizó sin autorización los creatives de ENBA_ad_microreel_IG_Cold y ENBA_ad_microreel_IG_Retarget (ACTIVE, Follow Plan) — restaurados a creative original 977761008544793; están "En preparación" (revisión Meta), deberían volver a ACTIVE en unas horas. Pendientes: (1) monitorear AD_ENG_REEL_V2 vs reel4horas 48-72h — si reel-eng-v2 supera en CPE/video views, pausar AD_ENG_REEL (120239078453020139); (2) 3 ads ACTIVE+CORTAR pendientes aprobación Jose: microreel_FB_Cold, microreel_FB_Retarget, nosotros_FB_Retarget; (3) verificar que microreel_IG_Cold + Retarget volvieron a ACTIVE cuando Jose se levante.*
 *Fuentes: Bruno, Franco, Marina — Team 4, ENBA*

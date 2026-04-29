@@ -1,5 +1,9 @@
 {
-  "last_verified": "2026-04-24T00:00:00-03:00",
+  "last_verified": "2026-04-28T22:00:00-03:00",
+  "last_api_verified": "2026-04-28T22:00:00-03:00",
+  "api_verified_note": "GET batch completo ejecutado 28/04 sesión noche. Verificados: effective_status todos los ads Follow Plan v2 + ENG_REEL; budgets y exclusiones de los 4 ad sets Follow Plan v2. Dos discrepancias encontradas vs registros previos: (1) fb_cold tenía D5 configurada aunque la nota decía 'no configurada'; (2) destinos_IG_Retarget y nosotros_IG_Retarget marcados ACTIVE en JSON pero API los retornó PAUSED.",
+  "session_28apr": "Sesión día 9/27. Análisis performance completo via API. Exclusiones corregidas: fb_retarget → D5 agregada; ig_cold → D5 (irrelevante) reemplazada por D6; ig_retarget → D6 agregada. D6 (IGFollowers_exclusion) creada por Jose desde UI (ID: 120239621840990139). Hallazgo: ig_cold tenía D5 FBPageLikers como exclusión — completamente irrelevante para campaña IG. Audiencia D4 VideoViewers ~2.400-3.000 personas no seguidoras ya dentro de ig_retarget post-fix.",
+  "session_28apr_noche": "Sesión día 10/27. GET batch API verificó estado real de todos los ads y ad sets Follow Plan v2. Hallazgos: (1) fb_cold SÍ tiene D5 como exclusión (API confirma ID 120239146215040139) — nota anterior era incorrecta; (2) destinos_IG_Retarget y nosotros_IG_Retarget realmente PAUSED (meta-ids.json los tenía como ACTIVE por error); (3) Burn rate real confirmado: $23.020/día (Follow Plan v2 $20.020 + ENG_REEL $3.000). AWR ad sets CBO con $0/día individual — budget a nivel campaña pero todos los ads paused. (4) WINNER confirmado vía nota: corporativo_IG_Cold usa imagen estática grupo-cockpit-cielo-azul-4x5.jpg — hipótesis video-first falsada. (5) 3 ads activos que Bruno recomienda cortar: microreel_FB_Cold, microreel_FB_Retarget, nosotros_FB_Retarget — pendiente aprobación de Jose.",
   "session_24apr_tarde": "Auditoría creativa Marina aprobó Follow_IG creativos. IG_Cold activado $4.000/día + IG_Retarget $1.500/día. Normalización jerarquía: todas campañas y ad sets ACTIVE, pausas solo a nivel ad. Corregidas 3 discrepancias: nosotros_FB_Cold, destinos_FB_Retarget, nosotros_IG_Cold → PAUSED. Burn rate: $23.020/día.",
   "session_23apr_plan_reconciliado": "Plan reconciliado Bruno/Experto ejecutado 23/04. Pausados: ig_cold, ig_retarget, reel4h_B1, reel4hAlt_A2, AS_ENG_C2, reelPV_ENG. AS_ENG_REEL reducido $7,250→$3,000/día. fb_cold escalado $8,400→$10,920/día. Burn estimado: ~$17,500/día. Pendiente: Marina auditoría perfil IG antes de reactivar Follow IG.",
   "session_22apr_night": "Estáticos AWR pausados (3 ads). Follow Plan v2 activado completo (2 campañas, 4 ad sets, 12 ads). Budget diario total ~$45,250. Baseline: FB 23 follows, IG 11 follows.",
@@ -51,9 +55,11 @@
       "subtype": "ENGAGEMENT",
       "status": "active",
       "delivery": "ready",
+      "approximate_count": "3600-4200",
+      "last_api_verified": "2026-04-28",
       "created_via": "UI (Ads Manager)",
       "created_date": "2026-04-18",
-      "notes": "Creada por Jose desde UI. Regla: personas que vieron al menos 50% del video. API no permitía crearla (error #2654)."
+      "notes": "Creada por Jose desde UI. Regla: personas que vieron al menos 50% del video. API no permitía crearla (error #2654). Tamaño verificado 28/04: 3.600-4.200 personas. Delivery ready — usada en ig_retarget targeting."
     },
     "D5": {
       "id": "120239146215040139",
@@ -63,7 +69,17 @@
       "delivery": "too_small",
       "created_via": "UI (Ads Manager)",
       "created_date": "2026-04-18",
-      "notes": "Creada por Jose desde UI. Personas que siguen/likean la page. Para exclusión en ad sets de awareness."
+      "notes": "Creada por Jose desde UI. Personas que siguen/likean la page de FB. Para exclusión en ad sets FB. Estaba en ig_cold por error — corregido 28/04."
+    },
+    "D6": {
+      "id": "120239621840990139",
+      "name": "ENBA_Custom_IGFollowers_exclusion",
+      "subtype": "IG_BUSINESS",
+      "status": "active",
+      "delivery": "too_small",
+      "created_via": "UI (Ads Manager)",
+      "created_date": "2026-04-28",
+      "notes": "Creada por Jose desde UI (API no permite subtype IG_BUSINESS). Seguidores actuales del perfil IG. Para exclusión en ad sets Follow IG — evita gastar en usuarios que ya siguen. Aplicada a ig_cold e ig_retarget el 28/04."
     }
   },
   "phase_3_campaigns": {
@@ -276,6 +292,13 @@
       "status": "ACTIVE",
       "created_date": "2026-04-19",
       "lead_form_id": "944664581514608"
+    },
+    "reel-eng-v2": {
+      "video_id": "930671523063846",
+      "creative_id_ig": "1755477335861466",
+      "creative_id_fb": "972612195184208",
+      "source": "campaigns/plan-crecimiento-10k/reels/reel-eng-v2/reel-eng-v2-final.mp4",
+      "created": "2026-04-29"
     }
   },
   "ads": {
@@ -388,6 +411,15 @@
       "created_date": "2026-04-22",
       "paused_date": "2026-04-23",
       "notes": "Reel 'primera vez' pausado — plan reconciliado 23/04. Solo reel4horas queda vivo en AS_ENG_REEL."
+    },
+    "AD_ENG_REEL_V2": {
+      "name": "AD_ENG_REEL_V2",
+      "id": "120239691829210139",
+      "adset": "AS_ENG_REEL",
+      "creative": "reel-eng-v2",
+      "status": "ACTIVE",
+      "created": "2026-04-29",
+      "notes": "Reemplazo de AD_ENG_REEL (reel4horas en fatiga). Darkpost POST_ENGAGEMENT. Dejar correr 48-72h en paralelo antes de pausar AD_ENG_REEL."
     }
   },
   "pixels": {
@@ -412,7 +444,25 @@
       "custom_event_type": "LEAD",
       "rule": "url i_contains espacionautico.com.ar",
       "created_date": "2026-04-25",
-      "notes": "Trackea fbq Lead desde ServiceConsultForm (solo aparece en /). Contact y ViewContent son Standard Events nativos — no requieren Custom Conversion."
+      "notes": "Trackea fbq Lead desde ServiceConsultForm tras envío exitoso."
+    },
+    "enba_contact": {
+      "id": "945609238261267",
+      "name": "ENBA - Contact (click WhatsApp)",
+      "pixel_id": "1273048378266952",
+      "custom_event_type": "CONTACT",
+      "rule": "url starts_with https://espacionautico.com.ar",
+      "created_date": "2026-04-27",
+      "notes": "Trackea fbq Contact desde ga4-events.ts — click en href con wa.me o whatsapp. 0 eventos al 27/04 — verificar href de botones WhatsApp en enba-web."
+    },
+    "enba_viewcontent": {
+      "id": "2216541158753262",
+      "name": "ENBA - ViewContent (click CTA)",
+      "pixel_id": "1273048378266952",
+      "custom_event_type": "CONTENT_VIEW",
+      "rule": "url starts_with https://www.espacionautico.com.ar",
+      "created_date": "2026-04-27",
+      "notes": "Trackea fbq ViewContent desde ga4-events.ts — click en botón con clase bg-primary o bg-accent. 4 eventos registrados al 27/04."
     }
   },
   "lead_forms": {
@@ -617,7 +667,11 @@
         "optimization": "VISIT_INSTAGRAM_PROFILE",
         "status": "ACTIVE",
         "activated_date": "2026-04-24",
-        "activation_reason": "Auditoría creativa Marina aprobó creativos Follow_IG. Budget reducido $12.600→$4.000/día."
+        "activation_reason": "Auditoría creativa Marina aprobó creativos Follow_IG. Budget reducido $12.600→$4.000/día.",
+        "exclusions": {
+          "D6": "120239621840990139",
+          "note": "Excluye seguidores actuales IG. Corregido 28/04: tenía D5 (FBPageLikers) por error — completamente irrelevante para campaña IG."
+        }
       },
       "ig_retarget": {
         "id": "120239303659250139",
@@ -626,7 +680,11 @@
         "optimization": "VISIT_INSTAGRAM_PROFILE",
         "status": "ACTIVE",
         "activated_date": "2026-04-24",
-        "activation_reason": "Reactivado junto con ig_cold. Budget reducido $5.400→$1.500/día."
+        "activation_reason": "Reactivado junto con ig_cold. Budget reducido $5.400→$1.500/día.",
+        "exclusions": {
+          "D6": "120239621840990139",
+          "note": "Excluye seguidores actuales IG. Agregada 28/04. Targeting incluye D4 VideoViewers_30d (2.400-3.000 no-seguidores estimados)."
+        }
       },
       "fb_cold": {
         "id": "120239303659650139",
@@ -635,13 +693,22 @@
         "optimization": "PAGE_LIKES",
         "scaled_date": "2026-04-23",
         "scaled_from": 840000,
-        "scaled_reason": "Plan reconciliado 23/04 — FB Likes 233 a $36/like, buen rendimiento. +30%."
+        "scaled_reason": "Plan reconciliado 23/04 — FB Likes 233 a $36/like, buen rendimiento. +30%.",
+        "last_api_verified": "2026-04-28",
+        "exclusions": {
+          "D5": "120239146215040139",
+          "note": "D5 (FBPageLikers) SÍ está configurada como exclusión. Verificado via API 28/04. Nota anterior incorrecta decía 'no configurada'."
+        }
       },
       "fb_retarget": {
         "id": "120239303660260139",
         "campaign": "120239303658190139",
         "daily_budget": 360000,
-        "optimization": "PAGE_LIKES"
+        "optimization": "PAGE_LIKES",
+        "exclusions": {
+          "D5": "120239146215040139",
+          "note": "Excluye fans actuales de la page FB. Agregada 28/04."
+        }
       }
     },
     "ads": {
@@ -681,19 +748,24 @@
         "id": "120239303663260139",
         "adset": "120239303659250139",
         "creative": "2113967966046136",
-        "status": "ACTIVE"
+        "status": "PAUSED",
+        "status_note": "API verificó PAUSED 28/04. Meta-ids.json tenía ACTIVE por error."
       },
       "ENBA_ad_nosotros_IG_Retarget": {
         "id": "120239303663740139",
         "adset": "120239303659250139",
         "creative": "1273685224896455",
-        "status": "ACTIVE"
+        "status": "PAUSED",
+        "status_note": "API verificó PAUSED 28/04. Meta-ids.json tenía ACTIVE por error."
       },
       "ENBA_ad_microreel_FB_Cold": {
         "id": "120239303664580139",
         "adset": "120239303659650139",
         "creative": "842939748827934",
-        "status": "ACTIVE"
+        "status": "PAUSED",
+        "paused_at": "2026-04-28T16:11:30+0000",
+        "paused_by": "Conversions API System User",
+        "paused_reason": "CPS $114 > $100 — CORTAR"
       },
       "ENBA_ad_destinos_FB_Cold": {
         "id": "120239303665020139",
@@ -711,7 +783,10 @@
         "id": "120239303668560139",
         "adset": "120239303660260139",
         "creative": "842939748827934",
-        "status": "ACTIVE"
+        "status": "PAUSED",
+        "paused_at": "2026-04-28T16:11:33+0000",
+        "paused_by": "Conversions API System User",
+        "paused_reason": "CPS $116 > $100 — CORTAR"
       },
       "ENBA_ad_destinos_FB_Retarget": {
         "id": "120239303669700139",
@@ -723,7 +798,10 @@
         "id": "120239303670130139",
         "adset": "120239303660260139",
         "creative": "846991285099575",
-        "status": "ACTIVE"
+        "status": "PAUSED",
+        "paused_at": "2026-04-28T16:11:34+0000",
+        "paused_by": "Conversions API System User",
+        "paused_reason": "CPS $103 > $100 — CORTAR"
       }
     },
     "creatives": {

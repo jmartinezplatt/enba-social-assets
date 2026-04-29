@@ -1,4 +1,4 @@
-> **NOTA (19/04):** Este diagnostico fue escrito al dia 0 (15/04). Presupuesto actualizado a $500K en `presupuesto-v3-final.md`. Inventario de contenido actualizado en `plan-maestro.md` seccion 1. Los datos de punto de partida (seguidores, estado de cuenta) siguen siendo referencia valida.
+> **NOTA (19/04):** Este diagnostico fue escrito al dia 0 (15/04). Presupuesto actualizado a $500K en `historico/presupuesto-v3-final.md`. Inventario de contenido actualizado en `plan-maestro.md` seccion 1. Los datos de punto de partida (seguidores, estado de cuenta) siguen siendo referencia valida.
 
 # Diagnostico inicial — Plan de crecimiento 10K seguidores
 

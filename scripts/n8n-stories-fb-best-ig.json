@@ -1,0 +1,238 @@
+{
+  "name": "ENBA - Stories FB Best IG",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [{ "field": "cronExpression", "expression": "30 8 * * *" }]
+        }
+      },
+      "id": "node-schedule",
+      "name": "Schedule 08:30 ART",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [200, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Calcula fecha de ayer en ART (UTC-3)\nconst now = new Date();\nconst artOffset = -3 * 60;\nconst utcMs = now.getTime() + now.getTimezoneOffset() * 60000;\nconst artNow = new Date(utcMs + artOffset * 60000);\nconst yesterday = new Date(artNow.getFullYear(), artNow.getMonth(), artNow.getDate() - 1);\nconst yyyy = yesterday.getFullYear();\nconst mm = String(yesterday.getMonth() + 1).padStart(2, '0');\nconst dd = String(yesterday.getDate()).padStart(2, '0');\nreturn [{ json: { yesterday: `${yyyy}-${mm}-${dd}` } }];"
+      },
+      "id": "node-get-yesterday",
+      "name": "Get Yesterday",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [420, 300]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "1DimMWT7rNXNd2jS_rnCNs0qHLqSahwYLc3s9m7wpw1U",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "w3CGca02rWZppDL9",
+          "name": "Google Sheets account"
+        }
+      },
+      "id": "node-read-sheet",
+      "name": "Read Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.4,
+      "position": [640, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const yesterday = $('Get Yesterday').first().json.yesterday;\nconst allRows = $input.all();\nconst filtered = allRows.filter(row => row.json.date === yesterday);\n\nif (filtered.length === 0) {\n  return [{ json: { skip: true, reason: `No hay stories logueadas para ${yesterday}` } }];\n}\n\nreturn filtered.map(row => ({ json: { ...row.json, skip: false } }));"
+      },
+      "id": "node-filter-yesterday",
+      "name": "Filter Yesterday",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [860, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [{
+            "id": "skip-check",
+            "leftValue": "={{ $json.skip }}",
+            "rightValue": true,
+            "operator": { "type": "boolean", "operation": "equals" }
+          }],
+          "combinator": "and"
+        }
+      },
+      "id": "node-skip-check",
+      "name": "Skip?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1080, 300]
+    },
+    {
+      "parameters": {
+        "fromEmail": "admin@espacionautico.com.ar",
+        "toEmail": "jmartinezplatt@gmail.com",
+        "subject": "ENBA Stories FB — Sin datos para ayer",
+        "text": "={{ $json.reason }}"
+      },
+      "credentials": {
+        "smtp": {
+          "id": "HpJBfNd1BCHaLYfY",
+          "name": "Gmail ENBA"
+        }
+      },
+      "id": "node-email-skip",
+      "name": "Email Skip",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1300, 160]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.facebook.com/v22.0/{{ $json.media_id }}/insights",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [{ "name": "metric", "value": "reach" }]
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "IGBqXMQRWJLxzh7f",
+          "name": "Meta API ENBA - Page Token"
+        }
+      },
+      "id": "node-get-insights",
+      "name": "Get IG Insights",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1300, 380]
+    },
+    {
+      "parameters": {
+        "jsCode": "// insightsItems[i].json = respuesta IG Insights para cada story\n// storyItems[i].json = fila original del sheet (date, slot, media_id, image_url, seq)\nconst insightsItems = $input.all();\nconst storyItems = $('Filter Yesterday').all().filter(i => !i.json.skip);\n\nlet winner = null;\nlet maxReach = -1;\n\nfor (let i = 0; i < insightsItems.length; i++) {\n  const reach = insightsItems[i].json.data?.[0]?.values?.[0]?.value ?? 0;\n  const story = storyItems[i]?.json ?? {};\n  if (reach > maxReach) {\n    maxReach = reach;\n    winner = { ...story, reach };\n  }\n}\n\n// Fallback: si todas tienen reach=0, tomar la primera\nif (!winner) {\n  winner = { ...storyItems[0].json, reach: 0 };\n}\n\nreturn [{ json: winner }];"
+      },
+      "id": "node-pick-winner",
+      "name": "Pick Winner",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1520, 380]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v22.0/1064806400040502/photos",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "url",       "value": "={{ $json.image_url }}" },
+            { "name": "published", "value": "false" }
+          ]
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "n8scJzbGXnCprioD",
+          "name": "Meta API ENBA"
+        }
+      },
+      "id": "node-upload-photo",
+      "name": "Upload Photo FB",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1740, 380]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v22.0/1064806400040502/photo_stories",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "photo_id", "value": "={{ $json.id }}" }
+          ]
+        }
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "n8scJzbGXnCprioD",
+          "name": "Meta API ENBA"
+        }
+      },
+      "id": "node-post-story",
+      "name": "Post FB Story",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1960, 380]
+    },
+    {
+      "parameters": {
+        "fromEmail": "admin@espacionautico.com.ar",
+        "toEmail": "jmartinezplatt@gmail.com",
+        "subject": "=ENBA Stories FB — Story publicada ({{ $('Pick Winner').first().json.slot }}, reach {{ $('Pick Winner').first().json.reach }})",
+        "text": "=Story ganadora publicada en FB.\n\nFecha: {{ $('Pick Winner').first().json.date }}\nSlot: {{ $('Pick Winner').first().json.slot }}\nSeq: {{ $('Pick Winner').first().json.seq }}\nReach IG: {{ $('Pick Winner').first().json.reach }}\nImagen: {{ $('Pick Winner').first().json.image_url }}\nFB post_id: {{ $json.post_id }}"
+      },
+      "credentials": {
+        "smtp": {
+          "id": "HpJBfNd1BCHaLYfY",
+          "name": "Gmail ENBA"
+        }
+      },
+      "id": "node-email-ok",
+      "name": "Email OK",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [2180, 380]
+    }
+  ],
+  "connections": {
+    "Schedule 08:30 ART": {
+      "main": [[{ "node": "Get Yesterday",  "type": "main", "index": 0 }]]
+    },
+    "Get Yesterday": {
+      "main": [[{ "node": "Read Sheet",     "type": "main", "index": 0 }]]
+    },
+    "Read Sheet": {
+      "main": [[{ "node": "Filter Yesterday", "type": "main", "index": 0 }]]
+    },
+    "Filter Yesterday": {
+      "main": [[{ "node": "Skip?",          "type": "main", "index": 0 }]]
+    },
+    "Skip?": {
+      "main": [
+        [{ "node": "Email Skip",     "type": "main", "index": 0 }],
+        [{ "node": "Get IG Insights","type": "main", "index": 0 }]
+      ]
+    },
+    "Get IG Insights": {
+      "main": [[{ "node": "Pick Winner",    "type": "main", "index": 0 }]]
+    },
+    "Pick Winner": {
+      "main": [[{ "node": "Upload Photo FB","type": "main", "index": 0 }]]
+    },
+    "Upload Photo FB": {
+      "main": [[{ "node": "Post FB Story",  "type": "main", "index": 0 }]]
+    },
+    "Post FB Story": {
+      "main": [[{ "node": "Email OK",       "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {}
+}

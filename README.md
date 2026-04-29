@@ -5,6 +5,7 @@ Repositorio de contenido social para Espacio Nautico Buenos Aires (ENBA). Contie
 **Dominio:** `social-assets.espacionautico.com.ar` (Cloudflare Pages)
 **Repo del sitio web:** `enba-web` (separado — no mezclar)
 **Reglas completas:** ver `CLAUDE.md`
+**Inicio de sesión del frente activo:** ver `campaigns/plan-crecimiento-10k/STATUS.md`
 
 ---
 
@@ -16,8 +17,9 @@ enba-social-assets/
 ├── README.md                   # Este archivo
 ├── asset-bank/                 # JPGs aprobados y listos para usar
 ├── material-bank/              # Biblioteca amplia de material curado
-├── campaigns/                  # Campanas y carruseles
+├── campaigns/                  # Campanas, carruseles y frentes activos
 │   ├── lanzamiento-15-abr-2026/
+│   ├── plan-crecimiento-10k/   # Frente activo: STATUS.md + plan + pauta + Meta IDs
 │   ├── carruseles-organicos/
 │   ├── reels/
 │   ├── teaser-frankenstein/
