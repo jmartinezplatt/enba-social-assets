@@ -1,0 +1,11 @@
+<svg width="420" height="320" viewBox="0 0 420 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(155 18)">
+    <circle cx="55" cy="55" r="52" fill="#DEEEE8" stroke="#1A7A62" stroke-width="1.6"/>
+    <line x1="55" y1="18" x2="55" y2="74" stroke="#1A7A62" stroke-width="2.4"/>
+    <path d="M55 20 L28 68 L55 68 Z" fill="#1A7A62"/>
+    <path d="M55 34 L78 66 L55 66 Z" fill="#1A6FA0" opacity="0.85"/>
+    <path d="M20 78 C31 72 42 72 53 78 C64 84 75 84 86 78 C91 75 95 75 98 78" stroke="#1A7A62" stroke-width="1.8" stroke-linecap="round"/>
+  </g>
+  <text x="210" y="202" text-anchor="middle" fill="#0F1F2F" font-family="Teko, sans-serif" font-size="40" font-weight="700" letter-spacing="1.2">ESPACIO NÁUTICO</text>
+  <text x="210" y="246" text-anchor="middle" fill="#0F1F2F" font-family="Teko, sans-serif" font-size="40" font-weight="700" letter-spacing="1.2">BUENOS AIRES</text>
+</svg>

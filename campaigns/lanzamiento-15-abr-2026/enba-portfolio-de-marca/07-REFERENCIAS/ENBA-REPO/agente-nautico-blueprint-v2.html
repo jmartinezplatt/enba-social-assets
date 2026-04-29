@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agente Náutico · Blueprint</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean-deep: #0a1628;
+    --ocean-mid: #0d2444;
+    --ocean-surface: #103461;
+    --wave: #1a5f9e;
+    --foam: #4db8e8;
+    --sun: #f0a500;
+    --coral: #ff6b4a;
+    --sand: #f5e6c8;
+    --white: #f0f4f8;
+    --glass: rgba(16, 52, 97, 0.45);
+    --glass-border: rgba(77, 184, 232, 0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--ocean-deep);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* Animated ocean background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 80%, rgba(29, 94, 158, 0.35) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 20%, rgba(10, 80, 140, 0.3) 0%, transparent 55%),
+      radial-gradient(ellipse 100% 60% at 50% 100%, rgba(13, 36, 68, 0.8) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wave-bg {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 200%;
+    height: 200px;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 40px,
+      rgba(77, 184, 232, 0.03) 40px,
+      rgba(77, 184, 232, 0.03) 80px
+    );
+    animation: waveDrift 20s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @keyframes waveDrift {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* HEADER */
+  header {
+    position: relative;
+    z-index: 10;
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  .logo-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 0.5rem;
+  }
+
+  .anchor-icon {
+    font-size: 2.2rem;
+    animation: bob 3s ease-in-out infinite;
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    letter-spacing: 0.06em;
+    color: var(--foam);
+    text-shadow: 0 0 40px rgba(77, 184, 232, 0.4);
+    line-height: 1;
+  }
+
+  .subtitle {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--sun);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+  }
+
+  /* NAV TABS */
+  .tabs {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1.5rem 1rem;
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    color: rgba(240, 244, 248, 0.65);
+    padding: 0.55rem 1.3rem;
+    border-radius: 40px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(8px);
+    letter-spacing: 0.02em;
+  }
+
+  .tab-btn:hover {
+    border-color: var(--foam);
+    color: var(--foam);
+    transform: translateY(-2px);
+  }
+
+  .tab-btn.active {
+    background: linear-gradient(135deg, var(--wave), var(--foam));
+    border-color: var(--foam);
+    color: var(--ocean-deep);
+    font-weight: 700;
+    box-shadow: 0 4px 20px rgba(77, 184, 232, 0.35);
+  }
+
+  /* MAIN CONTENT */
+  main {
+    position: relative;
+    z-index: 10;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem 4rem;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; animation: fadeUp 0.4s ease; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTION HEADER */
+  .section-header {
+    margin-bottom: 2rem;
+  }
+
+  .section-header h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+    color: var(--foam);
+  }
+
+  .section-header p {
+    color: rgba(240, 244, 248, 0.6);
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+    line-height: 1.6;
+  }
+
+  /* CARDS GRID */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--foam), var(--sun));
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(77, 184, 232, 0.45);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  .card:hover::before { opacity: 1; }
+
+  .card-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+
+  .card-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--sun);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .card h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 0.7rem;
+  }
+
+  .card p, .card li {
+    font-size: 0.84rem;
+    color: rgba(240, 244, 248, 0.7);
+    line-height: 1.65;
+  }
+
+  .card ul { list-style: none; }
+  .card ul li {
+    padding: 0.25rem 0;
+    padding-left: 1.1rem;
+    position: relative;
+  }
+  .card ul li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--foam);
+    font-weight: bold;
+  }
+
+  /* TAG BADGES */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.9rem;
+  }
+
+  .tag {
+    background: rgba(77, 184, 232, 0.12);
+    border: 1px solid rgba(77, 184, 232, 0.25);
+    color: var(--foam);
+    font-size: 0.72rem;
+    padding: 0.2rem 0.65rem;
+    border-radius: 20px;
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  .tag.orange {
+    background: rgba(240, 165, 0, 0.12);
+    border-color: rgba(240, 165, 0, 0.3);
+    color: var(--sun);
+  }
+
+  .tag.red {
+    background: rgba(255, 107, 74, 0.12);
+    border-color: rgba(255, 107, 74, 0.3);
+    color: var(--coral);
+  }
+
+  /* FLOW DIAGRAM */
+  .flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    overflow-x: auto;
+    padding: 1rem 0 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .flow-step {
+    flex: 1;
+    min-width: 160px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 1.2rem 1rem;
+    text-align: center;
+    position: relative;
+    backdrop-filter: blur(8px);
+  }
+
+  .flow-step + .flow-step { margin-left: -1px; border-radius: 0; }
+  .flow-step:first-child { border-radius: 12px 0 0 12px; }
+  .flow-step:last-child { border-radius: 0 12px 12px 0; }
+
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    color: var(--foam);
+    font-size: 1.3rem;
+    padding: 0 0.3rem;
+    flex-shrink: 0;
+  }
+
+  .flow-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: rgba(77, 184, 232, 0.25);
+    line-height: 1;
+  }
+
+  .flow-step .step-icon { font-size: 1.5rem; margin: 0.3rem 0; }
+
+  .flow-step .step-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+
+  .flow-step .step-sub {
+    font-size: 0.7rem;
+    color: rgba(240, 244, 248, 0.5);
+    line-height: 1.4;
+  }
+
+  /* CHECKLIST */
+  .checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+    backdrop-filter: blur(6px);
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .check-item:hover { border-color: rgba(77, 184, 232, 0.4); }
+  .check-item.done {
+    background: rgba(77, 184, 232, 0.08);
+    border-color: rgba(77, 184, 232, 0.35);
+  }
+
+  .check-box {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--glass-border);
+    border-radius: 6px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    margin-top: 1px;
+  }
+
+  .check-item.done .check-box {
+    background: var(--foam);
+    border-color: var(--foam);
+    color: var(--ocean-deep);
+  }
+
+  .check-text strong {
+    display: block;
+    font-size: 0.88rem;
+    color: var(--white);
+    font-weight: 600;
+    margin-bottom: 0.15rem;
+  }
+
+  .check-text span {
+    font-size: 0.78rem;
+    color: rgba(240, 244, 248, 0.55);
+    line-height: 1.4;
+  }
+
+  .check-category {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--sun);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 1.2rem;
+    margin-bottom: 0.4rem;
+    padding-left: 0.3rem;
+    border-left: 2px solid var(--sun);
+    padding-left: 0.7rem;
+  }
+
+  /* PROGRESS BAR */
+  .progress-bar-wrap {
+    background: rgba(255,255,255,0.08);
+    border-radius: 20px;
+    height: 8px;
+    overflow: hidden;
+    margin-bottom: 0.3rem;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--wave), var(--foam));
+    border-radius: 20px;
+    transition: width 0.4s ease;
+  }
+
+  .progress-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--foam);
+    text-align: right;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ALERT / INFO BOX */
+  .info-box {
+    background: rgba(240, 165, 0, 0.08);
+    border: 1px solid rgba(240, 165, 0, 0.25);
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+  }
+
+  .info-box .info-icon { font-size: 1.2rem; flex-shrink: 0; }
+
+  .info-box p {
+    font-size: 0.83rem;
+    color: rgba(240, 244, 248, 0.75);
+    line-height: 1.6;
+  }
+
+  .info-box strong { color: var(--sun); }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--glass-border);
+    margin: 2rem 0;
+  }
+
+  /* WIDE CARD */
+  .wide-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.2rem;
+    backdrop-filter: blur(10px);
+  }
+
+  .wide-card h3 {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    color: var(--sun);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+
+  /* PLATFORM BADGES */
+  .platform-row {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.2rem;
+  }
+
+  .platform-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    font-size: 0.83rem;
+    font-weight: 600;
+    border: 1.5px solid;
+  }
+
+  .platform-badge.ig {
+    background: rgba(225, 48, 108, 0.12);
+    border-color: rgba(225, 48, 108, 0.4);
+    color: #f093a0;
+  }
+
+  .platform-badge.tk {
+    background: rgba(0, 0, 0, 0.25);
+    border-color: rgba(105, 201, 208, 0.4);
+    color: #69c9d0;
+  }
+
+  .platform-badge.fb {
+    background: rgba(24, 119, 242, 0.12);
+    border-color: rgba(24, 119, 242, 0.4);
+    color: #7ab8f5;
+  }
+
+  /* TWO-COL */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+
+  @media (max-width: 600px) {
+    .two-col { grid-template-columns: 1fr; }
+    .flow { gap: 0.5rem; }
+    .flow-step { min-width: 130px; }
+  }
+
+  /* Footer */
+  footer {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 2rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: rgba(240, 244, 248, 0.25);
+    letter-spacing: 0.1em;
+  }
+</style>
+</head>
+<body>
+<div class="wave-bg"></div>
+
+<header>
+  <div class="logo-area">
+    <span class="anchor-icon">⚓</span>
+    <h1>Agente Náutico</h1>
+  </div>
+  <p class="subtitle">Blueprint · Social Media Agent · Instagram · TikTok · Facebook</p>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" onclick="showTab('arquitectura')">🗺 Arquitectura</button>
+  <button class="tab-btn" onclick="showTab('herramientas')">🛠 Herramientas</button>
+  <button class="tab-btn" onclick="showTab('contenido')">✍️ Contenido</button>
+  <button class="tab-btn" onclick="showTab('flujo')">⚡ Flujo de Trabajo</button>
+  <button class="tab-btn" onclick="showTab('checklist')">✅ Setup</button>
+</nav>
+
+<main>
+
+  <!-- ===== ARQUITECTURA ===== -->
+  <section class="section active" id="arquitectura">
+    <div class="section-header">
+      <h2>Arquitectura del Agente</h2>
+      <p>El agente opera 4 líneas de negocio en 3 plataformas de forma coordinada y coherente.</p>
+    </div>
+
+    <div class="info-box">
+      <span class="info-icon">⚡</span>
+      <p><strong>Concepto clave:</strong> No es solo un "postbot". Es un agente con cerebro propio: entiende tu negocio, planifica contenido, genera texto + imagen, programa publicaciones y responde a la comunidad — todo dentro de una lógica de marca unificada.</p>
+    </div>
+
+    <div class="cards-grid">
+      <div class="card">
+        <span class="card-icon">🧠</span>
+        <div class="card-title">Capa 1</div>
+        <h3>Cerebro / Estratega</h3>
+        <p>Define la voz de marca, el calendario editorial mensual, los objetivos por línea de negocio y adapta el tono a cada plataforma.</p>
+        <div class="tags">
+          <span class="tag">Prompt maestro</span>
+          <span class="tag">Memoria de marca</span>
+          <span class="tag orange">GPT-4 / Claude</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-icon">🎨</span>
+        <div class="card-title">Capa 2</div>
+        <h3>Generador de Contenido</h3>
+        <p>Crea textos, captions, hashtags, guiones para reels/TikTok e imágenes visuales en el estilo náutico de la marca.</p>
+        <div class="tags">
+          <span class="tag">Copywriting</span>
+          <span class="tag">Generación de imágenes</span>
+          <span class="tag orange">DALL·E / Midjourney</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-icon">📅</span>
+        <div class="card-title">Capa 3</div>
+        <h3>Programador</h3>
+        <p>Publica de forma automática en los horarios óptimos de cada red, adaptando el formato a cada plataforma (reels, stories, carousels).</p>
+        <div class="tags">
+          <span class="tag">Publicación automática</span>
+          <span class="tag orange">Meta API</span>
+          <span class="tag orange">TikTok API</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-icon">💬</span>
+        <div class="card-title">Capa 4</div>
+        <h3>Gestor de Comunidad</h3>
+        <p>Responde comentarios frecuentes, detecta consultas de reservas o ventas y las deriva al humano o a un CRM.</p>
+        <div class="tags">
+          <span class="tag">Respuestas automáticas</span>
+          <span class="tag">Derivación inteligente</span>
+          <span class="tag red">Supervisión humana</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-icon">📊</span>
+        <div class="card-title">Capa 5</div>
+        <h3>Analítica y Mejora</h3>
+        <p>Mide el rendimiento de cada post, identifica qué contenido genera más consultas y ajusta la estrategia mensualmente.</p>
+        <div class="tags">
+          <span class="tag">Métricas</span>
+          <span class="tag">A/B testing</span>
+          <span class="tag orange">Meta Insights</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-icon">🔗</span>
+        <div class="card-title">Capa 6</div>
+        <h3>Integración CRM / Reservas</h3>
+        <p>Conecta con tu sistema de reservas, WhatsApp Business o email para cerrar el ciclo de ventas desde una consulta en redes.</p>
+        <div class="tags">
+          <span class="tag">WhatsApp API</span>
+          <span class="tag">CRM link</span>
+          <span class="tag orange">Zapier / Make</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="platform-row" style="margin-top:1.5rem">
+      <div class="platform-badge ig">📸 Instagram · Reels + Stories + Carrusel</div>
+      <div class="platform-badge tk">♪ TikTok · Videos cortos + Trends</div>
+      <div class="platform-badge fb">👥 Facebook · Posts + Grupos + Eventos</div>
+    </div>
+  </section>
+
+  <!-- ===== HERRAMIENTAS ===== -->
+  <section class="section" id="herramientas">
+    <div class="section-header">
+      <h2>Stack de Herramientas</h2>
+      <p>Lo que el agente necesita para funcionar, organizado por categoría.</p>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <span class="card-icon">🤖</span>
+        <div class="card-title">LLM / IA Core</div>
+        <h3>Motor de inteligencia</h3>
+        <ul>
+          <li>Claude o GPT-4 (generación de texto)</li>
+          <li>DALL·E 3 / Midjourney (imágenes)</li>
+          <li>Runway / CapCut AI (video corto)</li>
+          <li>ElevenLabs (narración con voz)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <span class="card-icon">📤</span>
+        <div class="card-title">Publicación</div>
+        <h3>Scheduler & Posting</h3>
+        <ul>
+          <li>Buffer o Later (programación)</li>
+          <li>Meta Business Suite (IG + FB)</li>
+          <li>TikTok API / TikTok Scheduler</li>
+          <li>Canva API (diseño automático)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <span class="card-icon">⚙️</span>
+        <div class="card-title">Automatización</div>
+        <h3>Orquestación del agente</h3>
+        <ul>
+          <li>Make.com o Zapier (flujos)</li>
+          <li>n8n (self-hosted, más control)</li>
+          <li>Airtable (base de contenido)</li>
+          <li>Google Sheets (calendario)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <span class="card-icon">💬</span>
+        <div class="card-title">Comunidad</div>
+        <h3>Gestión de mensajes</h3>
+        <ul>
+          <li>ManyChat (respuestas auto IG/FB)</li>
+          <li>WhatsApp Business API</li>
+          <li>Tidio o Intercom (chat web)</li>
+          <li>Notion (base de FAQs)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <span class="card-icon">📊</span>
+        <div class="card-title">Analítica</div>
+        <h3>Medición de resultados</h3>
+        <ul>
+          <li>Meta Business Insights</li>
+          <li>TikTok Analytics</li>
+          <li>Metricool (dashboard unificado)</li>
+          <li>Google Data Studio (reportes)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <span class="card-icon">🗄️</span>
+        <div class="card-title">Memoria del Agente</div>
+        <h3>Contexto persistente</h3>
+        <ul>
+          <li>Notion / Airtable (brand bible)</li>
+          <li>Pinecone / Supabase (vectores)</li>
+          <li>GitHub (prompts versionados)</li>
+          <li>Cloudinary (banco de assets)</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="info-box">
+      <span class="info-icon">💡</span>
+      <p><strong>Stack mínimo viable para empezar:</strong> Claude o GPT-4 + Canva + Buffer + Make.com + Airtable. Con esto ya tenés un agente funcional en menos de 2 semanas. El resto se va sumando a medida que escala el negocio.</p>
+    </div>
+  </section>
+
+  <!-- ===== CONTENIDO ===== -->
+  <section class="section" id="contenido">
+    <div class="section-header">
+      <h2>Estrategia de Contenido</h2>
+      <p>Qué publica el agente, para qué línea de negocio y en qué plataforma.</p>
+    </div>
+
+    <div class="cards-grid">
+      <div class="card">
+        <span class="card-icon">⛵</span>
+        <div class="card-title">Compra, Venta y Alquiler</div>
+        <h3>Contenido para embarcaciones</h3>
+        <ul>
+          <li>Videos a bordo con vistas panorámicas</li>
+          <li>Stories con disponibilidad y oportunidades</li>
+          <li>"¿Pensando en comprar tu primera embarcación?"</li>
+          <li>Testimoniales de clientes en reels</li>
+          <li>Proceso de compra/venta y alquiler</li>
+        </ul>
+        <div class="tags"><span class="tag">IG Reels</span><span class="tag">TikTok</span><span class="tag">FB Posts</span></div>
+      </div>
+
+      <div class="card">
+        <span class="card-icon">🎓</span>
+        <div class="card-title">Escuela de Navegación</div>
+        <h3>Contenido educativo</h3>
+        <ul>
+          <li>Tips de navegación (carrusel IG)</li>
+          <li>"Aprende a navegar en X pasos" (TikTok)</li>
+          <li>Behind the scenes de clases</li>
+          <li>Certificaciones y egresados</li>
+          <li>Q&A en vivo sobre cursos</li>
+        </ul>
+        <div class="tags"><span class="tag">IG Carrusel</span><span class="tag">TikTok Edu</span><span class="tag">FB Grupos</span></div>
+      </div>
+
+      <div class="card">
+        <span class="card-icon">🌊</span>
+        <div class="card-title">Turismo y Travesías</div>
+        <h3>Contenido aspiracional</h3>
+        <ul>
+          <li>Videos de excursiones y atardeceres</li>
+          <li>Destinos nacionales: Delta, Martín García, Mar del Plata</li>
+          <li>Destinos internacionales: Colonia, Carmelo, Riachuelo</li>
+          <li>Experiencias de clientes en reels</li>
+          <li>Contenido estacional (verano/invierno)</li>
+        </ul>
+        <div class="tags"><span class="tag">IG Reels</span><span class="tag">TikTok Viral</span><span class="tag">FB Posts</span></div>
+      </div>
+
+      <div class="card">
+        <span class="card-icon">🔧</span>
+        <div class="card-title">Servicio Técnico</div>
+        <h3>Contenido de mantenimiento</h3>
+        <ul>
+          <li>Behind the scenes del taller</li>
+          <li>"Tu embarcación en las mejores manos"</li>
+          <li>Tips de mantenimiento preventivo</li>
+          <li>Antes y después de reparaciones</li>
+          <li>Testimonios de clientes satisfechos</li>
+        </ul>
+        <div class="tags"><span class="tag">IG Reels</span><span class="tag">TikTok</span><span class="tag">FB Posts</span></div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="wide-card">
+      <h3>🗓 Frecuencia semanal sugerida</h3>
+      <div class="two-col" style="margin-top:0.5rem">
+        <div>
+          <div class="platform-badge ig" style="margin-bottom:0.7rem; display:inline-flex">📸 Instagram</div>
+          <ul class="card" style="background:transparent;border:none;padding:0">
+            <li style="font-size:0.83rem;color:rgba(240,244,248,0.7);padding:0.2rem 0 0.2rem 1rem;position:relative">
+              <span style="position:absolute;left:0;color:#4db8e8;font-weight:bold">›</span>4 Reels (1 por línea de negocio)
+            </li>
+            <li style="font-size:0.83rem;color:rgba(240,244,248,0.7);padding:0.2rem 0 0.2rem 1rem;position:relative">
+              <span style="position:absolute;left:0;color:#4db8e8;font-weight:bold">›</span>3 Stories diarias (disponibilidad / tips)
+            </li>
+            <li style="font-size:0.83rem;color:rgba(240,244,248,0.7);padding:0.2rem 0 0.2rem 1rem;position:relative">
+              <span style="position:absolute;left:0;color:#4db8e8;font-weight:bold">›</span>1 Carrusel educativo
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div class="platform-badge tk" style="margin-bottom:0.7rem; display:inline-flex">♪ TikTok</div>
+          <ul class="card" style="background:transparent;border:none;padding:0">
+            <li style="font-size:0.83rem;color:rgba(240,244,248,0.7);padding:0.2rem 0 0.2rem 1rem;position:relative">
+              <span style="position:absolute;left:0;color:#69c9d0;font-weight:bold">›</span>3–5 videos cortos (15–60s)
+            </li>
+            <li style="font-size:0.83rem;color:rgba(240,244,248,0.7);padding:0.2rem 0 0.2rem 1rem;position:relative">
+              <span style="position:absolute;left:0;color:#69c9d0;font-weight:bold">›</span>1 video tendencia adaptado al náutico
+            </li>
+            <li style="font-size:0.83rem;color:rgba(240,244,248,0.7);padding:0.2rem 0 0.2rem 1rem;position:relative">
+              <span style="position:absolute;left:0;color:#69c9d0;font-weight:bold">›</span>Respuestas a comentarios en video
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FLUJO ===== -->
+  <section class="section" id="flujo">
+    <div class="section-header">
+      <h2>Flujo de Trabajo del Agente</h2>
+      <p>Cómo opera el agente de punta a punta, desde la idea hasta la publicación.</p>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num">01</div>
+        <div class="step-icon">📆</div>
+        <div class="step-label">Planificación</div>
+        <div class="step-sub">El agente genera el calendario editorial mensual según temporada y negocio</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-num">02</div>
+        <div class="step-icon">✍️</div>
+        <div class="step-label">Generación</div>
+        <div class="step-sub">Crea copy, hashtags e indica el brief visual o genera imagen con IA</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-num">03</div>
+        <div class="step-icon">👁️</div>
+        <div class="step-label">Revisión</div>
+        <div class="step-sub">Vos aprobás el contenido semanal (10–15 min de tu tiempo)</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-num">04</div>
+        <div class="step-icon">📤</div>
+        <div class="step-label">Publicación</div>
+        <div class="step-sub">Publica automáticamente en el horario óptimo de cada red</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-num">05</div>
+        <div class="step-icon">💬</div>
+        <div class="step-label">Interacción</div>
+        <div class="step-sub">Responde comentarios simples, deriva consultas de reservas a vos</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-num">06</div>
+        <div class="step-icon">📊</div>
+        <div class="step-label">Análisis</div>
+        <div class="step-sub">Reporte semanal: qué funcionó, qué ajustar el próximo ciclo</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <span class="card-icon">🤖</span>
+        <div class="card-title">El agente hace solo</div>
+        <h3>Automatizado al 100%</h3>
+        <ul>
+          <li>Redactar captions y hashtags</li>
+          <li>Generar imágenes de posts</li>
+          <li>Programar publicaciones</li>
+          <li>Responder FAQs (horarios, precios)</li>
+          <li>Generar reporte de métricas</li>
+          <li>Detectar tendencias náuticas</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <span class="card-icon">🧑‍✈️</span>
+        <div class="card-title">Vos decidís siempre</div>
+        <h3>Supervisión humana</h3>
+        <ul>
+          <li>Aprobar contenido antes de publicar</li>
+          <li>Responder consultas de reservas/ventas</li>
+          <li>Actualizar precios y disponibilidad</li>
+          <li>Subir fotos y videos reales del día</li>
+          <li>Manejo de crisis o comentarios negativos</li>
+          <li>Decisiones estratégicas de negocio</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CHECKLIST ===== -->
+  <section class="section" id="checklist">
+    <div class="section-header">
+      <h2>Checklist de Setup</h2>
+      <p>Todo lo que necesitás para poner en marcha el agente. Hacé clic para marcar tu progreso.</p>
+    </div>
+
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progressBar" style="width: 0%"></div>
+    </div>
+    <div class="progress-label" id="progressLabel">0 / 20 completados</div>
+
+    <div class="check-category">🧭 Identidad de Marca</div>
+    <div class="checklist" id="checklistContainer">
+
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Nombre y logo de la marca</strong><span>Necesario para el perfil de cada red social y el material visual</span></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Paleta de colores y tipografías</strong><span>El agente usará estos para generar imágenes consistentes</span></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Tono de voz de la marca</strong><span>¿Aventurero, premium, familiar? Definilo para el prompt maestro del agente</span></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Foto de perfil y banner para cada red</strong><span>Medidas: IG 110x110px, TikTok 200x200px, FB 170x170px</span></div>
+      </div>
+
+    </div>
+
+    <div class="check-category">📲 Accesos y Cuentas</div>
+    <div class="checklist">
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Cuenta de Instagram Business creada</strong><span>Necesaria para acceder a la API de Meta</span></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Página de Facebook conectada a Instagram</strong><span>Requisito para usar la API de publicación automática</span></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Cuenta TikTok for Business</strong><span>Necesaria para acceder al TikTok API y publicación automática</span></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Meta Business Manager configurado</strong><span>Centro de control para IG y FB con permisos de API</span></div>
+      </div>
+    </div>
+
+    <div class="check-category">🛠 Herramientas Instaladas</div>
+    <div class="checklist">
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Cuenta en Make.com o Zapier</strong><span>Motor de automatización que conecta todas las herramientas</span></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Cuenta en Buffer o Later</strong><span>Para programar y publicar automáticamente</span></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Base de contenido en Airtable</strong><span>Donde el agente guardará y organizará todo el contenido generado</span></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Acceso a API de IA (OpenAI o Claude)</strong><span>Motor de texto del agente</span></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Canva Pro o DALL·E para imágenes</strong><span>Generación automática de visuales de marca</span></div>
+      </div>
+    </div>
+
+    <div class="check-category">🧠 Configuración del Agente</div>
+    <div class="checklist">
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Prompt maestro de marca escrito</strong><span>El "cerebro" del agente: quién sos, qué vendés, cómo hablás</span></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Banco de hashtags por línea de negocio</strong><span>Al menos 30 hashtags relevantes para náutica en tu región</span></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Calendario de temporada definido</strong><span>Fechas clave: temporada alta, eventos náuticos, feriados</span></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>FAQs del negocio documentadas</strong><span>Preguntas frecuentes de clientes para que el agente las responda</span></div>
+      </div>
+    </div>
+
+    <div class="check-category">🚀 Lanzamiento</div>
+    <div class="checklist">
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Primer semana de contenido generada y aprobada</strong><span>Mínimo 7 posts listos antes de activar el agente</span></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Test de publicación automática realizado</strong><span>Verificar que IG, TikTok y FB reciben el contenido correctamente</span></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Flujo de derivación de consultas activo</strong><span>Asegurarse de que las consultas de reservas lleguen a vos</span></div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>Dashboard de métricas conectado</strong><span>Para medir el rendimiento desde el primer día</span></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  ⚓ AGENTE NÁUTICO · BLUEPRINT v1.0 · Construido con IA para tu negocio en el agua
+</footer>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+function toggleCheck(item) {
+  item.classList.toggle('done');
+  if (item.classList.contains('done')) {
+    item.querySelector('.check-box').textContent = '✓';
+  } else {
+    item.querySelector('.check-box').textContent = '';
+  }
+  updateProgress();
+}
+
+function updateProgress() {
+  const all = document.querySelectorAll('.check-item');
+  const done = document.querySelectorAll('.check-item.done');
+  const pct = Math.round((done.length / all.length) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `${done.length} / ${all.length} completados · ${pct}%`;
+}
+</script>
+</body>
+</html>

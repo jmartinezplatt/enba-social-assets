@@ -1,0 +1,146 @@
+{
+  "campaignId": "campana-lanzamiento-15-abr-al-14-may-2026",
+  "status": "ready-for-serious-validation",
+  "updatedAt": "2026-04-13",
+  "sourceBrief": "campaigns/lanzamiento-15-abr-2026/campaign.pieces.json",
+  "assetsMap": "assets-map.json",
+  "outputDir": "campaigns/lanzamiento-15-abr-2026/output",
+  "canvas": {
+    "width": 1080,
+    "height": 1350,
+    "ratio": "4:5",
+    "safeArea": 84,
+    "outerRadius": 34,
+    "headlineMaxLines": 3
+  },
+  "fonts": {
+    "display": "Teko",
+    "sans": "Barlow Semi Condensed"
+  },
+  "brand": {
+    "displayName": "Espacio Náutico Buenos Aires",
+    "publicName": "Espacio Náutico Buenos Aires",
+    "internalShortName": "ENBA",
+    "location": "Costanera Norte · Frente al Aeroparque",
+    "river": "Río de la Plata",
+    "promiseMother": "El río te llama. Nosotros te llevamos.",
+    "mark": "Lanzamiento 2026",
+    "logoLight": "src/assets/ENBA-horizontal-oscuro.svg",
+    "logoDark": "src/assets/ENBA-horizontal-claro.svg",
+    "logoStackLight": "src/assets/ENBA-vertical-oscuro.svg",
+    "logoStackDark": "src/assets/ENBA-vertical-claro.svg",
+    "usageRules": [
+      "Nunca usar ENBA como marca principal en piezas publicas.",
+      "La firma visible siempre debe leerse como Espacio Nautico Buenos Aires.",
+      "Toda referencia territorial publica queda fijada en Costanera Norte.",
+      "Queda descartada cualquier mencion heredada a Puerto Norte."
+    ]
+  },
+  "palette": {
+    "navy": "#0A1520",
+    "navySoft": "#173551",
+    "teal": "#4DB8A0",
+    "tealStrong": "#2E817D",
+    "gold": "#D4A843",
+    "cream": "#E8EDF2",
+    "paper": "#F4F0E8",
+    "ink": "#0F1F2F",
+    "line": "rgba(255,255,255,0.16)",
+    "accentByVertical": {
+      "Marca": "#D4A843",
+      "Travesias": "#2E817D",
+      "Escuela": "#3A9FD4",
+      "Broker": "#D4A843",
+      "Servicios": "#2E817D",
+      "Prueba": "#3A9FD4",
+      "Backstage": "#2E817D",
+      "Cierre": "#D4A843"
+    }
+  },
+  "defaults": {
+    "backgroundPosition": "50% center",
+    "backgroundScale": 1.04,
+    "overlayOpacity": 0.34,
+    "copyBottom": 180,
+    "lockupWidth": 274
+  },
+  "lockups": {
+    "manifesto": {
+      "variant": "stacked-on-dark",
+      "placement": "center-top",
+      "width": 356,
+      "marginTop": 84,
+      "rule": "El lockup va arriba del titular como firma madre de campana, nunca como watermark."
+    },
+    "photo-hero": {
+      "variant": "horizontal-on-dark",
+      "placement": "top-left",
+      "width": 274,
+      "marginTop": 64,
+      "marginLeft": 64,
+      "rule": "El lockup entra primero para anclar marca y ubicacion, con aire suficiente respecto del headline."
+    },
+    "proof-utility": {
+      "variant": "horizontal-on-light",
+      "placement": "bottom-panel-left",
+      "width": 250,
+      "panelHeight": 300,
+      "rule": "El lockup vive dentro del panel utilitario claro, nunca flotando sobre la foto."
+    }
+  },
+  "templates": {
+    "manifesto": {
+      "titleSize": 124,
+      "supportSize": 29,
+      "role": "abrir y cerrar la promesa madre",
+      "composition": "hero fotografico con placa superior oscura y lectura centrada",
+      "whenToUse": [
+        "Piezas de promesa madre o cierre de ciclo.",
+        "Instancias donde la firma completa de marca debe cargarse de sentido."
+      ]
+    },
+    "photo-hero": {
+      "titleSize": 102,
+      "supportSize": 28,
+      "role": "deseo y lectura comercial rapida",
+      "composition": "foto dominante con headline alto y CTA respirado abajo",
+      "whenToUse": [
+        "Marca, travesias y escuela cuando la foto puede sostener deseo y conversion a la vez.",
+        "Piezas donde la imagen necesita protagonismo pleno."
+      ]
+    },
+    "proof-utility": {
+      "titleSize": 76,
+      "supportSize": 24,
+      "role": "argumento, criterio y confianza operativa",
+      "composition": "foto arriba y panel informativo abajo con lockup fijo",
+      "whenToUse": [
+        "Broker, servicios y piezas racionales o de prueba.",
+        "Momentos donde el copy necesita una base de lectura mas ordenada."
+      ]
+    }
+  },
+  "visualDirection": {
+    "name": "Editorial nautico premium photo-led",
+    "summary": "La campana consume un banco propio de launch con masters curados y, cuando no alcanza, aprueba fuente original con crop definido. El pool del sitio deja de ser destino automatico y pasa a ser materia prima evaluada.",
+    "rules": [
+      "No usar interiores de barcos ni fotos de clasificado como visual madre del launch.",
+      "Si una foto no sostiene marca, legibilidad y venta a la vez, se descarta.",
+      "Evitar cualquier frame con senaletica vieja, Puerto Norte o ruido heredado de otra marca.",
+      "La ciudad y el rio tienen que sentirse como sistema de marca, no como fondos decorativos."
+    ]
+  },
+  "imageSelectionCriteria": [
+    "Priorizar cielo limpio, horizonte o agua util para sostener titulares largos sin forzar placas opacas.",
+    "Elegir fotos con lectura humana real cuando el mensaje pide compania, escuela o primera vez.",
+    "En broker y servicios, bajar glamour vacio y subir criterio, contexto y confianza.",
+    "Si la imagen no deja respirar al lockup ni a la jerarquia tipografica, no entra."
+  ],
+  "legibilityGuardrails": [
+    "Nunca ubicar headline sobre brillos especulares o mastiles que corten palabras.",
+    "Mantener el nombre de marca visible y completo en todas las piezas, sin ENBA como marca principal.",
+    "No superar 3 lineas de headline ni 2 niveles de informacion por pieza.",
+    "Cuando haya senaletica, patentes o marcas de terceros intrusivas, recortar o bajar la toma.",
+    "En proof-utility el panel inferior resuelve lectura: no compensar con overlays pesados sobre la foto."
+  ]
+}

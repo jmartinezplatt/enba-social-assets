@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ENBA · Kit de Logo Final · SVG</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600&family=Teko:wght@400;600;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0f14;
+    --surface: #111820;
+    --border: rgba(255,255,255,0.07);
+    --text: #e8edf2;
+    --muted: #6b7a8d;
+    --gold: #d4a843;
+    --teal: #4db8a0;
+    --blue: #3a9fd4;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; min-height: 100vh; }
+
+  header {
+    padding: 2.5rem 2rem 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+  header p { font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  header h1 { font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; letter-spacing: 0.1em; }
+  header span { font-size: 0.75rem; color: var(--muted); display: block; margin-top: 0.3rem; }
+
+  .wrap { max-width: 960px; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; display: flex; flex-direction: column; gap: 2rem; }
+
+  .logo-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    padding: 0.9rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(255,255,255,0.02);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .card-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+  .card-name { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-top: 0.1rem; }
+
+  .previews {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  @media(max-width:560px){ .previews { grid-template-columns: 1fr; } }
+
+  .preview-dark, .preview-light {
+    padding: 2.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 180px;
+    position: relative;
+  }
+  .preview-dark { background: #08111c; }
+  .preview-light { background: #eef3f0; border-left: 1px solid var(--border); }
+
+  .preview-tag {
+    position: absolute;
+    top: 0.8rem; left: 0.9rem;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.3;
+  }
+  .preview-dark .preview-tag { color: #fff; }
+  .preview-light .preview-tag { color: #000; }
+
+  svg { max-width: 100%; height: auto; }
+
+  .dl-row {
+    padding: 1.1rem 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+  .dl-hint { font-size: 0.75rem; color: var(--muted); line-height: 1.5; }
+  .dl-hint strong { color: var(--text); display: block; font-size: 0.8rem; margin-bottom: 0.1rem; }
+
+  .dl-btns { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+  .dl-btn {
+    background: transparent;
+    border: 1px solid rgba(77,184,160,0.4);
+    color: var(--teal);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.5rem 1.1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .dl-btn:hover { background: var(--teal); color: #000; border-color: var(--teal); }
+  .dl-btn.dark-dl { border-color: rgba(58,159,212,0.4); color: var(--blue); }
+  .dl-btn.dark-dl:hover { background: var(--blue); color: #000; border-color: var(--blue); }
+
+  .usage-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+    border-top: 1px solid var(--border);
+  }
+  .usage-item { padding: 1rem 1.3rem; border-right: 1px solid var(--border); }
+  .usage-item:last-child { border-right: none; }
+  .usage-icon { font-size: 1.1rem; margin-bottom: 0.3rem; display: block; }
+  .usage-title { font-size: 0.72rem; font-weight: 600; color: var(--text); margin-bottom: 0.15rem; }
+  .usage-desc { font-size: 0.68rem; color: var(--muted); line-height: 1.5; }
+
+  /* COLOR PALETTE */
+  .palette-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 1.5rem;
+  }
+  .palette-card h3 { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+  .color-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 0.8rem; }
+  .color-chip { border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+  .color-swatch { height: 56px; width: 100%; }
+  .color-info { padding: 0.6rem 0.8rem; background: rgba(255,255,255,0.03); }
+  .color-name { font-size: 0.72rem; font-weight: 600; color: var(--text); }
+  .color-hex { font-size: 0.65rem; color: var(--muted); font-family: monospace; }
+  .color-use { font-size: 0.62rem; color: var(--muted); margin-top: 0.1rem; }
+
+  footer { text-align:center; padding:2rem; font-size:0.62rem; letter-spacing:0.12em; color:var(--muted); border-top:1px solid var(--border); }
+</style>
+</head>
+<body>
+
+<header>
+  <p>Kit de Logo Final · Opción B · Concepto Horizonte</p>
+  <h1>ENBA · Logo SVG Oficial</h1>
+  <span>Horizontal · Ícono · Vertical · Fondo oscuro y claro · 6 archivos</span>
+</header>
+
+<div class="wrap">
+
+  <!-- 01 HORIZONTAL -->
+  <div class="logo-card">
+    <div class="card-header">
+      <div>
+        <div class="card-label">Versión 01</div>
+        <div class="card-name">Logo Horizontal</div>
+      </div>
+    </div>
+    <div class="previews">
+      <div class="preview-dark">
+        <span class="preview-tag">Fondo oscuro</span>
+        <svg id="h-dark" width="100%" viewBox="0 0 440 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="34" y1="6" x2="34" y2="62" stroke="#4db8a0" stroke-width="1.8"/>
+          <path d="M34 8 L12 56 L34 56 Z" fill="#4db8a0" opacity="0.9"/>
+          <path d="M34 20 L52 52 L34 52 Z" fill="#3a9fd4" opacity="0.75"/>
+          <path d="M6 65 Q14 60 22 65 Q30 70 38 65 Q46 60 54 65 Q59 68 63 65" stroke="#4db8a0" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <line x1="74" y1="12" x2="74" y2="68" stroke="rgba(77,184,160,0.25)" stroke-width="1"/>
+          <text x="86" y="38" font-family="'Teko','Bebas Neue',sans-serif" font-size="24" font-weight="700" fill="#e8edf2" letter-spacing="3">ESPACIO NÁUTICO BsAs</text>
+          <circle cx="88" cy="57" r="2.5" fill="#4db8a0"/>
+          <text x="98" y="62" font-family="'Barlow Condensed',sans-serif" font-size="11" font-weight="300" fill="rgba(232,237,242,0.4)" letter-spacing="2.5">34°36'S · 58°22'O</text>
+        </svg>
+      </div>
+      <div class="preview-light">
+        <span class="preview-tag">Fondo claro</span>
+        <svg id="h-light" width="100%" viewBox="0 0 440 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="34" y1="6" x2="34" y2="62" stroke="#1a7a62" stroke-width="1.8"/>
+          <path d="M34 8 L12 56 L34 56 Z" fill="#1a7a62" opacity="0.9"/>
+          <path d="M34 20 L52 52 L34 52 Z" fill="#1a6fa0" opacity="0.75"/>
+          <path d="M6 65 Q14 60 22 65 Q30 70 38 65 Q46 60 54 65 Q59 68 63 65" stroke="#1a7a62" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <line x1="74" y1="12" x2="74" y2="68" stroke="rgba(26,122,98,0.2)" stroke-width="1"/>
+          <text x="86" y="38" font-family="'Teko','Bebas Neue',sans-serif" font-size="24" font-weight="700" fill="#0d2d4a" letter-spacing="3">ESPACIO NÁUTICO BsAs</text>
+          <circle cx="88" cy="57" r="2.5" fill="#1a7a62"/>
+          <text x="98" y="62" font-family="'Barlow Condensed',sans-serif" font-size="11" font-weight="300" fill="rgba(13,45,74,0.4)" letter-spacing="2.5">34°36'S · 58°22'O</text>
+        </svg>
+      </div>
+    </div>
+    <div class="dl-row">
+      <div class="dl-hint">
+        <strong>Logo horizontal</strong>
+        Sitio web, portada de Facebook, banners y facturas.
+      </div>
+      <div class="dl-btns">
+        <button class="dl-btn" onclick="downloadSVG('h-light','ENBA-horizontal-claro.svg')">↓ SVG Claro</button>
+        <button class="dl-btn dark-dl" onclick="downloadSVG('h-dark','ENBA-horizontal-oscuro.svg')">↓ SVG Oscuro</button>
+      </div>
+    </div>
+    <div class="usage-grid">
+      <div class="usage-item"><span class="usage-icon">🌐</span><div class="usage-title">Sitio web</div><div class="usage-desc">Header y footer</div></div>
+      <div class="usage-item"><span class="usage-icon">👥</span><div class="usage-title">Facebook</div><div class="usage-desc">Portada y posts</div></div>
+      <div class="usage-item"><span class="usage-icon">🧾</span><div class="usage-title">Facturas</div><div class="usage-desc">Encabezado A y B</div></div>
+      <div class="usage-item"><span class="usage-icon">🖨️</span><div class="usage-title">Impresión</div><div class="usage-desc">Tarjetas y folletería</div></div>
+    </div>
+  </div>
+
+  <!-- 02 ÍCONO -->
+  <div class="logo-card">
+    <div class="card-header">
+      <div>
+        <div class="card-label">Versión 02</div>
+        <div class="card-name">Ícono Circular · Foto de Perfil</div>
+      </div>
+    </div>
+    <div class="previews">
+      <div class="preview-dark">
+        <span class="preview-tag">Fondo oscuro</span>
+        <svg id="icon-dark" width="130" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="55" cy="55" r="52" fill="#0d2d4a" stroke="#4db8a0" stroke-width="1.3"/>
+          <line x1="55" y1="16" x2="55" y2="74" stroke="#4db8a0" stroke-width="2.2"/>
+          <path d="M55 18 L28 68 L55 68 Z" fill="#4db8a0" opacity="0.9"/>
+          <path d="M55 32 L78 66 L55 66 Z" fill="#3a9fd4" opacity="0.75"/>
+          <path d="M20 78 Q31 72 42 78 Q53 84 64 78 Q75 72 86 78 Q91 81 95 78" stroke="#4db8a0" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="preview-light">
+        <span class="preview-tag">Fondo claro</span>
+        <svg id="icon-light" width="130" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="55" cy="55" r="52" fill="#deeee8" stroke="#1a7a62" stroke-width="1.3"/>
+          <line x1="55" y1="16" x2="55" y2="74" stroke="#1a7a62" stroke-width="2.2"/>
+          <path d="M55 18 L28 68 L55 68 Z" fill="#1a7a62" opacity="0.9"/>
+          <path d="M55 32 L78 66 L55 66 Z" fill="#1a6fa0" opacity="0.75"/>
+          <path d="M20 78 Q31 72 42 78 Q53 84 64 78 Q75 72 86 78 Q91 81 95 78" stroke="#1a7a62" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+    <div class="dl-row">
+      <div class="dl-hint">
+        <strong>Ícono circular</strong>
+        Foto de perfil para Instagram, TikTok, Facebook y WhatsApp Business.
+      </div>
+      <div class="dl-btns">
+        <button class="dl-btn" onclick="downloadSVG('icon-light','ENBA-icono-claro.svg')">↓ SVG Claro</button>
+        <button class="dl-btn dark-dl" onclick="downloadSVG('icon-dark','ENBA-icono-oscuro.svg')">↓ SVG Oscuro</button>
+      </div>
+    </div>
+    <div class="usage-grid">
+      <div class="usage-item"><span class="usage-icon">📸</span><div class="usage-title">Instagram</div><div class="usage-desc">Perfil 110×110px</div></div>
+      <div class="usage-item"><span class="usage-icon">♪</span><div class="usage-title">TikTok</div><div class="usage-desc">Perfil 200×200px</div></div>
+      <div class="usage-item"><span class="usage-icon">👥</span><div class="usage-title">Facebook</div><div class="usage-desc">Perfil 170×170px</div></div>
+      <div class="usage-item"><span class="usage-icon">💬</span><div class="usage-title">WhatsApp</div><div class="usage-desc">Business profile</div></div>
+    </div>
+  </div>
+
+  <!-- 03 VERTICAL -->
+  <div class="logo-card">
+    <div class="card-header">
+      <div>
+        <div class="card-label">Versión 03</div>
+        <div class="card-name">Logo Vertical · Cuadrado</div>
+      </div>
+    </div>
+    <div class="previews">
+      <div class="preview-dark">
+        <span class="preview-tag">Fondo oscuro</span>
+        <svg id="v-dark" width="180" viewBox="0 0 170 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="85" y1="12" x2="85" y2="64" stroke="#4db8a0" stroke-width="2"/>
+          <path d="M85 14 L62 60 L85 60 Z" fill="#4db8a0" opacity="0.9"/>
+          <path d="M85 27 L104 58 L85 58 Z" fill="#3a9fd4" opacity="0.75"/>
+          <path d="M52 68 Q63 63 74 68 Q85 73 96 68 Q107 63 118 68 Q123 71 126 68" stroke="#4db8a0" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <line x1="28" y1="82" x2="142" y2="82" stroke="rgba(77,184,160,0.18)" stroke-width="1"/>
+          <text x="85" y="108" font-family="'Teko','Bebas Neue',sans-serif" font-size="17" font-weight="700" fill="#e8edf2" letter-spacing="2" text-anchor="middle">ESPACIO NÁUTICO</text>
+          <text x="85" y="128" font-family="'Teko','Bebas Neue',sans-serif" font-size="22" font-weight="600" fill="#4db8a0" letter-spacing="6" text-anchor="middle">BsAs</text>
+          <circle cx="44" cy="148" r="2" fill="#4db8a0"/>
+          <text x="52" y="152" font-family="'Barlow Condensed',sans-serif" font-size="9" font-weight="300" fill="rgba(232,237,242,0.35)" letter-spacing="1.5">34°36'S · 58°22'O</text>
+        </svg>
+      </div>
+      <div class="preview-light">
+        <span class="preview-tag">Fondo claro</span>
+        <svg id="v-light" width="180" viewBox="0 0 170 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="85" y1="12" x2="85" y2="64" stroke="#1a7a62" stroke-width="2"/>
+          <path d="M85 14 L62 60 L85 60 Z" fill="#1a7a62" opacity="0.9"/>
+          <path d="M85 27 L104 58 L85 58 Z" fill="#1a6fa0" opacity="0.75"/>
+          <path d="M52 68 Q63 63 74 68 Q85 73 96 68 Q107 63 118 68 Q123 71 126 68" stroke="#1a7a62" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <line x1="28" y1="82" x2="142" y2="82" stroke="rgba(26,122,98,0.18)" stroke-width="1"/>
+          <text x="85" y="108" font-family="'Teko','Bebas Neue',sans-serif" font-size="17" font-weight="700" fill="#0d2d4a" letter-spacing="2" text-anchor="middle">ESPACIO NÁUTICO</text>
+          <text x="85" y="128" font-family="'Teko','Bebas Neue',sans-serif" font-size="22" font-weight="600" fill="#1a7a62" letter-spacing="6" text-anchor="middle">BsAs</text>
+          <circle cx="44" cy="148" r="2" fill="#1a7a62"/>
+          <text x="52" y="152" font-family="'Barlow Condensed',sans-serif" font-size="9" font-weight="300" fill="rgba(13,45,74,0.35)" letter-spacing="1.5">34°36'S · 58°22'O</text>
+        </svg>
+      </div>
+    </div>
+    <div class="dl-row">
+      <div class="dl-hint">
+        <strong>Logo vertical</strong>
+        Stories, posts cuadrados, WhatsApp Business e indumentaria.
+      </div>
+      <div class="dl-btns">
+        <button class="dl-btn" onclick="downloadSVG('v-light','ENBA-vertical-claro.svg')">↓ SVG Claro</button>
+        <button class="dl-btn dark-dl" onclick="downloadSVG('v-dark','ENBA-vertical-oscuro.svg')">↓ SVG Oscuro</button>
+      </div>
+    </div>
+    <div class="usage-grid">
+      <div class="usage-item"><span class="usage-icon">📱</span><div class="usage-title">Stories</div><div class="usage-desc">IG y FB stories</div></div>
+      <div class="usage-item"><span class="usage-icon">🖼️</span><div class="usage-title">Posts</div><div class="usage-desc">Marca de agua</div></div>
+      <div class="usage-item"><span class="usage-icon">🎽</span><div class="usage-title">Indumentaria</div><div class="usage-desc">Remeras y chalecos</div></div>
+      <div class="usage-item"><span class="usage-icon">🔖</span><div class="usage-title">Favicon</div><div class="usage-desc">Ícono del sitio web</div></div>
+    </div>
+  </div>
+
+  <!-- PALETA -->
+  <div class="palette-card">
+    <h3>🎨 &nbsp;Paleta de colores oficial · ENBA</h3>
+    <div class="color-grid">
+      <div class="color-chip">
+        <div class="color-swatch" style="background:#0d2d4a"></div>
+        <div class="color-info"><div class="color-name">Azul Profundo</div><div class="color-hex">#0D2D4A</div><div class="color-use">Color principal · fondos</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-swatch" style="background:#4db8a0"></div>
+        <div class="color-info"><div class="color-name">Verde Agua</div><div class="color-hex">#4DB8A0</div><div class="color-use">Acento principal · ícono</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-swatch" style="background:#3a9fd4"></div>
+        <div class="color-info"><div class="color-name">Azul Marino</div><div class="color-hex">#3A9FD4</div><div class="color-use">Acento secundario</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-swatch" style="background:#e8edf2"></div>
+        <div class="color-info"><div class="color-name">Blanco Náutico</div><div class="color-hex">#E8EDF2</div><div class="color-use">Textos sobre oscuro</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-swatch" style="background:#1a7a62"></div>
+        <div class="color-info"><div class="color-name">Verde Oscuro</div><div class="color-hex">#1A7A62</div><div class="color-use">Versión fondo claro</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>ESPACIO NÁUTICO BUENOS AIRES · Kit de Logo Oficial · SVG · 6 archivos · Concepto Horizonte · Opción B</footer>
+
+<script>
+function downloadSVG(svgId, filename) {
+  const svgEl = document.getElementById(svgId);
+  const serializer = new XMLSerializer();
+  let svgStr = serializer.serializeToString(svgEl);
+  if (!svgStr.includes('xmlns=')) {
+    svgStr = svgStr.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg"');
+  }
+  const blob = new Blob([svgStr], {type: 'image/svg+xml'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>

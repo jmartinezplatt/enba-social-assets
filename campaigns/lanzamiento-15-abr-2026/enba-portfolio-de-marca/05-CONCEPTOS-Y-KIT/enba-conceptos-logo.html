@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ENBA · Conceptos de Logo</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;600;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Teko:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0f14;
+    --surface: #111820;
+    --border: rgba(255,255,255,0.07);
+    --text: #e8edf2;
+    --muted: #6b7a8d;
+    --gold: #d4a843;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Montserrat', sans-serif;
+    min-height: 100vh;
+  }
+
+  header {
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  header p {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+
+  header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    letter-spacing: 0.08em;
+    color: var(--text);
+  }
+
+  header span {
+    font-size: 0.8rem;
+    color: var(--muted);
+    display: block;
+    margin-top: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  .concepts {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .concept-block {
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  .concept-label {
+    padding: 1rem 1.8rem;
+    background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .concept-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+  }
+
+  .concept-name {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 0.05em;
+  }
+
+  .concept-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* LOGO DISPLAY AREA */
+  .logo-area {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  @media (max-width: 640px) {
+    .logo-area { grid-template-columns: 1fr; }
+  }
+
+  .logo-dark, .logo-light {
+    padding: 3rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 260px;
+    position: relative;
+  }
+
+  .logo-dark { background: #0a1520; }
+  .logo-light { background: #f0f4f0; border-left: 1px solid var(--border); }
+
+  .version-label {
+    position: absolute;
+    top: 1rem; left: 1rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.35;
+  }
+
+  .logo-dark .version-label { color: #fff; }
+  .logo-light .version-label { color: #000; }
+
+  /* CONCEPT INFO */
+  .concept-info {
+    padding: 1.8rem;
+    border-top: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 600px) {
+    .concept-info { grid-template-columns: 1fr; }
+  }
+
+  .info-block h4 {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .info-block p {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* COLOR SWATCHES */
+  .swatches {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.3rem;
+  }
+
+  .swatch {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+    cursor: default;
+  }
+
+  .swatch:hover::after {
+    content: attr(data-hex);
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    color: #fff;
+    font-size: 0.6rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  /* ============================
+     CONCEPT 1 · HORIZONTE
+     ============================ */
+  .logo-c1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .c1-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .c1-icon {
+    width: 44px;
+    height: 44px;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .c1-wordmark-main {
+    font-family: 'Teko', sans-serif;
+    font-weight: 600;
+    font-size: 2.4rem;
+    letter-spacing: 0.12em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .c1-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 300;
+    font-size: 0.62rem;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* dark version */
+  .logo-dark .c1-wordmark-main { color: #e8edf2; }
+  .logo-dark .c1-sub { color: #4db8a0; }
+
+  /* light version */
+  .logo-light .c1-wordmark-main { color: #0d2d4a; }
+  .logo-light .c1-sub { color: #1a7a62; }
+
+  /* ============================
+     CONCEPT 2 · PROA
+     ============================ */
+  .logo-c2 {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .c2-emblem {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .c2-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .c2-main {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.9rem;
+    letter-spacing: 0.15em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .c2-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 400;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .logo-dark .c2-main { color: #e8edf2; }
+  .logo-dark .c2-sub { color: #3a9fd4; }
+  .logo-light .c2-main { color: #0d2d4a; }
+  .logo-light .c2-sub { color: #1a6fa0; }
+
+  /* ============================
+     CONCEPT 3 · COORDENADAS
+     ============================ */
+  .logo-c3 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .c3-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 300;
+    font-size: 0.6rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+  }
+
+  .c3-main {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 2.1rem;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .c3-main span {
+    font-weight: 300;
+  }
+
+  .c3-divider-line {
+    width: 100%;
+    height: 2px;
+    margin: 4px 0;
+  }
+
+  .c3-bottom {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .c3-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .c3-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 400;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  /* dark */
+  .logo-dark .c3-eyebrow { color: rgba(232,237,242,0.4); }
+  .logo-dark .c3-main { color: #e8edf2; }
+  .logo-dark .c3-main span { color: #3dcfb0; }
+  .logo-dark .c3-divider-line { background: linear-gradient(90deg, #3dcfb0, #1a6fa0, transparent); }
+  .logo-dark .c3-dot { background: #3dcfb0; }
+  .logo-dark .c3-sub { color: rgba(232,237,242,0.5); }
+
+  /* light */
+  .logo-light .c3-eyebrow { color: rgba(13,45,74,0.4); }
+  .logo-light .c3-main { color: #0d2d4a; }
+  .logo-light .c3-main span { color: #0d8a6e; }
+  .logo-light .c3-divider-line { background: linear-gradient(90deg, #0d8a6e, #1a6fa0, transparent); }
+  .logo-light .c3-dot { background: #0d8a6e; }
+  .logo-light .c3-sub { color: rgba(13,45,74,0.45); }
+
+  /* CHOOSE BTN */
+  .choose-row {
+    padding: 1.2rem 1.8rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .choose-hint {
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  .choose-btn {
+    background: transparent;
+    border: 1px solid rgba(212,168,67,0.4);
+    color: var(--gold);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.55rem 1.4rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .choose-btn:hover, .choose-btn.selected {
+    background: var(--gold);
+    color: #000;
+    border-color: var(--gold);
+  }
+
+  .choose-btn.selected::before { content: '✓ '; }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p>Exploración de Identidad Visual</p>
+  <h1>Espacio Náutico Buenos Aires</h1>
+  <span>3 conceptos · Aventurero y dinámico · Azules marinos y verdes del agua</span>
+</header>
+
+<div class="concepts">
+
+  <!-- ===== CONCEPTO 1: HORIZONTE ===== -->
+  <div class="concept-block">
+    <div class="concept-label">
+      <div>
+        <div class="concept-num">CONCEPTO 01</div>
+        <div class="concept-name">Horizonte</div>
+      </div>
+      <div class="concept-tag">Tipográfico · Limpio · Moderno</div>
+    </div>
+
+    <div class="logo-area">
+      <div class="logo-dark">
+        <span class="version-label">Fondo oscuro</span>
+        <div class="logo-c1">
+          <div class="c1-top">
+            <!-- SVG: vela minimalista + línea de horizonte -->
+            <svg class="c1-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- mástil -->
+              <line x1="22" y1="6" x2="22" y2="36" stroke="#4db8a0" stroke-width="1.5"/>
+              <!-- vela izquierda -->
+              <path d="M22 8 L8 32 L22 32 Z" fill="#4db8a0" opacity="0.85"/>
+              <!-- vela derecha pequeña -->
+              <path d="M22 14 L34 30 L22 30 Z" fill="#3a9fd4" opacity="0.7"/>
+              <!-- línea de agua -->
+              <path d="M4 36 Q11 33 18 36 Q25 39 32 36 Q38 33 42 36" stroke="#4db8a0" stroke-width="1.2" fill="none"/>
+            </svg>
+            <div class="c1-wordmark-main">ENBA</div>
+          </div>
+          <div class="c1-sub">Espacio Náutico Buenos Aires</div>
+        </div>
+      </div>
+      <div class="logo-light">
+        <span class="version-label">Fondo claro</span>
+        <div class="logo-c1">
+          <div class="c1-top">
+            <svg class="c1-icon" viewBox="0 0 44 44" fill="none">
+              <line x1="22" y1="6" x2="22" y2="36" stroke="#1a7a62" stroke-width="1.5"/>
+              <path d="M22 8 L8 32 L22 32 Z" fill="#1a7a62" opacity="0.9"/>
+              <path d="M22 14 L34 30 L22 30 Z" fill="#1a6fa0" opacity="0.75"/>
+              <path d="M4 36 Q11 33 18 36 Q25 39 32 36 Q38 33 42 36" stroke="#1a7a62" stroke-width="1.2" fill="none"/>
+            </svg>
+            <div class="c1-wordmark-main">ENBA</div>
+          </div>
+          <div class="c1-sub">Espacio Náutico Buenos Aires</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-info">
+      <div class="info-block">
+        <h4>Concepto</h4>
+        <p>Vela minimalista con línea de agua dinámica. El isologo ENBA funciona solo o acompañado del nombre completo. Muy versátil para redes, indumentaria y señalética.</p>
+      </div>
+      <div class="info-block">
+        <h4>Paleta</h4>
+        <div class="swatches">
+          <div class="swatch" style="background:#0a1520" data-hex="#0A1520"></div>
+          <div class="swatch" style="background:#4db8a0" data-hex="#4DB8A0"></div>
+          <div class="swatch" style="background:#3a9fd4" data-hex="#3A9FD4"></div>
+          <div class="swatch" style="background:#e8edf2" data-hex="#E8EDF2"></div>
+        </div>
+      </div>
+      <div class="info-block">
+        <h4>Mejor para</h4>
+        <p>Perfil de Instagram, favicon, tarjetas de presentación, remeras y merchandise.</p>
+      </div>
+    </div>
+
+    <div class="choose-row">
+      <span class="choose-hint">¿Este concepto representa a ENBA?</span>
+      <button class="choose-btn" onclick="selectConcept(this, 1)">Me gusta este</button>
+    </div>
+  </div>
+
+  <!-- ===== CONCEPTO 2: PROA ===== -->
+  <div class="concept-block">
+    <div class="concept-label">
+      <div>
+        <div class="concept-num">CONCEPTO 02</div>
+        <div class="concept-name">Proa</div>
+      </div>
+      <div class="concept-tag">Emblema · Bold · Aventurero</div>
+    </div>
+
+    <div class="logo-area">
+      <div class="logo-dark">
+        <span class="version-label">Fondo oscuro</span>
+        <div class="logo-c2">
+          <svg class="c2-emblem" viewBox="0 0 60 60" fill="none">
+            <!-- hexágono exterior -->
+            <path d="M30 4 L54 17 L54 43 L30 56 L6 43 L6 17 Z" stroke="#3a9fd4" stroke-width="1.5" fill="none"/>
+            <!-- proa / triángulo dinámico -->
+            <path d="M30 14 L46 42 L14 42 Z" fill="#4db8a0" opacity="0.15"/>
+            <path d="M30 14 L46 42 L14 42 Z" stroke="#4db8a0" stroke-width="1.2" fill="none"/>
+            <!-- olas internas -->
+            <path d="M16 35 Q22 31 28 35 Q34 39 40 35" stroke="#3a9fd4" stroke-width="1" fill="none"/>
+            <!-- punto central -->
+            <circle cx="30" cy="14" r="2" fill="#4db8a0"/>
+          </svg>
+          <div class="c2-text">
+            <div class="c2-main">Espacio<br>Náutico</div>
+            <div class="c2-sub">Buenos Aires</div>
+          </div>
+        </div>
+      </div>
+      <div class="logo-light">
+        <span class="version-label">Fondo claro</span>
+        <div class="logo-c2">
+          <svg class="c2-emblem" viewBox="0 0 60 60" fill="none">
+            <path d="M30 4 L54 17 L54 43 L30 56 L6 43 L6 17 Z" stroke="#1a6fa0" stroke-width="1.5" fill="none"/>
+            <path d="M30 14 L46 42 L14 42 Z" fill="#0d8a6e" opacity="0.12"/>
+            <path d="M30 14 L46 42 L14 42 Z" stroke="#0d8a6e" stroke-width="1.2" fill="none"/>
+            <path d="M16 35 Q22 31 28 35 Q34 39 40 35" stroke="#1a6fa0" stroke-width="1" fill="none"/>
+            <circle cx="30" cy="14" r="2" fill="#0d8a6e"/>
+          </svg>
+          <div class="c2-text">
+            <div class="c2-main">Espacio<br>Náutico</div>
+            <div class="c2-sub">Buenos Aires</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-info">
+      <div class="info-block">
+        <h4>Concepto</h4>
+        <p>Emblema hexagonal con proa y olas interiores. Transmite solidez y aventura. El nombre completo convive con el símbolo. Ideal para un negocio con múltiples líneas de servicio.</p>
+      </div>
+      <div class="info-block">
+        <h4>Paleta</h4>
+        <div class="swatches">
+          <div class="swatch" style="background:#0a1520" data-hex="#0A1520"></div>
+          <div class="swatch" style="background:#0d2d4a" data-hex="#0D2D4A"></div>
+          <div class="swatch" style="background:#3a9fd4" data-hex="#3A9FD4"></div>
+          <div class="swatch" style="background:#4db8a0" data-hex="#4DB8A0"></div>
+        </div>
+      </div>
+      <div class="info-block">
+        <h4>Mejor para</h4>
+        <p>Señalética del muelle, uniformes de tripulación, papelería comercial y facturas.</p>
+      </div>
+    </div>
+
+    <div class="choose-row">
+      <span class="choose-hint">¿Este concepto representa a ENBA?</span>
+      <button class="choose-btn" onclick="selectConcept(this, 2)">Me gusta este</button>
+    </div>
+  </div>
+
+  <!-- ===== CONCEPTO 3: COORDENADAS ===== -->
+  <div class="concept-block">
+    <div class="concept-label">
+      <div>
+        <div class="concept-num">CONCEPTO 03</div>
+        <div class="concept-name">Coordenadas</div>
+      </div>
+      <div class="concept-tag">Tipográfico contrastado · Dinámico · Editorial</div>
+    </div>
+
+    <div class="logo-area">
+      <div class="logo-dark">
+        <span class="version-label">Fondo oscuro</span>
+        <div class="logo-c3">
+          <div class="c3-eyebrow">Buenos Aires · Puerto Norte</div>
+          <div class="c3-main">ESPACIO<br><span>NÁUTICO</span></div>
+          <div class="c3-divider-line"></div>
+          <div class="c3-bottom">
+            <div class="c3-dot"></div>
+            <div class="c3-sub">34°33'S · 58°24'O</div>
+          </div>
+        </div>
+      </div>
+      <div class="logo-light">
+        <span class="version-label">Fondo claro</span>
+        <div class="logo-c3">
+          <div class="c3-eyebrow">Buenos Aires · Puerto Norte</div>
+          <div class="c3-main">ESPACIO<br><span>NÁUTICO</span></div>
+          <div class="c3-divider-line"></div>
+          <div class="c3-bottom">
+            <div class="c3-dot"></div>
+            <div class="c3-sub">34°33'S · 58°24'O</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-info">
+      <div class="info-block">
+        <h4>Concepto</h4>
+        <p>Tipografía contrastada con peso fuerte y peso liviano. Las coordenadas náuticas de Buenos Aires como sello de origen. Estilo editorial y muy diferenciador en redes.</p>
+      </div>
+      <div class="info-block">
+        <h4>Paleta</h4>
+        <div class="swatches">
+          <div class="swatch" style="background:#0a1520" data-hex="#0A1520"></div>
+          <div class="swatch" style="background:#3dcfb0" data-hex="#3DCFB0"></div>
+          <div class="swatch" style="background:#1a6fa0" data-hex="#1A6FA0"></div>
+          <div class="swatch" style="background:#e8edf2" data-hex="#E8EDF2"></div>
+        </div>
+      </div>
+      <div class="info-block">
+        <h4>Mejor para</h4>
+        <p>Contenido de redes, stories de Instagram, banners digitales y material de marketing online.</p>
+      </div>
+    </div>
+
+    <div class="choose-row">
+      <span class="choose-hint">¿Este concepto representa a ENBA?</span>
+      <button class="choose-btn" onclick="selectConcept(this, 3)">Me gusta este</button>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  ESPACIO NÁUTICO BUENOS AIRES · Exploración de Identidad Visual · Conceptos preliminares
+</footer>
+
+<script>
+function selectConcept(btn, num) {
+  document.querySelectorAll('.choose-btn').forEach(b => {
+    b.classList.remove('selected');
+    b.textContent = 'Me gusta este';
+  });
+  btn.classList.add('selected');
+  btn.textContent = '✓ Seleccionado';
+  setTimeout(() => {
+    alert('¡Concepto ' + num + ' seleccionado! Compartí esta elección con tu diseñador o seguimos refinándolo juntos.');
+  }, 200);
+}
+</script>
+</body>
+</html>
