@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * build-reel-eng-v2.mjs
- * Ejecutar desde: C:/Users/josea/enba-social-assets (donde esta Playwright)
+ * Ejecutar desde: C:/Users/josea/enba-redes (donde esta Playwright)
  *
  * Pipeline:
  *  1. Playwright → hook-png1.png (linea 1 con "...")
@@ -19,8 +19,8 @@ import path from "node:path";
 import { execFileSync, execSync } from "node:child_process";
 import { chromium } from "playwright";
 
-const DIR   = "C:/Users/josea/enba-social-assets-redes/campaigns/plan-crecimiento-10k/reels/reel-eng-v2";
-const LOGO  = "C:/Users/josea/enba-social-assets-redes/campaigns/lanzamiento-15-abr-2026/enba-portfolio-de-marca/03-LOGOS-BASE/ENBA-horizontal-oscuro.svg";
+const DIR   = "C:/Users/josea/enba-redes/campaigns/plan-crecimiento-10k/reels/reel-eng-v2";
+const LOGO  = "C:/Users/josea/enba-redes/campaigns/lanzamiento-15-abr-2026/enba-portfolio-de-marca/03-LOGOS-BASE/ENBA-horizontal-oscuro.svg";
 
 // Clips fuente (todos ya a 30fps, 1080x1920)
 const clip01 = `${DIR}/clip01_hook.mp4`;

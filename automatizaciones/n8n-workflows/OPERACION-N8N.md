@@ -2,13 +2,13 @@
 
 **Estado:** vigente
 **Última actualización:** 27 de abril de 2026
-**Alcance:** workflows y operación n8n del repo `enba-social-assets`
+**Alcance:** workflows y operación n8n del repo `enba-redes`
 
 ---
 
 ## 1. Cómo usar este archivo
 
-Este archivo es la fuente local de verdad para operar n8n desde `enba-social-assets`.
+Este archivo es la fuente local de verdad para operar n8n desde `enba-redes`.
 
 Antes de tocar workflows, credenciales, cron, publicación automática o nodos:
 

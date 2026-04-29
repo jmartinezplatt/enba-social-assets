@@ -5,7 +5,7 @@ import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { chromium } from "playwright";
 
-const baseDir = path.resolve("C:/Users/josea/enba-social-assets/campaigns/plan-crecimiento-10k/tiktok-30d-pilot");
+const baseDir = path.resolve("C:/Users/josea/enba-redes/campaigns/plan-crecimiento-10k/tiktok-30d-pilot");
 const inputVideo = path.join(baseDir, "media", "b6c0e560-9ba5-42eb-8ab2-30fdcebdbb2e.mp4");
 const logoPath = path.join(baseDir, "brand", "ENBA-horizontal-oscuro.svg");
 const outputDir = path.join(baseDir, "final");

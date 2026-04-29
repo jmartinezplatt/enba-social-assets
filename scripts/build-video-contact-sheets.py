@@ -2,7 +2,7 @@
 from pathlib import Path
 from PIL import Image as PILImage
 
-OUT_DIR = Path("C:/Users/josea/enba-social-assets")
+OUT_DIR = Path("C:/Users/josea/enba-redes")
 THUMB_DIR = OUT_DIR / "thumbs-videos"
 
 thumbs = sorted(THUMB_DIR.glob("v*.jpg"))

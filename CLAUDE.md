@@ -40,7 +40,7 @@ Orden de lectura recomendado para este frente: `CLAUDE.md` → `STATUS.md` → d
 ## Estructura
 
 ```
-enba-social-assets/
+enba-redes/
 ├── CLAUDE.md                  # Este archivo
 ├── campaigns/
 │   ├── lanzamiento-15-abr-2026/   # Campaña 30 piezas (15 abr – 14 may)

@@ -15,8 +15,8 @@ const CANVAS_H = 1920;
 const BG_COLOR = '#0A1520';
 const SAFE = 150; // px safe area top/bottom
 
-const LOGO_PATH = path.resolve('C:/Users/josea/enba-social-assets/brand/ENBA-horizontal-oscuro.png');
-const OUT_DIR = 'C:/Users/josea/enba-social-assets-redes/campaigns/plan-crecimiento-10k/reels/reel-eng-v2';
+const LOGO_PATH = path.resolve('C:/Users/josea/enba-redes/brand/ENBA-horizontal-oscuro.png');
+const OUT_DIR = 'C:/Users/josea/enba-redes/campaigns/plan-crecimiento-10k/reels/reel-eng-v2';
 
 // Logo real: 1375x250, ratio 5.5
 const LOGO_ASPECT = 1375 / 250; // 5.5

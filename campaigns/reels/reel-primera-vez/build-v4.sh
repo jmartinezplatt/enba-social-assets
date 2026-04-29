@@ -11,7 +11,7 @@
 # Track: "Landra's Dream" by Jason Shaw (audionautix.com) — CC BY 4.0
 set -e
 
-BASE="C:/Users/josea/enba-social-assets/campaigns/reels/reel-primera-vez"
+BASE="C:/Users/josea/enba-redes/campaigns/reels/reel-primera-vez"
 SEG="$BASE/segments"
 RAW="$BASE/material-crudo"
 MUSIC="$BASE/music/landras-dream.mp3"

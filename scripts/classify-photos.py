@@ -2,7 +2,7 @@
 import json
 from pathlib import Path
 
-OUT_DIR = Path("C:/Users/josea/enba-social-assets")
+OUT_DIR = Path("C:/Users/josea/enba-redes")
 meta_path = OUT_DIR / "photo-metadata.json"
 
 with open(meta_path) as f:

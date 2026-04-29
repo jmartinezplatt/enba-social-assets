@@ -6,7 +6,7 @@ from pathlib import Path
 from PIL import Image, ImageStat, ImageFilter
 
 SRC = Path("C:/Users/josea/Downloads/Veleros-3-001/Veleros")
-OUT_DIR = Path("C:/Users/josea/enba-social-assets")
+OUT_DIR = Path("C:/Users/josea/enba-redes")
 
 # Load classifications
 with open(OUT_DIR / "photo-metadata.json") as f:

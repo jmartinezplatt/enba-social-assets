@@ -3,7 +3,7 @@
 # Fixes: franja lateral (crop+scale all segments) + logo overlay en cierre + nueva música 15%
 set -e
 
-BASE="C:/Users/josea/enba-social-assets/campaigns/reels/reel-primera-vez"
+BASE="C:/Users/josea/enba-redes/campaigns/reels/reel-primera-vez"
 SEG="$BASE/segments"
 RAW="$BASE/material-crudo"
 MUSIC="$BASE/music/let-good-times-roll.mp3"

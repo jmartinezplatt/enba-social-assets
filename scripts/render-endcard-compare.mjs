@@ -19,10 +19,10 @@ import path from 'path';
 
 // ── Paths ──────────────────────────────────────────────────────────────────
 const SVG_PATH = path.resolve(
-  'C:/Users/josea/enba-social-assets-redes/campaigns/lanzamiento-15-abr-2026/enba-portfolio-de-marca/03-LOGOS-BASE/ENBA-horizontal-oscuro.svg'
+  'C:/Users/josea/enba-redes/campaigns/lanzamiento-15-abr-2026/enba-portfolio-de-marca/03-LOGOS-BASE/ENBA-horizontal-oscuro.svg'
 );
 const OUT_DIR = path.resolve(
-  'C:/Users/josea/enba-social-assets-redes/campaigns/plan-crecimiento-10k/reels/reel-eng-v2'
+  'C:/Users/josea/enba-redes/campaigns/plan-crecimiento-10k/reels/reel-eng-v2'
 );
 
 // ── Canvas & logo specs ────────────────────────────────────────────────────

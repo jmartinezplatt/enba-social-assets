@@ -18,7 +18,7 @@ const j = JSON.parse(res);
 
 if (j.error) { console.error('API Error:', j.error.message); process.exit(1); }
 
-fs.writeFileSync('C:/Users/josea/enba-social-assets/logs/gate1_hoy.json', JSON.stringify(j, null, 2));
+fs.writeFileSync('C:/Users/josea/enba-redes/logs/gate1_hoy.json', JSON.stringify(j, null, 2));
 
 const getAction = (actions, type) => parseFloat(actions?.find(a => a.action_type === type)?.value || 0);
 const getCPA = (cpa, type) => parseFloat(cpa?.find(a => a.action_type === type)?.value || 0);

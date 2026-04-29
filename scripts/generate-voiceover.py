@@ -3,7 +3,7 @@ import asyncio
 import edge_tts
 from pathlib import Path
 
-OUT = Path("C:/Users/josea/enba-social-assets/campaigns/reels/reel-primera-vez/voiceover")
+OUT = Path("C:/Users/josea/enba-redes/campaigns/reels/reel-primera-vez/voiceover")
 OUT.mkdir(exist_ok=True)
 
 # Frases del voiceover alineadas con las tomas del reel

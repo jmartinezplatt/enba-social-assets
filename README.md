@@ -12,7 +12,7 @@ Repositorio de contenido social para Espacio Nautico Buenos Aires (ENBA). Contie
 ## Estructura
 
 ```text
-enba-social-assets/
+enba-redes/
 ├── CLAUDE.md                   # Fuente de verdad operativa
 ├── README.md                   # Este archivo
 ├── asset-bank/                 # JPGs aprobados y listos para usar

@@ -2,7 +2,7 @@
 import json
 from pathlib import Path
 
-OUT_DIR = Path("C:/Users/josea/enba-social-assets")
+OUT_DIR = Path("C:/Users/josea/enba-redes")
 
 classifications = {}
 

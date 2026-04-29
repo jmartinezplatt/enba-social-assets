@@ -43,7 +43,7 @@ DEFAULT_CLIPS_DIR = (
 
 # Default output directory
 DEFAULT_OUTPUT_DIR = (
-    "C:/Users/josea/enba-social-assets/campaigns/reels/reel-4-horas-en-el-rio"
+    "C:/Users/josea/enba-redes/campaigns/reels/reel-4-horas-en-el-rio"
 )
 
 

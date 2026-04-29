@@ -4,7 +4,7 @@
  * Genera 3 variantes de endcard con logo a 90%, 94% y 98% del canvas.
  * Corrige centrado visual usando viewBox recortado al contenido real del SVG.
  *
- * Outputs en: C:/Users/josea/enba-social-assets-redes/campaigns/plan-crecimiento-10k/reels/reel-eng-v2/
+ * Outputs en: C:/Users/josea/enba-redes/campaigns/plan-crecimiento-10k/reels/reel-eng-v2/
  */
 
 import fs from "node:fs/promises";
@@ -12,10 +12,10 @@ import path from "node:path";
 import { chromium } from "playwright";
 
 const logoPath = path.resolve(
-  "C:/Users/josea/enba-social-assets/campaigns/plan-crecimiento-10k/tiktok-30d-pilot/brand/ENBA-horizontal-oscuro.svg"
+  "C:/Users/josea/enba-redes/campaigns/plan-crecimiento-10k/tiktok-30d-pilot/brand/ENBA-horizontal-oscuro.svg"
 );
 const outputDir = path.resolve(
-  "C:/Users/josea/enba-social-assets-redes/campaigns/plan-crecimiento-10k/reels/reel-eng-v2"
+  "C:/Users/josea/enba-redes/campaigns/plan-crecimiento-10k/reels/reel-eng-v2"
 );
 
 // Los 3 tamaños: nombre, ancho en px (canvas 1080)

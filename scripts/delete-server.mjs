@@ -24,7 +24,7 @@ const server = createServer((req, res) => {
         const { path } = JSON.parse(body);
         // Safety: only allow deleting from the Veleros download folder
         const allowed = path.replace(/\\/g, '/');
-        if (!allowed.includes('/Veleros-3-001/Veleros/') && !allowed.includes('/enba-social-assets/thumbs-')) {
+        if (!allowed.includes('/Veleros-3-001/Veleros/') && !allowed.includes('/enba-redes/thumbs-')) {
           res.writeHead(403);
           res.end(JSON.stringify({ error: 'Path not allowed' }));
           return;

@@ -5,7 +5,7 @@ from PIL import Image, ImageOps
 import json
 
 SRC = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(".")
-OUT_DIR = Path(sys.argv[2]) if len(sys.argv) > 2 else Path("C:/Users/josea/enba-social-assets")
+OUT_DIR = Path(sys.argv[2]) if len(sys.argv) > 2 else Path("C:/Users/josea/enba-redes")
 THUMB_DIR = OUT_DIR / "thumbs-preview"
 THUMB_DIR.mkdir(exist_ok=True)
 

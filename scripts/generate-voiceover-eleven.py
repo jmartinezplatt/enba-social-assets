@@ -7,7 +7,7 @@ ELEVEN_KEY = subprocess.run(
     capture_output=True, text=True
 ).stdout.strip()
 
-OUT = Path("C:/Users/josea/enba-social-assets/campaigns/reels/reel-primera-vez/voiceover")
+OUT = Path("C:/Users/josea/enba-redes/campaigns/reels/reel-primera-vez/voiceover")
 OUT.mkdir(exist_ok=True)
 
 phrases = [
