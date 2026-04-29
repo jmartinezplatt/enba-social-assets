@@ -17,7 +17,12 @@ Repositorio de contenido social para Espacio Náutico Buenos Aires (ENBA). Conti
 - `campaigns/plan-crecimiento-10k/presupuesto-v4-reestructuracion.md` — plan de pauta vigente
 - `campaigns/plan-crecimiento-10k/meta-ids.json` — infraestructura Meta Ads
 
-Al arrancar sesión, verificar que estás en este branch. Si no, hacer `git checkout plan-crecimiento-10k`.
+Al arrancar sesión para este frente:
+1. Verificar branch actual y worktrees (`git branch --show-current` + `git worktree list`).
+2. Si ya estás en `plan-crecimiento-10k`, continuar.
+3. Si `plan-crecimiento-10k` está abierto en otro worktree, usar ese directorio como workspace correcto de la sesión.
+4. Si no existe otro worktree con ese branch, recién entonces hacer `git checkout plan-crecimiento-10k`.
+5. Si no podés entrar al branch correcto o al worktree correcto, frenar y reportar el bloqueo exacto.
 Orden de lectura recomendado para este frente: `CLAUDE.md` → `STATUS.md` → documento específico según tarea.
 
 ---
@@ -26,6 +31,10 @@ Orden de lectura recomendado para este frente: `CLAUDE.md` → `STATUS.md` → d
 **COMMITS Y PUSH**: nunca hacer commit ni push sin consulta previa. Esperar aprobación explícita del usuario.
 
 **AUTONOMÍA EN READ-ONLY**: trabajar en modo autónomo para lectura, análisis, búsqueda. Pedir confirmación antes de cualquier acción que modifique estado.
+
+**HERRAMIENTAS EXISTENTES — OBLIGATORIO**: antes de crear cualquier script de render, publicación o automatización, leer `scripts/README.md`. Si la herramienta existe, usarla o adaptarla. Construir desde cero sin verificar primero es un error operativo grave.
+
+**AGENTES — SIEMPRE SUBAGENTE INDEPENDIENTE**: nunca simular un agente leyendo su skill y usurpando su rol. Siempre invocar con la herramienta Agent/Skill correspondiente para que corra en proceso separado con su propio contexto. Usurpar un rol es equivalente a saltear la definición formal del agente.
 
 ---
 

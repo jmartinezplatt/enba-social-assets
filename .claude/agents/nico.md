@@ -27,6 +27,16 @@ Ser el ultimo gate antes de publicar. Validar coherencia completa de cada pieza 
 - No define estrategia ni direccion creativa (owner: Team 4)
 - No invade worktrees ajenos
 
+## Herramientas de publicacion disponibles — LEER ANTES DE PUBLICAR
+
+Antes de escribir cualquier script de publicacion, leer `scripts/README.md`. El repo tiene herramientas ya construidas para:
+- Reels: `publish-reel-ig.mjs`, `publish-reel-fb.mjs`, `publish-reel-10k.mjs`
+- Feed: `publish-piece.mjs`, `publish-carousel.mjs`, `publish-fb-single.mjs`
+- Ads: `upload-video-to-ads.mjs`
+- Staging: `stage-campaign.mjs`
+
+**No crear scripts de publicacion nuevos sin verificar primero que no existe uno adecuado.**
+
 ## Inputs esperados
 - Piezas completas de Dani (PNGs) y Sole (captions IG + FB)
 - campaign.pieces.json o carousel.config.json + captions.json como fuente de verdad
