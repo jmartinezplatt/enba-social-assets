@@ -101,13 +101,35 @@ Si la lección vino de `enba-web`, marcarla como **importada** y adaptada.
 
 ## INC-REDES-N8N-007 — UTF-8 y mojibake en texto con tildes
 
-**Origen:** importado desde `enba-web`
+**Origen:** importado desde `enba-web`, ampliado con incidentes confirmados en ambos repos.
 
-**Síntoma:** texto con tildes o caracteres especiales puede quedar corrupto tras una edición o serialización defectuosa.
+**Sintoma:** texto con tildes, eñes o simbolos Unicode queda corrupto tras un PUT a la API de n8n. El PUT responde 200 OK, n8n no reporta error, pero los strings almacenados tienen mojibake. La corrupcion se manifiesta cuando el codigo se ejecuta y los strings no matchean (ej: `"Navegacion"` generado por Claude no matchea contra `"Navegaci?n"` almacenado en el nodo).
 
-**Lección importada:** cualquier cambio en código o payloads con español exige UTF-8 explícito y verificación posterior.
+**Causa raiz confirmada:** PowerShell serializa internamente en UTF-16. `ConvertTo-Json` + `Invoke-RestMethod`/`Invoke-WebRequest` corrompen silenciosamente caracteres acentuados y simbolos Unicode. Cada fix hecho con PowerShell reintroduce la corrupcion.
 
-**Regla que queda:** si se toca texto sensible en n8n, verificar que no haya mojibake después del cambio.
+**Incidentes confirmados (repo enba-web):**
+- BUG-BLOG-05 (24-abr-2026): array `BLOG_CATEGORIES` corrupto, posts bloqueados en validacion.
+- BUG-BLOG-06 (24-abr-2026): 63 instancias de mojibake en 2 Code nodes.
+- BUG-BLOG-07 (24-abr-2026): checkmark en subject de email corrupto.
+- Recurrencia 29-abr-2026: 34 FFFD nuevos tras PUTs posteriores con PowerShell. 4 nodos afectados.
+
+**Fix definitivo:** usar Python para todo PUT/PATCH/POST con texto en espanol:
+```python
+# Patron obligatorio
+put_data = json.dumps(payload, ensure_ascii=False).encode('utf-8')
+req = urllib.request.Request(url, data=put_data, method='PUT', headers={
+    'X-N8N-API-KEY': api_key,
+    'Content-Type': 'application/json; charset=utf-8',
+    'Accept': 'application/json'
+})
+# Verificacion post-PUT: confirmar que no hay \ufffd y que tildes estan intactas
+```
+
+**Regla que queda:**
+- PowerShell para leer (GETs), Python para escribir (PUTs). Sin excepcion.
+- Codigo JS/JSON: escribir a archivo local, verificar, leer desde Python. Nunca inline en bash/PowerShell.
+- Verificacion post-PUT obligatoria: buscar `\ufffd` y confirmar strings criticos con tildes.
+- Ver regla 5 de `OPERACION-N8N.md` para referencia rapida.
 
 ---
 

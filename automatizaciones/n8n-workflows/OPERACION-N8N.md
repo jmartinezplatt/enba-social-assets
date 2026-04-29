@@ -35,7 +35,13 @@ Si un aprendizaje de `enba-web` aplica acá, la regla es:
    Solo informar `CARGADA` o `VACÍA`. Nunca imprimir el valor.
 3. En `curl` hacia n8n cloud usar `--ssl-no-revoke`.
 4. Code nodes: escribir JS a archivo `.js` primero. No componer JS largo dentro de template literals frágiles.
-5. Forzar UTF-8 explícito en payloads y archivos con texto en español.
+5. **Encoding en PUTs a la API de n8n — Python obligatorio.**
+   PowerShell serializa en UTF-16 internamente. `ConvertTo-Json` + `Invoke-RestMethod` corrompen tildes, eñes y símbolos Unicode (mojibake silencioso: el PUT responde 200 OK pero los strings quedan dañados en el nodo).
+   - **PUT/PATCH/POST con texto en español:** usar Python con `json.dumps(payload, ensure_ascii=False).encode('utf-8')` + header `Content-Type: application/json; charset=utf-8`.
+   - **Verificacion post-PUT obligatoria:** confirmar en la respuesta (o GET posterior) que strings con tildes/eñes estan intactos y no hay `\ufffd`.
+   - **Codigo JS/JSON:** escribir a archivo local primero, verificar, leer desde Python. Nunca editar JS inline en template literals de bash o PowerShell.
+   - **PowerShell solo para GETs** (lectura, no modifica nada) y operaciones sin texto en espanol.
+   Ver patron completo en INC-REDES-N8N-007 de `INCIDENTES.md`.
 6. Crear workflow por `POST` limpio está bien. Para nodos con `jsCode`, `jsonBody` o expresiones, evitar round-trip completo `GET → mutar → PUT`.
 7. Preferir UI de n8n o patch quirúrgico/lossless sobre nodos puntuales.
 8. Base URL: `https://espacionautico.app.n8n.cloud/api/v1/`

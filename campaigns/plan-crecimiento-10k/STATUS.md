@@ -1,6 +1,6 @@
 # STATUS — Frente REDES
 
-**Última actualización:** 28 de abril de 2026 (sesión noche — día 10/27)
+**Última actualización:** 29 de abril de 2026 (sesión día 11/27)
 **Owner de mantenimiento:** quien cierre la sesión del frente redes
 **Uso:** punto de entrada corto para inicio de sesión. Si este archivo contradice un handoff viejo, manda este archivo.
 
@@ -64,6 +64,12 @@ Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier
 
 ### Últimos hitos relevantes
 
+- **29/04 sesión (día 11/27):** Mejora emails de automatizaciones + documentación encoding.
+  - Emails stories IG (Mañana/Tarde/Noche): agregado link directo para ver la story en IG (expira 24h).
+  - Email stories FB Best IG: body reescrito con detalle completo (fecha, slot ganador, reach IG, imagen, FB post_id) + fix `emailFormat: text` (llegaba vacío).
+  - Documentación mojibake: `OPERACION-N8N.md` regla 5 expandida + `INCIDENTES.md` INC-007 ampliado con causa raíz (PowerShell/UTF-16), patrón Python obligatorio para PUTs.
+  - Auditoría mojibake: 8 workflows / 100 nodos escaneados, cero FFFD.
+  - 4 backups pre-patch guardados en `n8n-backups/`.
 - Pixel stack completado: Custom Conversions Contact + ViewContent creadas. **Fix Contact pixel deployado** (commit `a9a2e67` enba-web main, 27/04): `openWhatsappFallback` en `chat.ts` ahora llama `fbq("Contact")`. Verificar eventos en Events Manager 24-48h post-deploy.
 - D4 audience (VideoViewers_30d): 3.000–3.500 personas, lista para usar. Retarget ad sets (IG + FB) confirmados con D4 en targeting vía API.
 - Stories Fase 2: 3 workflows activos (Mañana 09:00 / Tarde 14:00 / Noche 20:00 ART). Secuencia intacta. Monitorear cron Mañana 09:00 — falló el 26/04 y requirió retry manual.
