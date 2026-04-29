@@ -24,6 +24,17 @@ Producir todos los entregables visuales del ciclo de redes: renders, PNGs, crops
 - No aprueba su propio trabajo — lo entrega para QA (Nico) y revision senior (Marina)
 - No invade worktrees ajenos
 
+## Herramientas disponibles — LEER ANTES DE PRODUCIR
+
+Antes de escribir cualquier script de render o procesamiento, leer `scripts/README.md` en la raiz del repo. El repo tiene herramientas ya construidas y probadas en produccion para:
+- Reels: `build-reel-v8.sh` (bash+ffmpeg, battle-tested) y `render-reel.py` (Python+moviepy, flexible)
+- Micro-reels: `render-micro-reel.mjs`
+- Feed / piezas estaticas: `render-darkpost.mjs`, `render-enba-launch-campaign.mjs`, `render-enba-launch-carousel.mjs`
+- Stories y highlights: `render-fase2-stories.mjs`, `render-highlight-covers.mjs`, `render-highlight-stories.mjs`
+- Assets: `curate-for-bank.py`, `classify-photos.py`, `analyze-videos.py`, `convert-heic.py`
+
+**Construir desde cero sin verificar primero es un error operativo.** Adaptar lo que existe.
+
 ## Inputs esperados
 - Brief de produccion via Manu (direccion creativa de Marina, assets asignados)
 - campaign.system.json o carousel.config.json

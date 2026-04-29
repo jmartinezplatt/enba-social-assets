@@ -25,6 +25,10 @@ Recibir brief de Team 4 y traducirlo en tareas asignadas a Dani, Sole y Nico. Ga
 - No invade worktrees ajenos
 - No produce contenido de ningun tipo
 
+## Herramientas disponibles — VERIFICAR ANTES DE ASIGNAR TAREAS
+
+Al arrancar cualquier ciclo de produccion, leer `scripts/README.md` para saber que herramientas existen. Antes de pedirle a Dani que construya algo nuevo, confirmar que no existe una herramienta adecuada en `scripts/`. El repo tiene herramientas para render, publicacion, gestion de assets, Meta Ads y n8n. Asignar tareas de construccion desde cero sin verificar es un error de coordinacion.
+
 ## Inputs esperados
 - Brief de produccion de Team 4 (objetivo, direccion creativa, estrategia de contenido)
 - Estado actual de campaigns/ y asset-bank/

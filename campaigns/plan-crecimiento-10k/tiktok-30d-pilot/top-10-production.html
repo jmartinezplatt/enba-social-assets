@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ENBA TikTok Top 10 Producción</title>
+  <link rel="stylesheet" href="preview.css">
+  <style>
+    .finalist-card .meta-grid {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .production-summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin: 24px 0 8px;
+    }
+
+    .production-note {
+      margin: 0 0 28px;
+      color: #c9d4ea;
+      max-width: 900px;
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div class="hero-card">
+        <div class="eyebrow">ENBA · TikTok Top 10</div>
+        <h1>10 piezas priorizadas para pasar de piloto a producción</h1>
+        <p>Este recorte saca redundancias del set de 20 y deja una tanda lista para editar: prioridad, apertura, secuencia de cortes, texto final, voiceover sugerido, caption borrador y CTA.</p>
+      </div>
+      <div class="hero-stats">
+        <div class="summary-card">
+          <div class="summary-label">Seleccionadas</div>
+          <div class="summary-value" id="top10-total"></div>
+          <div class="summary-note">Finalistas reales del piloto actual.</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-label">Prioridad alta</div>
+          <div class="summary-value" id="top10-p1"></div>
+          <div class="summary-note">Piezas para producir primero.</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-label">Prioridad media</div>
+          <div class="summary-value" id="top10-p2"></div>
+          <div class="summary-note">Sirven para completar la primera tanda.</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-label">Estado</div>
+          <div class="summary-value">Ready</div>
+          <div class="summary-note">Guiones de edición exactos, no solo conceptos.</div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="nav">
+      <a href="index.html">Piloto 20</a>
+      <a href="preview-01.html">Grupo 1</a>
+      <a href="preview-02.html">Grupo 2</a>
+      <a href="preview-03.html">Grupo 3</a>
+      <a href="preview-04.html">Grupo 4</a>
+      <a class="is-active" href="top-10-production.html">Top 10</a>
+    </nav>
+
+    <section class="group-meta">
+      <div>
+        <h2>Criterio de selección</h2>
+        <p class="production-note">Se priorizaron piezas con mejor combinación de claridad comercial, naturalidad TikTok, material fuerte y variedad de objetivos: discovery, primera vez, escuela, deseo y consulta.</p>
+      </div>
+      <div class="group-pill">Top 10 producción</div>
+    </section>
+
+    <section class="pieces-grid" id="top10-pieces"></section>
+  </main>
+  <script src="tiktok-pieces.js"></script>
+  <script src="top-10-production.js"></script>
+</body>
+</html>

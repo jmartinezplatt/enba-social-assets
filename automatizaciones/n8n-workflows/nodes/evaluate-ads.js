@@ -1,24 +1,24 @@
-// Evaluate Ads Performance — Code Node para n8n  v4
-// Input esperado: cadena  Get Ad Insights → Get FB Followers → Get IG Followers → [este nodo]
+// Evaluate Ads Performance — Code Node para n8n  v5
+// Input esperado: Get Ad Insights → Get FB Followers → Get IG Followers
+//                 + en paralelo: Get Ad Status Batch → Get Ad Set Budgets → Get Quality Rankings
+//                 → [este nodo]
 // Accede a nodos previos por nombre. Si alguno falla con continueOnFail,
 // los try/catch degradan graciosamente (el email igual llega, sin esa sección).
 //
-// Plan vigente: presupuesto-v4-reestructuracion.md
+// Plan vigente: presupuesto-v4-reestructuracion.md + presupuesto-v4.1-estado-dia10.md
 // CORTAR  (72h+): CPS > $100 ó ER < 1% ó CTR < 0.4%
 // WINNER  (72h+): CPS < $30 + ER > 3%
 // FATIGUE: frecuencia > 3.5
 // MAX_REACHED: > 14 días / FATIGUE_WARNING: >= 10 días
 //
-// v4 vs v3:
-// - Lee insights por nombre: $('Get Ad Insights').first().json
-//   (ya no usa $input, que ahora trae el último nodo = IG followers)
-// - Follower counts reales: $('Get FB Followers') + $('Get IG Followers')
-// - Follow rate IG: profile visits → follow (benchmark 15-35%)
-// - Net new followers desde baseline (22/04)
-// - Burn rate diario + días restantes + alerta de presupuesto
-// - Cold vs Retarget inference desde nombre del ad
-// - Tabla de segmentos Cold/Retarget × FB/IG en prompt Bruno
-// - D4 context para ENG ads (ThruPlays → Custom Audience)
+// v5 vs v4:
+// - effective_status real desde nodo "Get Ad Status Batch": ads pausados → veredicto PAUSED
+// - Burn rate real desde nodo "Get Ad Set Budgets": suma budgets activos (no promedio histórico)
+// - Quality rankings reales desde nodo "Get Quality Rankings" (no UNKNOWN)
+// - Tabla Bruno: ads ACTIVOS separados de PAUSADOS
+// - Orquestador al inicio del prompt Bruno: posición, gap, hipótesis falsadas, decisiones pendientes
+// - Gate de frescura: si datos > 12h → advertencia en email
+// - Timestamp de ejecución en subject del email
 
 // ── Constantes de campaña ──────────────────────────────────────────────
 const CAMPAIGN_BUDGET_TOTAL = 500000;               // ARS — presupuesto-v4
@@ -48,6 +48,52 @@ try {
 try {
   var igData = $('Get IG Followers').first().json;
   igFollowersNow = parseInt(igData.followers_count || 0) || null;
+} catch(e) {}
+
+// ── Input: effective_status real (nodo "Get Ad Status Batch") ──────────
+// Mapa { ad_id: effective_status } — diferencia activos de pausados sin ambigüedad
+var adStatusMap = {};
+try {
+  var statusData = $('Get Ad Status Batch').first().json;
+  Object.keys(statusData).forEach(function(id) {
+    adStatusMap[id] = statusData[id].effective_status;
+  });
+} catch(e) {}
+
+// ── Input: burn rate real (nodo "Get Ad Set Budgets") ──────────────────
+// Suma de daily_budget de ad sets con effective_status ACTIVE
+var realBurnRate = 0;
+var burnRateSource = 'historical_avg';
+try {
+  var budgetData = $('Get Ad Set Budgets').first().json;
+  Object.values(budgetData).forEach(function(adset) {
+    if (adset.effective_status === 'ACTIVE') {
+      realBurnRate += parseInt(adset.daily_budget || 0) / 100; // Meta devuelve en centavos
+    }
+  });
+  if (realBurnRate > 0) burnRateSource = 'ad_set_budgets';
+} catch(e) {}
+
+// ── Input: quality rankings reales (nodo "Get Quality Rankings") ───────
+// Mapa { ad_id: { quality_ranking, engagement_rate_ranking, conversion_rate_ranking } }
+var qualityMap = {};
+try {
+  var qualData = $('Get Quality Rankings').first().json;
+  Object.keys(qualData).forEach(function(id) {
+    qualityMap[id] = qualData[id];
+  });
+} catch(e) {}
+
+// ── Gate de frescura (12h) ─────────────────────────────────────────────
+var freshnessWarning = '';
+try {
+  var metaHeader = $('Get Ad Insights').first().json._meta;
+  if (metaHeader && metaHeader.fetched_at) {
+    var insightsAge = (new Date() - new Date(metaHeader.fetched_at)) / (1000 * 60 * 60);
+    if (insightsAge >= 12) {
+      freshnessWarning = 'DATOS CON ' + Math.round(insightsAge) + 'h DE ANTIGUEDAD — verificar frescura';
+    }
+  }
 } catch(e) {}
 
 // ── Fecha ART ──────────────────────────────────────────────────────────
@@ -192,13 +238,24 @@ var results = adsData.map(function(ad) {
   var cps    = (campaignType === 'FOLLOW' && followSignal > 0) ? Math.round(spend / followSignal) : null;
   var cpsStr = cps !== null ? '$' + cps : 'N/A';
 
-  var qualRank = ad.quality_ranking           || 'UNKNOWN';
-  var engRank  = ad.engagement_rate_ranking   || 'UNKNOWN';
-  var conRank  = ad.conversion_rate_ranking   || 'UNKNOWN';
+  // Quality rankings desde nodo dedicado (no desde /insights — ese endpoint no los devuelve)
+  var qualRank = (qualityMap[ad.ad_id] && qualityMap[ad.ad_id].quality_ranking)
+    || ad.quality_ranking || 'UNKNOWN';
+  var engRank = (qualityMap[ad.ad_id] && qualityMap[ad.ad_id].engagement_rate_ranking)
+    || ad.engagement_rate_ranking || 'UNKNOWN';
+  var conRank = (qualityMap[ad.ad_id] && qualityMap[ad.ad_id].conversion_rate_ranking)
+    || ad.conversion_rate_ranking || 'UNKNOWN';
+
+  // effective_status real desde API (no el campo status que puede quedar desactualizado)
+  var effectiveStatus = adStatusMap[ad.ad_id] || 'UNKNOWN';
+  var isCurrentlyActive = effectiveStatus === 'ACTIVE';
 
   var verdict = 'VIABLE';
   var reasons = [];
-  if (daysActive < 3) {
+  if (!isCurrentlyActive) {
+    verdict = 'PAUSED';
+    reasons.push('Pausado — solo historial, sin gasto actual');
+  } else if (daysActive < 3) {
     verdict = 'LEARNING';
     reasons.push(daysActive + 'd activo, esperar 72h');
   } else if (frequency > 3.5) {
@@ -235,6 +292,7 @@ var results = adsData.map(function(ad) {
     saves: saves,
     cps: cpsStr, cpsRaw: cps,
     qualRank: qualRank, engRank: engRank, conRank: conRank,
+    effectiveStatus: effectiveStatus, isCurrentlyActive: isCurrentlyActive,
     verdict: verdict, reason: reasons.join(', ') || 'Dentro de parametros'
   };
 });
@@ -265,7 +323,8 @@ var refAd = results.find(function(r) { return r.campaignType === 'ENG' && r.days
 var dayRef = refAd ? refAd.daysActive : results.reduce(function(m, r) { return Math.max(m, r.daysActive); }, 0);
 
 // ── Burn rate + presupuesto ────────────────────────────────────────────
-var burnRateDaily    = dayRef > 0 ? Math.round(totalSpend / dayRef) : 0;
+// Priorizar burn rate real (suma de budgets de ad sets activos) sobre promedio histórico
+var burnRateDaily    = realBurnRate > 0 ? realBurnRate : (dayRef > 0 ? Math.round(totalSpend / dayRef) : 0);
 var budgetRemaining  = CAMPAIGN_BUDGET_TOTAL - totalSpend;
 var daysToEnd        = Math.max(0, Math.round((CAMPAIGN_END_DATE - now) / (1000 * 60 * 60 * 24)));
 var daysAtBurn       = burnRateDaily > 0 ? Math.floor(budgetRemaining / burnRateDaily) : 999;
@@ -293,9 +352,13 @@ followAds.forEach(function(r) {
   segmentStats[key].visits  += r.igProfileVisits;
 });
 
-// ── Conteo veredictos ──────────────────────────────────────────────────
+// ── Split activos vs pausados ──────────────────────────────────────────
+var activeResults = results.filter(function(r) { return r.isCurrentlyActive; });
+var pausedResults = results.filter(function(r) { return !r.isCurrentlyActive; });
+
+// ── Conteo veredictos (solo activos para el resumen ejecutivo) ─────────
 var counts = {};
-results.forEach(function(r) { counts[r.verdict] = (counts[r.verdict] || 0) + 1; });
+activeResults.forEach(function(r) { counts[r.verdict] = (counts[r.verdict] || 0) + 1; });
 var summaryParts = [];
 if (counts.WINNER)          summaryParts.push(counts.WINNER + ' WINNER');
 if (counts.VIABLE)          summaryParts.push(counts.VIABLE + ' VIABLE');
@@ -328,8 +391,8 @@ function rankBadge(val) {
   return '<span style="color:' + info.color + ';font-weight:bold;font-size:10px;">' + info.label + '</span>';
 }
 
-// ── Tabla principal ────────────────────────────────────────────────────
-var tableRows = results.map(function(r) {
+// ── Función fila tabla ─────────────────────────────────────────────────
+function makeTableRow(r) {
   var s = verdictStyle(r.verdict);
   var tpCell   = r.thruPlays > 0 ? r.thruPlayRate + '%' : '—';
   var hookCell = r.isVideoAd ? r.hookRate + '%' : '—';
@@ -357,7 +420,9 @@ var tableRows = results.map(function(r) {
     + '<td style="padding:4px;text-align:center;background:' + s.bg + ';color:' + s.color + ';font-weight:bold;">' + r.verdict + '</td>'
     + '<td style="padding:4px;font-size:10px;color:#6b7280;">' + r.reason + '</td>'
     + '</tr>';
-}).join('\n');
+}
+var activeTableRows = activeResults.map(makeTableRow).join('\n');
+var pausedTableRows = pausedResults.map(makeTableRow).join('\n');
 
 // ── Panel Quality Rankings ─────────────────────────────────────────────
 var qualityRows = results.map(function(r) {
@@ -453,7 +518,47 @@ var burnSummary = '\n## Presupuesto y burn rate\n'
       + 'Para llegar al 16/05 el budget diario máximo es $' + Math.round(budgetRemaining / daysToEnd).toLocaleString() + '/día.\n'
     : '\n✅ Presupuesto alcanza hasta el final del plan y más.\n');
 
+// ── Orquestador de campaña ─────────────────────────────────────────────
+var fbNetNewStr  = fbNetNew !== null ? '+' + fbNetNew : '?';
+var igNetNewStr  = igNetNew !== null ? '+' + igNetNew : '?';
+var totalNetNew  = (fbNetNew || 0) + (igNetNew || 0);
+var gapToGoal    = 10000 - (fbFollowersNow || CAMPAIGN_BASELINE_FB) - (igFollowersNow || CAMPAIGN_BASELINE_IG) + 34;
+var orchestratorSection =
+  '## CONTEXTO DE CAMPANA — Orquestador\n\n'
+  + 'Mision: 10.000 seguidores IG+FB en 27 dias de pauta (19/04 – 16/05/2026).\n'
+  + 'Datos frescos al: ' + todayStr + ' ' + String(artNow.getUTCHours()).padStart(2,'0') + ':' + String(artNow.getUTCMinutes()).padStart(2,'0') + ' ART'
+  + (burnRateSource === 'ad_set_budgets' ? ' | Burn rate: sum ad_set budgets activos' : ' | Burn rate: promedio historico')
+  + (freshnessWarning ? ' | AVISO: ' + freshnessWarning : '')
+  + '\n\n'
+  + '### Posicion actual: Dia ' + dayRef + ' de 27\n'
+  + '- Seguidores FB: ' + (fbFollowersNow || '?') + ' (baseline 23 → ' + fbNetNewStr + ' nuevos)\n'
+  + '- Seguidores IG: ' + (igFollowersNow || '?') + ' (baseline 11 → ' + igNetNewStr + ' nuevos)\n'
+  + '- Total nuevos: ' + totalNetNew + ' / objetivo 10.000 | Gap: ' + gapToGoal + ' seguidores\n\n'
+  + '### Budget\n'
+  + '- Gastado: $' + totalSpend.toLocaleString() + ' / $500.000\n'
+  + '- Restante: $' + Math.round(budgetRemaining).toLocaleString() + '\n'
+  + '- Burn rate REAL (sum ad sets activos): $' + burnRateDaily.toLocaleString() + '/dia\n'
+  + '- Dias restantes: ' + daysToEnd + '\n'
+  + (budgetRisk ? '- RIESGO: presupuesto se agota el ' + exhaustStr + ' — ' + (daysToEnd - daysAtBurn) + ' dias antes del 16/05\n' : '- OK: presupuesto alcanza hasta el 16/05\n')
+  + '\n### Ads ACTIVOS ahora (' + activeResults.length + ' ads gastan dinero)\n'
+  + activeResults.map(function(r) { return '- ' + r.adName + ' [' + r.verdict + ']'; }).join('\n') + '\n'
+  + '\n### Ads PAUSADOS (' + pausedResults.length + ' ads — solo historial)\n'
+  + pausedResults.map(function(r) { return '- ' + r.adName; }).join('\n') + '\n'
+  + '\n### Lo que sabemos que FUNCIONA\n'
+  + '- WINNER: ENBA_ad_corporativo_IG_Cold — CPV $26, ER 4.9%, imagen estatica (NO video)\n'
+  + '- Follow FB: destinos_FB_Cold — CPF $89, ABOVE_AVERAGE, imagen\n'
+  + '- ENG: reel4horas — Hook 57%, ER 64.9%, alimenta D4 (3.600-4.200 personas)\n\n'
+  + '### Hipotesis FALSADAS\n'
+  + '- FALSADA: Video-first — el WINNER es imagen estatica. Micro-reels en FB tienen CPM 4x mas caro.\n'
+  + '- FALSADA: Retarget siempre mas barato — en FB retarget es MAS CARO que cold (anomalia).\n\n'
+  + '### Decisiones pendientes (bloquean escalado)\n'
+  + '1. Perfil IG no convierte (follow rate 3.2% vs benchmark 15-35%) — requiere Marina\n'
+  + '2. Reemplazo creativo para reel4horas (FATIGUE_WARNING dia ' + dayRef + ') — requiere Dani\n'
+  + '3. 3 ads ACTIVOS + CORTAR: microreel_FB_Cold, microreel_FB_Retarget, nosotros_FB_Retarget — pendiente Jose\n\n'
+  + '---\n\n';
+
 var brunoPrompt = 'Contexto REDES. Carga /bruno.\n\n'
+  + orchestratorSection
   + 'Reporte automatico Meta Ads — ' + todayStr + '.\n'
   + 'Campana ENBA activa desde 19/04/2026. Dia ' + dayRef + ' de ' + CAMPAIGN_TOTAL_DAYS + '.\n'
   + 'Spend total: $' + totalSpend.toLocaleString()
@@ -467,32 +572,33 @@ var brunoPrompt = 'Contexto REDES. Carga /bruno.\n\n'
   + '\n## Resumen por segmento — Follow Plan\n'
   + segTableLines.join('\n') + '\n'
   + '\n## Benchmarks 2026\n'
-  + '- CPM IG/FB Argentina: $30–$80 normal, < $30 excelente, > $120 problema\n'
+  + '- CPM IG/FB Argentina: $30-$80 normal, < $30 excelente, > $120 problema\n'
   + '- Hook Rate (3s views / impressions): > 25% bueno, > 40% excelente\n'
   + '- Hold Rate (thruplay / 3s views): > 25% bueno, > 40% excelente\n'
-  + '- CTR micro-video 15s FB: 3–8% normal, > 10% excepcional\n'
-  + '- CPF cuentas nuevas Argentina: $80–$300 rango normal\n'
-  + '- Follow rate (visit→follow): 15–35% benchmark cuentas nuevas\n'
-  + '- Quality Ranking ABOVE_AVERAGE = top 55%; AVERAGE = ok; BELOW_AVERAGE = problema creativo o saturación\n'
-  + '\n## Datos por objetivo\n'
-  + makeBrunoSection(followAds, 'FOLLOW Plan (objetivo: visitas perfil IG + page likes FB)')
-  + makeBrunoSection(engAds,    'ENGAGEMENT (objetivo: post engagement, ThruPlay, construye D4)')
-  + makeBrunoSection(awrAds,    'AWARENESS (objetivo: reach)')
+  + '- CTR micro-video 15s FB: 3-8% normal, > 10% excepcional\n'
+  + '- CPF cuentas nuevas Argentina: $80-$300 rango normal\n'
+  + '- Follow rate (visit→follow): 15-35% benchmark cuentas nuevas\n'
+  + '- Quality Ranking ABOVE_AVERAGE = top 55%; AVERAGE = ok; BELOW_AVERAGE = problema creativo o saturacion\n'
+  + '\n## Datos por objetivo — ACTIVOS\n'
+  + makeBrunoSection(activeResults.filter(function(r) { return r.campaignType === 'FOLLOW'; }), 'FOLLOW Plan (objetivo: visitas perfil IG + page likes FB)')
+  + makeBrunoSection(activeResults.filter(function(r) { return r.campaignType === 'ENG'; }),    'ENGAGEMENT (objetivo: post engagement, ThruPlay, construye D4)')
+  + makeBrunoSection(activeResults.filter(function(r) { return r.campaignType === 'AWR'; }),    'AWARENESS (objetivo: reach)')
   + d4Context
+  + '\n## Historial — PAUSADOS (sin gasto actual)\n'
+  + makeBrunoSection(pausedResults, 'Ads pausados — referencia historica unicamente')
   + '\n## Reglas plan v4\n'
   + '- CORTAR (72h+): CPS > $100 o ER < 1% o CTR < 0.4%\n'
   + '- WINNER (72h+): CPS < $30 + ER > 3%\n'
   + '- FATIGUE: Frecuencia > 3.5 · MAX: > 14 dias\n'
   + '- Escalar WINNER: +25% cada 48h, triple scale si win 5 dias\n'
-  + '- Gate 1 dia 6 (25/04): follows>30, ThruPlays>500/dia\n'
   + '- Gate 2 dia 10 (29/04): follows>200, ER>3%, CPS<$80\n\n'
   + '## Tu tarea\n'
-  + '1. Confirma o corregi cada veredicto automatico\n'
+  + '1. Confirma o corregi cada veredicto automatico (solo ads ACTIVOS)\n'
   + '2. Propone acciones: pausar, escalar, rotar — con impacto presupuestario\n'
   + '3. Evalua el riesgo de presupuesto si hay alerta de burn rate\n'
   + '4. Analiza follow rate IG si hay datos (benchmark 15-35%)\n'
-  + '5. Video ads: Hook Rate < 15% = problema de gancho; Hold Rate < 20% = problema de retención\n'
-  + '6. Quality Rankings BELOW_AVERAGE = señal de fatiga creativa o mismatch de audiencia\n'
+  + '5. Video ads: Hook Rate < 15% = problema de gancho; Hold Rate < 20% = problema de retencion\n'
+  + '6. Quality Rankings BELOW_AVERAGE = senal de fatiga creativa o mismatch de audiencia\n'
   + '7. Evalua D4 audience y si ya tiene volumen para warm retargeting\n'
   + '8. Segmento Cold vs Retarget: comparar CPF entre segmentos del mismo canal\n\n'
   + 'Entrega tu analisis y espera aprobacion antes de ejecutar.';
@@ -532,14 +638,22 @@ if (fbFollowersNow !== null || igFollowersNow !== null) {
 var followDisplay = totalIgFollows > 0
   ? 'IG F:' + totalIgFollows + ' FB L:' + totalFbLikes
   : 'IG V:' + totalIgVisits + ' FB L:' + totalFbLikes;
-var subject = '[ENBA Ads] ' + todayStr
+var timeStr = String(artNow.getUTCHours()).padStart(2,'0') + ':' + String(artNow.getUTCMinutes()).padStart(2,'0');
+var subject = '[ENBA Ads] ' + todayStr + ' ' + timeStr
   + ' | ' + summaryStr
   + ' | $' + totalSpend.toLocaleString()
   + ' | ' + followDisplay
   + ' | Saves:' + totalSaves
-  + (budgetRisk ? ' | ⚠BURN' : '');
+  + (budgetRisk ? ' | BURN' : '')
+  + (freshnessWarning ? ' | DATOS VIEJOS' : '');
 
-var html = '<!DOCTYPE html><html><head><meta charset="utf-8"></head>'
+var freshnessBanner = freshnessWarning
+  ? '<div style="background:#fef9c3;border:2px solid #ca8a04;border-radius:6px;padding:10px 14px;margin:12px 0;">'
+    + '<b style="color:#ca8a04;">AVISO FRESCURA:</b> ' + freshnessWarning
+    + '</div>'
+  : '';
+
+var html = '<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head>'
   + '<body style="font-family:Arial,sans-serif;max-width:1200px;margin:0 auto;padding:16px;">'
   + '<h2 style="color:#1e293b;margin-bottom:4px;">ENBA Meta Ads — Reporte Diario</h2>'
   + '<p style="color:#64748b;margin-top:4px;font-size:13px;">'
@@ -553,10 +667,12 @@ var html = '<!DOCTYPE html><html><head><meta charset="utf-8"></head>'
   + ' &middot; Reach: ' + totalReach.toLocaleString() + '</p>'
   + '<p style="font-size:15px;font-weight:bold;color:#1e293b;">' + summaryStr + '</p>'
   + followerPanel
+  + freshnessBanner
   + budgetBanner
-  // Tabla principal
+  // Tabla ACTIVOS
+  + '<h3 style="color:#1e293b;font-size:13px;margin:16px 0 4px;">Ads ACTIVOS (' + activeResults.length + ' — gastan dinero ahora)</h3>'
   + '<div style="overflow-x:auto;">'
-  + '<table style="border-collapse:collapse;width:100%;font-size:11px;margin-top:12px;">'
+  + '<table style="border-collapse:collapse;width:100%;font-size:11px;">'
   + '<thead><tr style="background:#f1f5f9;border-bottom:2px solid #cbd5e1;">'
   + '<th style="padding:5px 8px;text-align:left;">Ad</th>'
   + '<th>Tipo</th><th>Plat</th><th>Seg</th><th>Dias</th>'
@@ -572,7 +688,25 @@ var html = '<!DOCTYPE html><html><head><meta charset="utf-8"></head>'
   + '<th style="text-align:right;">CPS</th>'
   + '<th>Veredicto</th><th>Razon</th>'
   + '</tr></thead><tbody>\n'
-  + tableRows
+  + activeTableRows
+  + '\n</tbody></table></div>'
+  // Tabla PAUSADOS
+  + '<h3 style="color:#6b7280;font-size:12px;margin:16px 0 4px;">Ads PAUSADOS (' + pausedResults.length + ' — sin gasto actual, solo historial)</h3>'
+  + '<div style="overflow-x:auto;">'
+  + '<table style="border-collapse:collapse;width:100%;font-size:10px;opacity:0.7;">'
+  + '<thead><tr style="background:#f8fafc;border-bottom:1px solid #e2e8f0;">'
+  + '<th style="padding:4px 8px;text-align:left;">Ad</th>'
+  + '<th>Tipo</th><th>Plat</th><th>Seg</th><th>Dias</th>'
+  + '<th style="text-align:right;">Spend hist.</th>'
+  + '<th style="text-align:right;color:#6b7280;">CPM</th>'
+  + '<th style="text-align:right;">Reach</th>'
+  + '<th>CTR</th><th>ER</th><th>Freq</th>'
+  + '<th>ThruPly</th><th>Hook%</th><th>Hold%</th>'
+  + '<th>Saves</th><th>Follows/V</th>'
+  + '<th style="text-align:right;">CPS</th>'
+  + '<th>Estado</th><th>Nota</th>'
+  + '</tr></thead><tbody>\n'
+  + pausedTableRows
   + '\n</tbody></table></div>'
   // Quality Rankings
   + '<hr style="margin:20px 0;border:1px solid #e5e7eb;">'
@@ -597,7 +731,7 @@ var html = '<!DOCTYPE html><html><head><meta charset="utf-8"></head>'
   + '<pre style="background:#f8fafc;padding:16px;border-radius:8px;font-size:10px;overflow-x:auto;white-space:pre-wrap;border:1px solid #e2e8f0;">'
   + brunoPrompt.replace(/</g, '&lt;').replace(/>/g, '&gt;')
   + '</pre>'
-  + '<p style="color:#94a3b8;font-size:10px;margin-top:16px;">ENBA Ads Evaluation Workflow v4 &middot; ' + new Date().toISOString() + '</p>'
+  + '<p style="color:#94a3b8;font-size:10px;margin-top:16px;">ENBA Ads Evaluation Workflow v5 &middot; ' + new Date().toISOString() + ' &middot; Burn rate: ' + burnRateSource + '</p>'
   + '</body></html>';
 
 return [{ json: {
@@ -605,10 +739,11 @@ return [{ json: {
   totalSpend: totalSpend, totalIgFollows: totalIgFollows,
   totalIgVisits: totalIgVisits, totalFbLikes: totalFbLikes,
   totalSaves: totalSaves, blendedCPM: blendedCPM,
-  blendedCPS: blendedCPS, burnRateDaily: burnRateDaily,
+  blendedCPS: blendedCPS, burnRateDaily: burnRateDaily, burnRateSource: burnRateSource,
   budgetRemaining: Math.round(budgetRemaining), budgetRisk: budgetRisk,
   fbFollowersNow: fbFollowersNow, igFollowersNow: igFollowersNow,
   igFollowRate: igFollowRate,
-  adsCount: results.length, summaryStr: summaryStr,
+  adsCount: results.length, activeAdsCount: activeResults.length, pausedAdsCount: pausedResults.length,
+  summaryStr: summaryStr, freshnessWarning: freshnessWarning,
   diagActionTypes: diagActionTypes
 } }];
