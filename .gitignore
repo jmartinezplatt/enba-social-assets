@@ -19,6 +19,18 @@ asset-bank/veleros-broker/
 # Videos MP4 — todos excluidos (>25 MB rompe Cloudflare Pages, regenerables con scripts)
 *.mp4
 
+# TikTok 30D pilot — assets pesados y material intermedio local
+campaigns/plan-crecimiento-10k/tiktok-30d-pilot/media/
+campaigns/plan-crecimiento-10k/tiktok-30d-pilot/final/
+campaigns/plan-crecimiento-10k/tiktok-30d-pilot/_candidate-thumbs/
+campaigns/plan-crecimiento-10k/tiktok-30d-pilot/_candidate-thumbs2/
+campaigns/plan-crecimiento-10k/tiktok-30d-pilot/_curation-thumbs/
+campaigns/plan-crecimiento-10k/tiktok-30d-pilot/_repo-thumbs/
+campaigns/plan-crecimiento-10k/tiktok-30d-pilot/_segment-thumbs/
+campaigns/plan-crecimiento-10k/tiktok-30d-pilot/_thumbs/
+campaigns/plan-crecimiento-10k/tiktok-30d-pilot/_tt11-candidates/
+campaigns/plan-crecimiento-10k/tiktok-30d-pilot/*.rollback-*.js
+
 # Reel intermedios y outputs (pesados, regenerables con build scripts)
 campaigns/reels/*/reel-primera-vez-*.mp4
 campaigns/reels/*/segments/

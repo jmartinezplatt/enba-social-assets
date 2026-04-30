@@ -10,7 +10,7 @@ Este frente concentra:
 - previews editoriales
 - captions finales
 - hashtags aprobados
-- videos fuente finales internalizados en `media/`
+- referencias a videos fuente/finales locales en `media/`
 - guía de publicación manual
 - calendario sugerido del primer mes
 
@@ -34,7 +34,9 @@ Este frente concentra:
 - `tiktok-pieces.js`
   manifiesto fuente de las 20 piezas
 - `media/`
-  videos finales aprobados, ya internalizados dentro del repo
+  videos fuente locales usados por el manifiesto. No se versionan en git por peso; deben conservarse localmente o en almacenamiento externo si el frente se mueve de máquina.
+- `final/`
+  renders finales locales. No se versionan en git por peso; son entregables/regenerables desde los scripts de render.
 - `MANUAL-PUBLISH.md`
   procedimiento de publicación manual
 - `CALENDARIO-PUBLICACION.md`
@@ -45,7 +47,7 @@ Este frente concentra:
 - Set de preview aprobado
 - Captions y hashtags aprobados
 - Publicación manual resuelta desde repo
-- Integración con rama de trabajo principal pendiente para un paso posterior
+- Base integrada en `main`; assets pesados conservados como archivos locales no versionados
 
 ## Regla de uso
 
@@ -54,6 +56,7 @@ Mientras TikTok siga con publicación manual:
 - no editar captions en la app sin reflejar el cambio en este frente
 - no reemplazar assets sin tocar `tiktok-pieces.js`
 - usar `publish-ready.html` como fuente operativa única
+- no commitear `media/`, `final/` ni carpetas `_thumbs*`; mantener solo manifiesto, previews, scripts, docs y posters livianos en git
 
 ## Nota
 
