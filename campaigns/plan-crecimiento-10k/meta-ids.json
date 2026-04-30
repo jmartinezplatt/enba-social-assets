@@ -1,7 +1,7 @@
 {
-  "last_verified": "2026-04-28T22:00:00-03:00",
-  "last_api_verified": "2026-04-28T22:00:00-03:00",
-  "api_verified_note": "GET batch completo ejecutado 28/04 sesión noche. Verificados: effective_status todos los ads Follow Plan v2 + ENG_REEL; budgets y exclusiones de los 4 ad sets Follow Plan v2. Dos discrepancias encontradas vs registros previos: (1) fb_cold tenía D5 configurada aunque la nota decía 'no configurada'; (2) destinos_IG_Retarget y nosotros_IG_Retarget marcados ACTIVE en JSON pero API los retornó PAUSED.",
+  "last_verified": "2026-04-29T12:00:00-03:00",
+  "last_api_verified": "2026-04-29T12:00:00-03:00",
+  "api_verified_note": "GET completo 29/04. 6 campañas ACTIVE, 15 ad sets ACTIVE, 7 ads ACTIVE. 2 discrepancias de budget corregidas: fb_cold $10.920→$5.000 (cambiado desde UI), AS_ENG_TOP $2.000→$1.500. Burn rate real: $13.500/día.",
   "session_28apr": "Sesión día 9/27. Análisis performance completo via API. Exclusiones corregidas: fb_retarget → D5 agregada; ig_cold → D5 (irrelevante) reemplazada por D6; ig_retarget → D6 agregada. D6 (IGFollowers_exclusion) creada por Jose desde UI (ID: 120239621840990139). Hallazgo: ig_cold tenía D5 FBPageLikers como exclusión — completamente irrelevante para campaña IG. Audiencia D4 VideoViewers ~2.400-3.000 personas no seguidoras ya dentro de ig_retarget post-fix.",
   "session_28apr_noche": "Sesión día 10/27. GET batch API verificó estado real de todos los ads y ad sets Follow Plan v2. Hallazgos: (1) fb_cold SÍ tiene D5 como exclusión (API confirma ID 120239146215040139) — nota anterior era incorrecta; (2) destinos_IG_Retarget y nosotros_IG_Retarget realmente PAUSED (meta-ids.json los tenía como ACTIVE por error); (3) Burn rate real confirmado: $23.020/día (Follow Plan v2 $20.020 + ENG_REEL $3.000). AWR ad sets CBO con $0/día individual — budget a nivel campaña pero todos los ads paused. (4) WINNER confirmado vía nota: corporativo_IG_Cold usa imagen estática grupo-cockpit-cielo-azul-4x5.jpg — hipótesis video-first falsada. (5) 3 ads activos que Bruno recomienda cortar: microreel_FB_Cold, microreel_FB_Retarget, nosotros_FB_Retarget — pendiente aprobación de Jose.",
   "session_24apr_tarde": "Auditoría creativa Marina aprobó Follow_IG creativos. IG_Cold activado $4.000/día + IG_Retarget $1.500/día. Normalización jerarquía: todas campañas y ad sets ACTIVE, pausas solo a nivel ad. Corregidas 3 discrepancias: nosotros_FB_Cold, destinos_FB_Retarget, nosotros_IG_Cold → PAUSED. Burn rate: $23.020/día.",
@@ -196,13 +196,18 @@
       "status": "ACTIVE",
       "activated": "2026-04-19T00:10:00-03:00",
       "ready": true,
-      "v4_change": "Budget $3,000 → $5,000 (reestructuración 22/04) → $7,250 (audit fix G-6 22/04) → $3,000 (plan reconciliado 23/04)"
+      "v4_change": "Budget $3,000 → $5,000 (reestructuración 22/04) → $7,250 (audit fix G-6 22/04) → $3,000 (plan reconciliado 23/04)",
+      "exclusions": {
+        "D5": "120239146215040139",
+        "D6": "120239621840990139",
+        "note": "Excluye fans FB (D5) y seguidores IG (D6). Agregadas 29/04 vía API."
+      }
     },
     "AS_ENG_TOP": {
       "id": "120239146126860139",
       "name": "ENBA_Engagement_TopPerformers_v2",
       "campaign": "ENG",
-      "daily_budget_ars": 2000,
+      "daily_budget_ars": 1500,
       "optimization": "POST_ENGAGEMENT",
       "promoted_object": "page_id:1064806400040502",
       "destination_type": "ON_POST",
@@ -689,11 +694,11 @@
       "fb_cold": {
         "id": "120239303659650139",
         "campaign": "120239303658190139",
-        "daily_budget": 1092000,
+        "daily_budget": 500000,
         "optimization": "PAGE_LIKES",
         "scaled_date": "2026-04-23",
         "scaled_from": 840000,
-        "scaled_reason": "Plan reconciliado 23/04 — FB Likes 233 a $36/like, buen rendimiento. +30%.",
+        "scaled_reason": "Plan reconciliado 23/04 — FB Likes 233 a $36/like, buen rendimiento. +30%. Reducido $10.920→$5.000 vía API (Conversions API System User, 28/04 16:11 ART).",
         "last_api_verified": "2026-04-28",
         "exclusions": {
           "D5": "120239146215040139",
