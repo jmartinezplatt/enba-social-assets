@@ -668,11 +668,13 @@
       "ig_cold": {
         "id": "120239303658370139",
         "campaign": "120239303658100139",
-        "daily_budget": 400000,
+        "daily_budget": 500000,
         "optimization": "VISIT_INSTAGRAM_PROFILE",
         "status": "ACTIVE",
         "activated_date": "2026-04-24",
         "activation_reason": "Auditoría creativa Marina aprobó creativos Follow_IG. Budget reducido $12.600→$4.000/día.",
+        "scaled_date_2": "2026-04-30",
+        "scaled_reason_2": "Bruno día 12: WINNER corporativo_IG_Cold CPV $25 — escalar $4.000→$5.000/día.",
         "exclusions": {
           "D6": "120239621840990139",
           "note": "Excluye seguidores actuales IG. Corregido 28/04: tenía D5 (FBPageLikers) por error — completamente irrelevante para campaña IG."
@@ -694,11 +696,13 @@
       "fb_cold": {
         "id": "120239303659650139",
         "campaign": "120239303658190139",
-        "daily_budget": 500000,
+        "daily_budget": 250000,
         "optimization": "PAGE_LIKES",
         "scaled_date": "2026-04-23",
         "scaled_from": 840000,
         "scaled_reason": "Plan reconciliado 23/04 — FB Likes 233 a $36/like, buen rendimiento. +30%. Reducido $10.920→$5.000 vía API (Conversions API System User, 28/04 16:11 ART).",
+        "reduced_date": "2026-04-30",
+        "reduced_reason": "Bruno día 12: CPS $110 > $100 CORTAR pero único ad FB. Reducido $5.000→$2.500/día en vez de pausar.",
         "last_api_verified": "2026-04-28",
         "exclusions": {
           "D5": "120239146215040139",
@@ -735,7 +739,9 @@
         "id": "120239303661450139",
         "adset": "120239303658370139",
         "creative": "2113967966046136",
-        "status": "ACTIVE"
+        "status": "PAUSED",
+        "paused_date": "2026-04-30",
+        "paused_reason": "Bruno día 12: ER 1.9% < 3%, 17 visits en 9d, delivery muerto"
       },
       "ENBA_ad_nosotros_IG_Cold": {
         "id": "120239303662020139",

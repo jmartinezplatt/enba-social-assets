@@ -1,6 +1,6 @@
 # STATUS — Frente REDES
 
-**Última actualización:** 29 de abril de 2026 (sesión día 11/27)
+**Última actualización:** 30 de abril de 2026 (sesión día 12/27)
 **Owner de mantenimiento:** quien cierre la sesión del frente redes
 **Uso:** punto de entrada corto para inicio de sesión. Si este archivo contradice un handoff viejo, manda este archivo.
 
@@ -64,6 +64,14 @@ Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier
 
 ### Últimos hitos relevantes
 
+- **30/04 sesión (día 12/27):** Fix workflow evaluación diaria + acciones Bruno + investigación perfil IG.
+  - **Workflow n8n `1qRywsEWAl7VoO5o` corregido:** 3 nodos HTTP con IDs hardcodeados reemplazados por queries dinámicas a la cuenta. Code node adaptado. Burn rate ahora solo suma ad sets con ads activos (antes sumaba todos los ACTIVE incluyendo los sin ads). Webhook trigger agregado para ejecución manual: `POST https://espacionautico.app.n8n.cloud/webhook/eval-ads-manual`.
+  - **Causa raíz:** AD_ENG_REEL_V2 aparecía como PAUSED en reportes porque su ID no estaba en la lista hardcodeada. Cualquier ad nuevo quedaba invisible. Fix definitivo — nunca más.
+  - **Acciones Bruno ejecutadas vía API:** (1) destinos_IG_Cold PAUSED (ER 1.9%, delivery muerto), (2) fb_cold reducido $5.000→$2.500/día (CPS $110 pero único ad FB), (3) ig_cold escalado $4.000→$5.000/día (WINNER CPV $25). Burn rate post-acciones: $11.875/día.
+  - **Objetivo ajustado:** Jose redefinió de 10K a 6.500 seguidores.
+  - **Investigación follow rate IG:** benchmark real para tráfico pagado frío a cuenta <100 seguidores es 3-8% (no 15-35%). ENBA en 2.9% — apenas debajo del piso realista. Causas: Meta optimiza visitas no follows, social proof negativo (77 seguidores), mismatch visual ad→grid. Análisis competitivo: @bairesnavega 106K (lifestyle > náutica, cara visible, voucher único).
+  - **Pendiente próxima sesión:** fixes rápidos perfil IG (link en bio → espacionautico.com.ar, categoría → actividades de ocio, bio simplificada). Publicar 3 carruseles con QA PASS. Monitorear AD_ENG_REEL_V2 (review 02/05 con 72h data).
+  - Seguidores cierre: FB 955, IG 77.
 - **29/04 sesión cont. (día 11/27):** Verificación API Meta — 3 pendientes inmediatos cerrados.
   - microreel_IG_Cold + microreel_IG_Retarget: confirmados ACTIVE con creative original (`977761008544793`). Incidente de restauración de anoche resuelto.
   - AD_ENG_REEL_V2 día 1: CPV $0.94 (vs $1.10 reel4h), CPE $0.92 (vs $1.09), retención 25% = 46% (vs 24%). Señales positivas pero prematuro — revisar 01/05 con >$2.500 de spend.
