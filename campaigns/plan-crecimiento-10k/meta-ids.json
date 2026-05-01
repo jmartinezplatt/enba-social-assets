@@ -1,7 +1,7 @@
 {
-  "last_verified": "2026-04-29T12:00:00-03:00",
-  "last_api_verified": "2026-04-29T12:00:00-03:00",
-  "api_verified_note": "GET completo 29/04. 6 campañas ACTIVE, 15 ad sets ACTIVE, 7 ads ACTIVE. 2 discrepancias de budget corregidas: fb_cold $10.920→$5.000 (cambiado desde UI), AS_ENG_TOP $2.000→$1.500. Burn rate real: $13.500/día.",
+  "last_verified": "2026-04-30T21:00:00-03:00",
+  "last_api_verified": "2026-04-30T21:00:00-03:00",
+  "api_verified_note": "Review V2 30/04. reel4horas PAUSED (CPV $1.10, 13d, $23.5K gastados — superado por V2). AS_ENG_REEL escalado $3K→$4K/día. V2 único ad activo en ENG_REEL. Burn rate estimado: $12,875/día.",
   "session_28apr": "Sesión día 9/27. Análisis performance completo via API. Exclusiones corregidas: fb_retarget → D5 agregada; ig_cold → D5 (irrelevante) reemplazada por D6; ig_retarget → D6 agregada. D6 (IGFollowers_exclusion) creada por Jose desde UI (ID: 120239621840990139). Hallazgo: ig_cold tenía D5 FBPageLikers como exclusión — completamente irrelevante para campaña IG. Audiencia D4 VideoViewers ~2.400-3.000 personas no seguidoras ya dentro de ig_retarget post-fix.",
   "session_28apr_noche": "Sesión día 10/27. GET batch API verificó estado real de todos los ads y ad sets Follow Plan v2. Hallazgos: (1) fb_cold SÍ tiene D5 como exclusión (API confirma ID 120239146215040139) — nota anterior era incorrecta; (2) destinos_IG_Retarget y nosotros_IG_Retarget realmente PAUSED (meta-ids.json los tenía como ACTIVE por error); (3) Burn rate real confirmado: $23.020/día (Follow Plan v2 $20.020 + ENG_REEL $3.000). AWR ad sets CBO con $0/día individual — budget a nivel campaña pero todos los ads paused. (4) WINNER confirmado vía nota: corporativo_IG_Cold usa imagen estática grupo-cockpit-cielo-azul-4x5.jpg — hipótesis video-first falsada. (5) 3 ads activos que Bruno recomienda cortar: microreel_FB_Cold, microreel_FB_Retarget, nosotros_FB_Retarget — pendiente aprobación de Jose.",
   "session_24apr_tarde": "Auditoría creativa Marina aprobó Follow_IG creativos. IG_Cold activado $4.000/día + IG_Retarget $1.500/día. Normalización jerarquía: todas campañas y ad sets ACTIVE, pausas solo a nivel ad. Corregidas 3 discrepancias: nosotros_FB_Cold, destinos_FB_Retarget, nosotros_IG_Cold → PAUSED. Burn rate: $23.020/día.",
@@ -70,6 +70,18 @@
       "created_via": "UI (Ads Manager)",
       "created_date": "2026-04-18",
       "notes": "Creada por Jose desde UI. Personas que siguen/likean la page de FB. Para exclusión en ad sets FB. Estaba en ig_cold por error — corregido 28/04."
+    },
+    "LAL1": {
+      "id": "120239852278830139",
+      "name": "ENBA_LAL_1pct_FBLikers",
+      "subtype": "LOOKALIKE",
+      "source": "D5 (FBPageLikers, 120239146215040139)",
+      "country": "AR",
+      "ratio": 0.01,
+      "status": "active",
+      "created_date": "2026-05-01",
+      "created_via": "API",
+      "notes": "Lookalike 1% desde 947+ page likers FB. Para testear en fb_cold y eventualmente IG."
     },
     "D6": {
       "id": "120239621840990139",
@@ -189,14 +201,14 @@
       "id": "120239078452300139",
       "name": "ENBA_Engagement_Reel4horas",
       "campaign": "ENG",
-      "daily_budget_ars": 3000,
+      "daily_budget_ars": 4000,
       "optimization": "POST_ENGAGEMENT",
       "promoted_object": "page_id:1064806400040502",
       "destination_type": "ON_POST",
       "status": "ACTIVE",
       "activated": "2026-04-19T00:10:00-03:00",
       "ready": true,
-      "v4_change": "Budget $3,000 → $5,000 (reestructuración 22/04) → $7,250 (audit fix G-6 22/04) → $3,000 (plan reconciliado 23/04)",
+      "v4_change": "Budget $3,000 → $5,000 (reestructuración 22/04) → $7,250 (audit fix G-6 22/04) → $3,000 (plan reconciliado 23/04) → $4,000 (30/04 review V2, reel4h pausado)",
       "exclusions": {
         "D5": "120239146215040139",
         "D6": "120239621840990139",
@@ -366,8 +378,10 @@
       "name": "ENBA_ad_reel4horas_ENG",
       "adset": "AS_ENG_REEL",
       "creative": "reel-4horas-existing",
-      "status": "ACTIVE",
-      "activated": "2026-04-19T00:10:00-03:00"
+      "status": "PAUSED",
+      "activated": "2026-04-19T00:10:00-03:00",
+      "paused_date": "2026-04-30",
+      "paused_reason": "V2 superó en CPV ($0.87 vs $1.10), hook rate (47.6% vs 24.4%), engagement density. 13 días activo, $23.5K gastados. Reemplazado por AD_ENG_REEL_V2."
     },
     "AD_C2_REGALOS": {
       "id": "120239165409650139",
@@ -749,6 +763,26 @@
         "creative": "1273685224896455",
         "status": "PAUSED"
       },
+      "ENBA_ad_IG_static01_01may": {
+        "id": "120239854682060139",
+        "adset": "120239303658370139",
+        "creative": "1400396012120914",
+        "status": "ACTIVE",
+        "created_date": "2026-05-01",
+        "image_hash": "ca7be297c2cbda64f918e14f27ebd79c",
+        "source": "asset-bank/grupo-cockpit-navegando-rio-sol.jpg",
+        "notes": "Imagen estatica con logo oficial. Patron WINNER. Ad text nuevo."
+      },
+      "ENBA_ad_IG_static02_01may": {
+        "id": "120239854683020139",
+        "adset": "120239303658370139",
+        "creative": "1663837334951160",
+        "status": "ACTIVE",
+        "created_date": "2026-05-01",
+        "image_hash": "e54b1862434514382c651b3a80553bfa",
+        "source": "asset-bank/pareja-cockpit-sunset-risas.jpg",
+        "notes": "Imagen estatica con logo oficial. Test pareja joven. Ad text nuevo."
+      },
       "ENBA_ad_microreel_IG_Retarget": {
         "id": "120239303662540139",
         "adset": "120239303659250139",
@@ -788,7 +822,29 @@
         "id": "120239303666220139",
         "adset": "120239303659650139",
         "creative": "846991285099575",
-        "status": "PAUSED"
+        "status": "ACTIVE",
+        "reactivated_date": "2026-05-01",
+        "reactivated_reason": "CPF $104 mejor historico FB. Reactivado como puente mientras se producen creativos nuevos."
+      },
+      "ENBA_ad_FB_static01_01may": {
+        "id": "120239854683430139",
+        "adset": "120239303659650139",
+        "creative": "961542533501869",
+        "status": "ACTIVE",
+        "created_date": "2026-05-01",
+        "image_hash": "d9db267623af083fb6dca12765faeb56",
+        "source": "asset-bank/travesias-grupo-cockpit-skyline.jpg",
+        "notes": "Imagen estatica con logo oficial. Caption FB aprobado por Jose."
+      },
+      "ENBA_ad_FB_static02_01may": {
+        "id": "120239854684020139",
+        "adset": "120239303659650139",
+        "creative": "26783650401254705",
+        "status": "ACTIVE",
+        "created_date": "2026-05-01",
+        "image_hash": "fe7427d3c1a2fe33958002eb8b01baa8",
+        "source": "asset-bank/cuatro-amigos-cockpit-vela-nubes-rio.jpg",
+        "notes": "Imagen estatica con logo oficial. Caption FB aprobado por Jose."
       },
       "ENBA_ad_microreel_FB_Retarget": {
         "id": "120239303668560139",

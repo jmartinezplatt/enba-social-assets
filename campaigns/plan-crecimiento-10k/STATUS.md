@@ -1,6 +1,6 @@
 # STATUS — Frente REDES
 
-**Última actualización:** 30 de abril de 2026 (sesión día 12/27)
+**Última actualización:** 01 de mayo de 2026 (sesión día 13/27)
 **Owner de mantenimiento:** quien cierre la sesión del frente redes
 **Uso:** punto de entrada corto para inicio de sesión. Si este archivo contradice un handoff viejo, manda este archivo.
 
@@ -39,9 +39,9 @@ Los `SESSION-HANDOFF-*.md` sirven como contexto histórico, lecciones e incident
   - `campaign.pieces.json` para campañas
   - `carousel.config.json` + `captions.json` para carruseles
 
-### Snapshot del repo al 27/04
+### Snapshot del repo al 01/05
 
-- `asset-bank/`: 161 JPGs curados
+- `asset-bank/`: 1,233 JPGs curados
 - `staging/`: 32 archivos
 - `published/`: 1 archivo
 - `manifests/`: piezas programadas y publicadas del feed
@@ -64,6 +64,17 @@ Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier
 
 ### Últimos hitos relevantes
 
+- **01/05 sesión (día 13/27):** Pivot growth strategy — de poda a producción.
+  - **Diagnóstico Bruno:** análisis sesgado a cortar sin reemplazar. Pipeline de creativos vacío. IG usa TRAFFIC (optimiza visitas, no follows) vs FB usa PAGE_LIKES (optimiza follows directo). Investigación growth tactics 2026 completada.
+  - **Hallazgo arquitectura IG:** OUTCOME_ENGAGEMENT no soporta VISIT_INSTAGRAM_PROFILE — verificado vía API. No hay objetivo Meta que optimice por IG follows. FB es canal principal de follows por diseño.
+  - **nosotros_FB_Cold reactivado:** CPF $104 (mejor histórico FB). fb_cold pasó de 1 a 2 ads inmediatamente.
+  - **Lookalike audience creada:** ENBA_LAL_1pct_FBLikers (ID 120239852278830139), 1% desde 947+ page likers FB. Sin usar aún — pendiente test.
+  - **4 ads nuevos creados y subidos:** 2 IG (static01 grupo río sol, static02 pareja sunset) + 2 FB (static01 grupo skyline nublado, static02 amigos vela bandera). Todos con logo oficial ENBA. Captions FB aprobados por Jose. Ad text IG nuevo.
+  - **Total ads activos: 10** (antes 5). FB: 4 ads en fb_cold. IG: 4 ads en ig_cold + 1 en ig_retarget. ENG: 1 ad.
+  - **Regla nueva:** no pausar ningún ad sin tener reemplazo activo.
+  - **sharp instalado** como dependencia (crop de imágenes).
+  - Seguidores cierre: FB 970, IG 78.
+  - **Pendiente próxima sesión:** Review V2 02/05 (72h data). Monitorear 4 ads nuevos (primeros datos 24-48h). REEL-01 (P1 del brief). Test LAL1. Tácticas complementarias (giveaway, reels orgánicos).
 - **30/04 sesión (día 12/27):** Fix workflow evaluación diaria + acciones Bruno + investigación perfil IG.
   - **Workflow n8n `1qRywsEWAl7VoO5o` corregido:** 3 nodos HTTP con IDs hardcodeados reemplazados por queries dinámicas a la cuenta. Code node adaptado. Burn rate ahora solo suma ad sets con ads activos (antes sumaba todos los ACTIVE incluyendo los sin ads). Webhook trigger agregado para ejecución manual: `POST https://espacionautico.app.n8n.cloud/webhook/eval-ads-manual`.
   - **Causa raíz:** AD_ENG_REEL_V2 aparecía como PAUSED en reportes porque su ID no estaba en la lista hardcodeada. Cualquier ad nuevo quedaba invisible. Fix definitivo — nunca más.

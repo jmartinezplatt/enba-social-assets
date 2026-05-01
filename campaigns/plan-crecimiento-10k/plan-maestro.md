@@ -2,7 +2,7 @@
 
 **Autor:** Manu (Coordinador de Produccion)
 **Fecha original:** 15 de abril de 2026
-**Ultima actualizacion:** 29 de abril de 2026
+**Ultima actualizacion:** 01 de mayo de 2026
 **Periodo:** 19 de abril - 16 de mayo de 2026 (27 dias, re-baselineado al primer gasto real)
 **Plan de pauta vigente:** `presupuesto-v4-reestructuracion.md` (fuente de verdad de pauta, reemplaza v3)
 **Fuentes:** diagnostico-inicial (Bruno), estrategia-instagram (Franco), estrategia-facebook (Franco), analisis-reels (Marina), review-estrategia-ig (Marina), meta-business-setup (Bruno), google-analytics-medicion (Bruno), kpis (Bruno), historico/presupuesto-v3-final (Bruno), reporte-semanal-template (Bruno), calendario-integrado.json
@@ -38,7 +38,7 @@
 
 **Distribucion de pauta:** ver `presupuesto-v4-reestructuracion.md` (fuente de verdad). Redistribucion: AWR 25% / ENG 45% / LEA 10% (diferido) / Reserva 20%.
 
-**Split plataformas (Bruno):** IG 75% / FB 25%. Revision dia 10 (28/04).
+**Split plataformas (Bruno):** IG 75% / FB 25%. Revision dia 10 (28/04). **Hallazgo dia 13:** FB es canal principal de follows (947 vs 67 IG). IG TRAFFIC no optimiza por follows — no hay objetivo Meta alternativo (verificado via API). Rebalanceo en curso: FB escalado a 4 ads, IG complementario.
 
 ---
 
