@@ -28,11 +28,11 @@ Los `SESSION-HANDOFF-*.md` sirven como contexto histórico, lecciones e incident
 
 ### Branch activo
 
-- `plan-crecimiento-10k`
+- `main`
 
 ### Estado general del frente
 
-- La fuente de verdad de pauta vigente es `presupuesto-v4-reestructuracion.md` + **`presupuesto-v4.1-estado-dia10.md`** (parche operativo al día 10 — leer junto con v4).
+- La fuente de verdad de pauta vigente es `presupuesto-v4-reestructuracion.md`.
 - La fuente de verdad operativa y de decisiones sigue siendo `plan-maestro.md`.
 - La fuente de verdad de infraestructura Meta Ads es `meta-ids.json`.
 - El contrato de producción de contenido sigue siendo:
@@ -146,7 +146,7 @@ Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier
 
 ## 5. Checklist de inicio de sesión
 
-1. Confirmar branch `plan-crecimiento-10k`.
+1. Confirmar branch `main`.
 2. Leer `CLAUDE.md` y `STATUS.md`.
 3. Identificar si la tarea es de:
    - contenido

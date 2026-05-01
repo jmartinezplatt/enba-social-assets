@@ -17,7 +17,7 @@ Repositorio de contenido social para Espacio Náutico Buenos Aires (ENBA). Conti
 - `campaigns/plan-crecimiento-10k/presupuesto-v4-reestructuracion.md` — plan de pauta vigente
 - `campaigns/plan-crecimiento-10k/meta-ids.json` — infraestructura Meta Ads
 
-**Frente TikTok:** rama separada `wip-tiktok-30d-pilot`. Integración futura a `main`.
+**Frente TikTok:** integrado a `main` (merge `wip-tiktok-30d-pilot` completado). Restricción de publicación activa arriba.
 
 Al arrancar sesión:
 1. Verificar branch actual y worktrees (`git branch --show-current` + `git worktree list`).
@@ -61,9 +61,9 @@ enba-redes/
 │   ├── render-enba-launch-campaign.mjs
 │   ├── render-enba-launch-carousel.mjs
 │   └── build-redes-launch-image-bank.mjs
-├── staging/                   # PNGs listos para publicar via Meta API
-├── published/                 # PNGs ya publicados
-└── manifests/                 # Manifests de publicación
+├── staging/                   # PNGs servidos por Cloudflare Pages — destino final post-publicación
+├── published/                 # (sin uso activo — el pipeline actual no mueve archivos aquí)
+└── manifests/                 # Manifests de publicación (registro estático, no actualizado por n8n)
 ```
 
 ---
