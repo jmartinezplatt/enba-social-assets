@@ -41,7 +41,15 @@ Los `SESSION-HANDOFF-*.md` sirven como contexto histórico, lecciones e incident
 
 ### Snapshot del repo al 01/05
 
-- `asset-bank/`: 1,233 JPGs curados
+- `asset-bank/`: 1,954 archivos (1,256 fotos + 698 videos). Conteo recursivo — incluye raíz + 7 subcarpetas:
+    - `raíz`: 161 fotos (sin subcarpeta)
+    - `grupos-experiencia/`: 296 fotos, 112 videos
+    - `veleros-broker/`: 389 fotos, 259 videos
+    - `travesias-navegacion/`: 238 fotos, 244 videos
+    - `buenos-aires-paisaje/`: 80 fotos, 34 videos
+    - `destinos/`: 49 fotos, 16 videos
+    - `servicios/`: 20 fotos, 29 videos
+    - `escuela-aprendizaje/`: 23 fotos, 4 videos
 - `staging/`: 32 archivos
 - `published/`: 1 archivo
 - `manifests/`: piezas programadas y publicadas del feed
