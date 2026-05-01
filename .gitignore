@@ -41,6 +41,9 @@ campaigns/reels/*/verify-frames/
 campaigns/reels/*/build-v3*.sh
 campaigns/reels/*/edit-reel.sh
 
+# Logs de debug API (temporales, regenerables)
+logs/
+
 # Thumbnails y contact sheets de clasificación (temporales)
 thumbs-preview/
 thumbs-videos/
