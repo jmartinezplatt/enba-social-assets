@@ -71,8 +71,9 @@ Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier
   - **Objetivo ajustado:** Jose redefinió de 10K a 6.500 seguidores.
   - **Investigación follow rate IG:** benchmark real para tráfico pagado frío a cuenta <100 seguidores es 3-8% (no 15-35%). ENBA en 2.9% — apenas debajo del piso realista. Causas: Meta optimiza visitas no follows, social proof negativo (77 seguidores), mismatch visual ad→grid. Análisis competitivo: @bairesnavega 106K (lifestyle > náutica, cara visible, voucher único).
   - **Cerrado en sesión 01/05:** perfil IG actualizado (bio reescrita, website ya configurado con /bio). captions.json de cuanto-sale y no-es-tour actualizados con post IDs reales (IG+FB). Pipeline CLAUDE.md corregido (staging/ es destino final, no published/).
-  - **Pendiente próxima sesión:** Publicar carrusel elegi-aventura (QA PASS). Monitorear AD_ENG_REEL_V2 (review 02/05 con 72h data).
-  - Seguidores cierre: FB 955, IG 77.
+  - **Cerrado en sesión 01/05 (cont.):** Carrusel elegi-aventura re-renderizado con fotos frescas (3 imágenes repetidas reemplazadas), publicado IG+FB. FB corregido de multi-image a imagen única (collage). Emojis agregados a captions. AD_ENG_REEL_V2 datos preliminares: CPV $0,85 estable, avg watch 9s, spend $4.618 en 2 días.
+  - **Pendiente próxima sesión:** AD_ENG_REEL_V2 review formal 02/05 con 72h data — decisión escalar/pausar.
+  - Seguidores cierre: FB 967, IG 77.
 - **29/04 sesión cont. (día 11/27):** Verificación API Meta — 3 pendientes inmediatos cerrados.
   - microreel_IG_Cold + microreel_IG_Retarget: confirmados ACTIVE con creative original (`977761008544793`). Incidente de restauración de anoche resuelto.
   - AD_ENG_REEL_V2 día 1: CPV $0.94 (vs $1.10 reel4h), CPE $0.92 (vs $1.09), retención 25% = 46% (vs 24%). Señales positivas pero prematuro — revisar 01/05 con >$2.500 de spend.
