@@ -11,9 +11,11 @@
 
 ## 1. Resumen ejecutivo
 
-**Objetivo declarado:** 10.000 seguidores en IG + FB en 27 dias.
+**Objetivo declarado original:** 10.000 seguidores en IG + FB en 27 dias.
 
-**Target realista:** 7.000-10.000 seguidores (Bruno, presupuesto-v4 post-reestructuracion, probabilidad 40-55%). Piso minimo: 5.900 pagados + 2.500 organicos.
+**Objetivo ajustado (dia 12, Jose):** 6.500 seguidores.
+
+**Target realista (dia 13, Bruno):** 3.500-4.500 seguidores. Techo con $241K restantes y 15 dias. Ver `presupuesto-v4-reestructuracion.md` seccion 9 para detalle.
 
 **Presupuesto pauta:** ARS 500.000 neto para Meta Ads. Debito real en tarjeta ~ARS 700.000 (impuestos argentinos ~40%). Tarjeta Mastercard ····8307, limite confirmado. **500K es solo pauta, produccion es gasto aparte (confirmado 19/04).**
 
@@ -38,7 +40,7 @@
 
 **Distribucion de pauta:** ver `presupuesto-v4-reestructuracion.md` (fuente de verdad). Redistribucion: AWR 25% / ENG 45% / LEA 10% (diferido) / Reserva 20%.
 
-**Split plataformas (Bruno):** IG 75% / FB 25%. Revision dia 10 (28/04). **Hallazgo dia 13:** FB es canal principal de follows (947 vs 67 IG). IG TRAFFIC no optimiza por follows — no hay objetivo Meta alternativo (verificado via API). Rebalanceo en curso: FB escalado a 4 ads, IG complementario.
+**Split plataformas:** FB es canal principal de follows (dia 13). IG complementario. Split original 75/25 IG/FB revertido por datos — ver presupuesto-v4 seccion 3.
 
 ---
 
@@ -136,7 +138,9 @@ Como Coordinador de Produccion, estas son las inconsistencias que encontre entre
 
 **Bruno:** 75/25
 
-**Resolucion adoptada:** **Adopto el 75/25 de Bruno** con revision a los 10 dias. Si CPS en FB es significativamente menor que en IG, se reasigna hasta 35% a FB.
+**Resolucion original:** Adopto el 75/25 de Bruno con revision a los 10 dias.
+
+**ACTUALIZADO dia 13:** Split 75/25 REVERTIDO por los datos. FB trajo 947 follows (CPF $110) vs IG 67 follows (CPF implicito $926). FB es canal principal de follows porque PAGE_LIKES alinea el objetivo Meta con el resultado. IG no tiene objetivo que optimice por follows (verificado via API). Ver `presupuesto-v4-reestructuracion.md` seccion 3.
 
 ### Gap 1: Carruseles no estan en staging
 
@@ -684,10 +688,10 @@ Estos son los momentos donde hay que tomar una decision fuera del plan normal.
 
 | Dimension | Valor |
 |-----------|-------|
-| Split IG / FB | 75% / 25% (ARS 359.562 / ARS 119.854). Revision dia 10 (29/04). |
-| Por objetivo | Awareness 25% ($119K) / Engagement 45% ($215K) / Leads 10% ($47K) / Reserva 20% ($95K) |
-| Semana 1-4 | $55K / $130K / $165K / $129K (post-reestructuración v4) |
-| CPS target | < ARS 45 promedio (calibrado v3) |
+| Split IG / FB | **Revertido dia 13.** FB canal principal de follows. Ver presupuesto-v4 seccion 3. |
+| Por objetivo | Follow FB $2,500/dia + Follow IG $6,500/dia + ENG $4,000/dia = $13,000/dia efectivo |
+| Gastado / Restante | $258,271 / $241,729 (dia 13). 18 dias de presupuesto al ritmo actual. |
+| CPS real dia 13 | FB $110 blended, IG $926 implicito (follow rate 2.7%) |
 | Umbral de corte | CPS > $100 o ER < 1% o CTR < 0.4% (despues de 72h) |
 | Umbral de escalado | CPS < $30 + ER > 3% → +25% cada 48h |
 | Fatigue | Frecuencia > 3.5 → apagar |
