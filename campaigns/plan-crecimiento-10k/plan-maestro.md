@@ -17,12 +17,12 @@
 
 **Presupuesto pauta:** ARS 500.000 neto para Meta Ads. Debito real en tarjeta ~ARS 700.000 (impuestos argentinos ~40%). Tarjeta Mastercard ····8307, limite confirmado. **500K es solo pauta, produccion es gasto aparte (confirmado 19/04).**
 
-**Contenido disponible (actualizado 19/04):**
-- 30 piezas estaticas: en staging, publicacion diaria via n8n. Pieces 01-05 ya publicadas.
-- 3 carruseles organicos: slides renderizados, captions aprobados, QA PASS. Script `publish-carousel.mjs` listo.
+**Contenido disponible (actualizado 01/05):**
+- 30 piezas estaticas: en staging, publicacion diaria via n8n (pieces 01-16 publicadas al 30/04).
+- 3 carruseles organicos: los 3 publicados IG+FB. cuanto-sale (19/04), no-es-tour (25/04), elegi-aventura (01/05 — re-renderizado con fotos frescas). FB se publica como imagen unica (collage o hero slide), NO como carrusel.
 - Reel "4 horas en el rio": editado, publicado IG+FB 17/04, corriendo como ad de engagement.
 - Reel "primera vez": v8 final, publicado IG+FB 21/04. IG reel ID 18061312631443687 (instagram.com/reel/DXYeFzUDE6f/), FB video ID 4467029896876277. Musica "Let Good Times Roll", logo oficial, QA PASS Nico, captions Sole.
-- 65 assets curados en asset-bank.
+- 1233 assets curados en asset-bank.
 - Cortes de pauta reel 4h: 30s y 15s listos.
 
 **Infraestructura (actualizado 19/04):**
@@ -61,7 +61,7 @@ Todas las decisiones originales fueron resueltas. Pendientes nuevos al final.
 | # | Decision | Estado | Respuesta |
 |---|----------|--------|-----------|
 | 8 | Que creative para C3 Corporativo (lead gen)? | **RESUELTO 19/04** | Lead form v2 (944664581514608) + creative con grupo-cockpit-cielo-azul-4x5.jpg + copy Sole. Campana C_LEA + ad set C3 + ad ACTIVE. |
-| 9 | Cuando publicar carruseles organicos? | **RESUELTO 19/04** | cuanto-sale publicado IG (carrusel) + FB (slide-04 imagen unica) 19/04. no-es-tour publicado IG (`18317065594280248`) + FB (`1064806400040502_122110365644620656`) 24/04. elegi-aventura 03/05. FB no soporta carruseles organicos: se publica slide hero como imagen unica (decision Marina). |
+| 9 | Cuando publicar carruseles organicos? | **RESUELTO 01/05** | Los 3 publicados: cuanto-sale 19/04, no-es-tour 25/04, elegi-aventura 01/05 (re-renderizado con fotos frescas). FB como imagen unica (collage o hero slide). Regla: usar `publish-carousel.mjs --ig-only` + `publish-fb-single.mjs` por separado. |
 | 10 | Acceso a Google Photos | **RESUELTO 19/04** | Album descargado, material incorporado a asset-bank. |
 | 11 | Ad sets B1 y C1 sin gasto | **RESUELTO 20/04** | Ambos gastando tras fix onboarding. B1: $1.998 spend, 8.860 reach. C1: $399 spend, 1.960 reach. Delivery normal. |
 
