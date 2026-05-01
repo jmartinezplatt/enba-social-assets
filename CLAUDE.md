@@ -51,16 +51,18 @@ enba-redes/
 │   │   ├── brand/                  # SVGs de lockup
 │   │   ├── output/                 # 30 PNGs renderizados
 │   │   └── preview.html
-│   └── carruseles-organicos/       # Carruseles standalone
-│       ├── carrusel-no-es-tour/
-│       ├── carrusel-cuanto-sale/
-│       ├── carrusel-elegi-aventura/
-│       └── preview-carruseles.html
+│   ├── carruseles-organicos/       # Carruseles standalone
+│   │   ├── carrusel-no-es-tour/
+│   │   ├── carrusel-cuanto-sale/
+│   │   ├── carrusel-elegi-aventura/
+│   │   └── preview-carruseles.html
+│   └── plan-crecimiento-10k/      # Frente 10K seguidores
+│       ├── briefs/                 # Briefs de producción Team 4 → Team 3
+│       ├── reels/                  # Reels producidos para ads
+│       ├── darkpost-render/        # Imágenes renderizadas/croppeadas para ads
+│       └── *.md / *.json           # Docs normativos (STATUS, plan-maestro, presupuesto, meta-ids)
 ├── asset-bank/                # JPGs curados y procesados (no crudos)
-├── scripts/                   # Renderers Playwright
-│   ├── render-enba-launch-campaign.mjs
-│   ├── render-enba-launch-carousel.mjs
-│   └── build-redes-launch-image-bank.mjs
+├── scripts/                   # Renderers, publishers, uploads y utilidades. Ver scripts/README.md para inventario completo.
 ├── staging/                   # PNGs servidos por Cloudflare Pages — destino final post-publicación
 ├── published/                 # (sin uso activo — el pipeline actual no mueve archivos aquí)
 └── manifests/                 # Manifests de publicación (registro estático, no actualizado por n8n)
@@ -153,7 +155,7 @@ BRIEF (Team 4) → PRODUCCIÓN (Team 3) → QA (Nico) → REVISIÓN SENIOR (Team
 ```
 
 1. **BRIEF:** Team 4 define estrategia, concepto y dirección creativa
-2. **PRODUCCIÓN:** Dani renderiza PNGs, Sole escribe captions IG + FB
+2. **PRODUCCIÓN:** Dani produce visuales (renders Playwright, crops JPG del asset-bank, composición con logo), Sole escribe captions IG + FB
 3. **QA:** Nico valida con checklist completo
 4. **REVISIÓN SENIOR:** Team 4 aprueba, ajusta o pide rewrite
 5. **STAGING:** PNGs copiados a `staging/YYYY/MM/<piece-id>/`, captions grabados en `captions.json`
@@ -212,7 +214,7 @@ Recibe brief de Team 4 y ejecuta de punta a punta hasta publicación. No arranca
 **Entrega de Team 3 → Team 4:** piezas completas (PNG + captions IG + captions FB) listas para revisión senior.
 
 **Reglas de Capa 2:**
-- Paridad IG/FB obligatoria — toda pieza tiene caption para ambos canales
+- Paridad IG/FB obligatoria para posts orgánicos — toda pieza orgánica tiene caption para ambos canales. Para ads pagados, cada canal tiene su propio creative y la paridad no aplica.
 - Sole y Nico aplican vocabulario prohibido siempre
 - Nico no aprueba sin checklist completo
 - Cada agente es owner de su entregable — si hay que corregir, se devuelve al owner, no se corrige en su lugar
@@ -224,7 +226,7 @@ Recibe brief de Team 4 y ejecuta de punta a punta hasta publicación. No arranca
 - [ ] Sin vocabulario prohibido
 - [ ] Sin precios exactos
 - [ ] Sin "Puerto Madero" ni "Puerto Norte"
-- [ ] PNG renderizado = asset + template del JSON
+- [ ] Visual = spec del brief (render PNG, crop JPG con logo, o formato indicado)
 - [ ] Hashtags dentro de rango (IG 8-15, FB 3-5)
 - [ ] CTA claro y coherente con el objetivo de la pieza
 
@@ -283,6 +285,8 @@ Siempre usar el slash command correspondiente (`/bruno`, `/marina`, `/franco`, `
 10. No renderizar stories/imágenes para Meta API como PNG — Meta rechaza screenshots PNG de Playwright con error 36001/2207083. Siempre usar `type: 'jpeg', quality: 92`. (Incidente 23/04/2026)
 11. Cloudflare Pages deploya desde `main`, no desde ramas feature. Antes de usar una URL en Meta API: (1) mergear a main, (2) esperar que Cloudflare termine el deploy, (3) verificar `Content-Type: image/jpeg` con HEAD request — el SPA fallback devuelve HTML con HTTP 200 para rutas inexistentes, HTTP 200 solo no alcanza. (Incidente 23/04/2026)
 12. Nunca implementar procesos de publicación con intervalos como scripts locales con `setTimeout`. `setTimeout` sobrevive `kill` en Windows/Git Bash — causa procesos zombie y publicaciones duplicadas. Usar n8n para cualquier burst o publicación periódica. (Incidente 23/04/2026: stories #2 y #3 publicadas × 3 frente a seguidores reales)
+13. No pausar ningún ad activo sin tener el reemplazo subido y corriendo. El pipeline de creativos tiene que estar siempre lleno. (Regla establecida 01/05/2026)
+14. Siempre generar preview HTML con rutas absolutas para revisión visual antes de aprobación. No mostrar imágenes inline en terminal ni pedir aprobación sin preview visible en browser. (Regla establecida 01/05/2026)
 
 ---
 

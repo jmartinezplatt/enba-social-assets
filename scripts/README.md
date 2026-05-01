@@ -9,6 +9,7 @@
 | Script | Tipo | Para que sirve | Cuando usarla |
 |---|---|---|---|
 | `build-reel-v8.sh` | bash + ffmpeg | Reel hardcodeado. Battle-tested. Usada para reel4horas_ENG. v8 reemplaza v7 (obsoleto). | Primer opcion para reels nuevos. |
+| `build-reel-eng-v2.mjs` | Node + Playwright | Reel engagement v2 (reemplazo de reel4horas). | Reel ENG con estructura especifica. |
 | `render-reel.py` | Python + moviepy | Reel desde `edit-sheet.json`. Crop auto, slow-mo, texto, logo. La mas flexible. | Cuando el reel tiene estructura variable o muchos clips. |
 | `render-micro-reel.mjs` | Node + ffmpeg | Micro-reel ~15s. Clips en array, 30fps/1080x1920, logo fade-in, musica fade-out. | Reels cortos de 10-20s. |
 | `render-darkpost.mjs` | Playwright | Feed 10K (1080x1350). Lee `campaign.system.json` + `campaign.pieces.json`. 3 templates: manifesto, photo-hero, proof-utility. | Piezas de feed del frente 10K. |
@@ -17,6 +18,8 @@
 | `render-fase2-stories.mjs` | Playwright/Node | Stories fase 2. | Stories con plantilla fase 2. |
 | `render-highlight-covers.mjs` | Playwright | Highlight covers de IG. | Renovar highlights de perfil IG. |
 | `render-highlight-stories.mjs` | Playwright | Stories de highlights IG. | Stories para agregar a highlights. |
+| `render-endcard-compare.mjs` | Playwright | Genera dos versiones de end card para comparacion visual. | Comparar opciones de endcard para reels. |
+| `render-endcards-temp.mjs` | Node | Genera endcards con logo oficial sobre fondo navy. | Endcards para TikTok/Reels. |
 | `build-photo-preview.py` | Python | Previews de fotos para QA. | Revision de lotes de fotos. |
 | `build-preview-qa-05-30.py` | Python | Preview QA especifico 05-30. | QA de lote especifico. |
 | `build-video-contact-sheets.py` | Python | Contact sheets de video para revision. | Revisar clips crudos antes de editar. |
@@ -48,10 +51,14 @@
 | `publish-carousel.mjs` | Publica carrusel en IG y/o FB |
 | `publish-fb-single.mjs` | Publica imagen unica en Facebook |
 | `upload-video-to-ads.mjs` | Sube video a Meta Ads (para usar como creativo en ads) |
+| `publish-piece05-ig.mjs` | Publica piece-05 en IG manualmente (workaround Cloudflare/crawler) |
+| `publish-teaser.mjs` | DEPRECATED — usa endpoint FB viejo. No correr sin actualizar a patron 2 pasos. |
 | `publish-stories-burst.mjs` | Burst de stories (usar con cuidado — ver CLAUDE.md sobre setTimeout) |
 | `publish-scheduled.mjs` | Publicacion programada |
+| `publish-blog-recovery.mjs` | Recuperacion incidente Gmail 25/04 — publica blog via GitHub API |
 | `auto-publish-from-sitemap.mjs` | Publicacion automatica desde sitemap |
 | `stage-campaign.mjs` | Mueve piezas aprobadas a staging/ |
+| `upload-ads-01may.mjs` | Sube 4 ads (2 IG + 2 FB) con creatives y captions via Node fetch (UTF-8 safe) |
 
 ---
 
@@ -64,9 +71,13 @@
 | `create-follow-ads.mjs` | Crea ads de follow (campanas de seguidores) |
 | `update-targeting-p2p3p4.mjs` | Actualiza targeting de publicos P2, P3, P4 |
 | `create-custom-conversions.mjs` / `create-missing-conversions.mjs` | Crea conversiones personalizadas en Meta |
+| `create-meta-page-token-credential.mjs` | Crea credencial de Page Token en n8n desde Windows User scope |
 | `get-fresh-adsets.mjs` | Fetch fresco del estado de ad sets desde Meta API |
 | `gate1-fetch.mjs` | Fetch de metricas para evaluacion de Gate 1 |
 | `migrate-follow-campaigns.mjs` | Migra campanas follow a nueva estructura |
+| `simulate-ads-report.mjs` | Simulacro del reporte diario de ads — disparo unico via webhook temporario |
+| `verify-all-gaps.mjs` | Verificacion end-to-end de todos los gaps resueltos post-auditoria |
+| `verify-pixel-g8.mjs` | Verifica que pixel usa D1 WebVisitors |
 
 ---
 
@@ -82,7 +93,14 @@
 | `patch-ads-evaluation-v2.mjs` | Parchea workflow de evaluacion de ads a v2 |
 | `patch-burst-v2.mjs` | Parchea workflow burst a v2 |
 | `patch-stories-add-sheets-log.mjs` | Agrega log a Google Sheets en workflow de stories |
+| `patch-n8n-workflow-v6-two-step-fb.mjs` | Patch v6: FB publish en 2 pasos (photos published=false + feed attached_media) |
+| `patch-utms-g5.mjs` | Agrega UTMs a todos los ads activos |
+| `patch-ads-evaluation-v2.mjs` | Parchea workflow de evaluacion de ads a v2 |
+| `patch-burst-v2.mjs` | Parchea workflow burst a v2 |
 | `check-executions.mjs` | Verifica ejecuciones recientes de n8n |
+| `n8n-prep-test-piece01.mjs` | Preparacion de test real con piece-01 (override Find Today Piece) |
+| `n8n-prep-test-piece02.mjs` | Preparacion de test real con piece-02 |
+| `n8n-restore-post-test-piece01.mjs` | Restauracion post-test piece-01 (restaura jsCode original) |
 
 ---
 
@@ -93,6 +111,22 @@
 | `generate-voiceover.py` | Genera voiceover via API (base) |
 | `generate-voiceover-eleven.py` | Genera voiceover via ElevenLabs |
 | `generate-voiceover-eleven2.py` | Version 2 del generador ElevenLabs |
+
+---
+
+## One-offs y fixes historicos
+
+Scripts que resolvieron problemas puntuales. No reutilizables pero documentan incidentes.
+
+| Script | Para que sirvio |
+|---|---|
+| `execute-plan-23apr.mjs` | Plan reconciliado Bruno/Experto 23/04 — pausas y escalados via API |
+| `fix-c3-creative-encoding.mjs` | Fix encoding roto en creative C3 Corporativo (curl bash perdio tildes) |
+| `fix-g4-g6.mjs` | Completar gaps G-4 y G-6 de auditoria |
+| `fix-gaps-p0.mjs` | Resolver gaps P0 de auditoria (video ads en AWR) |
+| `investigate-g4.mjs` | Investigacion de como crear creative para reel primera vez |
+| `migrate-env-to-windows.mjs` | Migra tokens de .env a Windows User scope |
+| `delete-server.mjs` | Mini server para manejar borrado de archivos desde preview HTML |
 
 ---
 
