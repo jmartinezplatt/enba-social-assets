@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preview — Elegí tu aventura en el río</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0a; color: #e8edf2; font-family: -apple-system, 'Segoe UI', system-ui, sans-serif; padding: 40px 20px; }
+  h1 { text-align: center; font-size: 24px; margin-bottom: 6px; color: #4DB8A0; }
+  .subtitle { text-align: center; font-size: 13px; color: #666; margin-bottom: 48px; }
+  .platforms { display: flex; gap: 48px; justify-content: center; flex-wrap: wrap; align-items: flex-start; }
+  .platform-label { text-align: center; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+  .platform-label.ig { color: #E1306C; }
+  .platform-label.fb { color: #1877F2; }
+
+  /* IG Mockup */
+  .ig-phone { background: #000; border-radius: 20px; width: 375px; overflow: hidden; border: 2px solid #333; }
+  .ig-header { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: #000; border-bottom: 1px solid #222; }
+  .ig-avatar { width: 32px; height: 32px; border-radius: 50%; background: #4DB8A0; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #0A1520; flex-shrink: 0; }
+  .ig-username { font-size: 13px; font-weight: 600; }
+  .ig-carousel-container { position: relative; width: 375px; height: 469px; overflow: hidden; }
+  .ig-carousel-track { display: flex; transition: transform 0.3s ease; height: 100%; }
+  .ig-carousel-track img { width: 375px; height: 469px; object-fit: cover; flex-shrink: 0; }
+  .ig-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.85); border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-size: 16px; font-weight: 700; color: #333; display: flex; align-items: center; justify-content: center; z-index: 2; }
+  .ig-nav.prev { left: 8px; }
+  .ig-nav.next { right: 8px; }
+  .ig-nav:hover { background: #fff; }
+  .ig-counter { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.7); color: #fff; font-size: 12px; padding: 4px 10px; border-radius: 12px; z-index: 2; }
+  .ig-dots { display: flex; justify-content: center; gap: 4px; padding: 10px 0; }
+  .ig-dot { width: 6px; height: 6px; border-radius: 50%; background: #444; transition: background 0.2s; }
+  .ig-dot.active { background: #0095F6; }
+  .ig-actions { padding: 10px 14px; display: flex; gap: 16px; font-size: 22px; }
+  .ig-actions span { cursor: pointer; }
+  .ig-likes { padding: 2px 14px; font-size: 13px; font-weight: 600; }
+  .ig-caption-box { padding: 4px 14px 14px; font-size: 13px; color: #ccc; line-height: 1.5; max-height: 200px; overflow-y: auto; }
+  .ig-caption-box strong { color: #e8edf2; }
+  .ig-caption-box .hashtags { color: #6A8DAD; }
+
+  /* FB Mockup */
+  .fb-post { background: #242526; border-radius: 12px; width: 500px; overflow: hidden; border: 1px solid #3a3b3c; }
+  .fb-header { display: flex; align-items: center; gap: 10px; padding: 14px 16px; }
+  .fb-avatar { width: 40px; height: 40px; border-radius: 50%; background: #4DB8A0; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; color: #0A1520; flex-shrink: 0; }
+  .fb-name { font-size: 14px; font-weight: 600; }
+  .fb-time { font-size: 12px; color: #888; }
+  .fb-text { padding: 0 16px 14px; font-size: 14px; color: #e4e6eb; line-height: 1.55; white-space: pre-line; }
+  .fb-text .hashtags { color: #6A8DAD; }
+  .fb-image { width: 100%; }
+  .fb-image img { width: 100%; display: block; }
+  .fb-reactions { display: flex; justify-content: space-between; padding: 10px 16px; font-size: 13px; color: #888; border-bottom: 1px solid #3a3b3c; }
+  .fb-buttons { display: flex; justify-content: space-around; padding: 6px 16px 10px; }
+  .fb-btn { font-size: 14px; color: #b0b3b8; font-weight: 600; padding: 8px 0; cursor: pointer; }
+
+  .section-divider { border: none; border-top: 1px solid #333; margin: 48px auto; max-width: 600px; }
+  .footer { text-align: center; font-size: 11px; color: #444; margin-top: 40px; }
+</style>
+</head>
+<body>
+
+<h1>Preview — Elegi tu aventura en el rio</h1>
+<p class="subtitle">Carrusel IG (7 slides) + Post FB (collage) — Preview interno</p>
+
+<div class="platforms">
+
+  <!-- IG MOCKUP -->
+  <div>
+    <div class="platform-label ig">Instagram — Carrusel</div>
+    <div class="ig-phone">
+      <div class="ig-header">
+        <div class="ig-avatar">EN</div>
+        <div>
+          <div class="ig-username">espacionauticobsas</div>
+        </div>
+      </div>
+      <div class="ig-carousel-container" id="igCarousel">
+        <div class="ig-carousel-track" id="igTrack">
+          <img src="slide-01.png" alt="Slide 1">
+          <img src="slide-02.png" alt="Slide 2">
+          <img src="slide-03.png" alt="Slide 3">
+          <img src="slide-04.png" alt="Slide 4">
+          <img src="slide-05.png" alt="Slide 5">
+          <img src="slide-06.png" alt="Slide 6">
+          <img src="slide-07.png" alt="Slide 7">
+        </div>
+        <button class="ig-nav prev" onclick="igNav(-1)">&lsaquo;</button>
+        <button class="ig-nav next" onclick="igNav(1)">&rsaquo;</button>
+        <div class="ig-counter" id="igCounter">1/7</div>
+      </div>
+      <div class="ig-dots" id="igDots">
+        <div class="ig-dot active"></div>
+        <div class="ig-dot"></div>
+        <div class="ig-dot"></div>
+        <div class="ig-dot"></div>
+        <div class="ig-dot"></div>
+        <div class="ig-dot"></div>
+        <div class="ig-dot"></div>
+      </div>
+      <div class="ig-actions">
+        <span>&#9825;</span>
+        <span>&#128172;</span>
+        <span>&#9993;</span>
+      </div>
+      <div class="ig-caption-box">
+        <strong>espacionauticobsas</strong> Si no sabes por donde empezar con el rio, este carrusel te lo resuelve en 30 segundos.<br><br>Desde una salida corta para probar hasta cruzar a Colonia en velero — todo sale del mismo lugar: Costanera Norte, frente al Aeroparque.<br><br>La mayoria arranca con un paseo de medio dia. Despues repiten con travesia.<br><br>Decinos que te interesa por DM y te orientamos. Sin compromiso.<br><br><span class="hashtags">#EspacioNautico #ENBA #VelerosBuenosAires #RioDeLaPlata #EscuelaNautica #PlanesBuenosAires #QueHacerEnBuenosAires #SalidaDistinta</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FB MOCKUP -->
+  <div>
+    <div class="platform-label fb">Facebook — Post con imagen</div>
+    <div class="fb-post">
+      <div class="fb-header">
+        <div class="fb-avatar">EN</div>
+        <div>
+          <div class="fb-name">Espacio Nautico Buenos Aires</div>
+          <div class="fb-time">Ahora mismo · &#127758;</div>
+        </div>
+      </div>
+      <div class="fb-text">No todo el mundo llega al rio por el mismo camino. Algunos quieren una salida corta para probar. Otros quieren cruzar a Colonia. Otros aprender a navegar. Otros buscar un velero propio.
+
+Sea cual sea tu punto de entrada, todas las opciones salen desde Costanera Norte, frente al Aeroparque, con acompanamiento real y experiencia en el agua.
+
+Elegi la que mas te cope y escribinos. Te orientamos sin compromiso.
+
+<span class="hashtags">#EspacioNautico #ENBA #NavegaElRioDeLaPlata #VelerosBuenosAires #EscuelaNautica</span></div>
+      <div class="fb-image">
+        <img src="fb-collage.jpg" alt="Collage ENBA">
+      </div>
+      <div class="fb-reactions">
+        <span>&#128077; &#10084;&#65039; 3</span>
+        <span>0 comentarios</span>
+      </div>
+      <div class="fb-buttons">
+        <div class="fb-btn">Me gusta</div>
+        <div class="fb-btn">Comentar</div>
+        <div class="fb-btn">Compartir</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<hr class="section-divider">
+<p class="footer">ENBA · Preview interno · No publicar este archivo</p>
+
+<script>
+let igIdx = 0;
+const igTotal = 7;
+function igNav(dir) {
+  igIdx = Math.max(0, Math.min(igTotal - 1, igIdx + dir));
+  document.getElementById('igTrack').style.transform = `translateX(-${igIdx * 375}px)`;
+  document.getElementById('igCounter').textContent = `${igIdx + 1}/${igTotal}`;
+  document.querySelectorAll('#igDots .ig-dot').forEach((d, i) => d.classList.toggle('active', i === igIdx));
+}
+</script>
+
+</body>
+</html>
