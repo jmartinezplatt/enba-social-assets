@@ -157,7 +157,7 @@ BRIEF (Team 4) → PRODUCCIÓN (Team 3) → QA (Nico) → REVISIÓN SENIOR (Team
 3. **QA:** Nico valida con checklist completo
 4. **REVISIÓN SENIOR:** Team 4 aprueba, ajusta o pide rewrite
 5. **STAGING:** PNGs copiados a `staging/YYYY/MM/<piece-id>/`, captions grabados en `captions.json`
-6. **PUBLICADO:** subido via Meta Graph API, movido a `published/`
+6. **PUBLICADO:** subido via Meta Graph API. Los archivos se quedan en `staging/` (Cloudflare Pages los sirve desde ahí). Post IDs se registran en `captions.json` (`igPostId`, `fbPostId`, permalinks y timestamps).
 7. **MEDICIÓN:** Bruno lee métricas, Bruno + Marina + Franco producen aprendizajes
 
 ---

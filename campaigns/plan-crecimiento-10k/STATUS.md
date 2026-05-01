@@ -70,7 +70,8 @@ Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier
   - **Acciones Bruno ejecutadas vía API:** (1) destinos_IG_Cold PAUSED (ER 1.9%, delivery muerto), (2) fb_cold reducido $5.000→$2.500/día (CPS $110 pero único ad FB), (3) ig_cold escalado $4.000→$5.000/día (WINNER CPV $25). Burn rate post-acciones: $11.875/día.
   - **Objetivo ajustado:** Jose redefinió de 10K a 6.500 seguidores.
   - **Investigación follow rate IG:** benchmark real para tráfico pagado frío a cuenta <100 seguidores es 3-8% (no 15-35%). ENBA en 2.9% — apenas debajo del piso realista. Causas: Meta optimiza visitas no follows, social proof negativo (77 seguidores), mismatch visual ad→grid. Análisis competitivo: @bairesnavega 106K (lifestyle > náutica, cara visible, voucher único).
-  - **Pendiente próxima sesión:** fixes rápidos perfil IG (link en bio → espacionautico.com.ar, categoría → actividades de ocio, bio simplificada). Publicar 3 carruseles con QA PASS. Monitorear AD_ENG_REEL_V2 (review 02/05 con 72h data).
+  - **Cerrado en sesión 01/05:** perfil IG actualizado (bio reescrita, website ya configurado con /bio). captions.json de cuanto-sale y no-es-tour actualizados con post IDs reales (IG+FB). Pipeline CLAUDE.md corregido (staging/ es destino final, no published/).
+  - **Pendiente próxima sesión:** Publicar carrusel elegi-aventura (QA PASS). Monitorear AD_ENG_REEL_V2 (review 02/05 con 72h data).
   - Seguidores cierre: FB 955, IG 77.
 - **29/04 sesión cont. (día 11/27):** Verificación API Meta — 3 pendientes inmediatos cerrados.
   - microreel_IG_Cold + microreel_IG_Retarget: confirmados ACTIVE con creative original (`977761008544793`). Incidente de restauración de anoche resuelto.
