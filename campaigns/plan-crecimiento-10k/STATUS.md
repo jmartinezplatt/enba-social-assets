@@ -1,6 +1,6 @@
 # STATUS — Frente REDES
 
-**Última actualización:** 01 de mayo de 2026 (sesión día 13/27)
+**Última actualización:** 02 de mayo de 2026 (sesión día 14/27)
 **Owner de mantenimiento:** quien cierre la sesión del frente redes
 **Uso:** punto de entrada corto para inicio de sesión. Si este archivo contradice un handoff viejo, manda este archivo.
 
@@ -72,6 +72,16 @@ Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier
 
 ### Últimos hitos relevantes
 
+- **02/05 sesión (día 14/27):** Auditoría completa targeting + ad set test creado.
+  - **Gate 3: VERDE.** 1,044 follows acumulados (966 FB + 78 IG) vs target 800. CPS blended $256 (inflado por gasto desperdiado días 1-2).
+  - **Review Bruno día 14:** reel-eng-v2 WINNER ENG (CPV $0.87 vs reel4horas $1.10). corporativo_IG_Cold sigue WINNER IG (CPV $25, freq 1.68). FB_static01 prometedor (CPF ~$62).
+  - **Ad set ENBA_Follow_IG_Test_NAU creado:** 4 intereses náuticos puros (Vendée Globe, Boat show, Yachting magazine, American Sailing Association) + LAL1 + advantage_audience ON + D6 exclusion. Budget $1,500/día. 2 ads (static01+static02 mismos creativos). Propuesta original 7 intereses, 3 deprecados por Meta.
+  - **ig_cold reducido $5K→$3.5K** — gasto total IG neutro $6.500/día.
+  - **Auditoría targeting ejecutada:** Montevideo removido de intereses (irrelevante). D2 (IG Engagers 90d) agregada a ig_retarget y fb_retarget (faltaba). targeting_relaxation OFF en retargets (diluía audiencia warm). FB Stories excluido de fb_cold (CPF $408). AS_ENG_REEL intereses ampliados 4→23. 23 intereses validados via API (0 deprecados).
+  - **Meta Verified Business Plus evaluado:** sin impacto en ads/delivery. Beneficios orgánicos: badge, perfil destacado, 2 links en reels orgánicos/mes.
+  - **Aplicación automática Meta (Advantage+ automations) rechazada:** puede revertir limpieza de intereses, modificar creativos, expandir placements — contrario a la gestión manual que da mejores resultados.
+  - Seguidores cierre: FB 989, IG ~78. Spend total: $267,372. Restante: $232,628.
+  - **Pendiente próxima sesión:** Review ig_test_NAU 04/05 (48-72h). Evaluar microreel_IG_Cold (pausar si CPV>$40). Evaluar FB_static02 (pausar si CPF>$150). Escalar reel-eng-v2 si CPV<$1 (05/05). REEL-01 producción. Actualizar presupuesto-v4.
 - **01/05 sesión (día 13/27):** Pivot growth strategy — de poda a producción.
   - **Diagnóstico Bruno:** análisis sesgado a cortar sin reemplazar. Pipeline de creativos vacío. IG usa TRAFFIC (optimiza visitas, no follows) vs FB usa PAGE_LIKES (optimiza follows directo). Investigación growth tactics 2026 completada.
   - **Hallazgo arquitectura IG:** OUTCOME_ENGAGEMENT no soporta VISIT_INSTAGRAM_PROFILE — verificado vía API. No hay objetivo Meta que optimice por IG follows. FB es canal principal de follows por diseño.

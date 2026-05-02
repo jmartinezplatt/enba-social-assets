@@ -1,7 +1,8 @@
 {
-  "last_verified": "2026-05-01T15:00:00-03:00",
-  "last_api_verified": "2026-05-01T15:00:00-03:00",
-  "api_verified_note": "Sesion dia 13/27. nosotros_FB_Cold reactivado. LAL1 creada. 4 ads nuevos subidos (2 IG + 2 FB con logo oficial). Test OUTCOME_ENGAGEMENT descartado (API no soporta VISIT_INSTAGRAM_PROFILE bajo ENG). 10 ads activos. Burn rate: $13,000/dia.",
+  "last_verified": "2026-05-02T18:00:00-03:00",
+  "last_api_verified": "2026-05-02T18:00:00-03:00",
+  "api_verified_note": "Sesion dia 14/27. Gate 3 VERDE (1,044 follows vs 800 target). Ad set ENBA_Follow_IG_Test_NAU creado (4 intereses nauticos + LAL1 + advantage_audience ON). static01+static02 movidos de ig_cold a ig_test. ig_cold reducido $5K->$3.5K. Montevideo removido de intereses. D2 agregada a retargets. targeting_relaxation OFF en retargets. FB Stories excluido de fb_cold. AS_ENG_REEL intereses 4->23. 23 intereses validados (0 deprecados). 11 ads activos. Burn rate: $13,000/dia.",
+  "session_02may": "Sesion dia 14/27. Review completo Bruno: reel-eng-v2 WINNER ENG (CPV $0.87), corporativo WINNER IG (CPV $25), FB_static01 prometedor (CPF ~$62). Auditoría targeting: Montevideo removido, D2 faltante en retargets corregido, targeting_relaxation OFF en retargets, FB Stories excluido de fb_cold (CPF $408), AS_ENG_REEL intereses ampliados 4->23. Meta Verified Business Plus evaluado (sin impacto en ads, beneficios organicos). Investigacion intereses Bruno: 3 de 7 deprecados por Meta. Ad set test creado con 4 validos + LAL1. FB fans: 989, IG: ~78.",
   "session_28apr": "Sesión día 9/27. Análisis performance completo via API. Exclusiones corregidas: fb_retarget → D5 agregada; ig_cold → D5 (irrelevante) reemplazada por D6; ig_retarget → D6 agregada. D6 (IGFollowers_exclusion) creada por Jose desde UI (ID: 120239621840990139). Hallazgo: ig_cold tenía D5 FBPageLikers como exclusión — completamente irrelevante para campaña IG. Audiencia D4 VideoViewers ~2.400-3.000 personas no seguidoras ya dentro de ig_retarget post-fix.",
   "session_28apr_noche": "Sesión día 10/27. GET batch API verificó estado real de todos los ads y ad sets Follow Plan v2. Hallazgos: (1) fb_cold SÍ tiene D5 como exclusión (API confirma ID 120239146215040139) — nota anterior era incorrecta; (2) destinos_IG_Retarget y nosotros_IG_Retarget realmente PAUSED (meta-ids.json los tenía como ACTIVE por error); (3) Burn rate real confirmado: $23.020/día (Follow Plan v2 $20.020 + ENG_REEL $3.000). AWR ad sets CBO con $0/día individual — budget a nivel campaña pero todos los ads paused. (4) WINNER confirmado vía nota: corporativo_IG_Cold usa imagen estática grupo-cockpit-cielo-azul-4x5.jpg — hipótesis video-first falsada. (5) 3 ads activos que Bruno recomienda cortar: microreel_FB_Cold, microreel_FB_Retarget, nosotros_FB_Retarget — pendiente aprobación de Jose.",
   "session_24apr_tarde": "Auditoría creativa Marina aprobó Follow_IG creativos. IG_Cold activado $4.000/día + IG_Retarget $1.500/día. Normalización jerarquía: todas campañas y ad sets ACTIVE, pausas solo a nivel ad. Corregidas 3 discrepancias: nosotros_FB_Cold, destinos_FB_Retarget, nosotros_IG_Cold → PAUSED. Burn rate: $23.020/día.",
@@ -213,7 +214,8 @@
         "D5": "120239146215040139",
         "D6": "120239621840990139",
         "note": "Excluye fans FB (D5) y seguidores IG (D6). Agregadas 29/04 vía API."
-      }
+      },
+      "interests_expanded": "02/05: 4 intereses → 23 (mismo set que ig_cold/fb_cold). Antes solo tenía Recreación al aire libre, Vela, Viajes, Motor Boat & Yachting."
     },
     "AS_ENG_TOP": {
       "id": "120239146126860139",
@@ -682,13 +684,15 @@
       "ig_cold": {
         "id": "120239303658370139",
         "campaign": "120239303658100139",
-        "daily_budget": 500000,
+        "daily_budget": 350000,
         "optimization": "VISIT_INSTAGRAM_PROFILE",
         "status": "ACTIVE",
         "activated_date": "2026-04-24",
         "activation_reason": "Auditoría creativa Marina aprobó creativos Follow_IG. Budget reducido $12.600→$4.000/día.",
         "scaled_date_2": "2026-04-30",
         "scaled_reason_2": "Bruno día 12: WINNER corporativo_IG_Cold CPV $25 — escalar $4.000→$5.000/día.",
+        "reduced_date_3": "2026-05-02",
+        "reduced_reason_3": "Día 14: reducido $5.000→$3.500 para crear ig_test_NAU ($1.500). Total IG neutro $6.500. Montevideo removido de intereses (23 intereses).",
         "exclusions": {
           "D6": "120239621840990139",
           "note": "Excluye seguidores actuales IG. Corregido 28/04: tenía D5 (FBPageLikers) por error — completamente irrelevante para campaña IG."
@@ -702,10 +706,28 @@
         "status": "ACTIVE",
         "activated_date": "2026-04-24",
         "activation_reason": "Reactivado junto con ig_cold. Budget reducido $5.400→$1.500/día.",
+        "targeting_relaxation": "OFF (02/05 — era ON, diluía retarget con cold)",
         "exclusions": {
           "D6": "120239621840990139",
-          "note": "Excluye seguidores actuales IG. Agregada 28/04. Targeting incluye D4 VideoViewers_30d (2.400-3.000 no-seguidores estimados)."
+          "note": "Excluye seguidores actuales IG. Agregada 28/04. Targeting incluye D1+D2+D3+D4 (D2 IGEngagers agregada 02/05)."
         }
+      },
+      "ig_test_NAU": {
+        "id": "120239871906750139",
+        "campaign": "120239303658100139",
+        "daily_budget": 150000,
+        "optimization": "VISIT_INSTAGRAM_PROFILE",
+        "status": "ACTIVE",
+        "created_date": "2026-05-02",
+        "advantage_audience": 1,
+        "targeting_relaxation": "OFF",
+        "interests": "4 nauticos puros: Vendee Globe, Boat show, Yachting magazine, American Sailing Association (propuesta original 7, 3 deprecados por Meta: Turismo nautico, North Sails, Revista Nautica)",
+        "custom_audiences_targeting": "LAL1 (120239852278830139)",
+        "exclusions": {
+          "D6": "120239621840990139",
+          "note": "Excluye seguidores actuales IG."
+        },
+        "notes": "Test de audiencia nueva (intereses nauticos puros + LAL1) con mismos creativos (static01+static02). Budget compensado con reduccion ig_cold $5K->$3.5K. Total IG neutro $6.500."
       },
       "fb_cold": {
         "id": "120239303659650139",
@@ -717,10 +739,11 @@
         "scaled_reason": "Plan reconciliado 23/04 — FB Likes 233 a $36/like, buen rendimiento. +30%. Reducido $10.920→$5.000 vía API (Conversions API System User, 28/04 16:11 ART).",
         "reduced_date": "2026-04-30",
         "reduced_reason": "Bruno día 12: CPS $110 > $100 CORTAR pero único ad FB. Reducido $5.000→$2.500/día en vez de pausar.",
-        "last_api_verified": "2026-04-28",
+        "last_api_verified": "2026-05-02",
+        "placements": "Manual: FB Feed + FB Reels only (FB Stories excluido 02/05 — CPF $408 en stories). Montevideo removido de intereses (23 intereses).",
         "exclusions": {
           "D5": "120239146215040139",
-          "note": "D5 (FBPageLikers) SÍ está configurada como exclusión. Verificado via API 28/04. Nota anterior incorrecta decía 'no configurada'."
+          "note": "D5 (FBPageLikers) SÍ está configurada como exclusión. Verificado via API 28/04."
         }
       },
       "fb_retarget": {
@@ -728,9 +751,10 @@
         "campaign": "120239303658190139",
         "daily_budget": 360000,
         "optimization": "PAGE_LIKES",
+        "targeting_relaxation": "OFF (02/05 — era ON, diluía retarget con cold)",
         "exclusions": {
           "D5": "120239146215040139",
-          "note": "Excluye fans actuales de la page FB. Agregada 28/04."
+          "note": "Excluye fans actuales de la page FB. Agregada 28/04. Targeting incluye D1+D2+D3+D4 (D2 IGEngagers agregada 02/05)."
         }
       }
     },
@@ -767,8 +791,10 @@
         "id": "120239854682060139",
         "adset": "120239303658370139",
         "creative": "1400396012120914",
-        "status": "ACTIVE",
+        "status": "PAUSED",
         "created_date": "2026-05-01",
+        "paused_date": "2026-05-02",
+        "paused_reason": "Movido a ig_test_NAU para test de audiencia. Reemplazado por ENBA_ad_IG_static01_test_NAU.",
         "image_hash": "ca7be297c2cbda64f918e14f27ebd79c",
         "source": "asset-bank/grupo-cockpit-navegando-rio-sol.jpg",
         "notes": "Imagen estatica con logo oficial. Patron WINNER. Ad text nuevo."
@@ -777,11 +803,29 @@
         "id": "120239854683020139",
         "adset": "120239303658370139",
         "creative": "1663837334951160",
-        "status": "ACTIVE",
+        "status": "PAUSED",
         "created_date": "2026-05-01",
+        "paused_date": "2026-05-02",
+        "paused_reason": "Movido a ig_test_NAU para test de audiencia. Reemplazado por ENBA_ad_IG_static02_test_NAU.",
         "image_hash": "e54b1862434514382c651b3a80553bfa",
         "source": "asset-bank/pareja-cockpit-sunset-risas.jpg",
         "notes": "Imagen estatica con logo oficial. Test pareja joven. Ad text nuevo."
+      },
+      "ENBA_ad_IG_static01_test_NAU": {
+        "id": "120239871907050139",
+        "adset": "120239871906750139",
+        "creative": "1400396012120914",
+        "status": "ACTIVE",
+        "created_date": "2026-05-02",
+        "notes": "Mismo creative que static01_01may en ad set ig_test_NAU (audiencia nautica pura + LAL1)."
+      },
+      "ENBA_ad_IG_static02_test_NAU": {
+        "id": "120239871913940139",
+        "adset": "120239871906750139",
+        "creative": "1663837334951160",
+        "status": "ACTIVE",
+        "created_date": "2026-05-02",
+        "notes": "Mismo creative que static02_01may en ad set ig_test_NAU (audiencia nautica pura + LAL1)."
       },
       "ENBA_ad_microreel_IG_Retarget": {
         "id": "120239303662540139",
