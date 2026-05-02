@@ -2,13 +2,13 @@
 
 **Autor:** Bruno (Social Growth & Performance Director) + Auditor (Paid Media Auditor)
 **Fecha original:** 22 de abril de 2026
-**Ultima actualizacion:** 01 de mayo de 2026 (dia 13/27)
+**Ultima actualizacion:** 02 de mayo de 2026 (dia 14/27)
 **Periodo:** 19 de abril — 16 de mayo de 2026 (27 dias)
 **Presupuesto total campaña:** ARS 500,000 neto
-**Gastado al dia 13:** ARS 258,271
-**Restante:** ARS 241,729
-**Burn rate actual:** ARS 13,000/dia (18 dias de margen)
-**Versión:** v4.1 — actualización día 13 con hallazgos de arquitectura y pivot creativo. Reemplaza v3 como plan vigente.
+**Gastado al dia 14:** ARS 267,372
+**Restante:** ARS 232,628
+**Burn rate actual:** ARS 13,000/dia (17.9 dias de margen)
+**Versión:** v4.2 — actualización día 14 con auditoría targeting + ad set test ig_test_NAU. Reemplaza v3 como plan vigente.
 
 ---
 
@@ -25,14 +25,14 @@ Señal positiva: Reel "4 horas" = 4,919 eng en $4,617 (390x más eficiente que e
 
 ---
 
-## 2. Distribución por objetivo (actualizada dia 13)
+## 2. Distribución por objetivo (actualizada dia 14)
 
 La distribución original por porcentaje fue reemplazada por ad sets con budgets fijos. La fuente de verdad de budgets es `meta-ids.json`.
 
 | Objetivo | Campaña Meta | Ad sets activos con gasto | Budget/dia |
 |---|---|---|---|
 | Follow FB | ENBA_Follow_FB_abr2026 | fb_cold ($2,500) | $2,500 |
-| Follow IG | ENBA_Follow_IG_abr2026 | ig_cold ($5,000) + ig_retarget ($1,500) | $6,500 |
+| Follow IG | ENBA_Follow_IG_abr2026 | ig_cold ($3,500) + ig_test_NAU ($1,500) + ig_retarget ($1,500) | $6,500 |
 | Engagement | ENBA_Engagement_abr2026 | AS_ENG_REEL ($4,000) | $4,000 |
 | Awareness | ENBA_Awareness_abr2026 | 5 ad sets ACTIVE pero todos los ads PAUSED | $0 efectivo |
 | Leads | ENBA_Leads_abr2026 | AS_LEA_C3 ACTIVE pero ad PAUSED | $0 efectivo |
@@ -43,54 +43,67 @@ fb_retarget ($3,600/dia budget) tiene TODOS sus ads pausados → $0 gasto. Riesg
 
 ---
 
-## 3. Split IG / FB (actualizado dia 13)
+## 3. Split IG / FB (actualizado dia 14)
 
 **El split 75/25 original fue REVERTIDO por los datos.**
 
 | Plataforma | Budget/dia | Ads activos | Follows nuevos | CPF real |
 |---|---|---|---|---|
-| Facebook | $2,500 | 4 (destinos, nosotros, static01, static02) | 947 | $110 blended |
-| Instagram | $6,500 | 5 (corporativo, microreel cold x1, microreel retarget x1, static01, static02) | 67 | $926 implicito |
+| Facebook | $2,500 | 4 (destinos, nosotros, static01, static02) | 966 | $110 blended |
+| Instagram | $6,500 | 4 (corporativo en ig_cold, microreel retarget, static01+static02 en ig_test_NAU) | 78 | $926 implicito |
 
 **FB es el canal principal de follows.** PAGE_LIKES alinea el objetivo Meta con el resultado (follow directo con 1 click). IG usa TRAFFIC+VISIT_INSTAGRAM_PROFILE que optimiza por visitas, no follows. No existe objetivo Meta que optimice por IG follows (verificado via API dia 13).
 
-Follow rate IG: 2.7% (67 follows / 2,488 visitas). Estructural, no solo problema de perfil.
+Follow rate IG: 2.7%. Estructural, no solo problema de perfil.
+
+**Cambio dia 14:** ig_cold tenia static01+static02 pero CBO les daba $0 delivery (corporativo WINNER absorbia todo). Creado ad set ig_test_NAU ($1,500/dia) con audiencia diferente (4 intereses nauticos puros + LAL1) para testear creativos sin CBO aplastando. ig_cold reducido $5K→$3.5K. Total IG neutro.
 
 ---
 
-## 4. Presupuesto restante (dia 13)
+## 4. Presupuesto restante (dia 14)
 
 | | |
 |---|---|
-| Gastado | $258,271 (dias 1-13) |
-| Restante | $241,729 |
+| Gastado | $267,372 (dias 1-14) |
+| Restante | $232,628 |
 | Burn rate actual | $13,000/dia |
-| Dias restantes del plan | 15 (hasta 16/05) |
-| Dias de presupuesto al ritmo actual | 18 |
+| Dias restantes del plan | 14 (hasta 16/05) |
+| Dias de presupuesto al ritmo actual | 17.9 |
 
 Presupuesto sobra. No hay riesgo de quedarse sin plata. El cuello de botella es creativos y conversion, no budget.
 
 ---
 
-## 5. Ads activos al dia 13 (fuente de verdad: meta-ids.json)
+## 5. Ads activos al dia 14 (fuente de verdad: meta-ids.json)
 
 ### Follow FB — fb_cold ($2,500/dia, 4 ads)
 
 | Ad | ID | Creative | CPF | Estado |
 |---|---|---|---|---|
-| destinos_FB_Cold | 120239303665020139 | collage destinos | $114 | ACTIVE |
+| destinos_FB_Cold | 120239303665020139 | collage destinos | $115 | ACTIVE |
 | nosotros_FB_Cold | 120239303666220139 | collage nosotros | $104 | ACTIVE (reactivado 01/05) |
-| FB_static01_01may | 120239854683430139 | grupo skyline nublado + logo | pendiente | ACTIVE (nuevo 01/05) |
-| FB_static02_01may | 120239854684020139 | amigos vela bandera + logo | pendiente | ACTIVE (nuevo 01/05) |
+| FB_static01_01may | 120239854683430139 | grupo skyline nublado + logo | ~$62 | ACTIVE (nuevo 01/05) |
+| FB_static02_01may | 120239854684020139 | amigos vela bandera + logo | ~$198 | ACTIVE (nuevo 01/05) |
 
-### Follow IG — ig_cold ($5,000/dia, 4 ads)
+Placements: FB Feed + FB Reels only (FB Stories excluido dia 14 — CPF $408 en stories).
+
+### Follow IG — ig_cold ($3,500/dia, 2 ads)
 
 | Ad | ID | Creative | CPV | Estado |
 |---|---|---|---|---|
 | corporativo_IG_Cold | 120239353874370139 | grupo-cockpit-cielo-azul-4x5 (WINNER) | $25 | ACTIVE |
-| microreel_IG_Cold | 120239303661060139 | micro-reel 15s | $45 | ACTIVE |
-| IG_static01_01may | 120239854682060139 | grupo rio sol + logo | pendiente | ACTIVE (nuevo 01/05) |
-| IG_static02_01may | 120239854683020139 | pareja sunset + logo | pendiente | ACTIVE (nuevo 01/05) |
+| microreel_IG_Cold | 120239303661060139 | micro-reel 15s | $45 | ACTIVE (evaluar 04/05: pausar si CPV>$40) |
+
+Budget reducido $5K→$3.5K dia 14 para crear ig_test_NAU. static01+static02 movidos a ig_test_NAU.
+
+### Follow IG — ig_test_NAU ($1,500/dia, 2 ads) — NUEVO dia 14
+
+| Ad | ID | Creative | CPV | Estado |
+|---|---|---|---|---|
+| IG_static01_test_NAU | 120239871907050139 | grupo rio sol + logo | pendiente | ACTIVE (nuevo 02/05) |
+| IG_static02_test_NAU | 120239871913940139 | pareja sunset + logo | pendiente | ACTIVE (nuevo 02/05) |
+
+Audiencia: 4 intereses nauticos puros (Vendee Globe, Boat show, Yachting magazine, American Sailing Association) + LAL1 (lookalike 1% FB likers). advantage_audience ON. targeting_relaxation OFF. Review 04/05.
 
 ### Follow IG — ig_retarget ($1,500/dia, 1 ad)
 
@@ -98,17 +111,21 @@ Presupuesto sobra. No hay riesgo de quedarse sin plata. El cuello de botella es 
 |---|---|---|---|---|
 | microreel_IG_Retarget | 120239303662540139 | micro-reel 15s | $53 | ACTIVE |
 
+Corregido dia 14: D2 (IG Engagers 90d) agregada. targeting_relaxation OFF.
+
 ### Engagement — AS_ENG_REEL ($4,000/dia, 1 ad)
 
 | Ad | ID | Creative | Estado |
 |---|---|---|---|
-| AD_ENG_REEL_V2 | 120239691829210139 | reel-eng-v2 | ACTIVE (desde 29/04) |
+| AD_ENG_REEL_V2 | 120239691829210139 | reel-eng-v2 | ACTIVE (CPV $0.87 — WINNER ENG) |
+
+Intereses ampliados 4→23 dia 14.
 
 ### Ad sets con budget pero $0 gasto (todos los ads pausados)
 
 | Ad Set | Budget/dia | Nota |
 |---|---|---|
-| fb_retarget | $3,600 | Todos los ads PAUSED. No activar sin intencion. |
+| fb_retarget | $3,600 | Todos los ads PAUSED. No activar sin intencion. D2 agregada + targeting_relaxation OFF (02/05). |
 | 5 ad sets AWR | $11,000 total CBO | Todos los ads PAUSED desde 22/04. |
 | AS_ENG_C2, AS_ENG_TOP, AS_LEA_C3 | $1,500 + $1,500 + $3,500 | Ads PAUSED. |
 
@@ -221,3 +238,4 @@ Palancas para mejorar:
 *Bruno — Social Growth & Performance Director + Auditor — Paid Media Auditor*
 *22 de abril de 2026 — v4 reestructuracion urgente*
 *01 de mayo de 2026 — v4.1 actualizacion dia 13, pivot creativo + hallazgos arquitectura*
+*02 de mayo de 2026 — v4.2 actualizacion dia 14, auditoria targeting completa + ad set ig_test_NAU (4 intereses + LAL1) + correcciones retargets + FB Stories excluido + ENG_REEL intereses ampliados*
