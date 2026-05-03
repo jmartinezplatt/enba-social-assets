@@ -61,7 +61,7 @@ enba-redes/
 │       ├── reels/                  # Reels producidos para ads
 │       ├── darkpost-render/        # Imágenes renderizadas/croppeadas para ads
 │       └── *.md / *.json           # Docs normativos (STATUS, plan-maestro, presupuesto, meta-ids)
-├── asset-bank/                # JPGs curados y procesados (no crudos)
+├── asset-bank/                # Fotos/videos curados, local-first (ignorados por git). Ver asset-bank/README.md
 ├── scripts/                   # Renderers, publishers, uploads y utilidades. Ver scripts/README.md para inventario completo.
 ├── staging/                   # PNGs servidos por Cloudflare Pages — destino final post-publicación
 ├── published/                 # (sin uso activo — el pipeline actual no mueve archivos aquí)
