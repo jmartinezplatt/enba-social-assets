@@ -15,6 +15,7 @@ asset-bank/grupos-experiencia/
 asset-bank/servicios/
 asset-bank/travesias-navegacion/
 asset-bank/veleros-broker/
+asset-bank/.video-thumbs/
 
 # Videos MP4 — todos excluidos (>25 MB rompe Cloudflare Pages, regenerables con scripts)
 *.mp4
