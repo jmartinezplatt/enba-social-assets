@@ -1,7 +1,7 @@
 # Incidentes n8n — ENBA Social Assets
 
 **Estado:** vigente
-**Última actualización:** 27 de abril de 2026
+**Última actualización:** 03 de mayo de 2026
 **Uso:** memoria operativa local de incidentes y lecciones de n8n para este repo.
 
 ---
@@ -186,3 +186,26 @@ req = urllib.request.Request(url, data=put_data, method='PUT', headers={
 **Fix:** no existe fix retroactivo. La story quedó publicada.
 
 **Regla que queda:** cualquier POST a Meta que publique o modifique contenido visible (feed, story, foto, video) requiere autorización explícita del usuario antes de ejecutarse. "Verificar si funciona" no alcanza como justificación.
+
+---
+
+## INC-REDES-N8N-012 — URLs de post mal formadas en email de publicacion
+
+**Fecha:** 03/05/2026
+
+**Síntoma:** el email de confirmación de publicación llegaba con dos URLs incorrectas:
+- IG: siempre mostraba el perfil (`https://www.instagram.com/espacionauticobsas/`) en lugar del post específico
+- FB: URL inválida tipo `https://www.facebook.com/1064806400040502_122111357456620656` que no abre nada
+
+**Causa raíz:**
+- IG: `igUrl` hardcodeado al perfil en el nodo `Collect Results`. El `media_publish` de IG devuelve solo el `id` numérico, no el permalink. El shortcode del post no se puede derivar del ID sin una llamada adicional a la API.
+- FB: `fbUrl` construido concatenando directamente `fb.postId` a la base URL. El postId que devuelve Meta tiene formato compuesto `{pageId}_{postId}`, que no es una ruta de URL válida.
+
+**Fix aplicado (patch quirúrgico 03/05):**
+1. Nuevo nodo HTTP `Get IG Permalink` insertado entre `IG Publish` y `Set IG Result`: hace `GET /v21.0/{mediaId}?fields=permalink` con credencial Meta API ENBA. `continueOnFail: true` para no romper el flujo si falla.
+2. `Set IG Result` actualizado: captura `permalink` del nodo anterior, mantiene `postId` desde `$('IG Publish')`.
+3. `Collect Results` actualizado:
+   - IG: usa `ig.permalink` con fallback al perfil si es null
+   - FB: parsea `pageId_postId` → `https://www.facebook.com/permalink.php?story_fbid={postId}&id={pageId}`
+
+**Regla que queda:** el endpoint `media_publish` de IG no devuelve permalink. Para incluir la URL del post en cualquier notificación, hacer `GET /{mediaId}?fields=permalink` después de publicar.

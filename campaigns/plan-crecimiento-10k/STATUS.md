@@ -72,6 +72,10 @@ Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier
 
 ### Últimos hitos relevantes
 
+- **03/05 sesión fix email URLs (workflow v7.2):** Patch quirúrgico sobre workflow `MipwleZNu8EG5v6C`.
+  - URLs de post en email de publicación estaban mal: IG mostraba perfil (no post), FB generaba URL inválida.
+  - Fix: nuevo nodo `Get IG Permalink` (GET `/v21.0/{mediaId}?fields=permalink`) insertado entre `IG Publish` y `Set IG Result`. `Collect Results` actualizado con permalink IG y URL FB correcta (`permalink.php?story_fbid=...&id=...`).
+  - `OPERACION-N8N.md` e `INCIDENTES.md` actualizados. Backup local sincronizado.
 - **03/05 sesión curación asset-bank:** Curación completa carpeta `Veleros` de Google Photos.
   - **Fuente procesada:** `enba-fotos-crudas/google-photos/Veleros/` — 2,579 archivos originales, carpeta vaciada al 100%.
   - **Paso 1 (JPG):** 649 analizadas, 472 duplicados eliminados, 140 descartadas, 37 curadas al asset-bank con nombres descriptivos.
