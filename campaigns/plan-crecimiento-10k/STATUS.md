@@ -1,6 +1,6 @@
 # STATUS — Frente REDES
 
-**Última actualización:** 02 de mayo de 2026 (sesión día 14/27)
+**Última actualización:** 03 de mayo de 2026 (sesión curación asset-bank)
 **Owner de mantenimiento:** quien cierre la sesión del frente redes
 **Uso:** punto de entrada corto para inicio de sesión. Si este archivo contradice un handoff viejo, manda este archivo.
 
@@ -39,17 +39,17 @@ Los `SESSION-HANDOFF-*.md` sirven como contexto histórico, lecciones e incident
   - `campaign.pieces.json` para campañas
   - `carousel.config.json` + `captions.json` para carruseles
 
-### Snapshot del repo al 01/05
+### Snapshot del repo al 03/05
 
-- `asset-bank/`: 1,954 archivos (1,256 fotos + 698 videos). Conteo recursivo — incluye raíz + 7 subcarpetas:
-    - `raíz`: 161 fotos (sin subcarpeta)
-    - `grupos-experiencia/`: 296 fotos, 112 videos
-    - `veleros-broker/`: 389 fotos, 259 videos
-    - `travesias-navegacion/`: 238 fotos, 244 videos
-    - `buenos-aires-paisaje/`: 80 fotos, 34 videos
-    - `destinos/`: 49 fotos, 16 videos
-    - `servicios/`: 20 fotos, 29 videos
-    - `escuela-aprendizaje/`: 23 fotos, 4 videos
+- `asset-bank/`: 1,924 archivos (1,281 fotos + 643 videos). Local-first: subcarpetas ignoradas por git (pesadas). Ver `asset-bank/README.md`.
+    - `raíz`: 0 (limpia, todo clasificado)
+    - `destinos/`: 285 fotos, 141 videos
+    - `escuela-aprendizaje/`: 214 fotos, 68 videos
+    - `servicios/`: 217 fotos, 130 videos
+    - `travesias-navegacion/`: 191 fotos, 130 videos
+    - `buenos-aires-paisaje/`: 117 fotos, 72 videos
+    - `veleros-broker/`: 137 fotos, 76 videos
+    - `grupos-experiencia/`: 120 fotos, 26 videos
 - `staging/`: 32 archivos
 - `published/`: 1 archivo
 - `manifests/`: piezas programadas y publicadas del feed
@@ -72,6 +72,18 @@ Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier
 
 ### Últimos hitos relevantes
 
+- **03/05 sesión curación asset-bank:** Curación completa carpeta `Veleros` de Google Photos.
+  - **Fuente procesada:** `enba-fotos-crudas/google-photos/Veleros/` — 2,579 archivos originales, carpeta vaciada al 100%.
+  - **Paso 1 (JPG):** 649 analizadas, 472 duplicados eliminados, 140 descartadas, 37 curadas al asset-bank con nombres descriptivos.
+  - **Paso 2 (HEIC):** 990 convertidas a JPG (pillow-heif), 621 duplicados por nombre + 2 visuales (imagehash phash), 281 descartadas, 88 curadas.
+  - **Paso 3 (Videos):** 869 analizados, 690 duplicados eliminados, 127 Live Photos (<3s) eliminados, 162 descartados, 17 curados.
+  - **Paso 4 (DNG/RAW):** 64 convertidos, 1 duplicado visual, 49 descartados, 14 curados.
+  - **Total ingresado:** 156 archivos nuevos (139 fotos + 17 videos) con nombres descriptivos y clasificación por subcarpeta.
+  - **Reclasificación masiva:** Jose revisó todo el banco con herramienta clasificador HTML. 1,111 acciones en fotos (997 moves + 114 deletes) + 559 acciones en videos (488 moves + 71 deletes).
+  - **Raíz limpia:** 161 fotos de raíz movidas a subcarpetas. 0 archivos en raíz.
+  - **Decisión local-first:** asset-bank subcarpetas ignoradas por git (1.3 GB fotos + 3 GB videos). Git trackea docs, scripts y piezas livianas. Documentado en `asset-bank/README.md`.
+  - **Asset-bank final:** 1,281 fotos + 643 videos = 1,924 archivos en 7 subcarpetas.
+  - **Pendiente:** grid curado IG (brief producción Dani) — preview `grid-curado-preview.html` generado, sin ejecutar.
 - **02/05 sesión (día 14/27):** Auditoría completa targeting + ad set test creado.
   - **Gate 3: VERDE.** 1,044 follows acumulados (966 FB + 78 IG) vs target 800. CPS blended $256 (inflado por gasto desperdiado días 1-2).
   - **Review Bruno día 14:** reel-eng-v2 WINNER ENG (CPV $0.87 vs reel4horas $1.10). corporativo_IG_Cold sigue WINNER IG (CPV $25, freq 1.68). FB_static01 prometedor (CPF ~$62).
