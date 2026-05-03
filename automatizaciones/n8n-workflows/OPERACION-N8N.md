@@ -1,7 +1,7 @@
 # Operación n8n — ENBA Social Assets
 
 **Estado:** vigente
-**Última actualización:** 27 de abril de 2026
+**Última actualización:** 03 de mayo de 2026
 **Alcance:** workflows y operación n8n del repo `enba-redes`
 
 ---
@@ -33,7 +33,7 @@ Si un aprendizaje de `enba-web` aplica acá, la regla es:
 2. API key:
    `N8N_KEY=$(powershell -Command "[System.Environment]::GetEnvironmentVariable('N8N_API_KEY', 'User')")`
    Solo informar `CARGADA` o `VACÍA`. Nunca imprimir el valor.
-3. En `curl` hacia n8n cloud usar `--ssl-no-revoke`.
+3. **`curl` desde bash PROHIBIDO** contra n8n.cloud — falla con exit 35 (SSL). Para GETs usar PowerShell `Invoke-RestMethod` / `Invoke-WebRequest`.
 4. Code nodes: escribir JS a archivo `.js` primero. No componer JS largo dentro de template literals frágiles.
 5. **Encoding en PUTs a la API de n8n — Python obligatorio.**
    PowerShell serializa en UTF-16 internamente. `ConvertTo-Json` + `Invoke-RestMethod` corrompen tildes, eñes y símbolos Unicode (mojibake silencioso: el PUT responde 200 OK pero los strings quedan dañados en el nodo).
@@ -42,7 +42,7 @@ Si un aprendizaje de `enba-web` aplica acá, la regla es:
    - **Codigo JS/JSON:** escribir a archivo local primero, verificar, leer desde Python. Nunca editar JS inline en template literals de bash o PowerShell.
    - **PowerShell solo para GETs** (lectura, no modifica nada) y operaciones sin texto en espanol.
    Ver patron completo en INC-REDES-N8N-007 de `INCIDENTES.md`.
-6. Crear workflow por `POST` limpio está bien. Para nodos con `jsCode`, `jsonBody` o expresiones, evitar round-trip completo `GET → mutar → PUT`.
+6. **PROHIBIDO: GET completo → mutación local → PUT completo** en workflows con `jsCode`, `jsonBody` o expresiones `={{ }}`. Causa confirmada de corrupción (BUG-HISTORIAL-INVALID-SYNTAX). Métodos permitidos: (1) edición directa en la UI de n8n, (2) patch quirúrgico/lossless sobre un nodo específico con verificación byte a byte antes del PUT, (3) restore desde snapshot canónico intacto.
 7. Preferir UI de n8n o patch quirúrgico/lossless sobre nodos puntuales.
 8. Base URL: `https://espacionautico.app.n8n.cloud/api/v1/`
 9. Timezone de n8n cloud = ART (UTC-3). Las cron expressions se piensan en hora argentina.
@@ -50,10 +50,26 @@ Si un aprendizaje de `enba-web` aplica acá, la regla es:
 11. **PUT workflow** solo acepta `{name, nodes, connections, settings}`. Rechaza `tags`, `versionId`, `shared`, `active`, `createdAt`, `updatedAt`, etc. con "request/body must NOT have additional properties" o "is read-only".
 12. **Activar/desactivar workflow:** usar `POST /workflows/{id}/activate` y `POST /workflows/{id}/deactivate`. PATCH no está soportado ("PATCH method not allowed").
 13. **Workflow con trigger manual no se puede ejecutar vía API pública de n8n Cloud** (no existe endpoint POST /run ni /execute — verificado contra OpenAPI spec 30/04). Solución: agregar un nodo Webhook como trigger alternativo en paralelo al Schedule Trigger. Ejemplo: workflow Evaluación Diaria tiene Webhook permanente en `POST /webhook/eval-ads-manual`. El Schedule Trigger sigue funcionando normalmente.
-14b. **Settings en PUT workflow:** solo acepta `executionOrder`, `timezone`, `callerPolicy`. Otros campos (`availableInMCP`, `binaryMode`, `timeSavedMode`, `errorWorkflow`) causan 400 "must NOT have additional properties". Filtrar settings antes de PUT.
+14b. **Settings en PUT workflow:** subset seguro: `executionOrder`, `callerPolicy`, `saveManualExecutions`. Rechaza `availableInMCP`, `binaryMode`, `timeSavedMode`, `errorWorkflow` y otros — causan 400 "must NOT have additional properties". Filtrar settings antes de PUT.
 14c. **IDs hardcodeados en nodos HTTP = deuda técnica.** Usar queries dinámicas por cuenta (`/act_.../ads?fields=...&limit=100`) en vez de `?ids=X,Y,Z`. Los IDs hardcodeados se desactualizan al crear/pausar ads y causan reportes incorrectos. Incidente 30/04: AD_ENG_REEL_V2 aparecía como PAUSED porque su ID no estaba en la lista.
 14. **Google Sheets en n8n:** usar nodo nativo `n8n-nodes-base.googleSheets` con credencial tipo `googleSheetsOAuth2Api`. El nodo HTTP Request **no** puede usar esa credencial (tipo incompatible `oAuth2Api`). En sheet vacío, el nodo append con `defineBelow` crea los headers automáticamente en la primera ejecución.
 15. **FB photo_stories (validado 27/04):** requiere 2 pasos: (1) `POST /{pageId}/photos?url=...&published=false` → `{id: photo_fbid}`, (2) `POST /{pageId}/photo_stories?photo_id={photo_fbid}` → `{success:true, post_id:...}`. No acepta `url` / `file_url` directamente en `photo_stories`.
+16. **Backups locales no son fuente de verdad.** Siempre hacer GET fresco del workflow productivo antes de cualquier operación. Los JSONs en `n8n-workflows/` pueden estar desactualizados. Producción manda.
+17. **Post-PUT sync obligatorio.** Después de cada PUT exitoso: (1) verificar estado aplicado con GET + confirmar strings sensibles, (2) sincronizar archivo local en `n8n-workflows/` con el JSON productivo, (3) no cerrar la sesión hasta que producción = backup local.
+18. **Sub-nodos AI Agent:** usan `$json.fieldName` directamente. No usar `$("NombreNodo").item.json.fieldName` dentro de sub-nodos de agentes AI.
+19. **Fan-out obligatorio** cuando un nodo HTTP puede wipear contexto de nodos anteriores. Preservar datos de upstream con un Set node antes del HTTP node.
+20. **Verificar mecánicas base antes de planificar (Regla 24).** Antes de construir sobre mecánicas existentes, verificar con GET + ejecución real que funcionan como se asume. No asumir que un nodo o flujo se comporta como en sesiones anteriores.
+
+---
+
+## 2b. Checks obligatorios pre-PUT
+
+Antes de ejecutar cualquier PUT sobre un workflow, verificar:
+
+1. **Diff literal de strings sensibles**: `jsCode`, `jsonBody`, expresiones `={{ }}`, referencias `$json`, `$('Nodo')`, template literals — comparar carácter a carácter con el estado previo.
+2. **Shape válido de `connections`**: verificar que no se rompieron conexiones de nodos no tocados.
+3. **Payload PUT solo con campos permitidos**: `{name, nodes, connections, settings}` — sin `tags`, `versionId`, `active`, `createdAt`, `updatedAt`, etc.
+4. **Comparación exacta de nodos no tocados**: confirmar que nodos fuera del alcance del patch no cambiaron.
 
 ---
 
