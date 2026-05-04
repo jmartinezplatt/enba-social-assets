@@ -770,8 +770,10 @@
       "ENBA_ad_microreel_IG_Cold": {
         "id": "120239303661060139",
         "adset": "120239303658370139",
-        "creative": "973092698706553",
-        "status": "ACTIVE"
+        "creative": "2196127044559592",
+        "video_id": "842404041621357",
+        "status": "ACTIVE",
+        "note": "Creative swapped 03/05 v3: safe zone fix (bottom overlays 220-300px->400-440px). Videos anteriores: 843214181541117 (0.4s, Node Blob bug), 1508162914296097 (26s OK pero sin safe zone)."
       },
       "ENBA_ad_destinos_IG_Cold": {
         "id": "120239303661450139",
