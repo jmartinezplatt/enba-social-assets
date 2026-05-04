@@ -2,13 +2,13 @@
 
 **Autor:** Bruno (Social Growth & Performance Director) + Auditor (Paid Media Auditor)
 **Fecha original:** 22 de abril de 2026
-**Ultima actualizacion:** 02 de mayo de 2026 (dia 14/27)
+**Ultima actualizacion:** 03 de mayo de 2026 (dia 15/27)
 **Periodo:** 19 de abril — 16 de mayo de 2026 (27 dias)
 **Presupuesto total campaña:** ARS 500,000 neto
-**Gastado al dia 14:** ARS 267,372
-**Restante:** ARS 232,628
-**Burn rate actual:** ARS 13,000/dia (17.9 dias de margen)
-**Versión:** v4.2 — actualización día 14 con auditoría targeting + ad set test ig_test_NAU. Reemplaza v3 como plan vigente.
+**Gastado al dia 15:** ARS ~280,372
+**Restante:** ARS ~219,628
+**Burn rate actual:** ARS 13,000/dia (16.9 dias de margen)
+**Versión:** v4.3 — actualización día 15 con review de ads + decisiones CPV/CPF + microreel-ig-v3 en producción. Reemplaza v4.2.
 
 ---
 
@@ -60,21 +60,21 @@ Follow rate IG: 2.7%. Estructural, no solo problema de perfil.
 
 ---
 
-## 4. Presupuesto restante (dia 14)
+## 4. Presupuesto restante (dia 15)
 
 | | |
 |---|---|
-| Gastado | $267,372 (dias 1-14) |
-| Restante | $232,628 |
+| Gastado | ~$280,372 (dias 1-15) |
+| Restante | ~$219,628 |
 | Burn rate actual | $13,000/dia |
-| Dias restantes del plan | 14 (hasta 16/05) |
-| Dias de presupuesto al ritmo actual | 17.9 |
+| Dias restantes del plan | 12 (hasta 16/05) |
+| Dias de presupuesto al ritmo actual | 16.9 |
 
 Presupuesto sobra. No hay riesgo de quedarse sin plata. El cuello de botella es creativos y conversion, no budget.
 
 ---
 
-## 5. Ads activos al dia 14 (fuente de verdad: meta-ids.json)
+## 5. Ads activos al dia 15 (fuente de verdad: meta-ids.json)
 
 ### Follow FB — fb_cold ($2,500/dia, 4 ads)
 
@@ -83,7 +83,7 @@ Presupuesto sobra. No hay riesgo de quedarse sin plata. El cuello de botella es 
 | destinos_FB_Cold | 120239303665020139 | collage destinos | $115 | ACTIVE |
 | nosotros_FB_Cold | 120239303666220139 | collage nosotros | $104 | ACTIVE (reactivado 01/05) |
 | FB_static01_01may | 120239854683430139 | grupo skyline nublado + logo | ~$62 | ACTIVE (nuevo 01/05) |
-| FB_static02_01may | 120239854684020139 | amigos vela bandera + logo | ~$198 | ACTIVE (nuevo 01/05) |
+| FB_static02_01may | 120239854684020139 | amigos vela bandera + logo | $138.70 | ACTIVE — AGUANTAR (CPF < $150) |
 
 Placements: FB Feed + FB Reels only (FB Stories excluido dia 14 — CPF $408 en stories).
 
@@ -92,7 +92,7 @@ Placements: FB Feed + FB Reels only (FB Stories excluido dia 14 — CPF $408 en 
 | Ad | ID | Creative | CPV | Estado |
 |---|---|---|---|---|
 | corporativo_IG_Cold | 120239353874370139 | grupo-cockpit-cielo-azul-4x5 (WINNER) | $25 | ACTIVE |
-| microreel_IG_Cold | 120239303661060139 | micro-reel 15s | $45 | ACTIVE (evaluar 04/05: pausar si CPV>$40) |
+| microreel_IG_Cold | 120239303661060139 | micro-reel 15s | $44.52 | PENDIENTE PAUSA — CPV > $40, esperando microreel-ig-v3 como reemplazo |
 
 Budget reducido $5K→$3.5K dia 14 para crear ig_test_NAU. static01+static02 movidos a ig_test_NAU.
 
@@ -100,8 +100,8 @@ Budget reducido $5K→$3.5K dia 14 para crear ig_test_NAU. static01+static02 mov
 
 | Ad | ID | Creative | CPV | Estado |
 |---|---|---|---|---|
-| IG_static01_test_NAU | 120239871907050139 | grupo rio sol + logo | pendiente | ACTIVE (nuevo 02/05) |
-| IG_static02_test_NAU | 120239871913940139 | pareja sunset + logo | pendiente | ACTIVE (nuevo 02/05) |
+| IG_static01_test_NAU | 120239871907050139 | grupo rio sol + logo | pendiente | ACTIVE — aguantar, datos insuficientes (48h) |
+| IG_static02_test_NAU | 120239871913940139 | pareja sunset + logo | pendiente | ACTIVE — aguantar, datos insuficientes (48h) |
 
 Audiencia: 4 intereses nauticos puros (Vendee Globe, Boat show, Yachting magazine, American Sailing Association) + LAL1 (lookalike 1% FB likers). advantage_audience ON. targeting_relaxation OFF. Review 04/05.
 
@@ -117,7 +117,7 @@ Corregido dia 14: D2 (IG Engagers 90d) agregada. targeting_relaxation OFF.
 
 | Ad | ID | Creative | Estado |
 |---|---|---|---|
-| AD_ENG_REEL_V2 | 120239691829210139 | reel-eng-v2 | ACTIVE (CPV $0.87 — WINNER ENG) |
+| AD_ENG_REEL_V2 | 120239691829210139 | reel-eng-v2 | ACTIVE — ESCALAR 05/05 (CPV $0.86, WINNER ENG) |
 
 Intereses ampliados 4→23 dia 14.
 
@@ -199,6 +199,7 @@ Rojo → Plan B: pausar todo excepto mejor performer, micro-reels 15s, stories 8
 
 **Pipeline activo:**
 - 4 imagenes estaticas nuevas subidas 01/05 (2 IG + 2 FB)
+- **microreel-ig-v3 en producción (03/05):** reemplazará microreel_IG_Cold (CPV $44.52 > $40). Overlays de texto + audio ambient+música. Output: `campaigns/plan-crecimiento-10k/reels/microreel-ig-v3.mp4`.
 - REEL-01 pendiente produccion (P1, segunda tanda)
 - Lookalike audience LAL1 creada, pendiente test
 
@@ -239,3 +240,4 @@ Palancas para mejorar:
 *22 de abril de 2026 — v4 reestructuracion urgente*
 *01 de mayo de 2026 — v4.1 actualizacion dia 13, pivot creativo + hallazgos arquitectura*
 *02 de mayo de 2026 — v4.2 actualizacion dia 14, auditoria targeting completa + ad set ig_test_NAU (4 intereses + LAL1) + correcciones retargets + FB Stories excluido + ENG_REEL intereses ampliados*
+*03 de mayo de 2026 — v4.3 actualizacion dia 15: review ads activos — microreel_IG_Cold CPV $44.52 (pendiente pausa, reemplazo v3 en produccion), reel-eng-v2 CPV $0.86 (ESCALAR 05/05), ig_test_NAU aguantar (datos insuficientes), FB_static02 CPF $138.70 (AGUANTAR)*

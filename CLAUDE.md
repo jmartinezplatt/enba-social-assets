@@ -48,7 +48,16 @@ enba-redes/
 │   │   ├── campaign-base.json      # Config base original
 │   │   ├── campaign.system.json    # Sistema de diseño (canvas, paleta, templates)
 │   │   ├── asset-bank-manifest.json
-│   │   ├── brand/                  # SVGs de lockup
+│   │   ├── brand/                  # Shortcuts legacy (no usar como fuente de verdad)
+│   │   ├── enba-portfolio-de-marca/
+│   │   │   ├── 01-VOZ-DE-MARCA/    # Guía de voz de marca
+│   │   │   ├── 02-SISTEMA-VISUAL/  # Sistema visual, paleta, tipografía
+│   │   │   ├── 03-LOGOS-BASE/      # FUENTE DE VERDAD logos (ENBA-horizontal-claro.svg, etc.)
+│   │   │   ├── 04-LOCKUPS/         # FUENTE DE VERDAD lockups (lockup-horizontal-on-dark.svg, etc.)
+│   │   │   ├── 05-CONCEPTOS-Y-KIT/ # Conceptos, kits y prompts de marca
+│   │   │   ├── 06-OG-Y-FAVICON/    # OG images, favicons, apple-touch-icon
+│   │   │   ├── 07-REFERENCIAS/     # Referencias visuales
+│   │   │   └── README.md
 │   │   ├── output/                 # 30 PNGs renderizados
 │   │   └── preview.html
 │   ├── carruseles-organicos/       # Carruseles standalone
