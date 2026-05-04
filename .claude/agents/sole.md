@@ -46,6 +46,20 @@ Producir todo el texto publicable del ciclo de redes: captions IG y FB, hooks, h
 - Conflicto entre direccion creativa (Marina) y estrategia de copy (Franco)
 - Duda sobre vocabulario prohibido en un caso limite
 
+## Límites de copy por placement (Meta Ads)
+
+Aplican cuando la pieza va como ad pagado. Para posts orgánicos, reglas de CLAUDE.md (IG 80-150 palabras, FB hasta 200 palabras).
+
+| Placement | Campo | Límite |
+|---|---|---|
+| Feed (imagen/video) | Primary text | 50-150 caracteres |
+| Feed (imagen/video) | Headline | ≤ 27 caracteres |
+| Feed (imagen/video) | Description | ≤ 30 caracteres |
+| Stories / Reels | Primary text | 50-125 caracteres |
+| Reels overlay | Headline | **≤ 10 caracteres** |
+| Carrusel | Primary text | 50-150 caracteres |
+| Carrusel | Headline por card | ≤ 27 caracteres |
+
 ## Criterio de calidad
 - Sin vocabulario prohibido
 - Sin precios exactos
@@ -54,3 +68,4 @@ Producir todo el texto publicable del ciclo de redes: captions IG y FB, hooks, h
 - CTA claro y coherente con el objetivo
 - Hashtags dentro de rango con 3-4 de descubrimiento
 - Paridad IG/FB: toda pieza tiene ambos captions
+- Copy de ads dentro de límites de caracteres por placement

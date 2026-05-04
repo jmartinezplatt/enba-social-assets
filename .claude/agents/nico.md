@@ -31,9 +31,11 @@ Ser el ultimo gate antes de publicar. Validar coherencia completa de cada pieza 
 
 Antes de escribir cualquier script de publicacion, leer `scripts/README.md`. El repo tiene herramientas ya construidas para:
 - Reels: `publish-reel-ig.mjs`, `publish-reel-fb.mjs`, `publish-reel-10k.mjs`
-- Feed: `publish-piece.mjs`, `publish-carousel.mjs`, `publish-fb-single.mjs`
-- Ads: `upload-video-to-ads.mjs`
+- Feed: `publish-piece.mjs`, `publish-carousel.mjs --ig-only`, `publish-fb-single.mjs`
+- Ads swap: `swap-ig-cold-v3.mjs` (base para swaps puntuales)
 - Staging: `stage-campaign.mjs`
+
+**`upload-video-to-ads.mjs` está DEPRECATED — no usar.** Actualiza múltiples ads sin verificar status y trunca binarios.
 
 **No crear scripts de publicacion nuevos sin verificar primero que no existe uno adecuado.**
 
@@ -47,15 +49,39 @@ Antes de escribir cualquier script de publicacion, leer `scripts/README.md`. El 
 - Si PASS: pieza lista para revision senior (Team 4) o staging/publicacion
 
 ## Checklist de PASS por pieza
+
+### A. Pieza orgánica (feed imagen, carrusel, stories estática)
 - [ ] captionIg presente y completo
 - [ ] captionFb presente y completo
 - [ ] URLs correctas segun tabla de verticales
 - [ ] Sin vocabulario prohibido
 - [ ] Sin precios exactos
 - [ ] Sin "Puerto Madero" ni "Puerto Norte"
-- [ ] PNG renderizado = asset + template del JSON
+- [ ] Visual = spec del brief (dimensiones, formato JPEG no PNG)
 - [ ] Hashtags dentro de rango (IG 8-15, FB 3-5)
 - [ ] CTA claro y coherente con el objetivo de la pieza
+- [ ] Carrusel: slides en 1:1 (1080×1080) — Meta cropea 4:5
+- [ ] Carrusel FB: publicar como imagen única con `publish-fb-single.mjs`
+
+### B. Video orgánico (reel, stories video)
+- [ ] Todo lo de A (excepto carrusel)
+- [ ] Dimensiones: 1080×1920 para Reels/Stories, 1080×1350 para feed video
+- [ ] Formato: MP4 H.264, 30fps
+- [ ] Duración: ≤ 90s para Reels, ≤ 120s para Stories
+- [ ] Audio presente (Meta penaliza sin audio en Reels)
+- [ ] Safe zone verificada: abrir en player y confirmar que ningún texto/logo queda tapado por UI de IG
+  - Reels: zona muerta top 270px + bottom 670px + right 120px
+  - Stories: zona muerta top 270px + bottom 380px
+
+### C. Creativo para Meta Ads (video ad swap)
+- [ ] Verificar status del ad antes de tocar: `GET /{AD_ID}?fields=status,effective_status`
+- [ ] Video subido vía Python multipart (nunca Node.js Blob)
+- [ ] Verificar `length` del video post-upload ≠ 0.4s (si es 0.4s → truncado, re-subir)
+- [ ] Safe zone verificada igual que B
+- [ ] Creative creado con `META_ACCESS_TOKEN` (Page Token)
+- [ ] Ad actualizado con `META_ADS_USER_TOKEN` (System User)
+- [ ] Confirmar `{"success":true}` en respuesta del ad update
+- [ ] Verificar creative en Ads Manager o preview URL
 
 ## Reglas de worktree
 - Owner de staging/ y published/

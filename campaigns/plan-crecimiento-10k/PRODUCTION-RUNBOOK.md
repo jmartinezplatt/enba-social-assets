@@ -124,10 +124,18 @@ npx remotion render MicroreelV3 out/reel.mp4  # render final
 
 Clonar `src/Microreel.tsx` para composiciones nuevas. Cambiar `CLIPS` y `OVERLAYS`. Los `tIn`/`tOut` son frames absolutos a 30fps.
 
-**Safe zone obligatoria:**
-- `bottom` de overlays: `>= 400px` (UI de IG ocupa los primeros 350px desde abajo)
-- `top`: evitar los primeros `250px` (username, botón seguir)
-- `right`: evitar los últimos `120px` (like/comment/share)
+**Safe zone obligatoria (actualizada marzo 2026):**
+
+En Remotion, `y` se mide desde arriba. La zona segura es `y=270` a `y=1250`.
+
+| Zona | Pixels | UI que tapa |
+|---|---|---|
+| Top | 270px desde arriba | Username + botón seguir |
+| Bottom | 670px desde abajo (= no pasar de y=1250) | Like/comment/share/audio bar/caption |
+| Right | 120px desde la derecha | Botones de acción |
+
+Ejemplo correcto: overlays en `y:400-440` desde arriba → 1480px del fondo → bien dentro de la zona segura.
+Ejemplo incorrecto: overlays en `y:220-300` → zona del perfil arriba (incidente 03/05/2026).
 
 **Output esperado:** MP4 en `out/reel.mp4` → copiar a `enba-redes/campaigns/plan-crecimiento-10k/reels/`.
 
@@ -269,5 +277,6 @@ node -e "fetch('https://graph.facebook.com/v22.0/{AD_ID}?fields=name,status,effe
 - `CLAUDE.md` — voz de marca, vocabulario prohibido, URLs por vertical, pipeline completo, reglas n8n
 - `campaigns/plan-crecimiento-10k/STATUS.md` — snapshot operativo de la sesión actual
 - `campaigns/plan-crecimiento-10k/meta-ids.json` — IDs de todos los ads, ad sets, campañas y creativos activos
+- `campaigns/plan-crecimiento-10k/META-SPECS-2026.md` — specs técnicas por formato y placement (dimensiones, safe zones, límites de copy)
 - `scripts/README.md` — inventario completo de scripts con descripción y cuándo usar cada uno
 - `enba-remotion/README.md` — instrucciones de setup y rehidratación de assets

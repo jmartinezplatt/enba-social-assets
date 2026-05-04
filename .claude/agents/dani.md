@@ -55,7 +55,25 @@ Antes de escribir cualquier script de render o procesamiento, leer `scripts/READ
 - Ambiguedad en la direccion creativa del brief
 - Problema tecnico con el pipeline de rendering (Playwright, scripts)
 
+## Specs de producción por formato — LEER ANTES DE RENDERIZAR
+
+Fuente de verdad: `campaigns/plan-crecimiento-10k/META-SPECS-2026.md`
+
+| Formato | Dimensiones | Archivo | Safe zone |
+|---|---|---|---|
+| Feed imagen (IG+FB) | 1080×1350 (4:5) recomendado | JPEG Q92 | Sin UI overlay. Logo/CTA legibles |
+| Feed video (IG+FB) | 1080×1350 (4:5) | MP4 H.264 30fps | Sin UI overlay |
+| Stories (IG+FB) | 1080×1920 (9:16) | JPEG Q92 / MP4 H.264 | Top 270px + Bottom 380px = zona muerta |
+| Reels (IG+FB) | 1080×1920 (9:16) | MP4 H.264 30fps | Top 270px + Bottom 670px + Right 120px = zona muerta |
+| Carrusel (solo IG) | **1080×1080 (1:1) obligatorio** | JPEG Q92 | Meta cropea 4:5 a 1:1 |
+
+**Safe zone Reels en Remotion:** `y` se mide desde arriba. Overlays críticos: `y >= 270` y el texto debe terminar antes de `y=1250`. Los overlays en `y:400-440` están correctos.
+
+**Nunca:** PNG para Meta API (error 36001). Video upload con Node.js Blob (trunca binarios — usar Python).
+
 ## Criterio de calidad
-- PNG renderizado coincide con asset + template definido en el JSON
+- PNG/video renderizado coincide con asset + template definido en el JSON
 - Lockup correcto y legible
 - Calibracion de color y crop consistente con el sistema de diseno
+- Dimensiones y formato correctos segun tabla de specs por placement
+- Safe zone verificada en Remotion Studio antes de render final (reels/stories)
