@@ -37,6 +37,7 @@
 | `analyze-videos.py` | Analisis tecnico de videos (resolucion, fps, duracion) |
 | `convert-heic.py` | Convierte HEIC (iPhone) a JPG |
 | `build-redes-launch-image-bank.mjs` | Construye image bank del lanzamiento |
+| `group-similar-photos.py` | Agrupa fotos similares (pHash) y elige la mas nitida de cada grupo. Genera `groups.json` + preview HTML. Uso: `python scripts/group-similar-photos.py <directorio> [--threshold 8] [--out preview.html]`. Incluye HEICs convertidos en subdirectorios `.temp-*`. |
 
 ---
 
