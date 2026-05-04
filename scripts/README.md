@@ -2,6 +2,8 @@
 
 **REGLA OBLIGATORIA:** Antes de crear cualquier script nuevo de render o publicacion, leer este archivo completo. Si la herramienta ya existe, usarla o adaptarla. No construir desde cero.
 
+> **Remotion:** para reels con overlays de texto, end cards animados o composiciones video+tipo, usar el repo separado `enba-remotion` (privado). Los scripts de este repo son para Playwright (estáticas, carruseles, stories) y ffmpeg (reels sin texto). Ver `campaigns/plan-crecimiento-10k/PRODUCTION-RUNBOOK.md` para la regla de decisión por tipo de pieza.
+
 ---
 
 ## Render / produccion visual
@@ -11,7 +13,7 @@
 | `build-reel-v8.sh` | bash + ffmpeg | Reel hardcodeado. Battle-tested. Usada para reel4horas_ENG. v8 reemplaza v7 (obsoleto). | Primer opcion para reels nuevos. |
 | `build-reel-eng-v2.mjs` | Node + Playwright | Reel engagement v2 (reemplazo de reel4horas). | Reel ENG con estructura especifica. |
 | `render-reel.py` | Python + moviepy | Reel desde `edit-sheet.json`. Crop auto, slow-mo, texto, logo. La mas flexible. | Cuando el reel tiene estructura variable o muchos clips. |
-| `render-micro-reel.mjs` | Node + ffmpeg | Micro-reel ~15s. Clips en array, 30fps/1080x1920, logo fade-in, musica fade-out. | Reels cortos de 10-20s. |
+| `render-micro-reel.mjs` | Node + ffmpeg | Micro-reel ~15s. Clips en array, 30fps/1080x1920, logo fade-in, musica fade-out. **SUPERSEDIDO por Remotion (`enba-remotion`) para reels con texto — no usar para overlays tipograficos.** | Solo si el reel no necesita texto ni end card animado. |
 | `render-darkpost.mjs` | Playwright | Feed 10K (1080x1350). Lee `campaign.system.json` + `campaign.pieces.json`. 3 templates: manifesto, photo-hero, proof-utility. | Piezas de feed del frente 10K. |
 | `render-enba-launch-campaign.mjs` | Playwright | Piezas de feed campana lanzamiento. | Campana lanzamiento. |
 | `render-enba-launch-carousel.mjs` | Playwright | Carruseles. | Carruseles de cualquier campana. |
@@ -51,7 +53,10 @@
 | `publish-piece.mjs` | Publica pieza de feed (imagen unica) |
 | `publish-carousel.mjs` | Publica carrusel en IG y/o FB |
 | `publish-fb-single.mjs` | Publica imagen unica en Facebook |
-| `upload-video-to-ads.mjs` | Sube video a Meta Ads (para usar como creativo en ads) |
+| `upload-video-to-ads.mjs` | **DEPRECATED — no usar.** Actualiza los 4 ads microreel sin verificar status. Roto para binarios grandes (Node.js Blob). Reescribir antes de cualquier uso. |
+| `swap-ig-cold-v3.mjs` | Swap creativo puntual en `ENBA_ad_microreel_IG_Cold`. Scope acotado a un solo ad. Usar como base para futuros swaps. |
+| `swap-creative-microreel-ig-cold.mjs` | Version intermedia del swap (incluye upload). Valida como referencia. |
+| `upload-ads-01may.mjs` | Referencia de patron upload imagenes estaticas (Node fetch, UTF-8 safe). No reutilizar directamente — extraer patron. |
 | `publish-piece05-ig.mjs` | Publica piece-05 en IG manualmente (workaround Cloudflare/crawler) |
 | `publish-teaser.mjs` | DEPRECATED — usa endpoint FB viejo. No correr sin actualizar a patron 2 pasos. |
 | `publish-stories-burst.mjs` | Burst de stories (usar con cuidado — ver CLAUDE.md sobre setTimeout) |
@@ -133,7 +138,9 @@ Scripts que resolvieron problemas puntuales. No reutilizables pero documentan in
 
 ## Notas criticas
 
-- **Para reels nuevos:** usar `build-reel-v8.sh` o `render-reel.py`. NO construir desde cero con Node+Playwright+ffmpeg — genera fricciones de fps, fuentes y rutas que ya resolvimos en estas herramientas.
+- **Para reels sin texto:** usar `build-reel-v8.sh` o `render-reel.py`. NO construir desde cero con Node+Playwright+ffmpeg.
+- **Para reels con texto/overlays/end card:** usar Remotion en repo `enba-remotion`. Ver `PRODUCTION-RUNBOOK.md`.
 - `build-reel-v7.sh` esta obsoleto — usar v8.
+- `upload-video-to-ads.mjs` esta DEPRECATED — no usar sin reescritura. Para swaps puntuales usar `swap-ig-cold-v3.mjs` como base.
 - Los scripts de publicacion usan `META_ACCESS_TOKEN` o `META_ADS_USER_TOKEN` desde Windows User scope. Ver CLAUDE.md seccion de tokens.
 - No usar `setTimeout` en scripts de publicacion — usar n8n. Ver CLAUDE.md error #12.

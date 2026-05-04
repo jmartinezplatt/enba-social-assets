@@ -75,6 +75,11 @@ enba-redes/
 ├── staging/                   # PNGs servidos por Cloudflare Pages — destino final post-publicación
 ├── published/                 # (sin uso activo — el pipeline actual no mueve archivos aquí)
 └── manifests/                 # Manifests de publicación (registro estático, no actualizado por n8n)
+
+# Repo externo de render de video (separado, privado)
+enba-remotion/                 # Remotion 4.x — composiciones React para reels con texto, end cards, safe zone.
+                               # Output MP4 se entrega a campaigns/plan-crecimiento-10k/reels/ y se sube a Meta Ads desde acá.
+                               # Ver campaigns/plan-crecimiento-10k/PRODUCTION-RUNBOOK.md para el path completo.
 ```
 
 ---
@@ -164,7 +169,7 @@ BRIEF (Team 4) → PRODUCCIÓN (Team 3) → QA (Nico) → REVISIÓN SENIOR (Team
 ```
 
 1. **BRIEF:** Team 4 define estrategia, concepto y dirección creativa
-2. **PRODUCCIÓN:** Dani produce visuales (renders Playwright, crops JPG del asset-bank, composición con logo), Sole escribe captions IG + FB
+2. **PRODUCCIÓN:** Dani produce visuales (Playwright para estáticas/carruseles/stories; Remotion en `enba-remotion` para reels con texto/overlays/end cards; crops JPG del asset-bank; composición con logo), Sole escribe captions IG + FB
 3. **QA:** Nico valida con checklist completo
 4. **REVISIÓN SENIOR:** Team 4 aprueba, ajusta o pide rewrite
 5. **STAGING:** PNGs copiados a `staging/YYYY/MM/<piece-id>/`, captions grabados en `captions.json`
@@ -296,6 +301,7 @@ Siempre usar el slash command correspondiente (`/bruno`, `/marina`, `/franco`, `
 12. Nunca implementar procesos de publicación con intervalos como scripts locales con `setTimeout`. `setTimeout` sobrevive `kill` en Windows/Git Bash — causa procesos zombie y publicaciones duplicadas. Usar n8n para cualquier burst o publicación periódica. (Incidente 23/04/2026: stories #2 y #3 publicadas × 3 frente a seguidores reales)
 13. No pausar ningún ad activo sin tener el reemplazo subido y corriendo. El pipeline de creativos tiene que estar siempre lleno. (Regla establecida 01/05/2026)
 14. Siempre generar preview HTML con rutas absolutas para revisión visual antes de aprobación. No mostrar imágenes inline en terminal ni pedir aprobación sin preview visible en browser. (Regla establecida 01/05/2026)
+15. Para decidir qué herramienta usar por tipo de pieza y red, consultar `campaigns/plan-crecimiento-10k/PRODUCTION-RUNBOOK.md` antes de arrancar producción.
 
 ---
 

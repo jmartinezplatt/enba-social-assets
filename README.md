@@ -4,8 +4,10 @@ Repositorio de contenido social para Espacio Nautico Buenos Aires (ENBA). Contie
 
 **Dominio:** `social-assets.espacionautico.com.ar` (Cloudflare Pages)
 **Repo del sitio web:** `enba-web` (separado — no mezclar)
+**Repo de render de video:** `enba-remotion` (separado, privado — Remotion para reels con texto/overlays)
 **Reglas completas:** ver `CLAUDE.md`
 **Inicio de sesión del frente activo:** ver `campaigns/plan-crecimiento-10k/STATUS.md`
+**Qué herramienta usar por tipo de pieza:** ver `campaigns/plan-crecimiento-10k/PRODUCTION-RUNBOOK.md`
 
 ---
 
@@ -15,36 +17,32 @@ Repositorio de contenido social para Espacio Nautico Buenos Aires (ENBA). Contie
 enba-redes/
 ├── CLAUDE.md                   # Fuente de verdad operativa
 ├── README.md                   # Este archivo
-├── asset-bank/                 # JPGs aprobados y listos para usar
-├── material-bank/              # Biblioteca amplia de material curado
+├── asset-bank/                 # Fotos/videos curados, local-first (subcarpetas ignoradas por git, ~4 GB)
 ├── campaigns/                  # Campanas, carruseles y frentes activos
 │   ├── lanzamiento-15-abr-2026/
-│   ├── plan-crecimiento-10k/   # Frente activo: STATUS.md + plan + pauta + Meta IDs
+│   ├── plan-crecimiento-10k/   # Frente activo: STATUS.md + plan + pauta + Meta IDs + PRODUCTION-RUNBOOK.md
 │   ├── carruseles-organicos/
-│   ├── reels/
-│   ├── teaser-frankenstein/
 │   └── calendario-integrado.json
 ├── staging/                    # PNGs listos para publicar via Meta API
-├── published/                  # PNGs ya publicados
+├── published/                  # Sin uso activo
 ├── manifests/                  # Manifests de publicacion por pieza
-├── scripts/                    # Renderers Playwright y utilidades
-├── .claude/
-│   ├── agents/                 # Prompts permanentes de agentes
-│   └── commands/               # Slash commands del proyecto
-└── assets-map.json             # Mapa de assets con parametros de calibracion
+├── scripts/                    # Renderers, publishers, uploads y utilidades
+└── .claude/
+    ├── agents/                 # Prompts permanentes de agentes
+    └── commands/               # Slash commands del proyecto
+
+# Repo externo (separado, privado)
+enba-remotion/                  # Render de video con Remotion — reels con texto, end cards, safe zone
 ```
 
 ---
 
-## Bancos de imagenes
+## Asset bank
 
 ### `asset-bank/`
-Assets aprobados, limpios y listos para usar en campanas. JPGs procesados a Q92, max 2400px lado largo. Naming en kebab-case por contenido (`escuela-timonel-compas-gris.jpg`). Solo entran imagenes curadas — las fotos crudas viven fuera de git.
+Fotos y videos curados, organizados en 7 subcarpetas por vertical (`destinos/`, `escuela-aprendizaje/`, `servicios/`, `travesias-navegacion/`, `buenos-aires-paisaje/`, `veleros-broker/`, `grupos-experiencia/`). Local-first: las subcarpetas son ignoradas por git (~1.3 GB fotos + ~3 GB videos). Git solo trackea docs y scripts livianos.
 
-### `material-bank/`
-Biblioteca amplia de material curado por album de origen. Clasificado por vertical (`escuela/`, `travesias/`, `marca/`, etc.) con carpetas separadas para `requires-consent/` y `maybe/`. Cada album tiene su `manifest.json` con trazabilidad al archivo original, status y tags.
-
-No todo lo que esta en `material-bank/` esta listo para publicar. El `asset-bank/` es el subconjunto aprobado.
+1,924 archivos al 03/05 (1,281 fotos + 643 videos). Ver `asset-bank/README.md`.
 
 ---
 
@@ -103,13 +101,14 @@ Team 4 define estrategia, concepto y direccion. Team 3 ejecuta. Cada agente es o
 
 | Script | Que hace |
 |--------|----------|
-| `scripts/render-enba-launch-campaign.mjs` | Renderiza las 30 piezas de la campana de lanzamiento |
-| `scripts/render-enba-launch-carousel.mjs` | Renderiza slides de carruseles |
+| `scripts/render-enba-launch-campaign.mjs` | Renderiza las 30 piezas de la campana de lanzamiento (Playwright) |
+| `scripts/render-enba-launch-carousel.mjs` | Renderiza slides de carruseles (Playwright) |
+| `scripts/build-reel-v8.sh` | Reel sin texto, battle-tested (ffmpeg) |
 | `scripts/stage-campaign.mjs` | Copia PNGs de output/ a staging/ con manifests |
 | `scripts/publish-piece.mjs` | Publicacion manual de una pieza por ID |
-| `scripts/build-redes-launch-image-bank.mjs` | Construye el banco de imagenes de lanzamiento |
+| `scripts/swap-ig-cold-v3.mjs` | Swap creativo puntual en un ad de Meta Ads |
 
-Todos los renderers usan Playwright. Instalar dependencias con `npm install`.
+Estáticas y carruseles usan Playwright (`npm install`). Reels con texto usan Remotion (`enba-remotion`). Ver `campaigns/plan-crecimiento-10k/PRODUCTION-RUNBOOK.md` e inventario completo en `scripts/README.md`.
 
 ---
 

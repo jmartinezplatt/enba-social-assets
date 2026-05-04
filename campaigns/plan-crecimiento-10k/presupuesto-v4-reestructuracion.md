@@ -92,7 +92,7 @@ Placements: FB Feed + FB Reels only (FB Stories excluido dia 14 — CPF $408 en 
 | Ad | ID | Creative | CPV | Estado |
 |---|---|---|---|---|
 | corporativo_IG_Cold | 120239353874370139 | grupo-cockpit-cielo-azul-4x5 (WINNER) | $25 | ACTIVE |
-| microreel_IG_Cold | 120239303661060139 | micro-reel 15s | $44.52 | PENDIENTE PAUSA — CPV > $40, esperando microreel-ig-v3 como reemplazo |
+| microreel_IG_Cold | 120239303661060139 | microreel-ig-v3 (safe zone fix, 26s) | $44.52 | ACTIVE — creative swapped 03/05 (Remotion, safe zone fix, creative `2196127044559592`) |
 
 Budget reducido $5K→$3.5K dia 14 para crear ig_test_NAU. static01+static02 movidos a ig_test_NAU.
 
@@ -199,7 +199,7 @@ Rojo → Plan B: pausar todo excepto mejor performer, micro-reels 15s, stories 8
 
 **Pipeline activo:**
 - 4 imagenes estaticas nuevas subidas 01/05 (2 IG + 2 FB)
-- **microreel-ig-v3 en producción (03/05):** reemplazará microreel_IG_Cold (CPV $44.52 > $40). Overlays de texto + audio ambient+música. Output: `campaigns/plan-crecimiento-10k/reels/microreel-ig-v3.mp4`.
+- **microreel-ig-v3 LIVE (03/05):** creative swapped en microreel_IG_Cold. Producido con Remotion (26s, Barlow Semi Condensed, 8 clips, safe zone fix). Creative `2196127044559592`, video `842404041621357`.
 - REEL-01 pendiente produccion (P1, segunda tanda)
 - Lookalike audience LAL1 creada, pendiente test
 

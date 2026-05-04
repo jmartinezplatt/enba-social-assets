@@ -72,6 +72,7 @@ Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier
 
 ### Últimos hitos relevantes
 
+- **03/05 sesión microreel + runbook:** Microreel IG v3 producido con Remotion (26s, Barlow Semi Condensed, 8 clips, 6 overlays). Safe zone fix aplicado (overlays 220-300px → 400-440px desde bottom). Creative `2196127044559592`, video `842404041621357` live en `ENBA_ad_microreel_IG_Cold`. `PRODUCTION-RUNBOOK.md` creado. Repo `enba-remotion` publicado como privado en GitHub.
 - **03/05 sesión fix email URLs (workflow v7.2):** Patch quirúrgico sobre workflow `MipwleZNu8EG5v6C`.
   - URLs de post en email de publicación estaban mal: IG mostraba perfil (no post), FB generaba URL inválida.
   - Fix: nuevo nodo `Get IG Permalink` (GET `/v21.0/{mediaId}?fields=permalink`) insertado entre `IG Publish` y `Set IG Result`. `Collect Results` actualizado con permalink IG y URL FB correcta (`permalink.php?story_fbid=...&id=...`).
@@ -157,6 +158,7 @@ Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier
 | Plan, timeline, pendientes, decisiones | `plan-maestro.md` | Documento vivo |
 | Pauta vigente | `presupuesto-v4-reestructuracion.md` | Normativo para ads |
 | Infra Meta Ads | `meta-ids.json` | Estado real y IDs |
+| Qué herramienta usar por tipo de pieza/red | `PRODUCTION-RUNBOOK.md` | Operativo para producción |
 | QA de piezas | `qa-report.md` | Referencia operativa |
 | Medición y taxonomía | `kpis.md`, `google-analytics-medicion.md` | Soporte analítico |
 | Contexto histórico | `SESSION-HANDOFF-*.md`, docs superseded | Histórico |
@@ -172,6 +174,7 @@ Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier
 - `campaigns/plan-crecimiento-10k/plan-maestro.md`
 - `campaigns/plan-crecimiento-10k/presupuesto-v4-reestructuracion.md`
 - `campaigns/plan-crecimiento-10k/meta-ids.json`
+- `campaigns/plan-crecimiento-10k/PRODUCTION-RUNBOOK.md`
 
 ### Vigentes pero condicionales
 
