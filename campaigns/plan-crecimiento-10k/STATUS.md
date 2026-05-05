@@ -72,6 +72,13 @@ Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier
 
 ### Últimos hitos relevantes
 
+- **05/05 sesión Bruno día 17/27 — acciones Meta Ads:**
+  - **ig_cold escalado $3.500→$4.200/día (+20%):** corporativo_IG_Cold WINNER ($23/visita) — incremento dentro del techo de no-reset learning phase.
+  - **destinos_FB_Cold PAUSED:** CPF $116 a día 17 sin recuperación. fb_cold pasa de 4 a 3 ads activos.
+  - **fb_retarget activado:** 2 ads nuevos (`ENBA_ad_FB_static01_Retarget` ID `120240014056040139`, `ENBA_ad_FB_static02_Retarget` ID `120240014058160139`) con creativos static01+static02. Audiencia D4 (11.678 ThruPlays). Budget del ad set: $3.600/día.
+  - **Burn rate estimado post-acciones:** ~$17.000/día. Restante: ~$188K → alcanza hasta 16/05.
+  - **PYTHONUTF8=1** seteado en Windows User scope — fix definitivo para UnicodeEncodeError en scripts Python.
+  - **Próxima revisión:** fb_retarget en 3-4 días (CPF inicial con audiencia caliente).
 - **05/05 sesión email ads v7 — fix Ad likes 24h (workflow `1qRywsEWAl7VoO5o`):** Campo "Page likes FB" (acumulado lifetime) reemplazado por "Ad likes 24h" (netos yesterday). Nuevo nodo `Get Ad Likes 24h` (`date_preset=yesterday`, `fields=ad_id,actions`). Action type: `onsite_conversion.post_net_like` (netos FB). Bug de estructura corregido (Meta devuelve `{data:[]}`, no items individuales). Conexión: `Get Quality Rankings → Get Ad Likes 24h → Evaluate Ads`. Scripts de patch: `scripts/patch-eval-ads-likes24h.py` + `scripts/patch-eval-ads-likes24h-fix.py`. Backup local: `automatizaciones/n8n-workflows/eval-ads-patched-likes24h-fix.json`. Verificado con ejecución manual — email muestra 57 net likes.
 - **05/05 sesión email ads v7 (workflow `1qRywsEWAl7VoO5o`):** Alineación visual completa del email de evaluación diaria contra diseño de referencia.
   - **Hero block:** 3 columnas → 4 columnas (FB | IG | Total Nuevos | KPI box con CPV/CPF/Follow rate/CPS blended).

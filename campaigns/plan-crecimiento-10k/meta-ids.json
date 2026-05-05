@@ -1,7 +1,7 @@
 {
-  "last_verified": "2026-05-02T18:00:00-03:00",
-  "last_api_verified": "2026-05-02T18:00:00-03:00",
-  "api_verified_note": "Sesion dia 14/27. Gate 3 VERDE (1,044 follows vs 800 target). Ad set ENBA_Follow_IG_Test_NAU creado (4 intereses nauticos + LAL1 + advantage_audience ON). static01+static02 movidos de ig_cold a ig_test. ig_cold reducido $5K->$3.5K. Montevideo removido de intereses. D2 agregada a retargets. targeting_relaxation OFF en retargets. FB Stories excluido de fb_cold. AS_ENG_REEL intereses 4->23. 23 intereses validados (0 deprecados). 11 ads activos. Burn rate: $13,000/dia.",
+  "last_verified": "2026-05-05T11:00:00-03:00",
+  "last_api_verified": "2026-05-05T11:00:00-03:00",
+  "api_verified_note": "Sesion dia 17/27. Bruno acciones: (1) ig_cold escalado $3.500->$4.200/dia +20%; (2) destinos_FB_Cold PAUSED ($116/like, 17d sin recuperacion); (3) fb_retarget activado con static01+static02 (D4 11.678 ThruPlays). Burn estimado: ~$17.000/dia. Presupuesto restante: ~$188K.",
   "session_02may": "Sesion dia 14/27. Review completo Bruno: reel-eng-v2 WINNER ENG (CPV $0.87), corporativo WINNER IG (CPV $25), FB_static01 prometedor (CPF ~$62). Auditoría targeting: Montevideo removido, D2 faltante en retargets corregido, targeting_relaxation OFF en retargets, FB Stories excluido de fb_cold (CPF $408), AS_ENG_REEL intereses ampliados 4->23. Meta Verified Business Plus evaluado (sin impacto en ads, beneficios organicos). Investigacion intereses Bruno: 3 de 7 deprecados por Meta. Ad set test creado con 4 validos + LAL1. FB fans: 989, IG: ~78.",
   "session_28apr": "Sesión día 9/27. Análisis performance completo via API. Exclusiones corregidas: fb_retarget → D5 agregada; ig_cold → D5 (irrelevante) reemplazada por D6; ig_retarget → D6 agregada. D6 (IGFollowers_exclusion) creada por Jose desde UI (ID: 120239621840990139). Hallazgo: ig_cold tenía D5 FBPageLikers como exclusión — completamente irrelevante para campaña IG. Audiencia D4 VideoViewers ~2.400-3.000 personas no seguidoras ya dentro de ig_retarget post-fix.",
   "session_28apr_noche": "Sesión día 10/27. GET batch API verificó estado real de todos los ads y ad sets Follow Plan v2. Hallazgos: (1) fb_cold SÍ tiene D5 como exclusión (API confirma ID 120239146215040139) — nota anterior era incorrecta; (2) destinos_IG_Retarget y nosotros_IG_Retarget realmente PAUSED (meta-ids.json los tenía como ACTIVE por error); (3) Burn rate real confirmado: $23.020/día (Follow Plan v2 $20.020 + ENG_REEL $3.000). AWR ad sets CBO con $0/día individual — budget a nivel campaña pero todos los ads paused. (4) WINNER confirmado vía nota: corporativo_IG_Cold usa imagen estática grupo-cockpit-cielo-azul-4x5.jpg — hipótesis video-first falsada. (5) 3 ads activos que Bruno recomienda cortar: microreel_FB_Cold, microreel_FB_Retarget, nosotros_FB_Retarget — pendiente aprobación de Jose.",
@@ -684,7 +684,7 @@
       "ig_cold": {
         "id": "120239303658370139",
         "campaign": "120239303658100139",
-        "daily_budget": 350000,
+        "daily_budget": 420000,
         "optimization": "VISIT_INSTAGRAM_PROFILE",
         "status": "ACTIVE",
         "activated_date": "2026-04-24",
@@ -693,6 +693,8 @@
         "scaled_reason_2": "Bruno día 12: WINNER corporativo_IG_Cold CPV $25 — escalar $4.000→$5.000/día.",
         "reduced_date_3": "2026-05-02",
         "reduced_reason_3": "Día 14: reducido $5.000→$3.500 para crear ig_test_NAU ($1.500). Total IG neutro $6.500. Montevideo removido de intereses (23 intereses).",
+        "scaled_date_4": "2026-05-05",
+        "scaled_reason_4": "Bruno día 17: corporativo WINNER $23/visita — escalar +20% ($3.500→$4.200/día). No-reset learning phase.",
         "exclusions": {
           "D6": "120239621840990139",
           "note": "Excluye seguidores actuales IG. Corregido 28/04: tenía D5 (FBPageLikers) por error — completamente irrelevante para campaña IG."
@@ -862,7 +864,9 @@
         "id": "120239303665020139",
         "adset": "120239303659650139",
         "creative": "2227761878038971",
-        "status": "ACTIVE"
+        "status": "PAUSED",
+        "paused_date": "2026-05-05",
+        "paused_reason": "Bruno día 17: CPF $116 > $100 CORTAR — 17 días sin recuperación"
       },
       "ENBA_ad_nosotros_FB_Cold": {
         "id": "120239303666220139",
@@ -915,6 +919,22 @@
         "paused_at": "2026-04-28T16:11:34+0000",
         "paused_by": "Conversions API System User",
         "paused_reason": "CPS $103 > $100 — CORTAR"
+      },
+      "ENBA_ad_FB_static01_Retarget": {
+        "id": "120240014056040139",
+        "adset": "120239303660260139",
+        "creative": "961542533501869",
+        "status": "ACTIVE",
+        "created_date": "2026-05-05",
+        "notes": "Bruno día 17: activar retarget FB con creative static01 (travesias-grupo-cockpit-skyline). D4 11.678 ThruPlays disponibles. Mismo creative que FB_static01_01may en fb_cold."
+      },
+      "ENBA_ad_FB_static02_Retarget": {
+        "id": "120240014058160139",
+        "adset": "120239303660260139",
+        "creative": "26783650401254705",
+        "status": "ACTIVE",
+        "created_date": "2026-05-05",
+        "notes": "Bruno día 17: activar retarget FB con creative static02 (cuatro-amigos-cockpit-vela-nubes-rio). D4 11.678 ThruPlays disponibles. Mismo creative que FB_static02_01may en fb_cold."
       }
     },
     "creatives": {
