@@ -72,6 +72,7 @@ Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier
 
 ### Últimos hitos relevantes
 
+- **05/05 sesión email ads v7 — fix Ad likes 24h (workflow `1qRywsEWAl7VoO5o`):** Campo "Page likes FB" (acumulado lifetime) reemplazado por "Ad likes 24h" (netos yesterday). Nuevo nodo `Get Ad Likes 24h` (`date_preset=yesterday`, `fields=ad_id,actions`). Action type: `onsite_conversion.post_net_like` (netos FB). Bug de estructura corregido (Meta devuelve `{data:[]}`, no items individuales). Conexión: `Get Quality Rankings → Get Ad Likes 24h → Evaluate Ads`. Scripts de patch: `scripts/patch-eval-ads-likes24h.py` + `scripts/patch-eval-ads-likes24h-fix.py`. Backup local: `automatizaciones/n8n-workflows/eval-ads-patched-likes24h-fix.json`. Verificado con ejecución manual — email muestra 57 net likes.
 - **05/05 sesión email ads v7 (workflow `1qRywsEWAl7VoO5o`):** Alineación visual completa del email de evaluación diaria contra diseño de referencia.
   - **Hero block:** 3 columnas → 4 columnas (FB | IG | Total Nuevos | KPI box con CPV/CPF/Follow rate/CPS blended).
   - **HOLD PUENTE:** nuevo veredicto para ads FB FOLLOW < 7 días que serían CORTAR pero sin reemplazo disponible. Agregado a post-processing, verdictStyle, verdictOrder pills, glosario y summaryParts.
