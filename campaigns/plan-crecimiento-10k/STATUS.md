@@ -72,6 +72,11 @@ Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier
 
 ### Últimos hitos relevantes
 
+- **05/05 sesión diagnóstico IG + creación Carlos:**
+  - **Diagnóstico confirmado:** IG follows no crecen por problema estructural de objetivo de campaña, no de perfil. Jerarquía: (1) volumen insuficiente de tráfico, (2) calidad dudosa (VISIT_INSTAGRAM_PROFILE optimiza clicks, no follows), (3) perfil. CPF real IG: $4,636 vs benchmark $0.50–$1.50. Ningún objetivo Meta optimiza follows IG directamente — verificado via API.
+  - **"Seguimientos de Instagram":** nueva métrica Meta (desde julio 2025) disponible solo en Ads Manager UI (Interacción → Seguidores y Me gusta). No expuesta en Graph API.
+  - **Carlos creado:** nuevo rol Team 4 Capa 1 — Trafficker Digital & Paid Media Specialist. Diseña estrategia de tráfico y audiencias. Archivos: `.claude/agents/carlos.md` + `.claude/commands/carlos.md`. Invocable con `/carlos`.
+  - **Pregunta abierta:** ¿cuál es la estrategia de tráfico para IG? Arrancar próxima sesión con `/carlos`.
 - **05/05 sesión Bruno día 17/27 — acciones Meta Ads:**
   - **ig_cold escalado $3.500→$4.200/día (+20%):** corporativo_IG_Cold WINNER ($23/visita) — incremento dentro del techo de no-reset learning phase.
   - **destinos_FB_Cold PAUSED:** CPF $116 a día 17 sin recuperación. fb_cold pasa de 4 a 3 ads activos.

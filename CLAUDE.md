@@ -194,6 +194,7 @@ Inicia todo ciclo de producción. Define estrategia, concepto y dirección creat
 | **Estratega de Contenido** | Franco | `.claude/agents/franco.md` |
 | **Social Growth & Performance Director** | Bruno | `.claude/agents/bruno.md` |
 | **Paid Media Auditor** | Auditor | `.claude/agents/auditor.md` |
+| **Trafficker Digital & Paid Media Specialist** | Carlos | `.claude/agents/carlos.md` |
 
 **Entrega de Team 4 → Team 3:** brief de producción por campaña o lote:
 - Objetivo de la pieza/campaña
@@ -256,6 +257,7 @@ Recibe brief de Team 4 y ejecuta de punta a punta hasta publicación. No arranca
 | Franco | Ejecutar producción, editar archivos, tocar staging/published, medir performance (owner: Bruno) |
 | Bruno | Ejecutar producción, editar archivos, tocar staging/published, redefinir tono de marca (owner: Marina), escribir captions (owner: Sole) |
 | Auditor | Escribir planes propios, ejecutar producción, editar archivos, tocar staging/published, definir creatividad ni calendario. Solo audita y devuelve veredicto. |
+| Carlos | Ejecutar en Meta, medir performance, opinar sobre creativos, definir calendario, definir presupuesto, escribir captions. Solo diseña estrategia de tráfico y audiencias. |
 
 ### Worktrees y ownership
 
@@ -281,7 +283,7 @@ ESTRATEGIA (Franco) → CONCEPTO (Marina) → BRIEF (Team 4 → Manu)
 
 ### Invocación de agentes
 
-Siempre usar el slash command correspondiente (`/bruno`, `/marina`, `/franco`, `/auditor`, `/manu`, `/dani`, `/sole`, `/nico`) que carga CLAUDE.md + prompt operativo completo desde `.claude/agents/`. No improvisar prompts manuales que salteen la definición formal del agente.
+Siempre usar el slash command correspondiente (`/bruno`, `/marina`, `/franco`, `/auditor`, `/carlos`, `/manu`, `/dani`, `/sole`, `/nico`) que carga CLAUDE.md + prompt operativo completo desde `.claude/agents/`. No improvisar prompts manuales que salteen la definición formal del agente.
 
 ---
 
