@@ -1,6 +1,6 @@
 # STATUS — Frente REDES
 
-**Última actualización:** 03 de mayo de 2026 (sesión curación asset-bank)
+**Última actualización:** 05 de mayo de 2026 (sesión email ads v7 fixes + burn rate fix)
 **Owner de mantenimiento:** quien cierre la sesión del frente redes
 **Uso:** punto de entrada corto para inicio de sesión. Si este archivo contradice un handoff viejo, manda este archivo.
 
@@ -72,6 +72,16 @@ Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier
 
 ### Últimos hitos relevantes
 
+- **05/05 sesión email ads v7 (workflow `1qRywsEWAl7VoO5o`):** Alineación visual completa del email de evaluación diaria contra diseño de referencia.
+  - **Hero block:** 3 columnas → 4 columnas (FB | IG | Total Nuevos | KPI box con CPV/CPF/Follow rate/CPS blended).
+  - **HOLD PUENTE:** nuevo veredicto para ads FB FOLLOW < 7 días que serían CORTAR pero sin reemplazo disponible. Agregado a post-processing, verdictStyle, verdictOrder pills, glosario y summaryParts.
+  - **Ads Activos:** ordenados por veredicto (WINNER primero) dentro de cada sección IG/FB/ENG.
+  - **Ads Pausados:** collapse histórico — muestra 8 recientes + línea de resumen "N ads históricos adicionales..." para el resto.
+  - **Quality Rankings:** sección eliminada (no estaba en diseño de referencia).
+  - **Roadmap:** label "objetivo" → "seguidores nuevos". Línea de budget risk separada del pace box.
+  - **Pace box:** ancho 280px → 360px. Footer: "Burn: ..." → "Burn rate: suma ad sets activos (real)".
+  - **Burn rate fix (regresión):** pausamos a nivel ad, los ad sets quedan siempre ACTIVE. El fix del 30/04 se había aplicado solo al nodo HTTP, no al Code node. Fix definitivo: `adsetHasActiveAd` map construido desde `Get Ad Status Batch` usando campo `adset_id`. Burn rate real: $26,100 → $13,000/día. `budgetRisk: false` — banner rojo eliminado.
+  - `evaluate-ads.js` v7 final: 78,626 chars. Exec verificación: 23291. Script deploy: `scripts/patch-evaluate-ads.py`.
 - **03/05 sesión microreel + runbook:** Microreel IG v3 producido con Remotion (26s, Barlow Semi Condensed, 8 clips, 6 overlays). Safe zone fix aplicado (overlays 220-300px → 400-440px desde bottom). Creative `2196127044559592`, video `842404041621357` live en `ENBA_ad_microreel_IG_Cold`. `PRODUCTION-RUNBOOK.md` creado. Repo `enba-remotion` publicado como privado en GitHub.
 - **03/05 sesión fix email URLs (workflow v7.2):** Patch quirúrgico sobre workflow `MipwleZNu8EG5v6C`.
   - URLs de post en email de publicación estaban mal: IG mostraba perfil (no post), FB generaba URL inválida.
