@@ -72,11 +72,17 @@ Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier
 
 ### Últimos hitos relevantes
 
+- **06/05 sesión Carlos — Estrategia Targeting IG v1:**
+  - **Plan completo documentado:** diagnóstico raíz (CPF $852 = CPV $23 × follow rate 2.7%), 3 audiencias propuestas con hipótesis medibles, plan de nurturing post-follow.
+  - **P1 ejecutado 05/05:** LAL2 (`ENBA_LAL_1pct_VideoViewers`, ID `120240030647240139`) creada via API. Base: D4 (11.678 ThruPlays). Tamaño: 358K–421K personas.
+  - **P2 ejecutado 06/05:** LAL2 activada en ig_test_NAU (swap LAL1→LAL2). Verificado via API. ig_retarget ya tenía D1+D2+D3+D4 desde 02/05 — nada roto.
+  - **ClickUp estructurado:** Folder "ENBA Redes" (ID `901318182200`) en Project-M. Doc plan: https://app.clickup.com/9013144327/docs/8ckkar7-453. Tarea Carlos: https://app.clickup.com/t/86ahaf8ek. Tarea Bruno: https://app.clickup.com/t/86ahafkp1.
+  - **Revisión H1/H2:** 09/05 — `/bruno` reporta CPV y follow rate de ig_test_NAU con LAL2 y gasto efectivo de ig_retarget.
+  - **Pregunta abierta cerrada.** Carlos activo como owner de la estrategia de tráfico IG.
 - **05/05 sesión diagnóstico IG + creación Carlos:**
   - **Diagnóstico confirmado:** IG follows no crecen por problema estructural de objetivo de campaña, no de perfil. Jerarquía: (1) volumen insuficiente de tráfico, (2) calidad dudosa (VISIT_INSTAGRAM_PROFILE optimiza clicks, no follows), (3) perfil. CPF real IG: $4,636 vs benchmark $0.50–$1.50. Ningún objetivo Meta optimiza follows IG directamente — verificado via API.
   - **"Seguimientos de Instagram":** nueva métrica Meta (desde julio 2025) disponible solo en Ads Manager UI (Interacción → Seguidores y Me gusta). No expuesta en Graph API.
   - **Carlos creado:** nuevo rol Team 4 Capa 1 — Trafficker Digital & Paid Media Specialist. Diseña estrategia de tráfico y audiencias. Archivos: `.claude/agents/carlos.md` + `.claude/commands/carlos.md`. Invocable con `/carlos`.
-  - **Pregunta abierta:** ¿cuál es la estrategia de tráfico para IG? Arrancar próxima sesión con `/carlos`.
 - **05/05 sesión Bruno día 17/27 — acciones Meta Ads:**
   - **ig_cold escalado $3.500→$4.200/día (+20%):** corporativo_IG_Cold WINNER ($23/visita) — incremento dentro del techo de no-reset learning phase.
   - **destinos_FB_Cold PAUSED:** CPF $116 a día 17 sin recuperación. fb_cold pasa de 4 a 3 ads activos.

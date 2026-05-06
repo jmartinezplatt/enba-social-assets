@@ -84,6 +84,18 @@
       "created_via": "API",
       "notes": "Lookalike 1% desde 947+ page likers FB. Para testear en fb_cold y eventualmente IG."
     },
+    "LAL2": {
+      "id": "120240030647240139",
+      "name": "ENBA_LAL_1pct_VideoViewers",
+      "subtype": "LOOKALIKE",
+      "source": "D4 (VideoViewers_30d, 120239146204050139)",
+      "country": "AR",
+      "ratio": 0.01,
+      "status": "active",
+      "created_date": "2026-05-05",
+      "created_via": "API",
+      "notes": "Lookalike 1% desde 11.678 ThruPlays (50%+ video). Base mas representativa que LAL1. P1 Carlos targeting-ig-v1. Usar en ig_test_NAU reemplazando LAL1 (P2)."
+    },
     "D6": {
       "id": "120239621840990139",
       "name": "ENBA_Custom_IGFollowers_exclusion",
@@ -724,12 +736,12 @@
         "advantage_audience": 1,
         "targeting_relaxation": "OFF",
         "interests": "4 nauticos puros: Vendee Globe, Boat show, Yachting magazine, American Sailing Association (propuesta original 7, 3 deprecados por Meta: Turismo nautico, North Sails, Revista Nautica)",
-        "custom_audiences_targeting": "LAL1 (120239852278830139)",
+        "custom_audiences_targeting": "LAL2 (120240030647240139) — swapped 06/05, reemplaza LAL1",
         "exclusions": {
           "D6": "120239621840990139",
           "note": "Excluye seguidores actuales IG."
         },
-        "notes": "Test de audiencia nueva (intereses nauticos puros + LAL1) con mismos creativos (static01+static02). Budget compensado con reduccion ig_cold $5K->$3.5K. Total IG neutro $6.500."
+        "notes": "Test de audiencia nueva (intereses nauticos puros + LAL2). LAL2 = 1% desde D4 VideoViewers (358K-421K personas). Swap LAL1->LAL2 ejecutado 06/05 — P2 Carlos targeting-ig-v1."
       },
       "fb_cold": {
         "id": "120239303659650139",
