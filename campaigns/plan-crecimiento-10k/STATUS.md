@@ -72,6 +72,10 @@ Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier
 
 ### Últimos hitos relevantes
 
+- **06/05 sesión cierre — Bruno día 18/27 + fix email stories:**
+  - **Fix email stories `[undefined]`:** campo `category` no existe en fase3-manifest.json (era específico de Fase 2 con verticales). Patch quirúrgico vía API en workflows Mañana (`q1nZVNrtEsxKEFni`) y Noche (`c8MHANGzW56GORAi`). Subject y body ahora muestran `[Fase 3]` y `Fase: Fase 3`. Script: `scripts/patch-stories-category-fix.py`. Verificación POST-PUT OK en ambos workflows. Nota guardada en memoria para Fase 4.
+  - **Bruno día 18/27 — análisis y veredictos:** todos los veredictos automáticos confirmados. Gap urgente: 3 ads en REEMPLAZAR (microreel_IG_Cold $44/visita, microreel_IG_Retarget $63/visita, nosotros_FB_Cold $100/like) sin creativos de reemplazo — pipeline vacío. Acciones propuestas **pendientes aprobación Jose:** (1) escalar corporativo_IG_Cold $4.200→$5.000/día (+20%), (2) revisar retarget FB el 07/05 (CPF $690/$566 en learning — pausar si no baja), (3) brief urgente a Dani: 2 creativos IG estáticos 4×5 + 1 FB estático.
+  - **Pace:** 64 seg/día vs 531 necesarios — no se resuelve con optimización de ads existentes, requiere creativos nuevos y volumen.
 - **06/05 sesión Stories Fase 3 live:**
   - **20 stories "Esto vivís"** renderizadas (Playwright JPEG Q92, 1080×1920). Franja navy opacity 0.68, logo oficial ENBA-horizontal-oscuro.svg embebido. QA PASS 20/20.
   - **fase3-manifest.json** en Cloudflare Pages (commit c313fbe). Ciclo 2x/día (09:00+20:00 ART), 10 días, 2026-05-06→2026-05-15.
