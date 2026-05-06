@@ -22,6 +22,7 @@
 | `render-highlight-stories.mjs` | Playwright | Stories de highlights IG. | Stories para agregar a highlights. |
 | `render-endcard-compare.mjs` | Playwright | Genera dos versiones de end card para comparacion visual. | Comparar opciones de endcard para reels. |
 | `render-endcards-temp.mjs` | Node | Genera endcards con logo oficial sobre fondo navy. | Endcards para TikTok/Reels. |
+| `build-story-slot-editor.mjs` | Node | Editor visual de asignación de fotos a slots de stories. Genera HTML con drag entre slots + botón `+` para abrir explorador de archivos + exportar JSON. Usar para cualquier ciclo de stories que requiera asignar fotos a day/slot. Invocar: `node scripts/build-story-slot-editor.mjs` → abre `preview-story-slots.html` (o el path configurado en el script). | Asignar/reordenar fotos antes de renderizar con `render-fase3-stories.mjs` o similares. |
 | `build-photo-preview.py` | Python | Previews de fotos para QA. | Revision de lotes de fotos. |
 | `build-preview-qa-05-30.py` | Python | Preview QA especifico 05-30. | QA de lote especifico. |
 | `build-video-contact-sheets.py` | Python | Contact sheets de video para revision. | Revisar clips crudos antes de editar. |

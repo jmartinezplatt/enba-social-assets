@@ -1,0 +1,29 @@
+{
+  "cycle_id": "stories-2x-10d-may2026",
+  "start_date": "2026-05-06",
+  "end_date": "2026-05-15",
+  "slots": ["09:00", "20:00"],
+  "timezone": "America/Argentina/Buenos_Aires",
+  "stories": [
+    { "seq": 1,  "day": 1,  "slot": "manana", "time": "09:00", "file": "fase3/f3-01-manana.jpg", "caption": "¿Cómo se ve Buenos Aires desde el río?" },
+    { "seq": 2,  "day": 1,  "slot": "noche",  "time": "20:00", "file": "fase3/f3-02-noche.jpg",  "caption": "Hoy alguien lo vio por primera vez. Mañana podés ser vos." },
+    { "seq": 3,  "day": 2,  "slot": "manana", "time": "09:00", "file": "fase3/f3-03-manana.jpg", "caption": "No hace falta saber nada. Cero." },
+    { "seq": 4,  "day": 2,  "slot": "noche",  "time": "20:00", "file": "fase3/f3-04-noche.jpg",  "caption": "La primera vez siempre te cambia algo." },
+    { "seq": 5,  "day": 3,  "slot": "manana", "time": "09:00", "file": "fase3/f3-05-manana.jpg", "caption": "Con tus amigos. Con tu pareja. El río recibe a todos." },
+    { "seq": 6,  "day": 3,  "slot": "noche",  "time": "20:00", "file": "fase3/f3-06-noche.jpg",  "caption": "Algunas salidas se convierten en planes fijos." },
+    { "seq": 7,  "day": 4,  "slot": "manana", "time": "09:00", "file": "fase3/f3-07-manana.jpg", "caption": "Salís. Navegás. Volvés distinto." },
+    { "seq": 8,  "day": 4,  "slot": "noche",  "time": "20:00", "file": "fase3/f3-08-noche.jpg",  "caption": "Tres horas que se sienten como tres días." },
+    { "seq": 9,  "day": 5,  "slot": "manana", "time": "09:00", "file": "fase3/f3-09-manana.jpg", "caption": "A cuatro horas de Buenos Aires. Sin subir a un avión." },
+    { "seq": 10, "day": 5,  "slot": "noche",  "time": "20:00", "file": "fase3/f3-10-noche.jpg",  "caption": "Hay una isla esperándote en el río." },
+    { "seq": 11, "day": 6,  "slot": "manana", "time": "09:00", "file": "fase3/f3-11-manana.jpg", "caption": "Empezás desde cero. Terminás con rumbo propio." },
+    { "seq": 12, "day": 6,  "slot": "noche",  "time": "20:00", "file": "fase3/f3-12-noche.jpg",  "caption": "La náutica no se aprende en un libro." },
+    { "seq": 13, "day": 7,  "slot": "manana", "time": "09:00", "file": "fase3/f3-13-manana.jpg", "caption": "El río no te pide CV. Solo ganas." },
+    { "seq": 14, "day": 7,  "slot": "noche",  "time": "20:00", "file": "fase3/f3-14-noche.jpg",  "caption": "Cada travesía suma tripulantes para la próxima." },
+    { "seq": 15, "day": 8,  "slot": "manana", "time": "09:00", "file": "fase3/f3-15-manana.jpg", "caption": "Costanera Norte, frente al Aeroparque. A 20 minutos de Palermo." },
+    { "seq": 16, "day": 8,  "slot": "noche",  "time": "20:00", "file": "fase3/f3-16-noche.jpg",  "caption": "Salís de la ciudad sin salir de la ciudad." },
+    { "seq": 17, "day": 9,  "slot": "manana", "time": "09:00", "file": "fase3/f3-17-manana.jpg", "caption": "El único paso que falta es el primero." },
+    { "seq": 18, "day": 9,  "slot": "noche",  "time": "20:00", "file": "fase3/f3-18-noche.jpg",  "caption": "El río está ahí. La pregunta es cuándo." },
+    { "seq": 19, "day": 10, "slot": "manana", "time": "09:00", "file": "fase3/f3-19-manana.jpg", "caption": "Tu próxima salida empieza con un mensaje." },
+    { "seq": 20, "day": 10, "slot": "noche",  "time": "20:00", "file": "fase3/f3-20-noche.jpg",  "caption": "Escribinos. Contamos los cupos con los dedos." }
+  ]
+}
