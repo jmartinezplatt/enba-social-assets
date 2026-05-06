@@ -1,0 +1,892 @@
+﻿{
+    "updatedAt":  "2026-04-29T16:19:23.291Z",
+    "createdAt":  "2026-04-26T07:59:17.006Z",
+    "id":  "c8MHANGzW56GORAi",
+    "name":  "ENBA - Stories Noche (noche)",
+    "description":  null,
+    "active":  true,
+    "isArchived":  false,
+    "nodes":  [
+                  {
+                      "id":  "schedule-noche",
+                      "name":  "Schedule Noche",
+                      "type":  "n8n-nodes-base.scheduleTrigger",
+                      "typeVersion":  1.2,
+                      "position":  [
+                                       200,
+                                       300
+                                   ],
+                      "parameters":  {
+                                         "rule":  {
+                                                      "interval":  [
+                                                                       {
+                                                                           "field":  "cronExpression",
+                                                                           "expression":  "0 20 * * *"
+                                                                       }
+                                                                   ]
+                                                  }
+                                     }
+                  },
+                  {
+                      "id":  "set-slot-noche",
+                      "name":  "Set Slot",
+                      "type":  "n8n-nodes-base.set",
+                      "typeVersion":  3.4,
+                      "position":  [
+                                       420,
+                                       300
+                                   ],
+                      "parameters":  {
+                                         "mode":  "manual",
+                                         "assignments":  {
+                                                             "assignments":  [
+                                                                                 {
+                                                                                     "id":  "slot",
+                                                                                     "name":  "slot",
+                                                                                     "value":  "noche",
+                                                                                     "type":  "string"
+                                                                                 },
+                                                                                 {
+                                                                                     "id":  "cycleStartDate",
+                                                                                     "name":  "cycleStartDate",
+                                                                                     "value":  "2026-04-26",
+                                                                                     "type":  "string"
+                                                                                 }
+                                                                             ]
+                                                         }
+                                     }
+                  },
+                  {
+                      "id":  "pick-story-noche",
+                      "name":  "Pick Next Story",
+                      "type":  "n8n-nodes-base.code",
+                      "typeVersion":  2,
+                      "position":  [
+                                       860,
+                                       300
+                                   ],
+                      "parameters":  {
+                                         "jsCode":  "// pick-next-story-v2.js\n// Manifest llega del nodo anterior \"Get Manifest\" (HTTP Request)\n// — no usa fetch() para compatibilidad con el sandbox de n8n cloud\n// Slot y cycleStartDate vienen del nodo \"Set Slot\" referenciado por nombre\n\nconst manifest = $input.first().json;\nconst slot = $(\u0027Set Slot\u0027).first().json.slot;\nconst cycleStartDate = $(\u0027Set Slot\u0027).first().json.cycleStartDate || \u00272026-04-26\u0027;\n\nconst BASE_IMG_URL = \u0027https://enba-social-assets.pages.dev/campaigns/plan-crecimiento-10k/highlights/stories/\u0027;\n\n// Calcular día del ciclo en ART (UTC-3)\nconst now = new Date();\nconst artOffset = -3 * 60;\nconst utcMs = now.getTime() + now.getTimezoneOffset() * 60000;\nconst artNow = new Date(utcMs + artOffset * 60000);\nconst artToday = new Date(artNow.getFullYear(), artNow.getMonth(), artNow.getDate());\n\nconst [sy, sm, sd] = cycleStartDate.split(\u0027-\u0027).map(Number);\nconst startDate = new Date(sy, sm - 1, sd);\nconst diffMs = artToday - startDate;\nconst dayOfCycle = Math.floor(diffMs / (1000 * 60 * 60 * 24)) + 1;\n\nif (dayOfCycle \u003c 1 || dayOfCycle \u003e 10) {\n  return [{ json: {\n    skip: true,\n    reason: dayOfCycle \u003c 1\n      ? `Ciclo aún no iniciado. Día calculado: ${dayOfCycle}`\n      : `Ciclo completado (día ${dayOfCycle}/10). No hay más stories programadas.`,\n    dayOfCycle, slot, timestamp: artNow.toISOString()\n  }}];\n}\n\nconst story = manifest.stories.find(s =\u003e s.day === dayOfCycle \u0026\u0026 s.slot === slot);\n\nif (!story) {\n  return [{ json: {\n    skip: true,\n    reason: `No se encontró story para día ${dayOfCycle} slot ${slot}`,\n    dayOfCycle, slot, timestamp: artNow.toISOString()\n  }}];\n}\n\nreturn [{ json: {\n  skip: false,\n  seq: story.seq,\n  day: dayOfCycle,\n  slot: story.slot,\n  time: story.time,\n  category: story.category,\n  caption: story.caption,\n  file: story.file,\n  imageUrl: BASE_IMG_URL + story.file,\n  cycleProgress: `Día ${dayOfCycle}/10`,\n  timestamp: artNow.toISOString()\n}}];\n"
+                                     }
+                  },
+                  {
+                      "id":  "if-skip-noche",
+                      "name":  "Skip?",
+                      "type":  "n8n-nodes-base.if",
+                      "typeVersion":  2,
+                      "position":  [
+                                       1080,
+                                       300
+                                   ],
+                      "parameters":  {
+                                         "conditions":  {
+                                                            "options":  {
+                                                                            "caseSensitive":  true,
+                                                                            "leftValue":  "",
+                                                                            "typeValidation":  "strict"
+                                                                        },
+                                                            "conditions":  [
+                                                                               {
+                                                                                   "id":  "skip-check",
+                                                                                   "leftValue":  "={{ $json.skip }}",
+                                                                                   "rightValue":  true,
+                                                                                   "operator":  {
+                                                                                                    "type":  "boolean",
+                                                                                                    "operation":  "equal"
+                                                                                                }
+                                                                               }
+                                                                           ],
+                                                            "combinator":  "and"
+                                                        }
+                                     }
+                  },
+                  {
+                      "id":  "email-skip-noche",
+                      "name":  "Email Skip",
+                      "type":  "n8n-nodes-base.emailSend",
+                      "typeVersion":  2.1,
+                      "position":  [
+                                       1300,
+                                       180
+                                   ],
+                      "credentials":  {
+                                          "smtp":  {
+                                                       "id":  "HpJBfNd1BCHaLYfY",
+                                                       "name":  "Gmail ENBA"
+                                                   }
+                                      },
+                      "parameters":  {
+                                         "fromEmail":  "enba.social@gmail.com",
+                                         "toEmail":  "jmartinezplatt@gmail.com",
+                                         "subject":  "={{ \u0027ENBA Stories [\u0027 + $(\u0027Set Slot\u0027).first().json.slot + \u0027]: skip — \u0027 + $json.reason }}",
+                                         "text":  "={{ \u0027Stories 3x Diarias — slot \u0027 + $(\u0027Set Slot\u0027).first().json.slot + \u0027\\n\\nMotivo: \u0027 + $json.reason + \u0027\\nTimestamp: \u0027 + $json.timestamp }}",
+                                         "emailFormat":  "text"
+                                     },
+                      "webhookId":  "32365b3a-03ec-410b-bdef-bf89284e63d6"
+                  },
+                  {
+                      "id":  "ig-container-noche",
+                      "name":  "IG Create Container",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.2,
+                      "position":  [
+                                       1300,
+                                       380
+                                   ],
+                      "credentials":  {
+                                          "httpHeaderAuth":  {
+                                                                 "id":  "IGBqXMQRWJLxzh7f",
+                                                                 "name":  "Meta API ENBA - Page Token"
+                                                             }
+                                      },
+                      "continueOnFail":  false,
+                      "parameters":  {
+                                         "method":  "POST",
+                                         "url":  "https://graph.facebook.com/v22.0/17841443139761422/media",
+                                         "sendBody":  true,
+                                         "bodyParameters":  {
+                                                                "parameters":  [
+                                                                                   {
+                                                                                       "name":  "image_url",
+                                                                                       "value":  "={{ $(\u0027Pick Next Story\u0027).first().json.imageUrl }}"
+                                                                                   },
+                                                                                   {
+                                                                                       "name":  "media_type",
+                                                                                       "value":  "STORIES"
+                                                                                   }
+                                                                               ]
+                                                            },
+                                         "authentication":  "genericCredentialType",
+                                         "genericAuthType":  "httpHeaderAuth"
+                                     }
+                  },
+                  {
+                      "id":  "wait-noche",
+                      "name":  "Wait 8s",
+                      "type":  "n8n-nodes-base.wait",
+                      "typeVersion":  1.1,
+                      "position":  [
+                                       1520,
+                                       380
+                                   ],
+                      "parameters":  {
+                                         "amount":  8,
+                                         "unit":  "seconds",
+                                         "resume":  "timeInterval"
+                                     },
+                      "webhookId":  "1ed9f972-6974-4ce9-ae69-6070918f0f8e"
+                  },
+                  {
+                      "id":  "ig-publish-noche",
+                      "name":  "IG Publish",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.2,
+                      "position":  [
+                                       1740,
+                                       380
+                                   ],
+                      "credentials":  {
+                                          "httpHeaderAuth":  {
+                                                                 "id":  "IGBqXMQRWJLxzh7f",
+                                                                 "name":  "Meta API ENBA - Page Token"
+                                                             }
+                                      },
+                      "continueOnFail":  false,
+                      "parameters":  {
+                                         "method":  "POST",
+                                         "url":  "https://graph.facebook.com/v22.0/17841443139761422/media_publish",
+                                         "sendBody":  true,
+                                         "bodyParameters":  {
+                                                                "parameters":  [
+                                                                                   {
+                                                                                       "name":  "creation_id",
+                                                                                       "value":  "={{ $json.id }}"
+                                                                                   }
+                                                                               ]
+                                                            },
+                                         "authentication":  "genericCredentialType",
+                                         "genericAuthType":  "httpHeaderAuth"
+                                     }
+                  },
+                  {
+                      "id":  "email-ok-noche",
+                      "name":  "Email OK",
+                      "type":  "n8n-nodes-base.emailSend",
+                      "typeVersion":  2.1,
+                      "position":  [
+                                       1960,
+                                       380
+                                   ],
+                      "credentials":  {
+                                          "smtp":  {
+                                                       "id":  "HpJBfNd1BCHaLYfY",
+                                                       "name":  "Gmail ENBA"
+                                                   }
+                                      },
+                      "parameters":  {
+                                         "fromEmail":  "enba.social@gmail.com",
+                                         "toEmail":  "jmartinezplatt@gmail.com",
+                                         "subject":  "={{ \u0027ENBA Stories [\u0027 + $(\u0027Pick Next Story\u0027).first().json.category + \u0027] \u0027 + $(\u0027Pick Next Story\u0027).first().json.cycleProgress + \u0027 \u0027 + $(\u0027Set Slot\u0027).first().json.slot + \u0027 publicada ✓\u0027 }}",
+                                         "text":  "={{ \u0027Story publicada correctamente.\\n\\nCategoria: \u0027 + $(\u0027Pick Next Story\u0027).first().json.category + \u0027\\nCaption: \u0027 + $(\u0027Pick Next Story\u0027).first().json.caption + \u0027\\nArchivo: \u0027 + $(\u0027Pick Next Story\u0027).first().json.file + \u0027\\nIG Story ID: \u0027 + $json.id + \u0027\\nVer story: https://www.instagram.com/stories/espacionauticobsas/\u0027 + $json.id + \u0027/\u0027 + \u0027\\nCiclo: \u0027 + $(\u0027Pick Next Story\u0027).first().json.cycleProgress + \u0027\\nSlot: \u0027 + $(\u0027Pick Next Story\u0027).first().json.slot + \u0027 (\u0027 + $(\u0027Pick Next Story\u0027).first().json.time + \u0027 ART)\u0027 + \u0027\\nTimestamp: \u0027 + $(\u0027Pick Next Story\u0027).first().json.timestamp }}",
+                                         "emailFormat":  "text"
+                                     },
+                      "webhookId":  "888f987e-70eb-47a2-a2fb-1b429aa1f61f"
+                  },
+                  {
+                      "id":  "get-manifest-fase2",
+                      "name":  "Get Manifest",
+                      "type":  "n8n-nodes-base.httpRequest",
+                      "typeVersion":  4.2,
+                      "position":  [
+                                       640,
+                                       300
+                                   ],
+                      "parameters":  {
+                                         "method":  "GET",
+                                         "url":  "https://enba-social-assets.pages.dev/campaigns/plan-crecimiento-10k/highlights/stories/fase2-manifest.json",
+                                         "options":  {
+
+                                                     }
+                                     }
+                  },
+                  {
+                      "parameters":  {
+                                         "operation":  "append",
+                                         "documentId":  {
+                                                            "__rl":  true,
+                                                            "value":  "1DimMWT7rNXNd2jS_rnCNs0qHLqSahwYLc3s9m7wpw1U",
+                                                            "mode":  "id"
+                                                        },
+                                         "sheetName":  {
+                                                           "__rl":  true,
+                                                           "value":  "gid=0",
+                                                           "mode":  "id"
+                                                       },
+                                         "columns":  {
+                                                         "mappingMode":  "defineBelow",
+                                                         "value":  {
+                                                                       "date":  "={{ $(\u0027Pick Next Story\u0027).first().json.timestamp.substring(0,10) }}",
+                                                                       "slot":  "={{ $(\u0027Pick Next Story\u0027).first().json.slot }}",
+                                                                       "media_id":  "={{ $(\u0027IG Publish\u0027).first().json.id }}",
+                                                                       "image_url":  "={{ $(\u0027Pick Next Story\u0027).first().json.imageUrl }}",
+                                                                       "seq":  "={{ $(\u0027Pick Next Story\u0027).first().json.seq }}"
+                                                                   },
+                                                         "matchingColumns":  [
+
+                                                                             ],
+                                                         "schema":  [
+
+                                                                    ]
+                                                     },
+                                         "options":  {
+
+                                                     }
+                                     },
+                      "credentials":  {
+                                          "googleSheetsOAuth2Api":  {
+                                                                        "id":  "w3CGca02rWZppDL9",
+                                                                        "name":  "Google Sheets account"
+                                                                    }
+                                      },
+                      "id":  "log-to-sheet-noche",
+                      "name":  "Log to Sheet",
+                      "type":  "n8n-nodes-base.googleSheets",
+                      "typeVersion":  4.4,
+                      "position":  [
+                                       2180,
+                                       380
+                                   ]
+                  }
+              ],
+    "connections":  {
+                        "Schedule Noche":  {
+                                               "main":  [
+                                                            [
+                                                                {
+                                                                    "node":  "Set Slot",
+                                                                    "type":  "main",
+                                                                    "index":  0
+                                                                }
+                                                            ]
+                                                        ]
+                                           },
+                        "Set Slot":  {
+                                         "main":  [
+                                                      [
+                                                          {
+                                                              "node":  "Get Manifest",
+                                                              "type":  "main",
+                                                              "index":  0
+                                                          }
+                                                      ]
+                                                  ]
+                                     },
+                        "Pick Next Story":  {
+                                                "main":  [
+                                                             [
+                                                                 {
+                                                                     "node":  "Skip?",
+                                                                     "type":  "main",
+                                                                     "index":  0
+                                                                 }
+                                                             ]
+                                                         ]
+                                            },
+                        "Skip?":  {
+                                      "main":  [
+                                                   [
+                                                       {
+                                                           "node":  "Email Skip",
+                                                           "type":  "main",
+                                                           "index":  0
+                                                       }
+                                                   ],
+                                                   [
+                                                       {
+                                                           "node":  "IG Create Container",
+                                                           "type":  "main",
+                                                           "index":  0
+                                                       }
+                                                   ]
+                                               ]
+                                  },
+                        "IG Create Container":  {
+                                                    "main":  [
+                                                                 [
+                                                                     {
+                                                                         "node":  "Wait 8s",
+                                                                         "type":  "main",
+                                                                         "index":  0
+                                                                     }
+                                                                 ]
+                                                             ]
+                                                },
+                        "Wait 8s":  {
+                                        "main":  [
+                                                     [
+                                                         {
+                                                             "node":  "IG Publish",
+                                                             "type":  "main",
+                                                             "index":  0
+                                                         }
+                                                     ]
+                                                 ]
+                                    },
+                        "IG Publish":  {
+                                           "main":  [
+                                                        [
+                                                            {
+                                                                "node":  "Email OK",
+                                                                "type":  "main",
+                                                                "index":  0
+                                                            }
+                                                        ]
+                                                    ]
+                                       },
+                        "Get Manifest":  {
+                                             "main":  [
+                                                          [
+                                                              {
+                                                                  "node":  "Pick Next Story",
+                                                                  "type":  "main",
+                                                                  "index":  0
+                                                              }
+                                                          ]
+                                                      ]
+                                         },
+                        "Email OK":  {
+                                         "main":  [
+                                                      [
+                                                          {
+                                                              "node":  "Log to Sheet",
+                                                              "type":  "main",
+                                                              "index":  0
+                                                          }
+                                                      ]
+                                                  ]
+                                     }
+                    },
+    "settings":  {
+                     "executionOrder":  "v1",
+                     "timezone":  "America/Argentina/Buenos_Aires"
+                 },
+    "staticData":  {
+                       "node:Schedule Noche":  {
+                                                   "recurrenceRules":  [
+
+                                                                       ]
+                                               }
+                   },
+    "meta":  null,
+    "pinData":  null,
+    "versionId":  "8df7b82c-e2a6-4075-b1fc-40b8d013f4af",
+    "activeVersionId":  "8df7b82c-e2a6-4075-b1fc-40b8d013f4af",
+    "versionCounter":  31,
+    "triggerCount":  1,
+    "shared":  [
+                   {
+                       "updatedAt":  "2026-04-26T07:59:17.008Z",
+                       "createdAt":  "2026-04-26T07:59:17.008Z",
+                       "role":  "workflow:owner",
+                       "workflowId":  "c8MHANGzW56GORAi",
+                       "projectId":  "HoHL7haDbRK6OwSu",
+                       "project":  {
+                                       "updatedAt":  "2026-03-01T23:53:57.251Z",
+                                       "createdAt":  "2026-03-01T23:53:51.806Z",
+                                       "id":  "HoHL7haDbRK6OwSu",
+                                       "name":  "Jose Martinez \u003cadmin@espacionautico.com.ar\u003e",
+                                       "type":  "personal",
+                                       "icon":  null,
+                                       "description":  null,
+                                       "creatorId":  "7792ccbd-a153-4ec4-9b00-a26cc72db47d"
+                                   }
+                   }
+               ],
+    "tags":  [
+
+             ],
+    "activeVersion":  {
+                          "updatedAt":  "2026-04-29T16:19:23.292Z",
+                          "createdAt":  "2026-04-29T16:19:23.292Z",
+                          "versionId":  "8df7b82c-e2a6-4075-b1fc-40b8d013f4af",
+                          "workflowId":  "c8MHANGzW56GORAi",
+                          "nodes":  [
+                                        {
+                                            "id":  "schedule-noche",
+                                            "name":  "Schedule Noche",
+                                            "type":  "n8n-nodes-base.scheduleTrigger",
+                                            "typeVersion":  1.2,
+                                            "position":  [
+                                                             200,
+                                                             300
+                                                         ],
+                                            "parameters":  {
+                                                               "rule":  {
+                                                                            "interval":  [
+                                                                                             {
+                                                                                                 "field":  "cronExpression",
+                                                                                                 "expression":  "0 20 * * *"
+                                                                                             }
+                                                                                         ]
+                                                                        }
+                                                           }
+                                        },
+                                        {
+                                            "id":  "set-slot-noche",
+                                            "name":  "Set Slot",
+                                            "type":  "n8n-nodes-base.set",
+                                            "typeVersion":  3.4,
+                                            "position":  [
+                                                             420,
+                                                             300
+                                                         ],
+                                            "parameters":  {
+                                                               "mode":  "manual",
+                                                               "assignments":  {
+                                                                                   "assignments":  [
+                                                                                                       {
+                                                                                                           "id":  "slot",
+                                                                                                           "name":  "slot",
+                                                                                                           "value":  "noche",
+                                                                                                           "type":  "string"
+                                                                                                       },
+                                                                                                       {
+                                                                                                           "id":  "cycleStartDate",
+                                                                                                           "name":  "cycleStartDate",
+                                                                                                           "value":  "2026-04-26",
+                                                                                                           "type":  "string"
+                                                                                                       }
+                                                                                                   ]
+                                                                               }
+                                                           }
+                                        },
+                                        {
+                                            "id":  "pick-story-noche",
+                                            "name":  "Pick Next Story",
+                                            "type":  "n8n-nodes-base.code",
+                                            "typeVersion":  2,
+                                            "position":  [
+                                                             860,
+                                                             300
+                                                         ],
+                                            "parameters":  {
+                                                               "jsCode":  "// pick-next-story-v2.js\n// Manifest llega del nodo anterior \"Get Manifest\" (HTTP Request)\n// — no usa fetch() para compatibilidad con el sandbox de n8n cloud\n// Slot y cycleStartDate vienen del nodo \"Set Slot\" referenciado por nombre\n\nconst manifest = $input.first().json;\nconst slot = $(\u0027Set Slot\u0027).first().json.slot;\nconst cycleStartDate = $(\u0027Set Slot\u0027).first().json.cycleStartDate || \u00272026-04-26\u0027;\n\nconst BASE_IMG_URL = \u0027https://enba-social-assets.pages.dev/campaigns/plan-crecimiento-10k/highlights/stories/\u0027;\n\n// Calcular día del ciclo en ART (UTC-3)\nconst now = new Date();\nconst artOffset = -3 * 60;\nconst utcMs = now.getTime() + now.getTimezoneOffset() * 60000;\nconst artNow = new Date(utcMs + artOffset * 60000);\nconst artToday = new Date(artNow.getFullYear(), artNow.getMonth(), artNow.getDate());\n\nconst [sy, sm, sd] = cycleStartDate.split(\u0027-\u0027).map(Number);\nconst startDate = new Date(sy, sm - 1, sd);\nconst diffMs = artToday - startDate;\nconst dayOfCycle = Math.floor(diffMs / (1000 * 60 * 60 * 24)) + 1;\n\nif (dayOfCycle \u003c 1 || dayOfCycle \u003e 10) {\n  return [{ json: {\n    skip: true,\n    reason: dayOfCycle \u003c 1\n      ? `Ciclo aún no iniciado. Día calculado: ${dayOfCycle}`\n      : `Ciclo completado (día ${dayOfCycle}/10). No hay más stories programadas.`,\n    dayOfCycle, slot, timestamp: artNow.toISOString()\n  }}];\n}\n\nconst story = manifest.stories.find(s =\u003e s.day === dayOfCycle \u0026\u0026 s.slot === slot);\n\nif (!story) {\n  return [{ json: {\n    skip: true,\n    reason: `No se encontró story para día ${dayOfCycle} slot ${slot}`,\n    dayOfCycle, slot, timestamp: artNow.toISOString()\n  }}];\n}\n\nreturn [{ json: {\n  skip: false,\n  seq: story.seq,\n  day: dayOfCycle,\n  slot: story.slot,\n  time: story.time,\n  category: story.category,\n  caption: story.caption,\n  file: story.file,\n  imageUrl: BASE_IMG_URL + story.file,\n  cycleProgress: `Día ${dayOfCycle}/10`,\n  timestamp: artNow.toISOString()\n}}];\n"
+                                                           }
+                                        },
+                                        {
+                                            "id":  "if-skip-noche",
+                                            "name":  "Skip?",
+                                            "type":  "n8n-nodes-base.if",
+                                            "typeVersion":  2,
+                                            "position":  [
+                                                             1080,
+                                                             300
+                                                         ],
+                                            "parameters":  {
+                                                               "conditions":  {
+                                                                                  "options":  {
+                                                                                                  "caseSensitive":  true,
+                                                                                                  "leftValue":  "",
+                                                                                                  "typeValidation":  "strict"
+                                                                                              },
+                                                                                  "conditions":  [
+                                                                                                     {
+                                                                                                         "id":  "skip-check",
+                                                                                                         "leftValue":  "={{ $json.skip }}",
+                                                                                                         "rightValue":  true,
+                                                                                                         "operator":  {
+                                                                                                                          "type":  "boolean",
+                                                                                                                          "operation":  "equal"
+                                                                                                                      }
+                                                                                                     }
+                                                                                                 ],
+                                                                                  "combinator":  "and"
+                                                                              }
+                                                           }
+                                        },
+                                        {
+                                            "id":  "email-skip-noche",
+                                            "name":  "Email Skip",
+                                            "type":  "n8n-nodes-base.emailSend",
+                                            "typeVersion":  2.1,
+                                            "position":  [
+                                                             1300,
+                                                             180
+                                                         ],
+                                            "credentials":  {
+                                                                "smtp":  {
+                                                                             "id":  "HpJBfNd1BCHaLYfY",
+                                                                             "name":  "Gmail ENBA"
+                                                                         }
+                                                            },
+                                            "parameters":  {
+                                                               "fromEmail":  "enba.social@gmail.com",
+                                                               "toEmail":  "jmartinezplatt@gmail.com",
+                                                               "subject":  "={{ \u0027ENBA Stories [\u0027 + $(\u0027Set Slot\u0027).first().json.slot + \u0027]: skip — \u0027 + $json.reason }}",
+                                                               "text":  "={{ \u0027Stories 3x Diarias — slot \u0027 + $(\u0027Set Slot\u0027).first().json.slot + \u0027\\n\\nMotivo: \u0027 + $json.reason + \u0027\\nTimestamp: \u0027 + $json.timestamp }}",
+                                                               "emailFormat":  "text"
+                                                           },
+                                            "webhookId":  "32365b3a-03ec-410b-bdef-bf89284e63d6"
+                                        },
+                                        {
+                                            "id":  "ig-container-noche",
+                                            "name":  "IG Create Container",
+                                            "type":  "n8n-nodes-base.httpRequest",
+                                            "typeVersion":  4.2,
+                                            "position":  [
+                                                             1300,
+                                                             380
+                                                         ],
+                                            "credentials":  {
+                                                                "httpHeaderAuth":  {
+                                                                                       "id":  "IGBqXMQRWJLxzh7f",
+                                                                                       "name":  "Meta API ENBA - Page Token"
+                                                                                   }
+                                                            },
+                                            "continueOnFail":  false,
+                                            "parameters":  {
+                                                               "method":  "POST",
+                                                               "url":  "https://graph.facebook.com/v22.0/17841443139761422/media",
+                                                               "sendBody":  true,
+                                                               "bodyParameters":  {
+                                                                                      "parameters":  [
+                                                                                                         {
+                                                                                                             "name":  "image_url",
+                                                                                                             "value":  "={{ $(\u0027Pick Next Story\u0027).first().json.imageUrl }}"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "name":  "media_type",
+                                                                                                             "value":  "STORIES"
+                                                                                                         }
+                                                                                                     ]
+                                                                                  },
+                                                               "authentication":  "genericCredentialType",
+                                                               "genericAuthType":  "httpHeaderAuth"
+                                                           }
+                                        },
+                                        {
+                                            "id":  "wait-noche",
+                                            "name":  "Wait 8s",
+                                            "type":  "n8n-nodes-base.wait",
+                                            "typeVersion":  1.1,
+                                            "position":  [
+                                                             1520,
+                                                             380
+                                                         ],
+                                            "parameters":  {
+                                                               "amount":  8,
+                                                               "unit":  "seconds",
+                                                               "resume":  "timeInterval"
+                                                           },
+                                            "webhookId":  "1ed9f972-6974-4ce9-ae69-6070918f0f8e"
+                                        },
+                                        {
+                                            "id":  "ig-publish-noche",
+                                            "name":  "IG Publish",
+                                            "type":  "n8n-nodes-base.httpRequest",
+                                            "typeVersion":  4.2,
+                                            "position":  [
+                                                             1740,
+                                                             380
+                                                         ],
+                                            "credentials":  {
+                                                                "httpHeaderAuth":  {
+                                                                                       "id":  "IGBqXMQRWJLxzh7f",
+                                                                                       "name":  "Meta API ENBA - Page Token"
+                                                                                   }
+                                                            },
+                                            "continueOnFail":  false,
+                                            "parameters":  {
+                                                               "method":  "POST",
+                                                               "url":  "https://graph.facebook.com/v22.0/17841443139761422/media_publish",
+                                                               "sendBody":  true,
+                                                               "bodyParameters":  {
+                                                                                      "parameters":  [
+                                                                                                         {
+                                                                                                             "name":  "creation_id",
+                                                                                                             "value":  "={{ $json.id }}"
+                                                                                                         }
+                                                                                                     ]
+                                                                                  },
+                                                               "authentication":  "genericCredentialType",
+                                                               "genericAuthType":  "httpHeaderAuth"
+                                                           }
+                                        },
+                                        {
+                                            "id":  "email-ok-noche",
+                                            "name":  "Email OK",
+                                            "type":  "n8n-nodes-base.emailSend",
+                                            "typeVersion":  2.1,
+                                            "position":  [
+                                                             1960,
+                                                             380
+                                                         ],
+                                            "credentials":  {
+                                                                "smtp":  {
+                                                                             "id":  "HpJBfNd1BCHaLYfY",
+                                                                             "name":  "Gmail ENBA"
+                                                                         }
+                                                            },
+                                            "parameters":  {
+                                                               "fromEmail":  "enba.social@gmail.com",
+                                                               "toEmail":  "jmartinezplatt@gmail.com",
+                                                               "subject":  "={{ \u0027ENBA Stories [\u0027 + $(\u0027Pick Next Story\u0027).first().json.category + \u0027] \u0027 + $(\u0027Pick Next Story\u0027).first().json.cycleProgress + \u0027 \u0027 + $(\u0027Set Slot\u0027).first().json.slot + \u0027 publicada ✓\u0027 }}",
+                                                               "text":  "={{ \u0027Story publicada correctamente.\\n\\nCategoria: \u0027 + $(\u0027Pick Next Story\u0027).first().json.category + \u0027\\nCaption: \u0027 + $(\u0027Pick Next Story\u0027).first().json.caption + \u0027\\nArchivo: \u0027 + $(\u0027Pick Next Story\u0027).first().json.file + \u0027\\nIG Story ID: \u0027 + $json.id + \u0027\\nVer story: https://www.instagram.com/stories/espacionauticobsas/\u0027 + $json.id + \u0027/\u0027 + \u0027\\nCiclo: \u0027 + $(\u0027Pick Next Story\u0027).first().json.cycleProgress + \u0027\\nSlot: \u0027 + $(\u0027Pick Next Story\u0027).first().json.slot + \u0027 (\u0027 + $(\u0027Pick Next Story\u0027).first().json.time + \u0027 ART)\u0027 + \u0027\\nTimestamp: \u0027 + $(\u0027Pick Next Story\u0027).first().json.timestamp }}",
+                                                               "emailFormat":  "text"
+                                                           },
+                                            "webhookId":  "888f987e-70eb-47a2-a2fb-1b429aa1f61f"
+                                        },
+                                        {
+                                            "id":  "get-manifest-fase2",
+                                            "name":  "Get Manifest",
+                                            "type":  "n8n-nodes-base.httpRequest",
+                                            "typeVersion":  4.2,
+                                            "position":  [
+                                                             640,
+                                                             300
+                                                         ],
+                                            "parameters":  {
+                                                               "method":  "GET",
+                                                               "url":  "https://enba-social-assets.pages.dev/campaigns/plan-crecimiento-10k/highlights/stories/fase2-manifest.json",
+                                                               "options":  {
+
+                                                                           }
+                                                           }
+                                        },
+                                        {
+                                            "parameters":  {
+                                                               "operation":  "append",
+                                                               "documentId":  {
+                                                                                  "__rl":  true,
+                                                                                  "value":  "1DimMWT7rNXNd2jS_rnCNs0qHLqSahwYLc3s9m7wpw1U",
+                                                                                  "mode":  "id"
+                                                                              },
+                                                               "sheetName":  {
+                                                                                 "__rl":  true,
+                                                                                 "value":  "gid=0",
+                                                                                 "mode":  "id"
+                                                                             },
+                                                               "columns":  {
+                                                                               "mappingMode":  "defineBelow",
+                                                                               "value":  {
+                                                                                             "date":  "={{ $(\u0027Pick Next Story\u0027).first().json.timestamp.substring(0,10) }}",
+                                                                                             "slot":  "={{ $(\u0027Pick Next Story\u0027).first().json.slot }}",
+                                                                                             "media_id":  "={{ $(\u0027IG Publish\u0027).first().json.id }}",
+                                                                                             "image_url":  "={{ $(\u0027Pick Next Story\u0027).first().json.imageUrl }}",
+                                                                                             "seq":  "={{ $(\u0027Pick Next Story\u0027).first().json.seq }}"
+                                                                                         },
+                                                                               "matchingColumns":  [
+
+                                                                                                   ],
+                                                                               "schema":  [
+
+                                                                                          ]
+                                                                           },
+                                                               "options":  {
+
+                                                                           }
+                                                           },
+                                            "credentials":  {
+                                                                "googleSheetsOAuth2Api":  {
+                                                                                              "id":  "w3CGca02rWZppDL9",
+                                                                                              "name":  "Google Sheets account"
+                                                                                          }
+                                                            },
+                                            "id":  "log-to-sheet-noche",
+                                            "name":  "Log to Sheet",
+                                            "type":  "n8n-nodes-base.googleSheets",
+                                            "typeVersion":  4.4,
+                                            "position":  [
+                                                             2180,
+                                                             380
+                                                         ]
+                                        }
+                                    ],
+                          "connections":  {
+                                              "Schedule Noche":  {
+                                                                     "main":  [
+                                                                                  [
+                                                                                      {
+                                                                                          "node":  "Set Slot",
+                                                                                          "type":  "main",
+                                                                                          "index":  0
+                                                                                      }
+                                                                                  ]
+                                                                              ]
+                                                                 },
+                                              "Set Slot":  {
+                                                               "main":  [
+                                                                            [
+                                                                                {
+                                                                                    "node":  "Get Manifest",
+                                                                                    "type":  "main",
+                                                                                    "index":  0
+                                                                                }
+                                                                            ]
+                                                                        ]
+                                                           },
+                                              "Pick Next Story":  {
+                                                                      "main":  [
+                                                                                   [
+                                                                                       {
+                                                                                           "node":  "Skip?",
+                                                                                           "type":  "main",
+                                                                                           "index":  0
+                                                                                       }
+                                                                                   ]
+                                                                               ]
+                                                                  },
+                                              "Skip?":  {
+                                                            "main":  [
+                                                                         [
+                                                                             {
+                                                                                 "node":  "Email Skip",
+                                                                                 "type":  "main",
+                                                                                 "index":  0
+                                                                             }
+                                                                         ],
+                                                                         [
+                                                                             {
+                                                                                 "node":  "IG Create Container",
+                                                                                 "type":  "main",
+                                                                                 "index":  0
+                                                                             }
+                                                                         ]
+                                                                     ]
+                                                        },
+                                              "IG Create Container":  {
+                                                                          "main":  [
+                                                                                       [
+                                                                                           {
+                                                                                               "node":  "Wait 8s",
+                                                                                               "type":  "main",
+                                                                                               "index":  0
+                                                                                           }
+                                                                                       ]
+                                                                                   ]
+                                                                      },
+                                              "Wait 8s":  {
+                                                              "main":  [
+                                                                           [
+                                                                               {
+                                                                                   "node":  "IG Publish",
+                                                                                   "type":  "main",
+                                                                                   "index":  0
+                                                                               }
+                                                                           ]
+                                                                       ]
+                                                          },
+                                              "IG Publish":  {
+                                                                 "main":  [
+                                                                              [
+                                                                                  {
+                                                                                      "node":  "Email OK",
+                                                                                      "type":  "main",
+                                                                                      "index":  0
+                                                                                  }
+                                                                              ]
+                                                                          ]
+                                                             },
+                                              "Get Manifest":  {
+                                                                   "main":  [
+                                                                                [
+                                                                                    {
+                                                                                        "node":  "Pick Next Story",
+                                                                                        "type":  "main",
+                                                                                        "index":  0
+                                                                                    }
+                                                                                ]
+                                                                            ]
+                                                               },
+                                              "Email OK":  {
+                                                               "main":  [
+                                                                            [
+                                                                                {
+                                                                                    "node":  "Log to Sheet",
+                                                                                    "type":  "main",
+                                                                                    "index":  0
+                                                                                }
+                                                                            ]
+                                                                        ]
+                                                           }
+                                          },
+                          "authors":  "Jose Martinez",
+                          "name":  null,
+                          "description":  null,
+                          "autosaved":  false,
+                          "workflowPublishHistory":  [
+                                                         {
+                                                             "createdAt":  "2026-04-29T16:19:23.469Z",
+                                                             "id":  1080,
+                                                             "workflowId":  "c8MHANGzW56GORAi",
+                                                             "versionId":  "8df7b82c-e2a6-4075-b1fc-40b8d013f4af",
+                                                             "event":  "activated",
+                                                             "userId":  "7792ccbd-a153-4ec4-9b00-a26cc72db47d"
+                                                         },
+                                                         {
+                                                             "createdAt":  "2026-04-29T16:19:49.354Z",
+                                                             "id":  1088,
+                                                             "workflowId":  "c8MHANGzW56GORAi",
+                                                             "versionId":  "8df7b82c-e2a6-4075-b1fc-40b8d013f4af",
+                                                             "event":  "activated",
+                                                             "userId":  "7792ccbd-a153-4ec4-9b00-a26cc72db47d"
+                                                         },
+                                                         {
+                                                             "createdAt":  "2026-04-29T16:19:23.386Z",
+                                                             "id":  1079,
+                                                             "workflowId":  "c8MHANGzW56GORAi",
+                                                             "versionId":  "8df7b82c-e2a6-4075-b1fc-40b8d013f4af",
+                                                             "event":  "deactivated",
+                                                             "userId":  "7792ccbd-a153-4ec4-9b00-a26cc72db47d"
+                                                         },
+                                                         {
+                                                             "createdAt":  "2026-04-29T16:19:48.885Z",
+                                                             "id":  1087,
+                                                             "workflowId":  "c8MHANGzW56GORAi",
+                                                             "versionId":  "8df7b82c-e2a6-4075-b1fc-40b8d013f4af",
+                                                             "event":  "deactivated",
+                                                             "userId":  "7792ccbd-a153-4ec4-9b00-a26cc72db47d"
+                                                         }
+                                                     ]
+                      }
+}

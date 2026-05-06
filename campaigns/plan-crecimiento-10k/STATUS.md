@@ -1,6 +1,6 @@
 # STATUS — Frente REDES
 
-**Última actualización:** 05 de mayo de 2026 (sesión email ads v7 fixes + burn rate fix)
+**Última actualización:** 06 de mayo de 2026 (sesión Stories Fase 3 live)
 **Owner de mantenimiento:** quien cierre la sesión del frente redes
 **Uso:** punto de entrada corto para inicio de sesión. Si este archivo contradice un handoff viejo, manda este archivo.
 
@@ -62,9 +62,9 @@ Los `SESSION-HANDOFF-*.md` sirven como contexto histórico, lecciones e incident
 | ENBA - Redes Publicación Diaria v7.2 | `MipwleZNu8EG5v6C` | Publicación feed IG+FB 12:15 ART, 34 nodos | Activo |
 | ENBA - Email Notifier | `yYnyrB7UI52Syf9x` | Webhook `enba-email-notifier` → email Gmail ENBA | Activo |
 | ENBA - Evaluación Diaria Ads | `1qRywsEWAl7VoO5o` | Evaluación diaria de performance de ads | Activo |
-| ENBA - Stories Fase 2 Mañana | `q1nZVNrtEsxKEFni` | Story IG+log sheet 09:00 ART | Activo |
-| ENBA - Stories Fase 2 Tarde | `pBP7tkXlD6nzx4wd` | Story IG+log sheet 14:00 ART | Activo |
-| ENBA - Stories Fase 2 Noche | `c8MHANGzW56GORAi` | Story IG+log sheet 20:00 ART | Activo |
+| ENBA - Stories Fase 3 Mañana | `q1nZVNrtEsxKEFni` | Story IG+log sheet 09:00 ART — fase3-manifest, cycleStart 2026-05-06 | Activo |
+| ENBA - Stories Fase 3 Tarde | `pBP7tkXlD6nzx4wd` | Story IG+log sheet 14:00 ART | **Inactivo** (Fase 3 es 2/día) |
+| ENBA - Stories Fase 3 Noche | `c8MHANGzW56GORAi` | Story IG+log sheet 20:00 ART — fase3-manifest, cycleStart 2026-05-06 | Activo |
 | ENBA - Stories FB Best IG | `ZGIGw47IYuwHv3Wh` | Lee sheet, elige story con mayor reach, publica en FB 08:30 ART | Activo |
 
 Google Sheet stories log: `1DimMWT7rNXNd2jS_rnCNs0qHLqSahwYLc3s9m7wpw1U`
@@ -72,6 +72,12 @@ Webhook email: `https://espacionautico.app.n8n.cloud/webhook/enba-email-notifier
 
 ### Últimos hitos relevantes
 
+- **06/05 sesión Stories Fase 3 live:**
+  - **20 stories "Esto vivís"** renderizadas (Playwright JPEG Q92, 1080×1920). Franja navy opacity 0.68, logo oficial ENBA-horizontal-oscuro.svg embebido. QA PASS 20/20.
+  - **fase3-manifest.json** en Cloudflare Pages (commit c313fbe). Ciclo 2x/día (09:00+20:00 ART), 10 días, 2026-05-06→2026-05-15.
+  - **n8n patcheado:** Stories Mañana+Noche apuntan a fase3-manifest y cycleStartDate 2026-05-06. Cron re-registrado. Stories Tarde **desactivado**.
+  - **build-story-slot-editor.mjs** formalizado en scripts/README.md como herramienta oficial de asignación de fotos a slots.
+  - **Corrección:** logos 03-LOGOS-BASE — oscuro=fondo oscuro, claro=fondo claro (estaba invertido en memoria). 04-LOCKUPS/ son fabricados — no usar.
 - **06/05 sesión Carlos — Estrategia Targeting IG v1:**
   - **Plan completo documentado:** diagnóstico raíz (CPF $852 = CPV $23 × follow rate 2.7%), 3 audiencias propuestas con hipótesis medibles, plan de nurturing post-follow.
   - **P1 ejecutado 05/05:** LAL2 (`ENBA_LAL_1pct_VideoViewers`, ID `120240030647240139`) creada via API. Base: D4 (11.678 ThruPlays). Tamaño: 358K–421K personas.
