@@ -825,14 +825,14 @@
     "summary": "Cierre del primer ciclo. Repite la promesa madre con el peso ganado durante los 30 días.",
     "support": "Treinta días después, la promesa sigue siendo la misma.",
     "objective": "Cerrar la etapa de lanzamiento con una CTA clara y transversal.",
-    "cta": "El río te llama. Nosotros te llevamos.",
-    "image": "asset-bank/brand-skyline-manifesto.jpg",
+    "cta": "www.espacionautico.com.ar",
+    "image": "asset-bank/buenos-aires-paisaje/brand-skyline-manifesto.jpg",
     "imageNote": "Master curado del asset-bank de lanzamiento. Volver a la imagen madre. Está vez con la marca ya cargada de significado.",
     "captionIg": "Treinta días después, la idea sigue siendo la misma.\n\nEl río te llama. Nosotros te llevamos.\n\nTravesías, escuela, broker o servicios: ahora ya sabés cómo trabajamos.\n\n👉 Escribinos y te ayudamos a elegir por dónde empezar.\n\n#EspacioNautico #ENBA #NavegaElRioDeLaPlata #VelerosBuenosAires #RioDeLaPlata #SailingArgentina #TravesiaEnVelero #EscuelaNautica #BrokerNautico #NavegacionReal #PlanesBuenosAires #ExperienciasBuenosAires #SalidaDistinta",
     "captionFb": "En estos 30 días mostramos quién somos, desde dónde operamos, cómo se vive una travesía, cómo se aprende, cómo se busca un velero y cómo se cuida una embarcación.\n\nTodo eso cabe dentro de una promesa simple: el río te llama y nosotros te llevamos.\n\n👉 Escribinos y te orientamos según lo que hoy necesites.\n\n#EspacioNautico #ENBA #NavegaElRioDeLaPlata #ExperienciasBuenosAires #PlanesBuenosAires",
     "backgroundPosition": "52% 48%",
     "backgroundScale": 1.08,
-    "overlayOpacity": 0.34,
+    "overlayOpacity": 0.72,
     "titleSize": 96,
     "safeTitleWidth": 860,
     "lockupVariant": "stacked-on-dark",
@@ -843,6 +843,7 @@
     "legibilityNotes": [
       "Mantener el mismo orden de lockup y promesa de la pieza 01.",
       "No sumar sellos ni destacados extra: el cierre vive de repeticion con autoridad."
-    ]
+    ],
+    "kicker": ""
   }
 ]

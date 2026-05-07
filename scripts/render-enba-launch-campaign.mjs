@@ -535,7 +535,7 @@ function buildManifestoHtml(piece, theme, resources) {
     <div class="content">
       <div class="center">
         ${buildLockupHtml(theme, piece, { align: "center", tone: "light", accent: piece.accent, logoUrl })}
-        <span class="kicker">${escapeHtml(theme.brand.promise)}</span>
+        ${piece.kicker !== undefined ? (piece.kicker ? `<span class="kicker">${escapeHtml(piece.kicker)}</span>` : '') : `<span class="kicker">${escapeHtml(theme.brand.promise)}</span>`}
         <h1>${renderTextWithBreaks(piece.headline)}</h1>
         <p class="support">${escapeHtml(piece.support)}</p>
       </div>
